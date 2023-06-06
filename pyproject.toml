@@ -7,10 +7,14 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-dcm2bids = "^2.1.9"
-pydeface = "^2.0.2"
+python = "^3.10"
 
+[tool.poetry.group.dev.dependencies]
+sphinx = "^7.0.1"
+sphinx-autoapi = "^2.1.0"
+
+[tool.poetry.group.hacks.dependencies]
+urllib3 = "1.26.15"
 
 [build-system]
 requires = ["poetry-core"]

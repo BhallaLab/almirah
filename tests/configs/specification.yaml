@@ -1,0 +1,19 @@
+---
+entities:
+- directory: '{subject}'
+  name: subject
+  pattern: '[/\\]+sub-([a-zA-Z0-9]+)'
+- directory: '{subject}{session}'
+  mandatory: false
+  name: session
+  pattern: '[_/\\]+ses-([a-zA-Z0-9]+)'
+- name: datatype
+  pattern: '[/\\]+(eeg|nirs)[/\\]+'
+- name: suffix
+  pattern: (?:^|[_/\\])([a-zA-Z0-9]+)\.[^/\\]+$
+- name: extension
+  pattern: '[^./\\](\.[^/\\]+)$'
+path_patterns:
+- sub-{subject}[/ses-{session}]/{datatype<eeg>}/sub-{subject}[_ses-{session}]_{suffix<eeg>|eeg}{extension<.eeg>|.eeg}
+- sub-{subject}[/ses-{session}]/{datatype<nirs>}/sub-{subject}[_ses-{session}]_{suffix<nirs>|nirs}{extension<.nirs>|.nirs}
+...

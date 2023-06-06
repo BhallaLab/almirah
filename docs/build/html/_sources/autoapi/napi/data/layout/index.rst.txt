@@ -1,0 +1,45 @@
+:py:mod:`napi.data.layout`
+==========================
+
+.. py:module:: napi.data.layout
+
+.. autoapi-nested-parse::
+
+   Model classes to represent dataset and layouts.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.layout.Dataset
+   napi.data.layout.Layout
+
+
+
+
+.. py:class:: Dataset
+
+   Representation of the complete dataset.
+
+   .. py:method:: get()
+
+      Query the dataset.
+
+
+
+.. py:class:: Layout
+
+   Representation of the file layout in the directory.
+
+   .. py:method:: index()
+
+      Run indexer over the layout.
+
+
+

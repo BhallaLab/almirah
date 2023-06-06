@@ -1,0 +1,36 @@
+:py:mod:`napi.data.report`
+==========================
+
+.. py:module:: napi.data.report
+
+.. autoapi-nested-parse::
+
+   Module for easy report generation and data summary.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.report.Report
+
+
+
+
+.. py:class:: Report
+
+   Representation of report for data.
+
+   .. py:method:: generate()
+
+      Generate report.
+
+      Provides ability to generate report at subject or dataset level.
+
+
+

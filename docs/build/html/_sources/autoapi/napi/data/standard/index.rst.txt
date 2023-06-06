@@ -1,0 +1,40 @@
+:py:mod:`napi.data.standard`
+============================
+
+.. py:module:: napi.data.standard
+
+.. autoapi-nested-parse::
+
+   Define the standard for the data set.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.standard.Specification
+
+
+
+
+.. py:class:: Specification
+
+   Representation of the specification used.
+
+   .. py:method:: validate()
+      :abstractmethod:
+
+      Returns True if path is valid.
+
+
+   .. py:method:: build_path()
+
+      Construct path provided a set of entities.
+
+
+

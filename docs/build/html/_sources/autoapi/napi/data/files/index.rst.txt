@@ -1,0 +1,43 @@
+:py:mod:`napi.data.files`
+=========================
+
+.. py:module:: napi.data.files
+
+.. autoapi-nested-parse::
+
+   Model classes to represent data files.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.files.Config
+   napi.data.files.File
+
+
+
+
+.. py:class:: Config
+
+   Representation of the collection of configuration files.
+
+   .. py:method:: get_config()
+
+      Return config as a dictionary.
+
+      If there are multiple config files, then retrieve based on
+      name. Else, return the file in provided path.
+
+
+
+.. py:class:: File
+
+   Generic file representation.
+
+

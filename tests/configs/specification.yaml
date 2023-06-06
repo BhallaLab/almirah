@@ -14,6 +14,7 @@ entities:
 - name: extension
   pattern: '[^./\\](\.[^/\\]+)$'
 path_patterns:
-- sub-{subject}[/ses-{session}]/{datatype<eeg>}/sub-{subject}[_ses-{session}]_{suffix<eeg>|eeg}{extension<.eeg>|.eeg}
-- sub-{subject}[/ses-{session}]/{datatype<nirs>}/sub-{subject}[_ses-{session}]_{suffix<nirs>|nirs}{extension<.nirs>|.nirs}
+- sub-{subject}[/ses-{session}]/{datatype<eeg>}/sub-{subject}[_ses-{session}]_{suffix<eeg>}{extension<.eeg>|.eeg}
+- sub-{subject}[/ses-{session}]/{datatype<nirs>}/sub-{subject}[_ses-{session}]_{suffix<nirs>}{extension<.nirs>|.nirs}
+- sub-{subject}[/ses-{session}]/{datatype<eeg|nirs>}/sub-{subject}[_ses-{session}]_{suffix<meta>}{extension<.json>|.json}
 ...

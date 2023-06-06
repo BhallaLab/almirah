@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "napi"
+version = "0.1.0"
+description = "API to access and analyze data in BIDS format"
+authors = ["girish <girishmm@ncbs.res.in>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+dcm2bids = "^2.1.9"
+pydeface = "^2.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

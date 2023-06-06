@@ -1,0 +1,11 @@
+# What not to include in git repo?
+
+# Do not push mac specific files
+.DS_Store
+
+# Why push pycache?
+__pycache__
+
+# Upload logs? Noooo.
+*.log
+

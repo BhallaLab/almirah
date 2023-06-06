@@ -26,6 +26,22 @@ def rules():
         return yaml.load(f, yaml.SafeLoader)
 
 
+@pytest.fixture
+def dst():
+    d = tempfile.TemporaryDirectory()
+    yield d
+    d.cleanup()
+
+
+@pytest.fixture
+def raw():
+    d = tempfile.TemporaryDirectory()
+    with open(os.path.join(d.name, "test_001.eeg"), "w") as f:
+        f.write("This is a test file.")
+    with open(os.path.join(d.name, "sidecar.json"), "w") as f:
+        f.write("This is the test file's metadata.")
+    yield d
+    d.cleanup()
 
 
 def test_get_valid_entities(spec):
@@ -40,3 +56,9 @@ def test_get_valid_entities(spec):
 
 def test_build_path(spec, entities):
     assert spec.build_path(entities) == "sub-01/ses-01/nirs/sub-01_ses-01_nirs.nirs"
+
+
+def test_organize(spec, rules, raw, dst):
+    rules.update({"source": raw.name, "destination": dst.name})
+    spec.organize(rules)
+    assert len(os.listdir(raw.name)) == sum([len(f) for _, _, f in os.walk(dst.name)])

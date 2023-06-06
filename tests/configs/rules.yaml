@@ -1,0 +1,16 @@
+---
+source: null
+destination: null
+pattern: "test_[0-9]+.eeg"
+copy_fellows: True
+entity_rules:
+  - name: subject
+    pattern: "test_([0-9]+).eeg"
+  - name: datatype
+    value: eeg
+  - name: suffix
+    value: eeg
+rename_rules:
+  - target: sidecar
+    suffix: meta
+...

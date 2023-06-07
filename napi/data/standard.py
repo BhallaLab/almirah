@@ -59,6 +59,11 @@ class Specification:
         # Remove none values
         entities = {k: v for k, v in entities.items() if v or v == 0}
 
+        # Work with extension with or without .
+        if "extension" in entities:
+            ext = entities.get("extension")
+            entities["extension"] = ext if ext.startswith(".") else "." + ext
+
         # Attempt to match pattern with entities and return first match
         for pattern in path_patterns:
             path = pattern

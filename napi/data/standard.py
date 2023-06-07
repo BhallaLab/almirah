@@ -162,7 +162,7 @@ class Specification:
                 entity_val = match[0] if match else None
 
                 if "prepend" in rule and entity_val:
-                    entity_val = "".join(rule.get("prepend"), entity_val)
+                    entity_val = "".join([str(rule.get("prepend")), entity_val])
 
                 if (
                     "length" in rule
@@ -170,7 +170,9 @@ class Specification:
                     and len(entity_val) != rule.get("length")
                 ):
                     if "iffy_prepend" in rule:
-                        entity_val = "".join(rule.get("iffy_prepend"), entity_val)
+                        entity_val = "".join(
+                            [str(rule.get("iffy_prepend")), entity_val]
+                        )
                     if len(entity_val) != rule.get("length"):
                         entity_val = None
 

@@ -182,7 +182,7 @@ class Specification:
                     )
 
                 if "default" in rule and not entity_val:
-                    entity_val = entity_val.get("default")
+                    entity_val = rule.get("default")
 
                 if not entity_val:
                     warnings.warn(

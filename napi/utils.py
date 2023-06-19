@@ -3,6 +3,7 @@
 import os
 import re
 import shutil
+import subprocess
 
 
 def copy(src, dst):
@@ -22,3 +23,9 @@ def get_matching_files(root, pattern):
             if re.match(pattern, file):
                 matches.append(os.path.join(dir, file))
     return matches
+
+
+def run_command(cmd, suppress_output=True, **flags):
+    """Execute shell command in background."""
+    sp = subprocess.run(cmd)
+    return sp

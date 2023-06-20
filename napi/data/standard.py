@@ -135,9 +135,18 @@ class Specification:
 
         return None
 
-    def get_valid_entities(self):
-        """Returns valid entity names."""
-        return [e.get("name") for e in self._spec.get("entities")]
+    def extract_tags(self, path):
+        """Returns tag:value pairs for file."""
+        tags = dict()
+        for tag in self.spec.get("tags"):
+            val = re.findall(tag.get("pattern"), path)
+            if val:
+                tags[tag.get("name")] = val[0]
+        return tags
+
+    def get_valid_tags(self):
+        """Returns valid tag names."""
+        return [t.get("name") for t in self.spec.get("tags")]
 
     def organize(self, rules):
         """Create a organized copy of a source directory based on rules.

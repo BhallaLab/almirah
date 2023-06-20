@@ -12,6 +12,20 @@ from .. import utils
 _TAG_PATTERN = re.compile(r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})")
 
 
+def get_spec(details, name):
+    if not details:
+        details = os.path.join(os.path.dirname(__file__), "configs", "bids.yaml")
+
+    if isinstance(details, str) and os.path.exists(details):
+        spec = utils.read_yaml(details)
+        if not name:
+            name = os.path.basename(os.path.splitext(details)[0])
+    else:
+        spec = details
+
+    return spec, name
+
+
 class Specification:
     """Representation of the specification used.
 
@@ -22,10 +36,8 @@ class Specification:
 
     Parameters
     ----------
-    name : str
-        The name of the specification.
-    spec : dict
-        The dict-converted YAML file that defines the specification.
+    spec : dict or str
+        The dict-converted YAML specification file or its path.
 
     Notes
     -----
@@ -36,9 +48,8 @@ class Specification:
     More information on these will follow.
     """
 
-    def __init__(self, name, spec):
-        self._spec = spec
-        self.name = name
+    def __init__(self, details=None, name=None):
+        self.spec, self.name = get_spec(details, name)
 
     def build_path(self, tags):
         """Construct path provided a set of tags.
@@ -54,7 +65,7 @@ class Specification:
             The constructed path if successful, else `None`.
         """
 
-        path_patterns = self._spec.get("path_patterns")
+        path_patterns = self.spec.get("path_patterns")
 
         # Remove none values
         tags = {k: v for k, v in tags.items() if v or v == 0}

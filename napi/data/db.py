@@ -7,6 +7,12 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import DeclarativeBase
 
 
+def get_db(db_path):
+    if not db_path:
+        db_path = os.path.join(os.path.expanduser("~"), "db_index.sqlite")
+    return f"sqlite:///{db_path}"
+
+
 class Base(DeclarativeBase):
     pass
 
@@ -26,9 +32,3 @@ class SessionManager:
         if self._session is None:
             self._session = self._sessionmaker()
         return self._session
-
-
-def get_db(db_path):
-    if not db_path:
-        db_path = os.path.join(os.path.expanduser("~"), "db_index.sqlite")
-    return f"sqlite:///{db_path}"

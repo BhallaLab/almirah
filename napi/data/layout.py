@@ -12,13 +12,13 @@ class File(Base):
     """Generic file representation."""
 
     __tablename__ = "files"
-    _path: Mapped[str] = mapped_column("path", primary_key=True)
-    _root: Mapped[str] = mapped_column("root", ForeignKey("layouts.root"))
+    path: Mapped[str] = mapped_column("path", primary_key=True)
+    root: Mapped[str] = mapped_column("root", ForeignKey("layouts.root"))
 
     def __init__(self, path, layout):
-        self._path = path
-        self._layout = layout
-        self._root = layout.root
+        self.path = path
+        self.layout = layout
+        self.root = layout.root
 
     def __repr__(self):
         return f"<File path={self.path}>"
@@ -34,14 +34,14 @@ class Layout(Base):
     def __init__(self, root, name=None, indexer=None):
         self.root = root
         self.name = name if name else os.path.basename(root)
-        self._indexer = indexer
+        self.indexer = indexer
         self.index()
 
     def index(self):
         """Run indexer over the layout."""
-        if not self._indexer:
-            self._indexer = Indexer()
-        self._indexer(self)
+        if not self.indexer:
+            self.indexer = Indexer()
+        self.indexer(self)
 
     def __repr__(self):
         return f"<Layout root='{self.root}'>"
@@ -51,15 +51,15 @@ class Indexer:
     """Index files in a Layout."""
 
     def __init__(self, session_manager=None):
-        self._conn = session_manager
+        self.conn = session_manager
 
     def __call__(self, layout):
-        self._layout = layout
-        if not self._conn:
-            self._conn = SessionManager()
+        self.layout = layout
+        if not self.conn:
+            self.conn = SessionManager()
 
-        self._conn.session.add(self._layout)
-        self._index_dir(self._layout.root)
+        self.conn.session.add(self.layout)
+        self._index_dir(self.layout.root)
 
     def _index_dir(self, dir):
         SKIP_DIRS = ["sourcedata", "derivatives"]
@@ -73,8 +73,8 @@ class Indexer:
 
             self._index_file(path)
         # TODO: Ignore if entry already present or upsert
-        self._conn.session.commit()
+        self.conn.session.commit()
 
     def _index_file(self, path):
-        file = File(path, self._layout)
-        self._conn.session.add(file)
+        file = File(path, self.layout)
+        self.conn.session.add(file)

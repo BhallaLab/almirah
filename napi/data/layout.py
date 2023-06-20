@@ -6,6 +6,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .db import Base, SessionManager
+from .standard import Specification
 
 
 class File(Base):
@@ -24,6 +25,25 @@ class File(Base):
         return f"<File path={self.path}>"
 
 
+class Tag(Base):
+    """Generic tag representation."""
+
+    __tablename__ = "tags"
+    path: Mapped[str] = mapped_column(
+        "path", ForeignKey("files.path"), primary_key=True
+    )
+    name: Mapped[str] = mapped_column("name", primary_key=True)
+    val: Mapped[str] = mapped_column("value")
+
+    def __init__(self, path, name, val):
+        self.path = path
+        self.name = name
+        self.val = val
+
+    def __repr__(self):
+        return f"<Tag {self.name}: '{self.val}'>"
+
+
 class Layout(Base):
     """Representation of the file layout in the directory."""
 
@@ -31,9 +51,10 @@ class Layout(Base):
     root: Mapped[str] = mapped_column(primary_key=True)
     name: Mapped[str]
 
-    def __init__(self, root, name=None, indexer=None):
+    def __init__(self, root, name=None, spec=None, indexer=None):
         self.root = root
         self.name = name if name else os.path.basename(root)
+        self.spec = spec if spec else Specification()
         self.indexer = indexer
         self.index()
 
@@ -78,3 +99,10 @@ class Indexer:
     def _index_file(self, path):
         file = File(path, self.layout)
         self.conn.session.add(file)
+        self._index_tags(file)
+
+    def _index_tags(self, file):
+        tags = self.layout.spec.extract_tags(file.path)
+        for name, val in tags.items():
+            tag = Tag(file.path, name, val)
+            self.conn.session.add(tag)

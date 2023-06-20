@@ -22,7 +22,7 @@ class SessionManager:
 
     def __init__(self, db_path=None):
         db = get_db(db_path)
-        engine = create_engine(db, echo=True)
+        engine = create_engine(db)
         Base.metadata.create_all(engine)
         self._sessionmaker = sessionmaker(engine)
         self._session = None

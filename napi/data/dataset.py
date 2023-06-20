@@ -22,12 +22,9 @@ class Dataset(ABC):
     """
 
     def __init__(self, layouts=list()):
-        self._layouts = layouts
+        self.layouts = layouts
+        self.layout_names = None
         self._update_layout_names()
-
-    @property
-    def layout_names(self):
-        return self._layout_names
 
     @abstractmethod
     def _build_initialiser_args(root):
@@ -48,25 +45,23 @@ class Dataset(ABC):
 
     def add_layout(self, layout):
         """Add a layout to the dataset."""
-        if layout.root in [r.root for r in self._layouts]:
+        if layout.root in [r.root for r in self.layouts]:
             print("Layout already part of dataset")
             return
-        self._layouts.append(layout)
+        self.layouts.append(layout)
         self._update_layout_names()
 
     def _update_layout_names(self):
-        self._layout_names = (
-            [lay.name for lay in self._layouts] if self._layouts else None
-        )
+        self.layout_names = [lay.name for lay in self.layouts] if self.layouts else None
 
     def __repr__(self):
         classname = self.__class__.__name__
-        if not self._layout_names:
+        if not self.layout_names:
             return f"<{classname} layouts='empty'>"
-        elif len(self._layout_names) < 4:
-            return f"<{classname} layouts={self._layout_names}>"
+        elif len(self.layout_names) < 4:
+            return f"<{classname} layouts={self.layout_names}>"
         else:
-            return f"<{classname} layouts=[{self._layout_names[0]}...{self._layout_names[-1]}]>"
+            return f"<{classname} layouts=[{self.layout_names[0]}...{self.layout_names[-1]}]>"
 
 
 class SourceDatasets(Dataset):
@@ -116,9 +111,9 @@ class CompleteDataset(Dataset):
         if isinstance(derivatives, list):
             derivatives = DerivativeDatasets(derivatives)
 
-        self._primary = primary
-        self._sourcedata = sourcedata
-        self._derivatives = derivatives
+        self.primary = primary
+        self.sourcedata = sourcedata
+        self.derivatives = derivatives
         self._update_layouts()
 
     def _build_initialiser_args(root, indexer):
@@ -137,22 +132,23 @@ class CompleteDataset(Dataset):
 
     def _update_layouts(self):
         """Update list of layouts under dataset."""
-        primary_list = [self._primary]
-        self._layouts = list(
+        primary_list = [self.primary]
+        self.layouts = list(
             chain(
                 primary_list,
-                self._sourcedata._layouts,
-                self._derivatives._layouts,
+                self.sourcedata.layouts,
+                self.derivatives.layouts,
             )
         )
+        self.layout_names = None
         self._update_layout_names()
 
     def add_derivative(self, layout):
         """Add a derivative to the dataset."""
-        self._derivatives.add_layout(layout)
+        self.derivatives.add_layout(layout)
         self._update_layouts()
 
     def add_source(self, layout):
         """Add a source to the dataset."""
-        self._sourcedata.add_layout(layout)
+        self.sourcedata.add_layout(layout)
         self._update_layouts()

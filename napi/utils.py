@@ -2,6 +2,7 @@
 
 import os
 import re
+import yaml
 import shutil
 import subprocess
 
@@ -23,6 +24,13 @@ def get_matching_files(root, pattern):
             if re.match(pattern, file):
                 matches.append(os.path.join(dir, file))
     return matches
+
+
+def read_yaml(path):
+    """Return dict equivalent of yaml file."""
+    with open(path) as f:
+        content = yaml.load(f, yaml.SafeLoader)
+        return content
 
 
 def run_command(cmd, suppress_output=True, **flags):

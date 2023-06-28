@@ -51,6 +51,13 @@ class Dataset(ABC):
         self.layouts.append(layout)
         self._update_layout_names()
 
+    def get_files(self, **filters):
+        """Return files that match criteria."""
+        files = list()
+        for lay in self.layouts:
+            files.extend(lay.get_files(filters))
+        return files
+
     def _update_layout_names(self):
         self.layout_names = [lay.name for lay in self.layouts] if self.layouts else None
 

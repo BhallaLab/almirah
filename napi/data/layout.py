@@ -106,6 +106,7 @@ class Indexer:
         self._index_tags(file)
 
     def _index_tags(self, file):
+        self.conn.session.add(Tag(file.path, "is_dir", os.path.isdir(file.path)))
         tags = self.layout.spec.extract_tags(file.path)
         for name, value in tags.items():
             tag = Tag(file.path, name, value)

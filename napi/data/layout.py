@@ -37,15 +37,15 @@ class Tag(Base):
         "path", ForeignKey("files.path"), primary_key=True
     )
     name: Mapped[str] = mapped_column("name", primary_key=True)
-    val: Mapped[str] = mapped_column("value")
+    value: Mapped[str] = mapped_column("value")
 
-    def __init__(self, path, name, val):
+    def __init__(self, path, name, value):
         self.path = path
         self.name = name
-        self.val = val
+        self.value = value
 
     def __repr__(self):
-        return f"<Tag {self.name}: '{self.val}'>"
+        return f"<Tag {self.name}: '{self.value}'>"
 
 
 class Layout(Base):
@@ -107,6 +107,6 @@ class Indexer:
 
     def _index_tags(self, file):
         tags = self.layout.spec.extract_tags(file.path)
-        for name, val in tags.items():
-            tag = Tag(file.path, name, val)
+        for name, value in tags.items():
+            tag = Tag(file.path, name, value)
             self.conn.session.add(tag)

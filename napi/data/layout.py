@@ -2,8 +2,12 @@
 
 import os
 
+from sqlalchemy import select
+from sqlalchemy import func
+from sqlalchemy import tuple_
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
 
 from .db import Base, SessionManager
 from .standard import Specification
@@ -55,18 +59,47 @@ class Layout(Base):
     root: Mapped[str] = mapped_column(primary_key=True)
     name: Mapped[str]
 
-    def __init__(self, root, name=None, spec=None, indexer=None):
+    def __init__(self, root, name=None, spec=None, indexer=None, index_layout=True):
         self.root = root
         self.name = name if name else os.path.basename(root)
         self.spec = spec if spec else Specification()
         self.indexer = indexer
-        self.index()
+        if index_layout:
+            self.index()
 
     def index(self):
         """Run indexer over the layout."""
         if not self.indexer:
             self.indexer = Indexer()
         self.indexer(self)
+
+    def get_files(self, **filters):
+        """Return files that match criteria."""
+
+        # TODO: warn if keys not present.
+
+        # unpack filters dict into tuple
+        tag_reqs = [(name, value) for name, value in filters.items()]
+
+        # Construct table of passing file paths
+        tag_filter = (
+            select(Tag.path)
+            .where(tuple_(Tag.name, Tag.value).in_(tag_reqs))
+            .group_by(Tag.path)
+            .having(func.count(Tag.name) == len(tag_reqs))
+            .subquery()
+        )
+
+        # Build File objects from file paths
+        file_filter = (
+            select(File)
+            .where(File.path.in_(select(tag_filter)))
+            .where(File.root == self.root)
+        )
+
+        res = self.indexer.get(file_filter)
+        files = [r for r, in res]
+        return files
 
     def __repr__(self):
         return f"<Layout root='{self.root}'>"
@@ -111,3 +144,8 @@ class Indexer:
         for name, value in tags.items():
             tag = Tag(file.path, name, value)
             self.conn.session.add(tag)
+
+    def get(self, query):
+        """Run a query on db associated and return all results."""
+        res = self.conn.session.execute(query).all()
+        return res

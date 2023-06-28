@@ -21,8 +21,12 @@ class File(Base):
         self.layout = layout
         self.root = layout.root
 
+    @property
+    def rel_path(self):
+        return os.path.relpath(self.path, self.root)
+
     def __repr__(self):
-        return f"<File path={self.path}>"
+        return f"<File path={self.rel_path}>"
 
 
 class Tag(Base):

@@ -33,12 +33,12 @@ class Report:
         sources = set()
         for s in dataset.sourcedata.layouts:
             sources.add(s.name)
-        print(f"Sources ... {sources}")
+        print(f"Sources ... {','.join(sources)}")
 
         ders = set()
         for d in dataset.derivatives.layouts:
             ders.add(d.name)
-        print(f"Pipelines ... {ders}")
+        print(f"Pipelines ... {','.join(ders)}")
 
         for lay in dataset.layouts:
             Report.generate(lay)

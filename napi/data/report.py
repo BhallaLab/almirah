@@ -13,7 +13,7 @@ class Report:
         """Generate report for a layout."""
         sess = layout.indexer.conn.session
         n_subjects = sess.scalar(
-            select(func.count(distinct(Tag.val)))
+            select(func.count(distinct(Tag.value)))
             .where(Tag.name == "subject")
             .where(File.root == layout.root)
             .join(File)

@@ -2,11 +2,14 @@
 
 import os
 
+from typing import List
+
 from sqlalchemy import select
 from sqlalchemy import func
 from sqlalchemy import tuple_
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import relationship
 from sqlalchemy.orm import mapped_column
 
 from .db import Base, SessionManager
@@ -20,14 +23,18 @@ class File(Base):
     path: Mapped[str] = mapped_column("path", primary_key=True)
     root: Mapped[str] = mapped_column("root", ForeignKey("layouts.root"))
 
-    def __init__(self, path, layout):
+    layout: Mapped["Layout"] = relationship(back_populates="files")
+    tags: Mapped[List["Tag"]] = relationship(
+        back_populates="file", cascade="all, delete-orphan"
+    )
+
+    def __init__(self, path, root):
         self.path = path
-        self.layout = layout
-        self.root = layout.root
+        self.root = root
 
     @property
     def rel_path(self):
-        return os.path.relpath(self.path, self.root)
+        return os.path.relpath(self.path, self.layout.root)
 
     def __repr__(self):
         return f"<File path={self.rel_path}>"
@@ -42,6 +49,8 @@ class Tag(Base):
     )
     name: Mapped[str] = mapped_column("name", primary_key=True)
     value: Mapped[str] = mapped_column("value")
+
+    file: Mapped["File"] = relationship(back_populates="tags")
 
     def __init__(self, path, name, value):
         self.path = path
@@ -58,6 +67,8 @@ class Layout(Base):
     __tablename__ = "layouts"
     root: Mapped[str] = mapped_column(primary_key=True)
     name: Mapped[str]
+
+    files: Mapped[List["File"]] = relationship(back_populates="layout")
 
     def __init__(self, root, name=None, spec=None, indexer=None, index_layout=True):
         self.root = root
@@ -115,8 +126,6 @@ class Indexer:
         self.layout = layout
         if not self.conn:
             self.conn = SessionManager()
-
-        self.conn.session.add(self.layout)
         self._index_dir(self.layout.root)
 
     def _index_dir(self, dir):
@@ -134,16 +143,18 @@ class Indexer:
         self.conn.session.commit()
 
     def _index_file(self, path):
-        file = File(path, self.layout)
-        self.conn.session.add(file)
+        file = File(path, self.layout.root)
+        self.layout.files.append(file)
         self._index_tags(file)
+        self.conn.session.add(file)
 
     def _index_tags(self, file):
-        self.conn.session.add(Tag(file.path, "is_dir", os.path.isdir(file.path)))
+        is_dir_tag = Tag(file.path, "is_dir", os.path.isdir(file.path))
+        file.tags.append(is_dir_tag)
         tags = self.layout.spec.extract_tags(file.path)
         for name, value in tags.items():
             tag = Tag(file.path, name, value)
-            self.conn.session.add(tag)
+            file.tags.append(tag)
 
     def get(self, query):
         """Run a query on db associated and return all results."""

@@ -2,7 +2,8 @@
 
 import os
 
-from typing import List
+from typing import Set
+from typing import Dict
 
 from sqlalchemy import select
 from sqlalchemy import func
@@ -11,6 +12,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import attribute_keyed_dict
 
 from .db import Base, SessionManager
 from .standard import Specification
@@ -24,8 +26,9 @@ class File(Base):
     root: Mapped[str] = mapped_column("root", ForeignKey("layouts.root"))
 
     layout: Mapped["Layout"] = relationship(back_populates="files")
-    tags: Mapped[List["Tag"]] = relationship(
-        back_populates="file", cascade="all, delete-orphan"
+    tags: Mapped[Dict[str, "Tag"]] = relationship(
+        collection_class=attribute_keyed_dict("name"),
+        cascade="all, delete-orphan",
     )
 
     def __init__(self, path, root):
@@ -68,7 +71,9 @@ class Layout(Base):
     root: Mapped[str] = mapped_column(primary_key=True)
     name: Mapped[str]
 
-    files: Mapped[List["File"]] = relationship(back_populates="layout")
+    files: Mapped[Set["File"]] = relationship(
+        back_populates="layout", cascade="all, delete-orphan"
+    )
 
     def __init__(self, root, name=None, spec=None, indexer=None, index_layout=True):
         self.root = root
@@ -144,17 +149,18 @@ class Indexer:
 
     def _index_file(self, path):
         file = File(path, self.layout.root)
-        self.layout.files.append(file)
-        self._index_tags(file)
-        self.conn.session.add(file)
+        if file not in self.layout.files:
+            self.layout.files.add(file)
+            self._index_tags(file)
+            self.conn.session.add(file)
 
     def _index_tags(self, file):
         is_dir_tag = Tag(file.path, "is_dir", os.path.isdir(file.path))
-        file.tags.append(is_dir_tag)
+        file.tags[is_dir_tag.name] = is_dir_tag
         tags = self.layout.spec.extract_tags(file.path)
         for name, value in tags.items():
             tag = Tag(file.path, name, value)
-            file.tags.append(tag)
+            file.tags[tag.name] = tag
 
     def get(self, query):
         """Run a query on db associated and return all results."""

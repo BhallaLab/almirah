@@ -21,9 +21,11 @@ tags:
   - name: fmap
     pattern: (phasediff|magnitude[1-2]|phase[1-2]|fieldmap|epi)\.nii
   - name: datatype
-    pattern: "[/\\\\]+(anat|dwi|eeg|eyetrack|fmap|func|nirs)[/\\\\]+"
+    pattern: "[/\\\\]+(anat|dwi|eeg|eyetrack|fmap|func|nirs|mri)[/\\\\]*"
   - name: extension
     pattern: "[^./\\\\](\\.[^/\\\\]+)$"
+  - name: modality
+    pattern: "[/\\\\]+sourcedata/([a-zA-Z0-9]+)"    
   - name: pipeline
     pattern: "[/\\\\]+derivatives/([a-zA-Z0-9]+)"
   - name: subdir
@@ -31,6 +33,7 @@ tags:
   - name: filename
     pattern: "[/\\\\](?:.+)/([^.]+)"
 path_patterns:
+  - sourcedata/{modality}/sub-{subject}[/ses-{session}]/{filename}{extension}
   - derivatives/{pipeline}/sub-{subject}[/ses-{session}][/{subdir}]/{filename}{extension}
   - sub-{subject}[/ses-{session}]/{datatype<anat>|anat}/sub-{subject}[_ses-{session}][_task-{task}][_acq-{acquisition}][_run-{run}]_{suffix<T1w|T2w>}{extension<.nii|.nii.gz|.json>|.nii}
   - sub-{subject}[/ses-{session}]/{datatype<func>|func}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_dir-{direction}][_run-{run}]_{suffix<bold|cbv|sbref>}{extension<.nii|.nii.gz|.json>|.nii.gz}

@@ -21,20 +21,99 @@ Classes
 
 
 
+Functions
+~~~~~~~~~
 
-.. py:class:: Specification
+.. autoapisummary::
+
+   napi.data.standard.get_spec
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.standard._TAG_PATTERN
+
+
+.. py:data:: _TAG_PATTERN
+
+   
+
+.. py:function:: get_spec(details, name)
+
+
+.. py:class:: Specification(details=None, name=None)
 
    Representation of the specification used.
 
+   Attributes
+   ----------
+   name : str
+       The name of the specification.
+
+   Parameters
+   ----------
+   spec : dict or str
+       The dict-converted YAML specification file or its path.
+
+   Notes
+   -----
+   The YAML file that describes the specification can be split into two parts.
+      - tag definitions
+      - path definitions
+
+   More information on these will follow.
+
+   .. py:method:: build_path(tags)
+
+      Construct path provided a set of tags.
+
+      Parameters
+      ----------
+      tags : dict
+          A dictionary with tag name, value pairs.
+
+      Returns
+      -------
+      path : str
+          The constructed path if successful, else `None`.
+
+
+   .. py:method:: extract_tags(path)
+
+      Returns tag:value pairs for file.
+
+
+   .. py:method:: get_valid_tags()
+
+      Returns valid tag names.
+
+
+   .. py:method:: organize(rules)
+
+      Create a organized copy of a source directory based on rules.
+
+      Parameters
+      ----------
+      rules : dict
+          A dictionary describing the instructions for organizing.
+
+      Returns
+      -------
+      None
+
+
    .. py:method:: validate()
-      :abstractmethod:
 
       Returns True if path is valid.
 
 
-   .. py:method:: build_path()
+   .. py:method:: __repr__()
 
-      Construct path provided a set of entities.
+      Return repr(self).
 
 
 

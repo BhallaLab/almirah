@@ -1,0 +1,31 @@
+:py:mod:`napi.data.conv`
+========================
+
+.. py:module:: napi.data.conv
+
+.. autoapi-nested-parse::
+
+   Collection of file format converters.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.conv.dcm2nii
+   napi.data.conv.edf2asc
+
+
+
+.. py:function:: dcm2nii(files, dst, config_path)
+
+
+.. py:function:: edf2asc(files, dst)
+
+

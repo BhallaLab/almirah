@@ -5,7 +5,7 @@
 
 .. autoapi-nested-parse::
 
-   Model classes to represent dataset and layouts.
+   Model classes to represent layouts and its components.
 
 
 
@@ -17,29 +17,152 @@ Classes
 
 .. autoapisummary::
 
-   napi.data.layout.Dataset
+   napi.data.layout.File
+   napi.data.layout.Tag
    napi.data.layout.Layout
+   napi.data.layout.Indexer
 
 
 
 
-.. py:class:: Dataset
+.. py:class:: File(path, root)
 
-   Representation of the complete dataset.
+   Bases: :py:obj:`napi.data.db.Base`
 
-   .. py:method:: get()
+   Generic file representation.
 
-      Query the dataset.
+   .. py:property:: rel_path
+
+
+   .. py:attribute:: __tablename__
+      :value: 'files'
+
+      
+
+   .. py:attribute:: path
+      :type: sqlalchemy.orm.Mapped[str]
+
+      
+
+   .. py:attribute:: root
+      :type: sqlalchemy.orm.Mapped[str]
+
+      
+
+   .. py:attribute:: layout
+      :type: sqlalchemy.orm.Mapped[Layout]
+
+      
+
+   .. py:attribute:: tags
+      :type: sqlalchemy.orm.Mapped[Dict[str, Tag]]
+
+      
+
+   .. py:method:: __repr__()
+
+      Return repr(self).
 
 
 
-.. py:class:: Layout
+.. py:class:: Tag(path, name, value)
+
+   Bases: :py:obj:`napi.data.db.Base`
+
+   Generic tag representation.
+
+   .. py:attribute:: __tablename__
+      :value: 'tags'
+
+      
+
+   .. py:attribute:: path
+      :type: sqlalchemy.orm.Mapped[str]
+
+      
+
+   .. py:attribute:: name
+      :type: sqlalchemy.orm.Mapped[str]
+
+      
+
+   .. py:attribute:: value
+      :type: sqlalchemy.orm.Mapped[str]
+
+      
+
+   .. py:attribute:: file
+      :type: sqlalchemy.orm.Mapped[File]
+
+      
+
+   .. py:method:: __repr__()
+
+      Return repr(self).
+
+
+
+.. py:class:: Layout(root, name=None, spec=None, indexer=None, index_layout=True)
+
+   Bases: :py:obj:`napi.data.db.Base`
 
    Representation of the file layout in the directory.
+
+   .. py:attribute:: __tablename__
+      :value: 'layouts'
+
+      
+
+   .. py:attribute:: root
+      :type: sqlalchemy.orm.Mapped[str]
+
+      
+
+   .. py:attribute:: name
+      :type: sqlalchemy.orm.Mapped[str]
+
+      
+
+   .. py:attribute:: files
+      :type: sqlalchemy.orm.Mapped[Set[File]]
+
+      
 
    .. py:method:: index()
 
       Run indexer over the layout.
+
+
+   .. py:method:: get_files(**filters)
+
+      Return files that match criteria.
+
+
+   .. py:method:: __repr__()
+
+      Return repr(self).
+
+
+
+.. py:class:: Indexer(session_manager=None)
+
+   Index files in a Layout.
+
+   .. py:method:: __call__(layout)
+
+
+   .. py:method:: _index_dir(dir)
+
+
+   .. py:method:: _index_file(path)
+
+
+   .. py:method:: _index_tags(file)
+
+
+   .. py:method:: get(query)
+
+      Run a query on db associated and return all results.
 
 
 

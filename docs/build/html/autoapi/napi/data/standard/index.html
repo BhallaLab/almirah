@@ -44,22 +44,126 @@
 </tr>
 </tbody>
 </table>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.standard.get_spec" title="napi.data.standard.get_spec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_spec</span></code></a>(details, name)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.standard._TAG_PATTERN" title="napi.data.standard._TAG_PATTERN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_TAG_PATTERN</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="napi.data.standard._TAG_PATTERN">
+<span class="sig-prename descclassname"><span class="pre">napi.data.standard.</span></span><span class="sig-name descname"><span class="pre">_TAG_PATTERN</span></span><a class="headerlink" href="#napi.data.standard._TAG_PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="napi.data.standard.get_spec">
+<span class="sig-prename descclassname"><span class="pre">napi.data.standard.</span></span><span class="sig-name descname"><span class="pre">get_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.get_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="napi.data.standard.Specification">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.standard.</span></span><span class="sig-name descname"><span class="pre">Specification</span></span><a class="headerlink" href="#napi.data.standard.Specification" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.standard.</span></span><span class="sig-name descname"><span class="pre">Specification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of the specification used.</p>
+<section id="id1">
+<h4>Attributes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>The name of the specification.</p>
+</dd>
+</dl>
+</section>
+<section id="parameters">
+<h4>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt>spec<span class="classifier">dict or str</span></dt><dd><p>The dict-converted YAML specification file or its path.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h4>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt>The YAML file that describes the specification can be split into two parts.</dt><dd><ul class="simple">
+<li><p>tag definitions</p></li>
+<li><p>path definitions</p></li>
+</ul>
+</dd>
+</dl>
+<p>More information on these will follow.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="napi.data.standard.Specification.build_path">
+<span class="sig-name descname"><span class="pre">build_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.build_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct path provided a set of tags.</p>
+<section id="id2">
+<h5>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h5>
+<dl class="simple">
+<dt>tags<span class="classifier">dict</span></dt><dd><p>A dictionary with tag name, value pairs.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h5>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h5>
+<dl class="simple">
+<dt>path<span class="classifier">str</span></dt><dd><p>The constructed path if successful, else <cite>None</cite>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napi.data.standard.Specification.extract_tags">
+<span class="sig-name descname"><span class="pre">extract_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.extract_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <a class="reference external" href="tag:value">tag:value</a> pairs for file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napi.data.standard.Specification.get_valid_tags">
+<span class="sig-name descname"><span class="pre">get_valid_tags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.get_valid_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns valid tag names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="napi.data.standard.Specification.organize">
+<span class="sig-name descname"><span class="pre">organize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.organize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a organized copy of a source directory based on rules.</p>
+<section id="id3">
+<h5>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h5>
+<dl class="simple">
+<dt>rules<span class="classifier">dict</span></dt><dd><p>A dictionary describing the instructions for organizing.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h5>Returns<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h5>
+<p>None</p>
+</section>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="napi.data.standard.Specification.validate">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.validate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True if path is valid.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="napi.data.standard.Specification.build_path">
-<span class="sig-name descname"><span class="pre">build_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.build_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct path provided a set of entities.</p>
+<dt class="sig sig-object py" id="napi.data.standard.Specification.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.standard.Specification.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>

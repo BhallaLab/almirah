@@ -24,13 +24,18 @@ Classes
 
 .. py:class:: Report
 
-   Representation of report for data.
+   Collection of report generating methods.
 
-   .. py:method:: generate()
+   .. py:method:: generate(layout, level='summary')
+      :staticmethod:
 
-      Generate report.
+      Generate report for a layout.
 
-      Provides ability to generate report at subject or dataset level.
+
+   .. py:method:: generate_for_dataset(dataset)
+      :staticmethod:
+
+      Generate report for a dataset.
 
 
 

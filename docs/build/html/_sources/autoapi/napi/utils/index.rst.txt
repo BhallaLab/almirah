@@ -1,0 +1,47 @@
+:py:mod:`napi.utils`
+====================
+
+.. py:module:: napi.utils
+
+.. autoapi-nested-parse::
+
+   Utility functions.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   napi.utils.copy
+   napi.utils.get_matching_files
+   napi.utils.read_yaml
+   napi.utils.run_shell
+
+
+
+.. py:function:: copy(src, dst)
+
+   Creates a copy of file.
+
+
+.. py:function:: get_matching_files(root, pattern)
+
+   Return list of files in a directory that match pattern.
+
+
+.. py:function:: read_yaml(path)
+
+   Return dict equivalent of yaml file.
+
+
+.. py:function:: run_shell(cmd, suppress_output=True)
+
+   Execute shell command in background.
+
+

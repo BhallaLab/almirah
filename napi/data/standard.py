@@ -169,8 +169,7 @@ class Specification:
             "tag_rules",
         ]:
             if mandatory_key not in rules:
-                print(f"Missing mandatory key '{mandatory_key}' in rule")
-                return
+                raise KeyError(f"Expected but not found '{mandatory_key}' in rules")
 
         # Organize matched files as per rules
         for file in (

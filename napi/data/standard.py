@@ -2,6 +2,7 @@
 
 import re
 import os
+import logging
 import warnings
 
 from string import Formatter
@@ -171,82 +172,100 @@ class Specification:
             if mandatory_key not in rules:
                 raise KeyError(f"Expected but not found '{mandatory_key}' in rules")
 
+        source = rules.get("source")
+        destination = rules.get("destination")
+
+        logging.info(f"Initiating organization of {source} -> {destination}")
+        logging.info(f"Matching contents with pattern {rules.get('pattern')}")
+
         # Organize matched files as per rules
-        for file in (
-            utils.get_matching_files(rules.get("source"), rules.get("pattern")) or []
-        ):
+        for file in utils.get_matches(source, rules.get("pattern")) or []:
+            logging.info(f"Found match with file {file}")
+
             # Extract tags
             tags = dict()
             for rule in rules.get("tag_rules"):
                 tag_name = rule.get("name")
+                logging.debug(f"Foraging for {tag_name} tag")
 
                 if "value" in rule:
                     tags.update({tag_name: rule.get("value")})
-                    continue
+                else:
+                    match = re.findall(rule.get("pattern"), file)
+                    tag_val = match[0] if match else None
 
-                match = re.findall(rule.get("pattern"), file)
-                tag_val = match[0] if match else None
+                    if "prepend" in rule and tag_val:
+                        tag_val = "".join([str(rule.get("prepend")), tag_val])
 
-                if "prepend" in rule and tag_val:
-                    tag_val = "".join([str(rule.get("prepend")), tag_val])
+                    if (
+                        "length" in rule
+                        and tag_val
+                        and len(tag_val) != rule.get("length")
+                    ):
+                        if "iffy_prepend" in rule:
+                            tag_val = "".join([str(rule.get("iffy_prepend")), tag_val])
+                        if len(tag_val) != rule.get("length"):
+                            tag_val = None
 
-                if "length" in rule and tag_val and len(tag_val) != rule.get("length"):
-                    if "iffy_prepend" in rule:
-                        tag_val = "".join([str(rule.get("iffy_prepend")), tag_val])
-                    if len(tag_val) != rule.get("length"):
-                        tag_val = None
+                    if rule.get("case") in ["lower", "upper"] and tag_val:
+                        tag_val = (
+                            tag_val.lower()
+                            if rule.get("case") == "lower"
+                            else tag_val.upper()
+                        )
 
-                if rule.get("case") in ["lower", "upper"] and tag_val:
-                    tag_val = (
-                        tag_val.lower()
-                        if rule.get("case") == "lower"
-                        else tag_val.upper()
-                    )
+                    if "default" in rule and not tag_val:
+                        tag_val = rule.get("default")
 
-                if "default" in rule and not tag_val:
-                    tag_val = rule.get("default")
+                    if not tag_val:
+                        logging.error(f"Unable to find value of tag {tag_name}")
 
-                if not tag_val:
-                    warnings.warn(
-                        f"Unable to find value for tag '{tag_name}' for '{file}'"
-                    )
-
+                logging.info(f"File marked with {tag_name}:{tag_val} tag")
                 tags.update({tag_name: tag_val})
 
             # Warning, clunky code ahead. To be made better
             rel_path = self.build_path(tags)
-            new_path = (
-                os.path.join(rules.get("destination"), rel_path) if rel_path else None
-            )
-            utils.copy(file, new_path)
+            if not rel_path:
+                logging.error("Unable to build destination path for file")
+                continue
 
-            if not rules.get("copy_fellows", False) or not new_path:
+            new_path = os.path.join(rules.get("destination"), rel_path)
+            logging.info(f"Target destination path is {new_path}")
+            utils.copy(file, new_path)
+            logging.info("Moved file to target")
+
+            if not rules.get("copy_fellows", False):
                 continue
 
             # Find fellows
+            logging.info("Initiating copying of fellow files")
             fellows = [
                 f.path
                 for f in os.scandir(os.path.dirname(file))
                 if f.name != os.path.basename(file) and not f.is_dir()
             ]
+            logging.info(f"Found {len(fellows)} fellows accompanying the file")
 
             for fellow in fellows:
                 # Tag changes for fellow
+                logging.info(f"Changing tags for fellow {fellow}")
                 tags_copy = tags.copy()
                 tags_copy.update({"extension": os.path.splitext(fellow)[1]})
                 for rule in rules.get("rename_rules", []):
                     if re.findall(rule.get("target"), fellow):
-                        tags_copy.update({"suffix": rule.get("suffix")})
+                        tag_val = rule.get("suffix")
+                        tags_copy.update({"suffix": tag_val})
+                        logging.info(f"File marked with suffix:{tag_val} tag")
 
                 # Copy fellow files
                 rel_path = self.build_path(tags_copy)
-                new_path = (
-                    os.path.join(rules.get("destination"), rel_path)
-                    if rel_path
-                    else None
-                )
-
+                if not rel_path:
+                    logging.info("Unable to build destination path for file")
+                    continue
+                new_path = os.path.join(rules.get("destination"), rel_path)
+                logging.info(f"Target destination path is {new_path}")
                 utils.copy(fellow, new_path)
+                logging.info("Moved file to target")
 
     def validate(self):
         """Returns True if path is valid."""

@@ -33,7 +33,7 @@ def read_yaml(path):
         return content
 
 
-def run_command(cmd, suppress_output=True, **flags):
+def run_shell(cmd, suppress_output=True):
     """Execute shell command in background."""
     sp = subprocess.run(cmd)
     return sp

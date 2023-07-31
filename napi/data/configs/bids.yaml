@@ -2,11 +2,8 @@
 tags:
   - name: subject
     pattern: "[/\\\\]+sub-([a-zA-Z0-9]+)"
-    directory: "{subject}"
   - name: session
     pattern: "[_/\\\\]+ses-([a-zA-Z0-9]+)"
-    mandatory: false
-    directory: "{subject}{session}"
   - name: task
     pattern: "[_/\\\\]+task-([a-zA-Z0-9]+)"
   - name: acquisition
@@ -15,43 +12,40 @@ tags:
     pattern: "[_/\\\\]+dir-([a-zA-Z0-9]+)"
   - name: run
     pattern: "[_/\\\\]+run-(\\d+)"
-    dtype: int
+  - name: space
+    pattern: "[_/\\\\]+space-([a-zA-Z0-9]+)"
   - name: suffix
-    pattern: (?:^|[_/\\])([a-zA-Z0-9]+)\.[^/\\]+$
-  - name: fmap
-    pattern: (phasediff|magnitude[1-2]|phase[1-2]|fieldmap|epi)\.nii
-  - name: datatype
-    pattern: "[/\\\\]+(anat|dwi|eeg|eyetrack|fmap|func|nirs|mri)[/\\\\]*"
+    pattern: "(?:^|[_/\\\\])([a-zA-Z0-9]+)\\.[^/\\\\]+$"
   - name: extension
     pattern: "[^./\\\\](\\.[^/\\\\]+)$"
-  - name: modality
-    pattern: "[/\\\\]+sourcedata/([a-zA-Z0-9]+)"    
+  - name: datatype
+    pattern: "[/\\\\]+(anat|dwi|eeg|eyetrack|fmap|func|nirs|genome)[/\\\\]+"
+  - name: sourcetype
+    pattern: "[/\\\\]+sourcedata/(eeg|eyetrack|mri|nirs|genome)"
   - name: pipeline
     pattern: "[/\\\\]+derivatives/([a-zA-Z0-9]+)"
-  - name: subdir
-    pattern: "[/\\\\]+derivatives/(?:.+?)/(.*)[/\\\\]"
-  - name: filename
-    pattern: "[/\\\\](?:.+)/([^.]+)"
 path_patterns:
-  - sourcedata/{modality}/sub-{subject}[/ses-{session}]/{filename}{extension}
-  - derivatives/{pipeline}/sub-{subject}[/ses-{session}][/{subdir}]/{filename}{extension}
-  - sub-{subject}[/ses-{session}]/{datatype<anat>|anat}/sub-{subject}[_ses-{session}][_task-{task}][_acq-{acquisition}][_run-{run}]_{suffix<T1w|T2w>}{extension<.nii|.nii.gz|.json>|.nii}
-  - sub-{subject}[/ses-{session}]/{datatype<func>|func}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_dir-{direction}][_run-{run}]_{suffix<bold|cbv|sbref>}{extension<.nii|.nii.gz|.json>|.nii.gz}
-  - sub-{subject}[/ses-{session}]/{datatype<dwi>|dwi}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<dwi>}{extension<.bval|.bvec|.json|.nii.gz|.nii>|.nii.gz}
-  - sub-{subject}[/ses-{session}]/{datatype<fmap>|fmap}/sub-{subject}[_ses-{session}][_acq-{acquisition}][_dir-{direction}][_run-{run}]_{suffix<phasediff|magnitude1|magnitude2|phase1|phase2|fieldmap>}{extension<.nii|.nii.gz|.json>|.nii.gz}
-  - sub-{subject}[/ses-{session}]/{datatype<fmap>|fmap}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_dir-{direction}[_run-{run}]_{suffix<epi|m0scan>}{extension<.nii|.nii.gz|.json>|.nii.gz}
-  - sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eeg>}{extension<.edf|.vhdr|.vmrk|.eeg|.set|.fdt|.bdf|.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<nirs>}{extension<.snirf|.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<events|channels>}{extension<.tsv|.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<physio|stim>}{extension<.tsv.gz|.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<optodes>}{extension<.tsv|.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<coordsystem>}{extension<.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<eyetrack>|eyetrack}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}]_{suffix<eyetrack>}{extension<.tsv|.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<eyetrack>|eyetrack}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}]_{suffix<events>}{extension<.tsv>}
-  - sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<channels|events>}{extension<.tsv|.json>|.tsv}
-  - sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}][_acq-{acquisition}][_space-{space}]_{suffix<coordsystem>}{extension<.json>|.json}
-  - sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}][_acq-{acquisition}][_space-{space}]_{suffix<electrodes>}{extension<.tsv|.json>|.tsv}
-  - sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<photo>|photo}{extension<.jpg>}
-  - sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<physio>}{extension<.tsv.gz|.json>}
-  - sub-{subject}[/ses-{session}]/{datatype<anat>|anat}/sub-{subject}[_ses-{session}][_acq-{acquisition}][_run-{run}]_{suffix<T1map|T2map|T2starmap|R1map|R2map|R2starmap|PDmap|MTRmap|MTsat|UNIT1|T1rho|MWFmap|MTVmap|PDT2map|Chimap|S0map|M0map>}{extension<.nii|.nii.gz|.json>|.nii.gz}
+  - "sourcedata/{sourcetype<mri>|mri}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}][_task-{task}][_acq-{acquisition}][_run-{run}]_{suffix<mri>|mri}{extension<.dcm>}"
+  - "sourcedata/{sourcetype<eeg>|eeg}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eeg>|eeg}{extension<.bdf|.cnt|.data|.edf|.gdf|.mat|.mff|.nxe|.set|.vhdr|.vmrk>}"  
+  - "sourcedata/{sourcetype<nirs>|nirs}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<nirs>|nirs}{extension<.nirx>}"
+  - "sourcedata/{sourcetype<eyetrack>|eyetrack}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eyetrack>|eyetrack}{extension<.edf>}" 
+  - "sub-{subject}[/ses-{session}]/{datatype<anat>|anat}/sub-{subject}[_ses-{session}][_task-{task}][_acq-{acquisition}][_run-{run}]_{suffix<T1w|T2w|FLAIR>}{extension<.nii|.nii.gz|.json>|.nii.gz}"
+  - "sub-{subject}[/ses-{session}]/{datatype<func>|func}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_dir-{direction}][_run-{run}]_{suffix<bold>}{extension<.nii|.nii.gz|.json>|.nii.gz}"
+  - "sub-{subject}[/ses-{session}]/{datatype<dwi>|dwi}/sub-{subject}[_ses-{session}][_acq-{acquisition}]{suffix<dwi>}{extension<.bval|.bvec|.json|.nii.gz|.nii>|.nii.gz}"
+  - "sub-{subject}[/ses-{session}]/{datatype<fmap>|fmap}/sub-{subject}[_ses-{session}][_acq-{acquisition}][_dir-{direction}][_run-{run}]_{suffix<phasediff|magnitude1|magnitude2|phase1|phase2|fieldmap>}{extension<.nii|.nii.gz|.json>|.nii.gz}"
+  - "sub-{subject}[/ses-{session}]/{datatype<fmap>|fmap}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_dir-{direction}[_run-{run}]_{suffix<epi>}{extension<.nii|.nii.gz|.json>|.nii.gz}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eeg>}{extension<.edf|.vhdr|.vmrk|.eeg|.set|.fdt|.bdf|.json>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eeg>}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<channels|events>}{extension<.tsv|.json>|.tsv}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eeg>}/sub-{subject}[_ses-{session}][_acq-{acquisition}][_space-{space}]_{suffix<coordsystem>}{extension<.json>|.json}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eeg>}/sub-{subject}[_ses-{session}][_acq-{acquisition}][_space-{space}]_{suffix<electrodes>}{extension<.tsv|.json>|.tsv}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eeg>}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<photo>|photo}{extension<.jpg>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eeg>|eeg}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<physio>}{extension<.tsv.gz|.json>}"  
+  - "sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<nirs>}{extension<.snirf|.json>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<events|channels>}{extension<.tsv|.json>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<optodes>}{extension<.tsv|.json>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<coordsystem>}{extension<.json>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eyetrack>|eyetrack}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eyetrack>}{extension<.asc>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<eyetrack>|eyetrack}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<events>}{extension<.tsv|.json>}"
+  - "{suffix}{extension}"
+  - "derivatives/{pipeline}"
 ...

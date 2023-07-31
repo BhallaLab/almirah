@@ -13,20 +13,6 @@ from .. import utils
 _TAG_PATTERN = re.compile(r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})")
 
 
-def get_spec(details, name):
-    if not details:
-        details = os.path.join(os.path.dirname(__file__), "configs", "bids.yaml")
-
-    if isinstance(details, str) and os.path.exists(details):
-        spec = utils.read_yaml(details)
-        if not name:
-            name = os.path.basename(os.path.splitext(details)[0])
-    else:
-        spec = details
-
-    return spec, name
-
-
 class Specification:
     """Representation of the specification used.
 
@@ -51,6 +37,26 @@ class Specification:
 
     def __init__(self, details=None, name=None):
         self.spec, self.name = get_spec(details, name)
+
+    def get_valid_tags(self):
+        """Returns valid tag names."""
+        return [t.get("name") for t in self.spec.get("tags")]
+
+    def extract_tags(self, path):
+        """Returns tag:value pairs for file."""
+        tags = {}
+        for tag in self.spec.get("tags"):
+            val = re.findall(tag.get("pattern"), path)
+            if val:
+                tags[tag.get("name")] = val[0]
+        return tags
+
+    def validate(self, path):
+        """Returns True if path is valid."""
+        tags = self.extract_tags(path)
+        if self.build_path(tags) == path:
+            return True
+        return False
 
     def build_path(self, tags):
         """Construct path provided a set of tags.
@@ -135,19 +141,6 @@ class Specification:
             return path
 
         return None
-
-    def extract_tags(self, path):
-        """Returns tag:value pairs for file."""
-        tags = dict()
-        for tag in self.spec.get("tags"):
-            val = re.findall(tag.get("pattern"), path)
-            if val:
-                tags[tag.get("name")] = val[0]
-        return tags
-
-    def get_valid_tags(self):
-        """Returns valid tag names."""
-        return [t.get("name") for t in self.spec.get("tags")]
 
     def organize(self, rules):
         """Create a organized copy of a source directory based on rules.
@@ -267,9 +260,19 @@ class Specification:
                 utils.copy(fellow, new_path)
                 logging.info("Moved file to target")
 
-    def validate(self):
-        """Returns True if path is valid."""
-        pass
-
     def __repr__(self):
         return f"<Specification name={self.name}>"
+
+
+def get_spec(details, name):
+    if not details:
+        details = os.path.join(os.path.dirname(__file__), "configs", "bids.yaml")
+
+    if isinstance(details, str) and os.path.exists(details):
+        spec = utils.read_yaml(details)
+        if not name:
+            name = os.path.basename(os.path.splitext(details)[0])
+    else:
+        spec = details
+
+    return spec, name

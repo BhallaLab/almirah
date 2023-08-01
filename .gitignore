@@ -8,5 +8,6 @@ __pycache__
 .pytestcache
 
 # Upload logs? Noooo.
+logs/
 *.log
 

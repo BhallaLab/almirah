@@ -73,6 +73,7 @@ class Specification:
         """
 
         path_patterns = self.spec.get("path_patterns")
+        logging.debug(f"Building path with tags : {tags}")
 
         # Remove none values
         tags = {k: v for k, v in tags.items() if v or v == 0}
@@ -176,19 +177,23 @@ class Specification:
             logging.info(f"Found match with file {file}")
 
             # Extract tags
-            tags = dict()
+            tags = {}
             for rule in rules.get("tag_rules"):
                 tag_name = rule.get("name")
                 logging.debug(f"Foraging for {tag_name} tag")
 
                 if "value" in rule:
-                    tags.update({tag_name: rule.get("value")})
+                    tag_val = rule.get("value")
+                    tags[tag_name] = tag_val
+                    logging.debug(f"Setting tag with {tag_val}")
                 else:
                     match = re.findall(rule.get("pattern"), file)
                     tag_val = match[0] if match else None
+                    logging.debug(f"Matching with pattern yields {tag_val}")
 
                     if "prepend" in rule and tag_val:
                         tag_val = "".join([str(rule.get("prepend")), tag_val])
+                        logging.debug(f"Prepending tag value to get {tag_val}")
 
                     if (
                         "length" in rule
@@ -196,8 +201,12 @@ class Specification:
                         and len(tag_val) != rule.get("length")
                     ):
                         if "iffy_prepend" in rule:
+                            logging.debug(
+                                "Additional prepends as tag of insufficient length"
+                            )
                             tag_val = "".join([str(rule.get("iffy_prepend")), tag_val])
                         if len(tag_val) != rule.get("length"):
+                            logging.debug("Tag value of insufficient length")
                             tag_val = None
 
                     if rule.get("case") in ["lower", "upper"] and tag_val:
@@ -209,6 +218,7 @@ class Specification:
 
                     if "default" in rule and not tag_val:
                         tag_val = rule.get("default")
+                        logging.debug(f"Using default value of {tag_val} for tag")
 
                     if not tag_val:
                         logging.error(f"Unable to find value of tag {tag_name}")

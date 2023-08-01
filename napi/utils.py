@@ -4,6 +4,7 @@ import os
 import re
 import yaml
 import shutil
+import logging
 import subprocess
 
 
@@ -11,6 +12,11 @@ def copy(src, dst):
     """Copies from source to destination."""
     if not dst:
         raise TypeError("Expected destination path, received None")
+
+    if os.path.exists(dst):
+        logging.warning("Skipping copy as file exists")
+        return
+
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     if os.path.isdir(src):
         shutil.copytree(src, dst)

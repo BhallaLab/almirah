@@ -192,7 +192,12 @@ class Specification:
                     logging.debug(f"Setting tag with {tag_val}")
                 else:
                     match = re.findall(rule.get("pattern"), file)
-                    tag_val = match[0] if match else None
+                    if match and len(match) != 1:
+                        logging.error(
+                            "Expected single match, more found. Choosing last over others"
+                        )
+
+                    tag_val = match[-1] if match else None
                     logging.debug(f"Matching with pattern yields {tag_val}")
 
                     if "prepend" in rule and tag_val:

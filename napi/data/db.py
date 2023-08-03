@@ -14,6 +14,8 @@ def get_db(db_path):
 
 
 class Base(DeclarativeBase):
+    """Represents base object of ORM."""
+
     pass
 
 

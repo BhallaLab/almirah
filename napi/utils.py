@@ -8,20 +8,23 @@ import logging
 import subprocess
 
 
-def copy(src, dst):
+def copy(src, dst, overwrite=False):
     """Copies from source to destination."""
     if not dst:
         raise TypeError("Expected destination path, received None")
 
     if os.path.exists(dst):
-        logging.warning("Skipping copy as file exists")
-        return
+        if not overwrite:
+            logging.warning("Skipping copy as file exists")
+            return
+        if overwrite:
+            logging.warning("Overwriting existing file")
+            remover = shutil.rmtree if os.path.isdir(dst) else os.remove
+            remover(dst)
 
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-    if os.path.isdir(src):
-        shutil.copytree(src, dst)
-    else:
-        shutil.copy2(src, dst)
+    copier = shutil.copytree if os.path.isdir(src) else shutil.copy2
+    copier(src, dst)
 
 
 def get_matches(root, pattern):

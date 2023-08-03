@@ -174,6 +174,13 @@ class Specification:
         overwrite = rules.get("overwrite", False)
         if overwrite:
             logging.warning("If found, existing files will be overwritten")
+
+        add = rules.get("add", None)
+        for addition in add or []:
+            logging.info(
+                f"File {addition['path']} will be added to all contents as a {addition['position']}"
+            )
+
         logging.info(f"Matching contents with pattern {rules.get('pattern')}")
 
         # Organize matched files as per rules
@@ -245,6 +252,23 @@ class Specification:
             logging.info(f"Target destination path is {new_path}")
             utils.copy(file, new_path, overwrite)
             logging.info("Moved file to target")
+
+            if add:
+                for addition in add:
+                    if addition["position"] == "content":
+                        addition_path = os.path.join(
+                            new_path, os.path.basename(addition["path"])
+                        )
+                    elif addition["position"] == "fellow":
+                        addition_path = os.path.join(
+                            os.path.dirname(new_path), addition["path"]
+                        )
+                    else:
+                        raise ValueError(
+                            f"Expected position to be either content or fellow. Received {addition['position']}"
+                        )
+                    utils.copy(addition["path"], addition_path, overwrite)
+                    logging.info(f"Added addition at {addition_path}")
 
             if not rules.get("copy_fellows", False):
                 continue

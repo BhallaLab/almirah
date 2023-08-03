@@ -170,6 +170,10 @@ class Specification:
         destination = rules.get("destination")
 
         logging.info(f"Initiating organization of {source} -> {destination}")
+
+        overwrite = rules.get("overwrite", False)
+        if overwrite:
+            logging.warning("If found, existing files will be overwritten")
         logging.info(f"Matching contents with pattern {rules.get('pattern')}")
 
         # Organize matched files as per rules
@@ -234,7 +238,7 @@ class Specification:
 
             new_path = os.path.join(rules.get("destination"), rel_path)
             logging.info(f"Target destination path is {new_path}")
-            utils.copy(file, new_path)
+            utils.copy(file, new_path, overwrite)
             logging.info("Moved file to target")
 
             if not rules.get("copy_fellows", False):
@@ -267,7 +271,7 @@ class Specification:
                     continue
                 new_path = os.path.join(rules.get("destination"), rel_path)
                 logging.info(f"Target destination path is {new_path}")
-                utils.copy(fellow, new_path)
+                utils.copy(fellow, new_path, overwrite)
                 logging.info("Moved file to target")
 
     def __repr__(self):

@@ -19,20 +19,20 @@ Functions
 .. autoapisummary::
 
    napi.utils.copy
-   napi.utils.get_matching_files
+   napi.utils.get_matches
    napi.utils.read_yaml
    napi.utils.run_shell
 
 
 
-.. py:function:: copy(src, dst)
+.. py:function:: copy(src, dst, overwrite=False)
 
-   Creates a copy of file.
+   Copies from source to destination.
 
 
-.. py:function:: get_matching_files(root, pattern)
+.. py:function:: get_matches(root, pattern)
 
-   Return list of files in a directory that match pattern.
+   Return list of contents in a directory that match pattern.
 
 
 .. py:function:: read_yaml(path)

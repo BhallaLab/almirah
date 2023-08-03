@@ -1,46 +1,101 @@
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>napi.data.db &#8212; napi 0.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
-    <script src="../../../../_static/sphinx_highlight.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>napi.data.db &mdash; napi 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-   
-  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <link rel="next" title="napi.data.layout" href="../layout/index.html" />
+    <link rel="prev" title="napi.data.dataset" href="../dataset/index.html" /> 
+</head>
 
-  </head><body>
-  
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
           
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            napi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napi</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napi.data</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-          <div class="body" role="main">
-            
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">napi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napi</span></code></a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napi.data</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napi.data.db</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/napi/data/db/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <section id="module-napi.data.db">
-<span id="napi-data-db"></span><h1><a class="reference internal" href="#module-napi.data.db" title="napi.data.db"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napi.data.db</span></code></a><a class="headerlink" href="#module-napi.data.db" title="Permalink to this heading">¶</a></h1>
+<span id="napi-data-db"></span><h1><a class="reference internal" href="#module-napi.data.db" title="napi.data.db"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napi.data.db</span></code></a><a class="headerlink" href="#module-napi.data.db" title="Permalink to this heading"></a></h1>
 <p>Database functionality for indexing and data access.</p>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h3>
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.db.Base" title="napi.data.db.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Base</span></code></a></p></td>
-<td><p>Base class used for declarative class definitions.</p></td>
+<td><p>Represents base object of ORM.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#napi.data.db.SessionManager" title="napi.data.db.SessionManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionManager</span></code></a></p></td>
 <td><p>Represents a session with the db.</p></td>
@@ -49,7 +104,7 @@
 </table>
 </section>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.db.get_db" title="napi.data.db.get_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_db</span></code></a>(db_path)</p></td>
@@ -59,129 +114,23 @@
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="napi.data.db.get_db">
-<span class="sig-prename descclassname"><span class="pre">napi.data.db.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.db.get_db" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">napi.data.db.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.db.get_db" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="napi.data.db.Base">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.db.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><a class="headerlink" href="#napi.data.db.Base" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.db.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><a class="headerlink" href="#napi.data.db.Base" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">sqlalchemy.orm.DeclarativeBase</span></code></p>
-<p>Base class used for declarative class definitions.</p>
-<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.DeclarativeBase</span></code> allows for the creation of new
-declarative bases in such a way that is compatible with type checkers:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">DeclarativeBase</span>
-
-<span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-<p>The above <code class="docutils literal notranslate"><span class="pre">Base</span></code> class is now usable as the base for new declarative
-mappings.  The superclass makes use of the <code class="docutils literal notranslate"><span class="pre">__init_subclass__()</span></code>
-method to set up new classes and metaclasses aren’t used.</p>
-<p>When first used, the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.DeclarativeBase</span></code> class instantiates a new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> to be used with the base, assuming one was not
-provided explicitly. The <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.DeclarativeBase</span></code> class supports
-class-level attributes which act as parameters for the construction of this
-registry; such as to indicate a specific <code class="xref py py-class docutils literal notranslate"><span class="pre">_schema.MetaData</span></code>
-collection as well as a specific value for
-<a href="#id1"><span class="problematic" id="id2">:paramref:`_orm.registry.type_annotation_map`</span></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
-
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">BigInteger</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">MetaData</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">String</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">DeclarativeBase</span>
-
-<span class="n">bigint</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;bigint&quot;</span><span class="p">]</span>
-<span class="n">my_metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">()</span>
-
-<span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
-    <span class="n">metadata</span> <span class="o">=</span> <span class="n">my_metadata</span>
-    <span class="n">type_annotation_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nb">str</span><span class="p">:</span> <span class="n">String</span><span class="p">()</span><span class="o">.</span><span class="n">with_variant</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="s2">&quot;mysql&quot;</span><span class="p">,</span> <span class="s2">&quot;mariadb&quot;</span><span class="p">),</span>
-        <span class="n">bigint</span><span class="p">:</span> <span class="n">BigInteger</span><span class="p">()</span>
-    <span class="p">}</span>
-</pre></div>
-</div>
-<p>Class-level attributes which may be specified include:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>metadata</strong> – optional <code class="xref py py-class docutils literal notranslate"><span class="pre">_schema.MetaData</span></code> collection.
-If a <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> is constructed automatically, this
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_schema.MetaData</span></code> collection will be used to construct it.
-Otherwise, the local <code class="xref py py-class docutils literal notranslate"><span class="pre">_schema.MetaData</span></code> collection will supercede
-that used by an existing <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> passed using the
-<a href="#id3"><span class="problematic" id="id4">:paramref:`_orm.DeclarativeBase.registry`</span></a> parameter.</p></li>
-<li><p><strong>type_annotation_map</strong> – optional type annotation map that will be
-passed to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> as
-<a href="#id5"><span class="problematic" id="id6">:paramref:`_orm.registry.type_annotation_map`</span></a>.</p></li>
-<li><p><strong>registry</strong> – supply a pre-existing <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> directly.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 2.0: </span>Added <code class="xref py py-class docutils literal notranslate"><span class="pre">DeclarativeBase</span></code>, so that declarative
-base classes may be constructed in such a way that is also recognized
-by <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0484/"><strong>PEP 484</strong></a> type checkers.   As a result, <code class="xref py py-class docutils literal notranslate"><span class="pre">DeclarativeBase</span></code>
-and other subclassing-oriented APIs should be seen as
-superseding previous “class returned by a function” APIs, namely
-<code class="xref py py-func docutils literal notranslate"><span class="pre">_orm.declarative_base()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">_orm.registry.generate_base()</span></code>,
-where the base class returned cannot be recognized by type checkers
-without using plugins.</p>
-</div>
-<p><strong>__init__ behavior</strong></p>
-<p>In a plain Python class, the base-most <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method in the class
-hierarchy is <code class="docutils literal notranslate"><span class="pre">object.__init__()</span></code>, which accepts no arguments. However,
-when the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.DeclarativeBase</span></code> subclass is first declared, the
-class is given an <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method that links to the
-<a href="#id7"><span class="problematic" id="id8">:paramref:`_orm.registry.constructor`</span></a> constructor function, if no
-<code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method is already present; this is the usual declarative
-constructor that will assign keyword arguments as attributes on the
-instance, assuming those attributes are established at the class level
-(i.e. are mapped, or are linked to a descriptor). This constructor is
-<strong>never accessed by a mapped class without being called explicitly via
-super()</strong>, as mapped classes are themselves given an <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method
-directly which calls <a href="#id9"><span class="problematic" id="id10">:paramref:`_orm.registry.constructor`</span></a>, so in the
-default case works independently of what the base-most <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>
-method does.</p>
-<div class="versionchanged">
-<p><span class="versionmodified changed">Changed in version 2.0.1: </span><code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.DeclarativeBase</span></code> has a default
-constructor that links to <a href="#id11"><span class="problematic" id="id12">:paramref:`_orm.registry.constructor`</span></a> by
-default, so that calls to <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code> can access this
-constructor. Previously, due to an implementation mistake, this default
-constructor was missing, and calling <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code> would invoke
-<code class="docutils literal notranslate"><span class="pre">object.__init__()</span></code>.</p>
-</div>
-<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.DeclarativeBase</span></code> subclass may also declare an explicit
-<code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method which will replace the use of the
-<a href="#id13"><span class="problematic" id="id14">:paramref:`_orm.registry.constructor`</span></a> function at this level:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
-</pre></div>
-</div>
-<p>Mapped classes still will not invoke this constructor implicitly; it
-remains only accessible by calling <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Note that this is a different behavior from what functions like the legacy
-<code class="xref py py-func docutils literal notranslate"><span class="pre">_orm.declarative_base()</span></code> would do; the base created by those functions
-would always install <a href="#id15"><span class="problematic" id="id16">:paramref:`_orm.registry.constructor`</span></a> for
-<code class="docutils literal notranslate"><span class="pre">__init__()</span></code>.</p>
+<p>Represents base object of ORM.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="napi.data.db.SessionManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.db.</span></span><span class="sig-name descname"><span class="pre">SessionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.db.SessionManager" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.db.</span></span><span class="sig-name descname"><span class="pre">SessionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.db.SessionManager" title="Permalink to this definition"></a></dt>
 <dd><p>Represents a session with the db.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="napi.data.db.SessionManager.session">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#napi.data.db.SessionManager.session" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#napi.data.db.SessionManager.session" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -191,70 +140,34 @@ would always install <a href="#id15"><span class="problematic" id="id16">:paramr
 </section>
 
 
+           </div>
           </div>
-          
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../dataset/index.html" class="btn btn-neutral float-left" title="napi.data.dataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../layout/index.html" class="btn btn-neutral float-right" title="napi.data.layout" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, girish.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../../../index.html">napi</a></h1>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../index.html">API Reference</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2023, girish.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
-      
-      |
-      <a href="../../../../_sources/autoapi/napi/data/db/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>

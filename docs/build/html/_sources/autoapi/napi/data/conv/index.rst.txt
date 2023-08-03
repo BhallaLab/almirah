@@ -20,12 +20,56 @@ Functions
 
    napi.data.conv.dcm2nii
    napi.data.conv.edf2asc
+   napi.data.conv.nirs_conv
+   napi.data.conv.eeg_conv
+   napi.data.conv.convert
 
 
 
-.. py:function:: dcm2nii(files, dst, config_path)
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.conv._SUPPORTED
+   napi.data.conv._DCM2NII_VALID_FLAGS
+   napi.data.conv._EDF2ASC_VALID_FLAGS
 
 
-.. py:function:: edf2asc(files, dst)
+.. py:function:: dcm2nii(files, dst, **kwargs)
 
+   Convert DICOM files to NIfTY and write to disk.
+
+
+.. py:function:: edf2asc(files, dst, **kwargs)
+
+   Convert Eye track data format and write to disk.
+
+
+.. py:function:: nirs_conv(files, dst, **kwargs)
+
+   Convert NIRS data format and write to disk.
+
+
+.. py:function:: eeg_conv(files, dst, **kwargs)
+
+   Convert EEG data format and write to disk.
+
+
+.. py:function:: convert(files, out, dst, **kwargs)
+
+   Convert a file collection from one format to another.
+
+
+.. py:data:: _SUPPORTED
+
+   
+
+.. py:data:: _DCM2NII_VALID_FLAGS
+
+   
+
+.. py:data:: _EDF2ASC_VALID_FLAGS
+
+   
 

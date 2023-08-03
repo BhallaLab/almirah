@@ -24,9 +24,10 @@ Classes
 
 .. py:class:: Report
 
+
    Collection of report generating methods.
 
-   .. py:method:: generate(layout, level='summary')
+   .. py:method:: generate(layout, level='summary', tags=['subject'])
       :staticmethod:
 
       Generate report for a layout.

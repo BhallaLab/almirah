@@ -27,6 +27,7 @@ Classes
 
 .. py:class:: Dataset(layouts=list())
 
+
    Bases: :py:obj:`abc.ABC`
 
    Representation of a dataset.
@@ -76,6 +77,7 @@ Classes
 
 .. py:class:: SourceDatasets(layouts=list())
 
+
    Bases: :py:obj:`Dataset`
 
    Representation of the collection of sources.
@@ -86,6 +88,7 @@ Classes
 
 .. py:class:: DerivativeDatasets(layouts=list())
 
+
    Bases: :py:obj:`Dataset`
 
    Representation of the collection of derivatives.
@@ -95,6 +98,7 @@ Classes
 
 
 .. py:class:: CompleteDataset(primary, sourcedata=None, derivatives=None)
+
 
    Bases: :py:obj:`Dataset`
 

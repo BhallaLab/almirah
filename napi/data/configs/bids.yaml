@@ -11,7 +11,7 @@ tags:
   - name: direction
     pattern: "[_/\\\\]+dir-([a-zA-Z0-9]+)"
   - name: run
-    pattern: "[_/\\\\]+run-(\\d+)"
+    pattern: "[_/\\\\]+run-([0-9]+)"
   - name: space
     pattern: "[_/\\\\]+space-([a-zA-Z0-9]+)"
   - name: suffix
@@ -19,16 +19,16 @@ tags:
   - name: extension
     pattern: "[^./\\\\](\\.[^/\\\\]+)$"
   - name: datatype
-    pattern: "[/\\\\]+(anat|dwi|eeg|eyetrack|fmap|func|nirs|genome)[/\\\\]+"
+    pattern: "(?:(?<!sourcedata))[/\\\\]+(anat|dwi|eeg|eyetrack|fmap|func|nirs|genome)[/\\\\]+"
   - name: sourcetype
-    pattern: "[/\\\\]+sourcedata/(eeg|eyetrack|mri|nirs|genome)"
+    pattern: "sourcedata/(eeg|eyetrack|mri|nirs|genome)"
   - name: pipeline
-    pattern: "[/\\\\]+derivatives/([a-zA-Z0-9]+)"
+    pattern: "derivatives/([a-zA-Z0-9]+)"
 path_patterns:
   - "sourcedata/{sourcetype<mri>|mri}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}][_task-{task}][_acq-{acquisition}][_run-{run}]_{suffix<mri>|mri}{extension<.dcm>}"
   - "sourcedata/{sourcetype<eeg>|eeg}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eeg>|eeg}{extension<.bdf|.cnt|.data|.edf|.gdf|.mat|.mff|.nxe|.set|.vhdr|.vmrk>}"  
   - "sourcedata/{sourcetype<nirs>|nirs}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<nirs>|nirs}{extension<.nirx>}"
-  - "sourcedata/{sourcetype<eyetrack>|eyetrack}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eyetrack>|eyetrack}{extension<.edf>}" 
+  - "sourcedata/{sourcetype<eyetrack>|eyetrack}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eyetrack>|eyetrack}{extension<.edf|.dat|.log>}"
   - "sub-{subject}[/ses-{session}]/{datatype<anat>|anat}/sub-{subject}[_ses-{session}][_task-{task}][_acq-{acquisition}][_run-{run}]_{suffix<T1w|T2w|FLAIR>}{extension<.nii|.nii.gz|.json>|.nii.gz}"
   - "sub-{subject}[/ses-{session}]/{datatype<func>|func}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_dir-{direction}][_run-{run}]_{suffix<bold>}{extension<.nii|.nii.gz|.json>|.nii.gz}"
   - "sub-{subject}[/ses-{session}]/{datatype<dwi>|dwi}/sub-{subject}[_ses-{session}][_acq-{acquisition}]{suffix<dwi>}{extension<.bval|.bvec|.json|.nii.gz|.nii>|.nii.gz}"

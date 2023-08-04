@@ -37,7 +37,7 @@ class Tag(Base):
         self.value = value
 
     def __repr__(self):
-        return f"<Tag {self.name}: '{self.value}'>"
+        return f"<Tag {self.name}:'{self.value}'>"
 
 
 class File(Base):
@@ -70,7 +70,7 @@ class File(Base):
         return self.layout.spec.build_path(t)
 
     def __repr__(self):
-        return f"<File path={self.rel_path}>"
+        return f"<File path='{self.rel_path}'>"
 
 
 class Layout(Base):

@@ -60,7 +60,9 @@ class File(Base):
 
     @property
     def rel_path(self):
-        return os.path.relpath(self.path, self.root)
+        r = os.path.relpath(self.path, self.root)
+        r = os.path.join(self.layout.prefix, r) if self.layout else r
+        return r
 
     def build_modified_path(self, changes):
         "Returns the path for file given changes to tags."

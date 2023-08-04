@@ -165,10 +165,10 @@ class Indexer:
         if not session_manager:
             self.conn = SessionManager()
 
-    def __call__(self, layout, only_valid=True):
+    def __call__(self, layout, valid_only=True):
         logging.info(f"Indexing layout with root {layout.root}")
         self.layout = layout
-        self.only_valid = only_valid
+        self.valid_only = valid_only
         self._index_dir(self.layout.root)
 
     def _merge(self, obj):
@@ -184,29 +184,28 @@ class Indexer:
                 continue
 
             path = os.path.join(dir, content)
-            if os.path.isdir(path):
+            if not (self._index_file(path) and self.valid_only) and os.path.isdir(path):
                 self._index_dir(path)
 
-            self._index_file(path)
         self.conn.session.commit()
 
     def _index_file(self, path):
-        """Add valid files to persistent index."""
+        """Add valid files to index and return true if successful."""
         logging.info(f"Indexing file at {path}")
         file = File(path, self.layout.root)
-        if not self.layout.spec.validate(file.rel_path) and self.only_valid:
+        if self.valid_only and not self.layout.spec.validate(
+            os.path.join(self.layout.prefix, file.rel_path)
+        ):
             logging.info("Skipping invalid file")
-            return
+            return False
         file = self._merge(file)
-        if file in self.layout.files:
-            logging.info("Skipping existing file")
-            return
         self.layout.files.append(file)
         self._index_tags(file)
-        self.conn.session.add(file)
+        self.add(file)
+        return True
 
     def _index_tags(self, file):
-        """Add tags of file to persistent index."""
+        """Add tags of file to index."""
         logging.info("Adding file tags")
         tags = self.layout.spec.extract_tags(file.rel_path)
         for name, value in tags.items():

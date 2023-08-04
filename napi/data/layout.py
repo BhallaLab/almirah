@@ -13,6 +13,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import reconstructor
 from sqlalchemy.orm import attribute_keyed_dict
 
 from .db import Base, SessionManager
@@ -83,26 +84,44 @@ class Layout(Base):
         back_populates="layout", cascade="all, delete-orphan"
     )
 
-    def __init__(
-        self,
-        root,
-        name=None,
-        spec=None,
-        indexer=None,
-        index=True,
-    ):
+    def __init__(self, root, name=None):
         self.root = root
         self.name = name if name else os.path.basename(root)
-        self.spec = spec if spec else Specification()
-        self.indexer = indexer if indexer else Indexer()
+
+    @reconstructor
+    def _init_on_load(self):
+        self.kind = self._decipher_kind()
+        self.prefix = self._decipher_prefix()
+
+    def _decipher_kind(self):
+        for k in ["sourcedata", "derivatives"]:
+            if k in self.root:
+                return k
+        return "primary"
+
+    def _decipher_prefix(self):
+        prefix = self.root[p:] if (p := self.root.rfind(self.kind)) != -1 else ""
+        return prefix
+
+    @staticmethod
+    def create(root, name=None, spec=None, indexer=None, index=True):
+        """Factory method for Layout."""
+
+        indexer = indexer if indexer else Indexer()
 
         logging.info("Loading existing info if any on layout")
-        existing_info = self.indexer._merge(self)
-        self.files = existing_info.files
-        self._sa_instance_state = existing_info._sa_instance_state
+        lay = indexer._merge(Layout(root, name))
+        lay._init_on_load()
+
+        # Set support classes
+        lay.spec = spec if spec else Specification()
+        lay.indexer = indexer if indexer else Indexer()
+        indexer.add(lay)
 
         if index:
-            self.indexer(self)
+            indexer(lay)
+
+        return lay
 
     def get_files(self, **filters):
         """Return files that match criteria."""

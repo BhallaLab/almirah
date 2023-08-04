@@ -193,6 +193,9 @@ class Indexer:
             file.tags[tag.name] = tag
         file.tags["is_dir"] = Tag(file.path, "is_dir", os.path.isdir(file.path))
 
+    def add(self, obj):
+        self.conn.session.add(obj)
+
     def get(self, query):
         """Run a query on db associated and return all results."""
         res = self.conn.session.scalars(query).all()

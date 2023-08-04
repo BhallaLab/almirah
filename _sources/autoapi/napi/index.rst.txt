@@ -1,0 +1,24 @@
+:py:mod:`napi`
+==============
+
+.. py:module:: napi
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   data/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   utils/index.rst
+
+

@@ -1,0 +1,53 @@
+:py:mod:`napi.data.db`
+======================
+
+.. py:module:: napi.data.db
+
+.. autoapi-nested-parse::
+
+   Database functionality for indexing and data access.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.db.Base
+   napi.data.db.SessionManager
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.db.get_db
+
+
+
+.. py:function:: get_db(db_path)
+
+
+.. py:class:: Base
+
+
+   Bases: :py:obj:`sqlalchemy.orm.DeclarativeBase`
+
+   Represents base object of ORM.
+
+
+.. py:class:: SessionManager(db_path=None)
+
+
+   Represents a session with the db.
+
+   .. py:property:: session
+
+
+

@@ -109,6 +109,7 @@ class Layout(Base):
 
         # Unpack filters dict to tuple
         tag_reqs = [(name, value) for name, value in filters.items()]
+        logging.debug(f"Tags required: {tag_reqs}")
 
         # Construct table of passing file paths
         tag_filter = (
@@ -127,6 +128,8 @@ class Layout(Base):
         )
 
         files = self.indexer.get(file_filter)
+        logging.debug(f"Query used for filtering: \n{file_filter}")
+
         return files
 
     def __repr__(self):

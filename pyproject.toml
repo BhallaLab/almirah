@@ -12,14 +12,19 @@ sqlalchemy = "^2.0.19"
 
 [tool.poetry.group.data.dependencies]
 mne = "^1.4.2"
+
+[tool.poetry.group.eeg.dependencies]
+pybv = "^0.7.5"
 mne-bids = "^0.12"
+edflib-python = "^1.0.7"
+
+[tool.poetry.group.nirs.dependencies]
 mne-nirs = "^0.5.0"
 
 [tool.poetry.group.dev.dependencies]
 sphinx-rtd-theme = "^1.2.2"
 sphinx-autoapi = "^2.1.1"
 pytest = "^7.4.0"
-
 
 [tool.poetry.group.plotting.dependencies]
 seaborn = "^0.12.2"

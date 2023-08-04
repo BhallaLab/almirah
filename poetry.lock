@@ -250,6 +250,20 @@ files = [
 ]
 
 [[package]]
+name = "edflib-python"
+version = "1.0.7"
+description = "Library to read/write EDF+/BDF+ files written in pure Python by the same author as the original EDFlib."
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "EDFlib-Python-1.0.7.tar.gz", hash = "sha256:81f671a69876d0ea8b62da3139615c39512d108e5097981c5e1b6e30b691acb8"},
+    {file = "EDFlib_Python-1.0.7-py3-none-any.whl", hash = "sha256:9d81fbca705934b43fd568e20a01250aad475d591787fc0cc9f4bd68166f4cf9"},
+]
+
+[package.dependencies]
+numpy = ">=1.17"
+
+[[package]]
 name = "exceptiongroup"
 version = "1.1.2"
 description = "Backport of PEP 654 (exception groups)"
@@ -1248,6 +1262,23 @@ sftp = ["paramiko (>=2.7.0)"]
 xxhash = ["xxhash (>=1.4.3)"]
 
 [[package]]
+name = "pybv"
+version = "0.7.5"
+description = "pybv -- A lightweight I/O utility for the BrainVision data format."
+optional = false
+python-versions = "~=3.7"
+files = [
+    {file = "pybv-0.7.5-py2.py3-none-any.whl", hash = "sha256:02b7a7b478d8b2cf722f523a557f7e8aa9a2280193e917a0aa5a545807c1aa7f"},
+    {file = "pybv-0.7.5.tar.gz", hash = "sha256:57bb09305c1255b11dd5c6a75d0e6b3c81675cf0469d6a757b148ac332ac05d5"},
+]
+
+[package.dependencies]
+numpy = ">=1.18.1"
+
+[package.extras]
+export = ["mne (>=0.20)"]
+
+[[package]]
 name = "pygments"
 version = "2.15.1"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -1972,4 +2003,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "a1d7041d4405ea019b069494f49b59c0ad1e069dab81843fd717fe79c52c33a8"
+content-hash = "7134f1ad24c12628876ffb93dc79753240a95f2506ca0cf85ec9e6dcbda7f2e1"

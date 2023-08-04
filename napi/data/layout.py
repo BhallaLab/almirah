@@ -63,9 +63,8 @@ class File(Base):
 
     def build_modified_path(self, changes):
         "Returns the path for file given changes to tags."
-        t = {}
-        for tag_name, tag in self.tags:
-            t[tag_name] = tag.value
+        valid_tags = self.layout.spec.get_valid_tags()
+        t = {n: t.value for n, t in self.tags.items() if n in valid_tags}
         t.update(changes)
         return self.layout.spec.build_path(t)
 

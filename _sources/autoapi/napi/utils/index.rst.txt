@@ -30,7 +30,7 @@ Functions
    Copies from source to destination.
 
 
-.. py:function:: get_matches(root, pattern)
+.. py:function:: get_matches(root, pattern, skip=[])
 
    Return list of contents in a directory that match pattern.
 

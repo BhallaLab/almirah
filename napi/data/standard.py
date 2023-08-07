@@ -184,7 +184,10 @@ class Specification:
         logging.info(f"Matching contents with pattern {rules.get('pattern')}")
 
         # Organize matched files as per rules
-        for file in utils.get_matches(source, rules.get("pattern")) or []:
+        matches = utils.get_matches(
+            source, rules.get("pattern"), rules.get("skip", None)
+        )
+        for file in matches or []:
             logging.info(f"Found match with file {file}")
 
             # Extract tags

@@ -27,14 +27,15 @@ def copy(src, dst, overwrite=False):
     copier(src, dst)
 
 
-def get_matches(root, pattern):
+def get_matches(root, pattern, skip=[]):
     """Return list of contents in a directory that match pattern."""
-    matches = list()
+    m = []
     for dir, subdirs, files in os.walk(root):
         contents = subdirs + files
         for content in contents:
             if re.match(pattern, content):
-                matches.append(os.path.join(dir, content))
+                m.append(os.path.join(dir, content))
+    matches = [c for c in m if not any([re.search(s, c) for s in skip])]
     return matches
 
 

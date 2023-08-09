@@ -181,7 +181,7 @@ class Specification:
                 f"File {addition['path']} will be added to all contents as a {addition['position']}"
             )
 
-        logging.info(f"Matching contents with pattern {rules.get('pattern')}")
+        logging.debug(f"Matching contents with pattern {rules.get('pattern')}")
 
         # Organize matched files as per rules
         matches = utils.get_matches(

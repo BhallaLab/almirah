@@ -127,31 +127,15 @@ class Layout(Base):
 
     def get_files(self, **filters):
         """Return files that match criteria."""
-
-        # Unpack filters dict to tuple
-        tag_reqs = [(name, value) for name, value in filters.items()]
-        logging.debug(f"Tags required: {tag_reqs}")
-
-        # Construct table of passing file paths
-        tag_filter = (
-            select(Tag.path)
-            .where(tuple_(Tag.name, Tag.value).in_(tag_reqs))
-            .group_by(Tag.path)
-            .having(func.count(Tag.name) == len(tag_reqs))
-            .subquery()
-        )
-
-        # Build File objects from file paths
-        file_filter = (
-            select(File)
-            .where(File.path.in_(select(tag_filter)))
-            .where(File.root == self.root)
-        )
-
-        files = self.indexer.get(file_filter)
-        logging.debug(f"Query used for filtering: \n{file_filter}")
-
+        files_filter = self.indexer._files_filter(self.root, **filters)
+        files = self.indexer.get(files_filter)
         return files
+
+    def get_tag_values(self, name, **filters):
+        """Return all values available for a tag name."""
+        tag_values = self.indexer._tag_values(self.root, name, **filters)
+        values = self.indexer.get(tag_values)
+        return values
 
     def __repr__(self):
         return f"<Layout root='{self.root}'>"
@@ -213,10 +197,54 @@ class Indexer:
             file.tags[tag.name] = tag
         file.tags["is_dir"] = Tag(file.path, "is_dir", os.path.isdir(file.path))
 
+    def _tags_filter(self, **filters):
+        # Unpack filters dict to tuple
+        tag_reqs = [(name, value) for name, value in filters.items()]
+        logging.debug(f"Tags required: {tag_reqs}")
+
+        # Construct table of passing file paths
+        tags_filter = select(Tag.path)
+
+        # If filters present
+        if filters:
+            tags_filter = (
+                tags_filter.where(tuple_(Tag.name, Tag.value).in_(tag_reqs))
+                .group_by(Tag.path)
+                .having(func.count(Tag.name) == len(tag_reqs))
+            )
+
+        return tags_filter
+
+    def _files_filter(self, root, **filters):
+        tags_filter = self._tags_filter(**filters).subquery()
+
+        # Build File objects from file paths
+        files_filter = (
+            select(File)
+            .where(File.path.in_(select(tags_filter)))
+            .where(File.root == root)
+        )
+
+        return files_filter
+
+    def _tag_values(self, root, name, **filters):
+        files_filter = self._files_filter(root, **filters).subquery()
+
+        # Build Tag values from file paths
+        tag_values = (
+            select(Tag.value)
+            .where(Tag.path.in_(select(files_filter.c.path)))
+            .where(Tag.name == name)
+            .distinct()
+        )
+
+        return tag_values
+
     def add(self, obj):
         self.conn.session.add(obj)
 
     def get(self, query):
         """Run a query on db associated and return all results."""
         res = self.conn.session.scalars(query).all()
+        logging.debug(f"Query used for get: \n{query}")
         return res

@@ -35,7 +35,7 @@ def get_matches(root, pattern, skip=[]):
         for content in contents:
             if re.match(pattern, content):
                 m.append(os.path.join(dir, content))
-    matches = [c for c in m if not any([re.search(s, c) for s in skip])]
+    matches = [c for c in m if not any([re.search(s, c) for s in skip or []])]
     return matches
 
 

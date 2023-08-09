@@ -152,6 +152,11 @@ Classes
       Return files that match criteria.
 
 
+   .. py:method:: get_tag_values(name, **filters)
+
+      Return all values available for a tag name.
+
+
    .. py:method:: __repr__()
 
 
@@ -180,6 +185,15 @@ Classes
    .. py:method:: _index_tags(file)
 
       Add tags of file to index.
+
+
+   .. py:method:: _tags_filter(**filters)
+
+
+   .. py:method:: _files_filter(root, **filters)
+
+
+   .. py:method:: _tag_values(root, name, **filters)
 
 
    .. py:method:: add(obj)

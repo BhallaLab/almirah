@@ -112,7 +112,14 @@ class Layout(Base):
         return self.root[p:] if (p := self.root.rfind(self.kind)) != -1 else ""
 
     @staticmethod
-    def create(root, name=None, spec=None, indexer=None, index=True):
+    def create(
+        root,
+        name=None,
+        spec=None,
+        indexer=None,
+        index=True,
+        valid_only=True,
+    ):
         """Factory method for Layout."""
 
         from .indexer import Indexer
@@ -129,7 +136,7 @@ class Layout(Base):
         indexer.add(lay)
 
         if index:
-            indexer(lay)
+            indexer(lay, valid_only)
 
         return lay
 

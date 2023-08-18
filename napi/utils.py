@@ -48,5 +48,5 @@ def read_yaml(path):
 
 def run_shell(cmd, suppress_output=True):
     """Execute shell command in background."""
-    sp = subprocess.run(cmd)
+    sp = subprocess.run(cmd, shell=True)
     return sp

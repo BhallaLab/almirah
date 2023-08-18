@@ -18,7 +18,7 @@ def dcm2nii(files, out, dst, **kwargs):
 
     # Set and build command
     flags = kwargs.get("flags", None)
-    cmd = [
+    tmp = [
         "dcm2bids",
         "-d",
         "{path}",
@@ -33,24 +33,25 @@ def dcm2nii(files, out, dst, **kwargs):
         "-l",
         "{verbose}",
     ]
-    if not flags.issubset(_DCM2NII_VALID_FLAGS):
+    if flags and not flags.issubset(_DCM2NII_VALID_FLAGS):
         raise ValueError(
             "Unsupported flag found \n"
             f"Valid flags: {','.join(_DCM2NII_VALID_FLAGS)}",
         )
-    cmd.extend(_DCM2NII_VALID_FLAGS)
-    cmd = shlex.join(cmd)
-    cmd.format(dst=dst)
+    if flags:
+        tmp.extend(flags)
+    tmp = shlex.join(tmp)
+    tmp = tmp.format(dst=dst)
 
     # Set logging level
     verbose = kwargs.get("logging", "INFO")
-    cmd.format(verbose=verbose)
+    tmp = tmp.format(verbose=verbose)
 
     # Set configuration file
     config = kwargs.get("config", None)
     if not config:
         raise KeyError("Expected config path, but not found")
-    cmd.format(config=config)
+    tmp = tmp.format(config=config)
 
     # Set argument mappping
     tag_map = kwargs.get("tag_map", None)
@@ -58,16 +59,17 @@ def dcm2nii(files, out, dst, **kwargs):
         logging.info("Using default tag map")
         tag_map = {"subject": "subject", "session": "session"}
 
-    logging.info(f"Using command template: {cmd}")
+    logging.info(f"Using command template: {tmp}")
 
     for file in files:
         # Fill command with arguments
         args = {}
         for param, tag in tag_map.items():
             tag = file.tags.get(tag, None)
-            args[param] = tag.value if tag else None
+            if tag:
+                args[param] = tag.value
         args["path"] = file.path
-        cmd.format(**args)
+        cmd = tmp.format(**args)
         run_shell(cmd)
         logging.info(f"Converted {file.path} and stored to {dst}")
     logging.info("Conversion to nii complete")
@@ -77,17 +79,18 @@ def edf2asc(files, out, dst, **kwargs):
     """Convert Eye track data format and write to disk."""
 
     # Set and build command
-    cmd = ["edf2asc", "{path}", "{new_path}"]
+    tmp = ["edf2asc", "{path}", "{new_path}"]
     flags = kwargs.get("flags", None)
-    if not flags.issubset(_EDF2ASC_VALID_FLAGS):
+    if flags and not flags.issubset(_EDF2ASC_VALID_FLAGS):
         raise ValueError(
             "Unsupported flag found. \n"
             f"Valid flags: {', '.join(_EDF2ASC_VALID_FLAGS)}"
         )
-    cmd.extend(_EDF2ASC_VALID_FLAGS)
-    cmd = shlex.join(cmd)
+    if flags:
+        tmp.extend(flags)
+    tmp = shlex.join(tmp)
 
-    logging.info(f"Using command template: {cmd}")
+    logging.info(f"Using command template: {tmp}")
 
     for file in files:
         # Fill command with arguments
@@ -98,7 +101,8 @@ def edf2asc(files, out, dst, **kwargs):
         )
         args["path"] = file.path
         args["new_path"] = new_path
-        cmd.format(**args)
+        os.makedirs(os.path.dirname(new_path), exist_ok=True)
+        cmd = tmp.format(**args)
         run_shell(cmd)
         logging.info(f"Converted {file.path} and stored to {new_path}")
     logging.info("Conversion to asc complete")
@@ -141,6 +145,8 @@ def eeg_conv(files, out, dst, **kwargs):
             "acquisition": "acquisition",
             "task": "task",
             "datatype": "datatype",
+            "run": "run",
+            "suffix": "suffix",
         }
 
     raw_collection = []

@@ -38,6 +38,12 @@ class Tag(Base):
         self.name = name
         self.value = value
 
+    @staticmethod
+    def boolean_tag(file, name, func):
+        """Add a boolean tag to file based on func return value."""
+        tag = Tag(file.path, name, func(file.path))
+        file.tags[name] = tag
+
     def __repr__(self):
         return f"<Tag {self.name}:'{self.value}'>"
 

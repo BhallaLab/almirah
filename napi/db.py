@@ -1,22 +1,17 @@
-"""Database functionality for indexing and data access."""
+"""Database functionality for data access."""
 
 import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import DeclarativeBase
+
+from .data.layout import Base
 
 
 def get_db(db_path):
     if not db_path:
         db_path = os.path.join(os.path.expanduser("~"), "db_index.sqlite")
     return f"sqlite:///{db_path}"
-
-
-class Base(DeclarativeBase):
-    """Represents base object of ORM."""
-
-    pass
 
 
 class SessionManager:

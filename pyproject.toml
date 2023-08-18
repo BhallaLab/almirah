@@ -1,17 +1,23 @@
 [tool.poetry]
 name = "napi"
 version = "0.1.0"
-description = "API to access and analyze data in BIDS format"
+description = "API to access and analyze data stored as structured files."
 authors = ["girish <girishmm@ncbs.res.in>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pyyaml = "^6.0.1"
 sqlalchemy = "^2.0.19"
 
 [tool.poetry.group.data.dependencies]
 mne = "^1.4.2"
+nibabel = "^5.1.0"
+
+[tool.poetry.group.mri.dependencies]
+dcm2bids = "^3.0.1"
+pydeface = "^2.0.2"
 
 [tool.poetry.group.eeg.dependencies]
 pybv = "^0.7.5"
@@ -22,9 +28,9 @@ edflib-python = "^1.0.7"
 mne-nirs = "^0.5.0"
 
 [tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
 sphinx-rtd-theme = "^1.2.2"
 sphinx-autoapi = "^2.1.1"
-pytest = "^7.4.0"
 
 [tool.poetry.group.plotting.dependencies]
 seaborn = "^0.12.2"

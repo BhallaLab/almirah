@@ -116,6 +116,7 @@ class Layout(Base):
         """Factory method for Layout."""
 
         from .indexer import Indexer
+
         indexer = indexer if indexer else Indexer()
 
         logging.info("Loading existing info if any on layout")
@@ -123,8 +124,8 @@ class Layout(Base):
         lay._init_on_load()
 
         # Set support classes
+        lay.indexer = indexer
         lay.spec = spec if spec else Specification()
-        lay.indexer = indexer if indexer else Indexer()
         indexer.add(lay)
 
         if index:

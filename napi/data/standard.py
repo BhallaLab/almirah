@@ -186,7 +186,7 @@ class Specification:
         logging.debug(f"Matching contents with pattern {rules.get('pattern')}")
 
         # Organize matched files as per rules
-        matches = utils.get_matches(
+        matches = utils.get_dir_contents(
             source, rules.get("pattern"), rules.get("skip", None)
         )
         for file in matches or []:

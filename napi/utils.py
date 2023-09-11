@@ -27,7 +27,7 @@ def copy(src, dst, overwrite=False):
     copier(src, dst)
 
 
-def get_matches(root, pattern, skip=[]):
+def get_dir_contents(root, pattern, skip=None):
     """Return list of contents in a directory that match pattern."""
     m = []
     for dir, subdirs, files in os.walk(root):

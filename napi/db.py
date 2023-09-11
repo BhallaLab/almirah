@@ -1,6 +1,7 @@
 """Database functionality for data access."""
 
 import os
+import pandas as pd
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -32,6 +33,25 @@ class DBManager:
         if self._session is None:
             self._session = self._sessionmaker()
         return self._session
+
+    @property
+    def connection(self):
+        return self.engine.connect()
+
+
+    def get_table(self, table, cols=None):
+        """
+        Retrieve table records in db as a DataFrame.
+
+        Parameters
+        ----------
+        table : str
+            Table in database from which to retrieve records.
+
+        cols : list of str
+            Column names to select from table.
+        """
+        return pd.read_sql_table(table, self.connection, columns=cols)
 
 def get_db(db_path):
     """Returns SQLalchemy engine for provided URL."""

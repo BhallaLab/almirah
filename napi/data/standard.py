@@ -10,7 +10,9 @@ from string import Formatter
 from .. import utils
 
 
-_TAG_PATTERN = re.compile(r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})")
+_TAG_PATTERN = re.compile(
+    r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})",
+)
 
 
 class Specification:

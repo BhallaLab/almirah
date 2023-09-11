@@ -58,6 +58,29 @@ def run_shell(cmd, suppress_output=True):
     sp = subprocess.run(cmd, shell=True)
     return sp
 
+
+def log_df(df, msg, level=logging.ERROR, **kwargs):
+    """
+    Log df records with a message.
+
+    Parameters
+    ----------
+    df: pandas.DataFrame
+        DataFrame to be logged.
+
+    msg: str
+        Log message compatible with string formatting.
+
+    level: int, optional
+        Logging level to use. Accepts logging.LEVEL values.
+
+    kwargs: key, value mappings
+        Other keyword arguments are passed to `str.format()`.
+    """
+    if not df.empty:
+        logging.log(level, msg.format(df=df.to_string(), **kwargs))
+
+
 def get_dtype(dtype, default_length=250):
     """Returns supported dtype and length from provided dtype string."""
 

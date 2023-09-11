@@ -57,3 +57,22 @@ def run_shell(cmd, suppress_output=True):
     """Execute shell command in background."""
     sp = subprocess.run(cmd, shell=True)
     return sp
+
+def get_dtype(dtype, default_length=250):
+    """Returns supported dtype and length from provided dtype string."""
+
+    SUPPORTED_DTYPES = {"boolean", "datetime", "float", "integer", "str"}
+
+    dtype, length = re.match(r"(\w+).?(\d+)?", dtype).groups()
+
+    if dtype not in SUPPORTED_DTYPES:
+        raise TypeError(f"Unsupported dtype {dtype} encountered")
+
+    if length and dtype != "str":
+        raise ValueError(f"Expected zero, but received arg for dtype {dtype}")
+
+    if not length and dtype == "str":
+        length = default_length
+
+    length = int(length) if length else None
+    return dtype, length

@@ -10,6 +10,11 @@ from sqlalchemy import MetaData
 from sqlalchemy import ForeignKey
 from sqlalchemy import ForeignKeyConstraint
 
+from sqlalchemy.types import Boolean
+from sqlalchemy.types import Float
+from sqlalchemy.types import Integer
+from sqlalchemy.types import String
+from sqlalchemy.types import DateTime
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -104,6 +109,200 @@ class DBManager:
         """
         return pd.read_sql_table(table, self.connection, columns=cols)
 
+    def to_table(
+        self,
+        df,
+        table,
+        drop_na=None,
+        check_dups=True,
+        resolve_dups=False,
+        check_fks=True,
+        resolve_fks=False,
+        if_exists="append",
+        index=False,
+        insert_method=None,
+        **kwargs,
+    ):
+        """
+        Write records in DataFrame to a table.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            DataFrame containing records.
+
+        table : str
+            Table in database into which the records will be inserted.
+
+        drop_na : list of df column names, default None
+            If provided, records with na in all given columns is dropped.
+
+        check_dups : bool, default True
+            Check for duplicates in records.
+
+        resolve_dups : [False, 'first', 'last'], default False
+            Resolution method for duplicates if found.
+
+        check_fks : bool, default False
+            Check if foreign keys present in parent.
+
+        resolve_fks : bool, default False
+            Attempt to resolve missing foreign keys by inserting to parent.
+
+        if_exists : ['append', 'replace', 'fail'], default 'append'
+            Insert behavior in case table exists.
+
+            * 'append' : Insert new values to the existing table.
+            * 'replace' : Drop the table before inserting new values.
+            * 'fail' : Raise a ValueError if table exists.
+
+        index : bool, default False
+            Write DataFrame index as a column. Uses index_label as the
+            column name in the table.
+
+        insert_method : {None, 'multi', callable}, optional
+            Controls the SQL insertion clause used.
+
+            * None : Uses standard SQL INSERT clause (one per row).
+            * ‘multi’: Pass multiple values in a single INSERT clause.
+            * callable with signature ``(pd_table, conn, keys, data_iter)``.
+
+            Details and a sample callable implementation can be found
+            in the pandas section `insert method`_.
+
+        kwargs : key, value mappings
+            Other keyword arguments are passed down to
+            `pandas.DataFrame.to_sql()`_
+
+        Returns
+        -------
+        rows : None or int
+            Number of rows affected by to_sql. None is returned if the
+            callable passed into `insert_method` does not return an
+            integer number of rows.
+
+        Raises
+        ------
+        ValueError
+            * When values provided are not sufficient for insert operation.
+            * When the table already exists and `if_exists` is 'fail'.
+
+        OperationalError
+            * Most likely there are duplicates records in the
+              DataFrame. Other reasons are related to the database
+              operation and are detailed in sqlalchemy section
+              `OperationalError`_.
+
+        .. _insert method: https://pandas.pydata.org/docs/user_guide/io.html#io-sql-method
+        .. _pandas.DataFrame.to_sql(): https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html
+        .. _OperationalError: https://docs.sqlalchemy.org/en/20/errors.html#operationalerror
+
+        """
+
+        if drop_na:
+            df = df.dropna(subset=drop_na)
+
+        if check_dups:
+            df = df[self.resolve_dups(df, table, resolve_dups)]
+
+        if check_fks:
+            df = df[self.resolve_fks(df, table, resolve_fks)]
+
+        df.to_sql(
+            table,
+            self.connection,
+            if_exists=if_exists,
+            index=index,
+            method=insert_method,
+            **kwargs,
+        )
+
+    def resolve_dups(self, df, table, resolve=False):
+        """
+        Resolve duplicate primary keys in DataFrame.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            DataFrame to check for duplicate records.
+        table : str
+            Table the records will be inserted into.
+        resolve : [False, 'first', 'last'], default False
+            Determines resolution method.
+
+            * False : Mark all duplicates as False.
+            * 'first' : Mark duplicates as False except for first occurence.
+            * 'last' : Mark duplicates as False except for last occurence.
+
+        Returns
+        -------
+        mask : pandas.Series
+            Series of booleans showing whether each record in the
+            Dataframe is not a duplicate.
+
+        Raises
+        ------
+        ValueError
+            When primary key duplicates are found and `resolve` is True.
+
+        """
+        dups = df.duplicated(self.get_primary(table), resolve)
+        utils.log_df(df[dups], "Found duplicate records: \n {df}")
+        return ~dups
+
+    def resolve_fks(self, df, table, resolve=False):
+        """
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            Non-duplicated records to be checked.
+        table : str
+            Table the records will be inserted into.
+        resolve : bool, optional
+            If True, attempt to resolve missing parent records by inserting.
+
+        Returns
+        -------
+        mask : pandas.Series
+             Series of booleans showing whether each record in the
+             DataFrame has all required parent records.
+
+        Warnings
+        --------
+        Resolution fails with a ValueError when a foreign key
+        constraint on a table does not reference all the columns that
+        provide the required values to insert records into the parent
+        table.
+
+        """
+        mask = pd.Series(True, index=df.index)
+
+        for fkc in self.meta.tables[table].foreign_key_constraints:
+            p_cols = [fk.column.name for fk in fkc.elements]
+            p_df = self.get_table(fkc.referred_table.name, p_cols)
+            p_mask = common_rows(df, p_df, fkc.column_keys, p_cols)
+
+            utils.log_df(df[~p_mask], "Missing parent records: \n {df}")
+
+            if not p_mask.all() and resolve:
+                logging.info("Resolving missing records by insert to parent")
+                self.to_table(
+                    df[~p_mask][fkc.column_keys].set_axis(p_cols, axis=1),
+                    fkc.referred_table.name,
+                    check_dups=True,
+                    resolve_dups="first",
+                    check_fks=True,
+                    resolve_fks=True,
+                )
+                p_mask[~p_mask] = True
+
+            mask &= p_mask
+        return mask
+
+    def __repr__(self):
+        return f"<DBManager '{self.engine.url}'>"
+
+
 def get_db(db_path):
     """Returns SQLalchemy engine for provided URL."""
     if not db_path:
@@ -111,4 +310,21 @@ def get_db(db_path):
             os.path.join(os.path.expanduser("~"), "index.sqlite")
         )
     return create_engine(db_path)
+
+
+def common_rows(child, parent, child_on=None, parent_on=None):
+    """Check whether each record in a DataFrame is contained in another."""
+    mask = (
+        pd.merge(
+            child.reset_index(),
+            parent,
+            how="left",
+            left_on=child_on,
+            right_on=parent_on,
+            indicator="exists",
+        )
+        .replace({"both": True, "left_only": False, "right_only": False})
+        .set_index("index")
+    )
+    return mask["exists"].astype("bool")
 

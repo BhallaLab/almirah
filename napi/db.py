@@ -60,6 +60,9 @@ class DBManager:
         )
         table.create(bind=self.engine, checkfirst=True)
 
+    def get_primary(self, table):
+        """Returns priamry keys for table."""
+        return [c.name for c in self.meta.tables[table].primary_key]
 
     def get_type(self, dtype, default_length=250):
         """

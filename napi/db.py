@@ -312,6 +312,17 @@ def get_db(db_path):
     return create_engine(db_path)
 
 
+def get_transform(transform):
+    """Returns pandas method equivalent of transform string."""
+
+    TRANSFORM_EQUIVALENT = {"lowercase": str.lower, "uppercase": str.upper}
+
+    if transform not in TRANSFORM_EQUIVALENT.keys():
+        raise ValueError(f"Unsupported transform value {transform}")
+
+    return TRANSFORM_EQUIVALENT[transform]
+
+
 def common_rows(child, parent, child_on=None, parent_on=None):
     """Check whether each record in a DataFrame is contained in another."""
     mask = (
@@ -328,3 +339,160 @@ def common_rows(child, parent, child_on=None, parent_on=None):
     )
     return mask["exists"].astype("bool")
 
+
+def migrate(
+    src,
+    target,
+    mapping,
+    dry_run=False,
+    na_values=None,
+    dtype_kws=None,
+    **kwargs,
+):
+    """
+    Transforms and migrates records from one db to another.
+
+    Parameters
+    ----------
+    src: str
+        SQLAlchemy database URL of database from which data is
+        transferred.
+
+    target: str
+        SQLAlchemy database URL of database to which data is
+        transferred.
+
+    mapping: dict
+        Dictionary providing information on column mappings, type,
+        transformations, and validation checks.
+
+    dry_run: bool
+        If dry run, no records are inserted into target and tables are
+        not created, but errors and invalid records are logged.
+
+    na_values: list, optional
+        List of values to be considered as record not available. By
+        default, the values '', 'None', 'NONE', 'NA', and 'Not Applicable'
+        are considered.
+
+    dtype_kws : dict, optional
+        Key, value pairs that will be passed to
+        :meth:`napi.db.set_dtype()`.
+
+    kwargs : key, value mappings
+        Other keyword arguments are passed down to
+        :meth:`napi.db.to_table`.
+    """
+
+    s = DBManager(src)
+    t = DBManager(target)
+
+    if not na_values:
+        na_values = ["", "None", "NONE", "NA", "Not applicable"]
+
+    for m in mapping:
+        logging.info(f"Transferring table {m['maps']} -> {m['table']}")
+
+        # Extract source records
+        src_df = s.get_table(m["maps"])
+        src_df = src_df.replace(na_values, pd.NA)
+        tar_df = pd.DataFrame(index=src_df.index)
+
+        # Transform and validate
+        tr_error = pd.Series(False, index=src_df.index)
+        mask = pd.Series(True, index=src_df.index)
+
+        for col in m["cols"]:
+            name, maps = col["name"], col["maps"]
+            tar_df[name] = transform(src_df[maps], dtype_kws, **col)
+            tr_error |= src_df[maps].notna() & tar_df[name].isna()
+            mask &= validate(tar_df[name], **col)
+
+        utils.log_df(src_df[tr_error], "Unable to transform records: \n {df}")
+        utils.log_df(src_df[~mask], "Found invalid records: \n {df}")
+
+        if dry_run:
+            continue
+
+        # Load records into target
+        t.create_table(m)
+        t.to_table(tar_df[mask & ~tr_error], m["table"], **kwargs)
+
+
+def set_dtype(series, dtype, **kwargs):
+    """
+    Set dtype of series.
+
+    Parameters
+    ----------
+    series: pandas.Series
+        Series for which the dtype has to set.
+
+    dtype: str
+        Supported dtype to which the series will be converted.
+
+    kwargs: key, value mappings
+        Other keyword arguments are passed down to `pandas.to_datetime()`_
+        if the dtype is 'datetime'.
+    """
+
+    dtype, _ = utils.get_dtype(dtype)
+
+    if dtype == "datetime":
+        series = pd.to_datetime(series, errors="coerce", **kwargs)
+
+    elif dtype in {"float", "integer"}:
+        series = pd.to_numeric(series, errors="coerce", downcast=dtype)
+
+    elif dtype == str:
+        series = series.astype(dtype)
+
+    elif dtype == "boolean":
+        series = series.replace(
+            {
+                "1": True,
+                "0": False,
+                "True": True,
+                "False": False,
+                "Yes": True,
+                "No": False,
+            }
+        )
+        series = series.astype(dtype)
+
+    return series.convert_dtypes()
+
+
+def transform(series, dtype_kws=None, **kwargs):
+    """Transform series and return with appropriate datatype."""
+    if pat := kwargs.get("extract"):
+        series = series.astype(str).str.extract(pat)
+
+    if tr := kwargs.get("transform"):
+        series = series.apply(get_transform(tr))
+
+    if not dtype_kws:
+        dtype_kws = dict()
+
+    series = set_dtype(series, kwargs["dtype"], **dtype_kws)
+    return series
+
+
+def validate(series, **kwargs):
+    """Validate series and return mask."""
+
+    mask = pd.Series(True, index=series.index)
+
+    if kwargs.get("primary"):
+        mask &= series.notna()
+
+    if pat := kwargs.get("like"):
+        mask &= series.astype(str).str.fullmatch(pat) | series.isna()
+
+    if bounds := kwargs.get("between"):
+        mask &= series.between(*bounds) | series.isna()
+
+    if members := kwargs.get("in"):
+        mask &= series.isin(members) | series.isna()
+
+    return mask

@@ -11,7 +11,7 @@ class Report:
     @staticmethod
     def generate(layout, level="summary", tags=["subject"]):
         """Generate report for a layout."""
-        sess = layout.indexer.conn.session
+        sess = layout.indexer.db.session
         tag_counts = []
         for tag in tags:
             count = sess.scalar(

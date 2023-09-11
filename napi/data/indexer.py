@@ -8,16 +8,16 @@ from sqlalchemy import func
 from sqlalchemy import tuple_
 
 from .layout import File, Tag
-from ..db import SessionManager
+from ..db import DBManager
 
 
 class Indexer:
     """Index files in a Layout."""
 
-    def __init__(self, session_manager=None):
-        self.conn = session_manager
-        if not session_manager:
-            self.conn = SessionManager()
+    def __init__(self, db_manager=None):
+        self.db = db_manager
+        if not db_manager:
+            self.db = DBManager()
 
     def __call__(self, layout, valid_only=True):
         logging.info(f"Indexing layout with root {layout.root}")
@@ -26,7 +26,7 @@ class Indexer:
         self._index_dir(self.layout.root)
 
     def _merge(self, obj):
-        return self.conn.session.merge(obj)
+        return self.db.session.merge(obj)
 
     def _index_dir(self, dir):
         """Iteratively index all directories in layout."""
@@ -41,7 +41,7 @@ class Indexer:
             if not (self._index_file(path) and self.valid_only) and os.path.isdir(path):
                 self._index_dir(path)
 
-        self.conn.session.commit()
+        self.db.session.commit()
 
     def _index_file(self, path):
         """Add valid files to index and return true if successful."""
@@ -111,10 +111,10 @@ class Indexer:
         return tag_values
 
     def add(self, obj):
-        self.conn.session.add(obj)
+        self.db.session.add(obj)
 
     def get(self, query):
         """Run a query on db associated and return all results."""
-        res = self.conn.session.scalars(query).all()
+        res = self.db.session.scalars(query).all()
         logging.debug(f"Query used for get: \n{query}")
         return res

@@ -7,25 +7,37 @@ from sqlalchemy.orm import sessionmaker
 
 from .data.layout import Base
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-def get_db(db_path):
-    if not db_path:
-        db_path = os.path.join(os.path.expanduser("~"), "db_index.sqlite")
-    return f"sqlite:///{db_path}"
+from . import utils
 
 
-class SessionManager:
-    """Represents a session with the db."""
+class DBManager:
+    """Interface to connect with db and perform operations."""
 
     def __init__(self, db_path=None):
-        db = get_db(db_path)
-        engine = create_engine(db)
-        Base.metadata.create_all(engine)
-        self._sessionmaker = sessionmaker(engine)
+        self.engine = get_db(db_path)
+        self.meta = self._init_metadata()
+        self._sessionmaker = sessionmaker(self.engine)
         self._session = None
+
+    def _init_metadata(self):
+        meta = MetaData()
+        meta.reflect(bind=self.engine)
+        return meta
 
     @property
     def session(self):
         if self._session is None:
             self._session = self._sessionmaker()
         return self._session
+
+def get_db(db_path):
+    """Returns SQLalchemy engine for provided URL."""
+    if not db_path:
+        db_path = "sqlite:///{}".format(
+            os.path.join(os.path.expanduser("~"), "index.sqlite")
+        )
+    return create_engine(db_path)
+

@@ -46,6 +46,7 @@ path_patterns:
   - "sub-{subject}[/ses-{session}]/{datatype<nirs>|nirs}/sub-{subject}[_ses-{session}][_acq-{acquisition}]_{suffix<coordsystem>}{extension<.json>}"
   - "sub-{subject}[/ses-{session}]/{datatype<eyetrack>|eyetrack}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<eyetrack>}{extension<.asc>}"
   - "sub-{subject}[/ses-{session}]/{datatype<eyetrack>|eyetrack}/sub-{subject}[_ses-{session}]_task-{task}[_acq-{acquisition}][_run-{run}]_{suffix<events>}{extension<.tsv|.json>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<genome>|genome}/sub-{subject}[_ses-{session}]_sample-{sample}[_acq-{acquisition}]_{suffix<exome>|exome}{extension<.bam>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<genome>|genome}/sub-{subject}[_ses-{session}]_sample-{sample}[_acq-{acquisition}]_{suffix<annotated>|annotated}{extension<.vcf|.txt>}"
   - "{suffix}{extension}"
   - "derivatives/{pipeline}"
-...

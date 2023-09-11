@@ -46,6 +46,13 @@ def read_yaml(path):
         return content
 
 
+def read_yamls(path):
+    """Returns list of dict equivalents of yamls in a file."""
+    with open(path) as f:
+        content = yaml.load_all(f, yaml.SafeLoader)
+        return list(content)
+
+
 def run_shell(cmd, suppress_output=True):
     """Execute shell command in background."""
     sp = subprocess.run(cmd, shell=True)

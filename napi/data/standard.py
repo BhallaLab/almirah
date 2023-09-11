@@ -312,15 +312,11 @@ class Specification:
         return f"<Specification name={self.name}>"
 
 
-def get_spec(details, name):
-    if not details:
-        details = os.path.join(os.path.dirname(__file__), "configs", "bids.yaml")
+def get_spec(path=None, name=None):
+    if not path:
+        path = os.path.join(os.path.dirname(__file__), "configs", "bids.yaml")
 
-    if isinstance(details, str) and os.path.exists(details):
-        spec = utils.read_yaml(details)
-        if not name:
-            name = os.path.basename(os.path.splitext(details)[0])
-    else:
-        spec = details
+    spec = utils.read_yaml(path)
+    name = name if name else os.path.splitext(path)[0]
 
     return spec, name

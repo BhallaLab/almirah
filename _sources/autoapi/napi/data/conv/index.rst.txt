@@ -36,22 +36,22 @@ Attributes
    napi.data.conv._EDF2ASC_VALID_FLAGS
 
 
-.. py:function:: dcm2nii(files, out, dst, **kwargs)
+.. py:function:: dcm2nii(files, dst, **kwargs)
 
-   Convert DICOM files to NIfTI and write to disk.
+   Convert DICOM files to NIfTY and write to disk.
 
 
-.. py:function:: edf2asc(files, out, dst, **kwargs)
+.. py:function:: edf2asc(files, dst, **kwargs)
 
    Convert Eye track data format and write to disk.
 
 
-.. py:function:: nirs_conv(files, out, dst, **kwargs)
+.. py:function:: nirs_conv(files, dst, **kwargs)
 
    Convert NIRS data format and write to disk.
 
 
-.. py:function:: eeg_conv(files, out, dst, **kwargs)
+.. py:function:: eeg_conv(files, dst, **kwargs)
 
    Convert EEG data format and write to disk.
 

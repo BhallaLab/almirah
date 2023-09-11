@@ -10,9 +10,9 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   conv/index.rst
+   convert/index.rst
    dataset/index.rst
-   db/index.rst
+   indexer/index.rst
    layout/index.rst
    report/index.rst
    standard/index.rst

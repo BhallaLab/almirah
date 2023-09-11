@@ -1,0 +1,75 @@
+:py:mod:`napi.data.convert`
+===========================
+
+.. py:module:: napi.data.convert
+
+.. autoapi-nested-parse::
+
+   Collection of file format converters.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.convert.dcm2nii
+   napi.data.convert.edf2asc
+   napi.data.convert.nirs_conv
+   napi.data.convert.eeg_conv
+   napi.data.convert.convert
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   napi.data.convert._SUPPORTED
+   napi.data.convert._DCM2NII_VALID_FLAGS
+   napi.data.convert._EDF2ASC_VALID_FLAGS
+
+
+.. py:function:: dcm2nii(files, out, dst, **kwargs)
+
+   Convert DICOM files to NIfTI and write to disk.
+
+
+.. py:function:: edf2asc(files, out, dst, **kwargs)
+
+   Convert Eye track data format and write to disk.
+
+
+.. py:function:: nirs_conv(files, out, dst, **kwargs)
+
+   Convert NIRS data format and write to disk.
+
+
+.. py:function:: eeg_conv(files, out, dst, **kwargs)
+
+   Convert EEG data format and write to disk.
+
+
+.. py:function:: convert(files, out, dst, **kwargs)
+
+   Convert a file collection from one format to another.
+
+
+.. py:data:: _SUPPORTED
+
+   
+
+.. py:data:: _DCM2NII_VALID_FLAGS
+
+   
+
+.. py:data:: _EDF2ASC_VALID_FLAGS
+
+   
+

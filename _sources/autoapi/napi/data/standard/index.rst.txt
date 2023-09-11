@@ -115,6 +115,6 @@ Attributes
 
 
 
-.. py:function:: get_spec(details, name)
+.. py:function:: get_spec(path=None, name=None)
 
 

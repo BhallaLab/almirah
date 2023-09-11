@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="napi.data.report" href="../report/index.html" />
-    <link rel="prev" title="napi.data.db" href="../db/index.html" /> 
+    <link rel="prev" title="napi.data.indexer" href="../indexer/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -94,24 +94,31 @@
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.layout.Tag" title="napi.data.layout.Tag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tag</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.layout.Base" title="napi.data.layout.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Base</span></code></a></p></td>
+<td><p>Represents base object of ORM.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.layout.Tag" title="napi.data.layout.Tag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tag</span></code></a></p></td>
 <td><p>Generic tag representation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.layout.File" title="napi.data.layout.File"><code class="xref py py-obj docutils literal notranslate"><span class="pre">File</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.layout.File" title="napi.data.layout.File"><code class="xref py py-obj docutils literal notranslate"><span class="pre">File</span></code></a></p></td>
 <td><p>Generic file representation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.layout.Layout" title="napi.data.layout.Layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Layout</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.layout.Layout" title="napi.data.layout.Layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Layout</span></code></a></p></td>
 <td><p>Representation of file collection in a directory.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.layout.Indexer" title="napi.data.layout.Indexer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Indexer</span></code></a></p></td>
-<td><p>Index files in a Layout.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
+<dt class="sig sig-object py" id="napi.data.layout.Base">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.layout.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><a class="headerlink" href="#napi.data.layout.Base" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">sqlalchemy.orm.DeclarativeBase</span></code></p>
+<p>Represents base object of ORM.</p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="napi.data.layout.Tag">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.layout.</span></span><span class="sig-name descname"><span class="pre">Tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Tag" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../db/index.html#napi.data.db.Base" title="napi.data.db.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">napi.data.db.Base</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#napi.data.layout.Base" title="napi.data.layout.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Base</span></code></a></p>
 <p>Generic tag representation.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napi.data.layout.Tag.__tablename__">
@@ -139,6 +146,12 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="napi.data.layout.Tag.boolean_tag">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">boolean_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Tag.boolean_tag" title="Permalink to this definition"></a></dt>
+<dd><p>Add a boolean tag to file based on func return value.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="napi.data.layout.Tag.__repr__">
 <span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Tag.__repr__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -148,7 +161,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="napi.data.layout.File">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.layout.</span></span><span class="sig-name descname"><span class="pre">File</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.File" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../db/index.html#napi.data.db.Base" title="napi.data.db.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">napi.data.db.Base</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#napi.data.layout.Base" title="napi.data.layout.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Base</span></code></a></p>
 <p>Generic file representation.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="napi.data.layout.File.rel_path">
@@ -196,7 +209,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="napi.data.layout.Layout">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.layout.</span></span><span class="sig-name descname"><span class="pre">Layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Layout" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../db/index.html#napi.data.db.Base" title="napi.data.db.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">napi.data.db.Base</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#napi.data.layout.Base" title="napi.data.layout.Base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Base</span></code></a></p>
 <p>Representation of file collection in a directory.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napi.data.layout.Layout.__tablename__">
@@ -235,7 +248,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="napi.data.layout.Layout.create">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Layout.create" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Layout.create" title="Permalink to this definition"></a></dt>
 <dd><p>Factory method for Layout.</p>
 </dd></dl>
 
@@ -258,66 +271,6 @@
 
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">napi.data.layout.</span></span><span class="sig-name descname"><span class="pre">Indexer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer" title="Permalink to this definition"></a></dt>
-<dd><p>Index files in a Layout.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer.__call__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer._merge">
-<span class="sig-name descname"><span class="pre">_merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer._merge" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer._index_dir">
-<span class="sig-name descname"><span class="pre">_index_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer._index_dir" title="Permalink to this definition"></a></dt>
-<dd><p>Iteratively index all directories in layout.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer._index_file">
-<span class="sig-name descname"><span class="pre">_index_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer._index_file" title="Permalink to this definition"></a></dt>
-<dd><p>Add valid files to index and return true if successful.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer._index_tags">
-<span class="sig-name descname"><span class="pre">_index_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer._index_tags" title="Permalink to this definition"></a></dt>
-<dd><p>Add tags of file to index.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer._tags_filter">
-<span class="sig-name descname"><span class="pre">_tags_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer._tags_filter" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer._files_filter">
-<span class="sig-name descname"><span class="pre">_files_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer._files_filter" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer._tag_values">
-<span class="sig-name descname"><span class="pre">_tag_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer._tag_values" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer.add" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="napi.data.layout.Indexer.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.layout.Indexer.get" title="Permalink to this definition"></a></dt>
-<dd><p>Run a query on db associated and return all results.</p>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 </section>
 </section>
@@ -326,7 +279,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../db/index.html" class="btn btn-neutral float-left" title="napi.data.db" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../indexer/index.html" class="btn btn-neutral float-left" title="napi.data.indexer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../report/index.html" class="btn btn-neutral float-right" title="napi.data.report" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

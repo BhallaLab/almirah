@@ -17,18 +17,26 @@ Classes
 
 .. autoapisummary::
 
+   napi.data.layout.Base
    napi.data.layout.Tag
    napi.data.layout.File
    napi.data.layout.Layout
-   napi.data.layout.Indexer
 
 
+
+
+.. py:class:: Base
+
+
+   Bases: :py:obj:`sqlalchemy.orm.DeclarativeBase`
+
+   Represents base object of ORM.
 
 
 .. py:class:: Tag(path, name, value)
 
 
-   Bases: :py:obj:`napi.data.db.Base`
+   Bases: :py:obj:`Base`
 
    Generic tag representation.
 
@@ -57,6 +65,12 @@ Classes
 
       
 
+   .. py:method:: boolean_tag(file, name, func)
+      :staticmethod:
+
+      Add a boolean tag to file based on func return value.
+
+
    .. py:method:: __repr__()
 
 
@@ -64,7 +78,7 @@ Classes
 .. py:class:: File(path, root)
 
 
-   Bases: :py:obj:`napi.data.db.Base`
+   Bases: :py:obj:`Base`
 
    Generic file representation.
 
@@ -108,7 +122,7 @@ Classes
 .. py:class:: Layout(root, name=None)
 
 
-   Bases: :py:obj:`napi.data.db.Base`
+   Bases: :py:obj:`Base`
 
    Representation of file collection in a directory.
 
@@ -141,7 +155,7 @@ Classes
    .. py:method:: _decipher_prefix()
 
 
-   .. py:method:: create(root, name=None, spec=None, indexer=None, index=True)
+   .. py:method:: create(root, name=None, spec=None, indexer=None, index=True, valid_only=True)
       :staticmethod:
 
       Factory method for Layout.
@@ -158,50 +172,6 @@ Classes
 
 
    .. py:method:: __repr__()
-
-
-
-.. py:class:: Indexer(session_manager=None)
-
-
-   Index files in a Layout.
-
-   .. py:method:: __call__(layout, valid_only=True)
-
-
-   .. py:method:: _merge(obj)
-
-
-   .. py:method:: _index_dir(dir)
-
-      Iteratively index all directories in layout.
-
-
-   .. py:method:: _index_file(path)
-
-      Add valid files to index and return true if successful.
-
-
-   .. py:method:: _index_tags(file)
-
-      Add tags of file to index.
-
-
-   .. py:method:: _tags_filter(**filters)
-
-
-   .. py:method:: _files_filter(root, **filters)
-
-
-   .. py:method:: _tag_values(root, name, **filters)
-
-
-   .. py:method:: add(obj)
-
-
-   .. py:method:: get(query)
-
-      Run a query on db associated and return all results.
 
 
 

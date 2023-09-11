@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>napi.data.conv &mdash; napi 0.1.0 documentation</title>
@@ -94,16 +94,16 @@
 <h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.conv.dcm2nii" title="napi.data.conv.dcm2nii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dcm2nii</span></code></a>(files, out, dst, **kwargs)</p></td>
-<td><p>Convert DICOM files to NIfTI and write to disk.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.conv.dcm2nii" title="napi.data.conv.dcm2nii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dcm2nii</span></code></a>(files, dst, **kwargs)</p></td>
+<td><p>Convert DICOM files to NIfTY and write to disk.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.conv.edf2asc" title="napi.data.conv.edf2asc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edf2asc</span></code></a>(files, out, dst, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.conv.edf2asc" title="napi.data.conv.edf2asc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edf2asc</span></code></a>(files, dst, **kwargs)</p></td>
 <td><p>Convert Eye track data format and write to disk.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.conv.nirs_conv" title="napi.data.conv.nirs_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nirs_conv</span></code></a>(files, out, dst, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.conv.nirs_conv" title="napi.data.conv.nirs_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nirs_conv</span></code></a>(files, dst, **kwargs)</p></td>
 <td><p>Convert NIRS data format and write to disk.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.conv.eeg_conv" title="napi.data.conv.eeg_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eeg_conv</span></code></a>(files, out, dst, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#napi.data.conv.eeg_conv" title="napi.data.conv.eeg_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eeg_conv</span></code></a>(files, dst, **kwargs)</p></td>
 <td><p>Convert EEG data format and write to disk.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napi.data.conv.convert" title="napi.data.conv.convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert</span></code></a>(files, out, dst, **kwargs)</p></td>
@@ -129,25 +129,25 @@
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="napi.data.conv.dcm2nii">
-<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">dcm2nii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.dcm2nii" title="Permalink to this definition"></a></dt>
-<dd><p>Convert DICOM files to NIfTI and write to disk.</p>
+<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">dcm2nii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.dcm2nii" title="Permalink to this definition"></a></dt>
+<dd><p>Convert DICOM files to NIfTY and write to disk.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="napi.data.conv.edf2asc">
-<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">edf2asc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.edf2asc" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">edf2asc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.edf2asc" title="Permalink to this definition"></a></dt>
 <dd><p>Convert Eye track data format and write to disk.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="napi.data.conv.nirs_conv">
-<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">nirs_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.nirs_conv" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">nirs_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.nirs_conv" title="Permalink to this definition"></a></dt>
 <dd><p>Convert NIRS data format and write to disk.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="napi.data.conv.eeg_conv">
-<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">eeg_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.eeg_conv" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">napi.data.conv.</span></span><span class="sig-name descname"><span class="pre">eeg_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#napi.data.conv.eeg_conv" title="Permalink to this definition"></a></dt>
 <dd><p>Convert EEG data format and write to disk.</p>
 </dd></dl>
 

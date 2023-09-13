@@ -1,20 +1,18 @@
-.. napi documentation master file, created by
-   sphinx-quickstart on Sun Jun  4 17:31:53 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to napi's documentation!
-================================
+napi
+====
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :hidden:
+
+   user-guide
+   tutorial
+   writing-configs/index
+   adbs/index
+   reference/index
+   contributing
+   changelog
 
 
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+

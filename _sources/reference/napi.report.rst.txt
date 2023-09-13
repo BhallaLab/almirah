@@ -1,0 +1,4 @@
+Reporting
+=========
+
+.. autoclass:: napi.Report

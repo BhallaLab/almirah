@@ -1,587 +1,262 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; napi 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+
+    <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 --><title>Index - napi 0.1.0 documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="#" />
-    <link rel="search" title="Search" href="search.html" /> 
-</head>
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
 
-          
-          
-          <a href="index.html" class="icon icon-home">
-            napi
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">napi 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/logo-light-mode.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/logo-dark-mode.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="writing-configs/index.html">Writing configs</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Writing configs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="writing-configs/specification.html">Specification details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-configs/rules.html">Organization rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing-configs/mapping.html">Database mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="adbs/index.html">The ADBS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The ADBS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="adbs/tutorial.html">From access to analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adbs/reference/index.html">Dataset Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/napi.specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/napi.layout.html">Files and Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/napi.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/napi.convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/napi.db.html">Database Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/napi.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/napi.utils.html">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
-        </div>
+</div>
+</div>
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">napi</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Index</li>
-      <li class="wy-breadcrumbs-aside">
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#_"><strong>_</strong></a>
- | <a href="#A"><strong>A</strong></a>
- | <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
- | <a href="#F"><strong>F</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#S"><strong>S</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#V"><strong>V</strong></a>
- 
-</div>
-<h2 id="_">_</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer.__call__">__call__() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset.__repr__">__repr__() (napi.data.dataset.Dataset method)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.__repr__">(napi.data.layout.File method)</a>
-</li>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.__repr__">(napi.data.layout.Layout method)</a>
-</li>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag.__repr__">(napi.data.layout.Tag method)</a>
-</li>
-        <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.Specification.__repr__">(napi.data.standard.Specification method)</a>
-</li>
-        <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.__repr__">(napi.db.DBManager method)</a>
-</li>
-      </ul></li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.__tablename__">__tablename__ (napi.data.layout.File attribute)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.__tablename__">(napi.data.layout.Layout attribute)</a>
-</li>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag.__tablename__">(napi.data.layout.Tag attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.CompleteDataset._build_dataset">_build_dataset() (napi.data.dataset.CompleteDataset method)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset._build_dataset">(napi.data.dataset.Dataset class method)</a>
-</li>
-      </ul></li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.CompleteDataset._build_initialiser_args">_build_initialiser_args() (napi.data.dataset.CompleteDataset method)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset._build_initialiser_args">(napi.data.dataset.Dataset method)</a>
-</li>
-        <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.DerivativeDatasets._build_initialiser_args">(napi.data.dataset.DerivativeDatasets method)</a>
-</li>
-        <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.SourceDatasets._build_initialiser_args">(napi.data.dataset.SourceDatasets method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert._DCM2NII_VALID_FLAGS">_DCM2NII_VALID_FLAGS (in module napi.data.convert)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout._decipher_kind">_decipher_kind() (napi.data.layout.Layout method)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout._decipher_prefix">_decipher_prefix() (napi.data.layout.Layout method)</a>
-</li>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert._EDF2ASC_VALID_FLAGS">_EDF2ASC_VALID_FLAGS (in module napi.data.convert)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer._files_filter">_files_filter() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer._index_dir">_index_dir() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer._index_file">_index_file() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer._index_tags">_index_tags() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager._init_metadata">_init_metadata() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout._init_on_load">_init_on_load() (napi.data.layout.Layout method)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer._merge">_merge() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert._SUPPORTED">_SUPPORTED (in module napi.data.convert)</a>
-</li>
-      <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard._TAG_PATTERN">_TAG_PATTERN (in module napi.data.standard)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer._tag_values">_tag_values() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer._tags_filter">_tags_filter() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset._update_layout_names">_update_layout_names() (napi.data.dataset.Dataset method)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.CompleteDataset._update_layouts">_update_layouts() (napi.data.dataset.CompleteDataset method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="A">A</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer.add">add() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.CompleteDataset.add_derivative">add_derivative() (napi.data.dataset.CompleteDataset method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset.add_layout">add_layout() (napi.data.dataset.Dataset method)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.CompleteDataset.add_source">add_source() (napi.data.dataset.CompleteDataset method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Base">Base (class in napi.data.layout)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag.boolean_tag">boolean_tag() (napi.data.layout.Tag static method)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.build_column">build_column() (napi.db.DBManager method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.build_constraint">build_constraint() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset.build_from_root">build_from_root() (napi.data.dataset.Dataset class method)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.build_modified_path">build_modified_path() (napi.data.layout.File method)</a>
-</li>
-      <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.Specification.build_path">build_path() (napi.data.standard.Specification method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.common_rows">common_rows() (in module napi.db)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.CompleteDataset">CompleteDataset (class in napi.data.dataset)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.connection">connection (napi.db.DBManager property)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert.convert">convert() (in module napi.data.convert)</a>
-</li>
-      <li><a href="autoapi/napi/utils/index.html#napi.utils.copy">copy() (in module napi.utils)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.create">create() (napi.data.layout.Layout static method)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.create_table">create_table() (napi.db.DBManager method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset">Dataset (class in napi.data.dataset)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager">DBManager (class in napi.db)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert.dcm2nii">dcm2nii() (in module napi.data.convert)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.DerivativeDatasets">DerivativeDatasets (class in napi.data.dataset)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert.edf2asc">edf2asc() (in module napi.data.convert)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert.eeg_conv">eeg_conv() (in module napi.data.convert)</a>
-</li>
-      <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.Specification.extract_tags">extract_tags() (napi.data.standard.Specification method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="F">F</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File">File (class in napi.data.layout)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag.file">file (napi.data.layout.Tag attribute)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.files">files (napi.data.layout.Layout attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/report/index.html#napi.data.report.Report.generate">generate() (napi.data.report.Report static method)</a>
-</li>
-      <li><a href="autoapi/napi/data/report/index.html#napi.data.report.Report.generate_for_dataset">generate_for_dataset() (napi.data.report.Report static method)</a>
-</li>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer.get">get() (napi.data.indexer.Indexer method)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.get_db">get_db() (in module napi.db)</a>
-</li>
-      <li><a href="autoapi/napi/utils/index.html#napi.utils.get_dir_contents">get_dir_contents() (in module napi.utils)</a>
-</li>
-      <li><a href="autoapi/napi/utils/index.html#napi.utils.get_dtype">get_dtype() (in module napi.utils)</a>
-</li>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.Dataset.get_files">get_files() (napi.data.dataset.Dataset method)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.get_files">(napi.data.layout.Layout method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.get_primary">get_primary() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.get_spec">get_spec() (in module napi.data.standard)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.get_table">get_table() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.get_tag_values">get_tag_values() (napi.data.layout.Layout method)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.get_transform">get_transform() (in module napi.db)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.get_type">get_type() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.Specification.get_valid_tags">get_valid_tags() (napi.data.standard.Specification method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/indexer/index.html#napi.data.indexer.Indexer">Indexer (class in napi.data.indexer)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout">Layout (class in napi.data.layout)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.layout">layout (napi.data.layout.File attribute)</a>
-</li>
-      <li><a href="autoapi/napi/utils/index.html#napi.utils.log_df">log_df() (in module napi.utils)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.migrate">migrate() (in module napi.db)</a>
-</li>
-      <li>
-    module
-
-      <ul>
-        <li><a href="autoapi/napi/index.html#module-napi">napi</a>
-</li>
-        <li><a href="autoapi/napi/data/index.html#module-napi.data">napi.data</a>
-</li>
-        <li><a href="autoapi/napi/data/convert/index.html#module-napi.data.convert">napi.data.convert</a>
-</li>
-        <li><a href="autoapi/napi/data/dataset/index.html#module-napi.data.dataset">napi.data.dataset</a>
-</li>
-        <li><a href="autoapi/napi/data/indexer/index.html#module-napi.data.indexer">napi.data.indexer</a>
-</li>
-        <li><a href="autoapi/napi/data/layout/index.html#module-napi.data.layout">napi.data.layout</a>
-</li>
-        <li><a href="autoapi/napi/data/report/index.html#module-napi.data.report">napi.data.report</a>
-</li>
-        <li><a href="autoapi/napi/data/standard/index.html#module-napi.data.standard">napi.data.standard</a>
-</li>
-        <li><a href="autoapi/napi/db/index.html#module-napi.db">napi.db</a>
-</li>
-        <li><a href="autoapi/napi/utils/index.html#module-napi.utils">napi.utils</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.name">name (napi.data.layout.Layout attribute)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag.name">(napi.data.layout.Tag attribute)</a>
-</li>
-      </ul></li>
-      <li>
-    napi
-
-      <ul>
-        <li><a href="autoapi/napi/index.html#module-napi">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.data
-
-      <ul>
-        <li><a href="autoapi/napi/data/index.html#module-napi.data">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.data.convert
-
-      <ul>
-        <li><a href="autoapi/napi/data/convert/index.html#module-napi.data.convert">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.data.dataset
-
-      <ul>
-        <li><a href="autoapi/napi/data/dataset/index.html#module-napi.data.dataset">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.data.indexer
-
-      <ul>
-        <li><a href="autoapi/napi/data/indexer/index.html#module-napi.data.indexer">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    napi.data.layout
-
-      <ul>
-        <li><a href="autoapi/napi/data/layout/index.html#module-napi.data.layout">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.data.report
-
-      <ul>
-        <li><a href="autoapi/napi/data/report/index.html#module-napi.data.report">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.data.standard
-
-      <ul>
-        <li><a href="autoapi/napi/data/standard/index.html#module-napi.data.standard">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.db
-
-      <ul>
-        <li><a href="autoapi/napi/db/index.html#module-napi.db">module</a>
-</li>
-      </ul></li>
-      <li>
-    napi.utils
-
-      <ul>
-        <li><a href="autoapi/napi/utils/index.html#module-napi.utils">module</a>
-</li>
-      </ul></li>
-      <li><a href="autoapi/napi/data/convert/index.html#napi.data.convert.nirs_conv">nirs_conv() (in module napi.data.convert)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.Specification.organize">organize() (napi.data.standard.Specification method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.path">path (napi.data.layout.File attribute)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag.path">(napi.data.layout.Tag attribute)</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/utils/index.html#napi.utils.read_yaml">read_yaml() (in module napi.utils)</a>
-</li>
-      <li><a href="autoapi/napi/utils/index.html#napi.utils.read_yamls">read_yamls() (in module napi.utils)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.rel_path">rel_path (napi.data.layout.File property)</a>
-</li>
-      <li><a href="autoapi/napi/data/report/index.html#napi.data.report.Report">Report (class in napi.data.report)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.resolve_dups">resolve_dups() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.resolve_fks">resolve_fks() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.root">root (napi.data.layout.File attribute)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Layout.root">(napi.data.layout.Layout attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="autoapi/napi/utils/index.html#napi.utils.run_shell">run_shell() (in module napi.utils)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.session">session (napi.db.DBManager property)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.set_dtype">set_dtype() (in module napi.db)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/dataset/index.html#napi.data.dataset.SourceDatasets">SourceDatasets (class in napi.data.dataset)</a>
-</li>
-      <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.Specification">Specification (class in napi.data.standard)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag">Tag (class in napi.data.layout)</a>
-</li>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.File.tags">tags (napi.data.layout.File attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.DBManager.to_table">to_table() (napi.db.DBManager method)</a>
-</li>
-      <li><a href="autoapi/napi/db/index.html#napi.db.transform">transform() (in module napi.db)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/db/index.html#napi.db.validate">validate() (in module napi.db)</a>
-
-      <ul>
-        <li><a href="autoapi/napi/data/standard/index.html#napi.data.standard.Specification.validate">(napi.data.standard.Specification method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autoapi/napi/data/layout/index.html#napi.data.layout.Tag.value">value (napi.data.layout.Tag attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-
-
-           </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
           </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, girish.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
         </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+        <article role="main">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"></div>
+</section>
 
-</body>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, girish
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    </body>
 </html>

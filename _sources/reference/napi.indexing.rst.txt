@@ -1,0 +1,4 @@
+Indexing
+========
+
+.. autoclass:: napi.Indexer

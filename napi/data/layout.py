@@ -14,7 +14,7 @@ from sqlalchemy.orm import reconstructor
 from sqlalchemy.orm import attribute_keyed_dict
 from sqlalchemy.orm import DeclarativeBase
 
-from .standard import Specification
+from .specification import Specification
 
 
 class Base(DeclarativeBase):

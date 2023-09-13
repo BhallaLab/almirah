@@ -14,6 +14,8 @@ _TAG_PATTERN = re.compile(
     r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})",
 )
 
+__all__ = ["Specification"]
+
 
 class Specification:
     """Representation of the specification used.

@@ -282,7 +282,7 @@ class DBManager:
         for fkc in self.meta.tables[table].foreign_key_constraints:
             p_cols = [fk.column.name for fk in fkc.elements]
             p_df = self.get_table(fkc.referred_table.name, p_cols)
-            p_mask = common_rows(df, p_df, fkc.column_keys, p_cols)
+            p_mask = common_records(df, p_df, fkc.column_keys, p_cols)
 
             utils.log_df(df[~p_mask], "Missing parent records: \n {df}")
 
@@ -325,7 +325,7 @@ def get_transform(transform):
     return TRANSFORM_EQUIVALENT[transform]
 
 
-def common_rows(child, parent, child_on=None, parent_on=None):
+def common_records(child, parent, child_on=None, parent_on=None):
     """Check whether each record in a DataFrame is contained in another."""
     mask = (
         pd.merge(

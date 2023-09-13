@@ -3,6 +3,9 @@
 # Do not push mac specific files
 .DS_Store
 
+# Ignore build as CI Pipeline takes care.
+docs/build
+
 # Why push pycache?
 __pycache__
 .pytestcache

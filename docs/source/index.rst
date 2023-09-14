@@ -10,6 +10,7 @@ napi
    adbs/index
    reference/index
    contributing
+   code-of-conduct   
    changelog
 
 napi aids in the organization, maintenance, and usage of both

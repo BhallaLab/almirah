@@ -3,7 +3,7 @@ Database Interface
 
 .. autoclass:: napi.DBManager
 
-.. autofunction:: napi.db.common_rows		  
+.. autofunction:: napi.db.common_records
 
 .. autofunction:: napi.db.migrate
 

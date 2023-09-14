@@ -75,8 +75,11 @@ the repository.
 Releases
 --------
 
-To be added.
+A release candidate can be created by any contributor.
 
-.. note::
-
-   Add towncrier for changelog buildin gand release notes in CHANGES.
+- Announce intent to release by communicating to all contributors.
+- Update CHANGES.rst with the release notes.
+- Update ``pyproject.toml`` and ``conf.py`` with the proper version
+  number.
+- Commit the changes to a ``release-X.Y.Z`` branch.
+- Create a pull request.  

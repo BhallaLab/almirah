@@ -125,8 +125,7 @@ class DBManager:
         insert_method=None,
         **kwargs,
     ):
-        """
-        Write records in DataFrame to a table.
+        """Write records in DataFrame to a table.
 
         Parameters
         ----------
@@ -154,9 +153,9 @@ class DBManager:
         if_exists : ['append', 'replace', 'fail'], default 'append'
             Insert behavior in case table exists.
 
-            * 'append' : Insert new values to the existing table.
-            * 'replace' : Drop the table before inserting new values.
-            * 'fail' : Raise a ValueError if table exists.
+            - 'append' : Insert new values to the existing table.
+            - 'replace' : Drop the table before inserting new values.
+            - 'fail' : Raise a ValueError if table exists.
 
         index : bool, default False
             Write DataFrame index as a column. Uses index_label as the
@@ -165,16 +164,17 @@ class DBManager:
         insert_method : {None, 'multi', callable}, optional
             Controls the SQL insertion clause used.
 
-            * None : Uses standard SQL INSERT clause (one per row).
-            * ‘multi’: Pass multiple values in a single INSERT clause.
-            * callable with signature ``(pd_table, conn, keys, data_iter)``.
+            - None : Uses standard SQL INSERT clause (one per row).
+            - ‘multi’: Pass multiple values in a single INSERT clause.
+            - callable with signature ``(pd_table, conn, keys, data_iter)``.
 
             Details and a sample callable implementation can be found
-            in the pandas section `insert method`_.
+            in the pandas section `insert method
+            <https://pandas.pydata.org/docs/user_guide/io.html#io-sql-method>`_.
 
-        kwargs : key, value mappings
-            Other keyword arguments are passed down to
-            `pandas.DataFrame.to_sql()`_
+        kwargs : key, value mappings Other keyword arguments are
+            passed down to `pandas.DataFrame.to_sql()
+            <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html>`_
 
         Returns
         -------
@@ -186,18 +186,15 @@ class DBManager:
         Raises
         ------
         ValueError
-            * When values provided are not sufficient for insert operation.
-            * When the table already exists and `if_exists` is 'fail'.
+            - When values provided are not sufficient for insert operation.
+            - When the table already exists and `if_exists` is 'fail'.
 
         OperationalError
-            * Most likely there are duplicates records in the
+            - Most likely there are duplicates records in the
               DataFrame. Other reasons are related to the database
               operation and are detailed in sqlalchemy section
-              `OperationalError`_.
-
-        .. _insert method: https://pandas.pydata.org/docs/user_guide/io.html#io-sql-method
-        .. _pandas.DataFrame.to_sql(): https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html
-        .. _OperationalError: https://docs.sqlalchemy.org/en/20/errors.html#operationalerror
+              `OperationalError
+              <https://docs.sqlalchemy.org/en/20/errors.html#operationalerror>`_.
 
         """
 

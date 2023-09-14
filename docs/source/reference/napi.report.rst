@@ -1,4 +1,4 @@
 Reporting
 =========
 
-.. autoclass:: napi.Report
+.. autoclass:: napi.data.Report

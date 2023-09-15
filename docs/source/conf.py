@@ -49,4 +49,7 @@ html_theme_options = {
     "dark_logo": "logo-dark-mode.png",
     "navigation_with_keys": True,
     "sidebar_hide_name": True,
+    "source_repository": "https://github.com/girishmm/napi/",
+    "source_branch": "main",
+    "source_directory": "docs/source/",
 }

@@ -17,7 +17,7 @@
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
+    --color-code-background: #f0f0f0;
   --color-code-foreground: black;
   
   }
@@ -204,8 +204,16 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
-<div class="theme-toggle-container theme-toggle-content">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/girishmm/napi/edit/main/docs/source/user-guide.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -230,23 +238,235 @@
 </section>
 <section id="organizing-the-dataset">
 <h2>Organizing the dataset<a class="headerlink" href="#organizing-the-dataset" title="Permalink to this heading">#</a></h2>
+<p>The first step to using any dataset is getting it in shape to allow
+manual exploration or automated retrieval of a subset. To get started,
+import the napi module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napi</span>
+</pre></div>
+</div>
+<p>napi relies on two components to organize a dataset:</p>
+<ul class="simple">
+<li><p>a <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code> object that takes in the
+<a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a> config as an argument to
+describe the details of the specification to be abided by. If no
+config is provided, the BIDS specification is used by default.</p></li>
+<li><p>an <a class="reference internal" href="writing-configs/rules.html"><span class="doc">Organization rules</span></a> config that lays down the rules that
+will be followed for organization.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">Specification</span><span class="p">(</span><span class="s2">&quot;/path to details&quot;</span><span class="p">)</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">organize</span><span class="p">(</span><span class="s2">&quot;/path to rules&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For modalities such as Eye tracking, and Genomics where the
+BIDS-specification is still in the proposal stage or is only
+present as a descriptor, a custom BIDS-like specification that
+mimics the general pattern of the specification is used.</p>
+</div>
 </section>
-<section id="converting-file-formats">
-<h2>Converting file formats<a class="headerlink" href="#converting-file-formats" title="Permalink to this heading">#</a></h2>
+<section id="indexing">
+<h2>Indexing<a class="headerlink" href="#indexing" title="Permalink to this heading">#</a></h2>
+<p>The indexing operation crawls through the organized dataset and stores
+files and directories that have a matching path in the specification
+in a database. This enables easy querying and filtering.</p>
+<p>At an abstract level, each dataset can be thought of as a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> of files. Each <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> is associated
+with a bunch of tags. Each <code class="xref py py-class docutils literal notranslate"><span class="pre">Tag</span></code> is a <em>name:value</em> pair
+that is derived from the filename and metadata files associated to a
+file. To create an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code>, pass the root
+directory path of the dataset as an argument to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lay</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;/path to dataset&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Unless otherwise specified by passing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code>
+instance via <code class="docutils literal notranslate"><span class="pre">spec</span></code>, napi will use the BIDS specification.</p>
+<p>napi automatically retrieves a previous index and skips indexing if
+the layout is found, to force reindexing set <code class="docutils literal notranslate"><span class="pre">reindex</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">valid_only</span> <span class="pre">=</span> <span class="pre">False</span></code> does not limit the files indexed to
+only those that having matching paths in the specification
+associated. This can act as a quick way to index the whole directory
+or a dirty trick when you do not have time to redefine the
+specification to accomodate a new path.</p>
+<p>It is also possible to have a collection of layouts as a
+:class`~napi.Dataset`:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">create</span><span class="p">([</span><span class="s2">&quot;/path to datasets&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>By this, parts of a dataset located in diverse paths can be virtually
+collected into one while querying.</p>
 </section>
 <section id="filter-and-query">
 <h2>Filter and Query<a class="headerlink" href="#filter-and-query" title="Permalink to this heading">#</a></h2>
+<p>To retrieve a subset of files that match certain tags, provide the
+criterions as keyword arguments to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_files()</span></code>
+and napi will return the <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> objects of passing files:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;A3456&quot;</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="analyze">
-<h2>Analyze<a class="headerlink" href="#analyze" title="Permalink to this heading">#</a></h2>
+<section id="converting-file-formats">
+<h2>Converting file formats<a class="headerlink" href="#converting-file-formats" title="Permalink to this heading">#</a></h2>
+<p>Sometimes you want to convert the file format of a file. For example,
+from DICOM to NIfTI, or from EDF (Eyelink Data Format) to ASCII. These
+are possible by provided the files to be converted, the output format
+desired, and the output directory as arguments to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;dcm&quot;</span><span class="p">)</span>
+<span class="n">lay</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s2">&quot;NIfTI&quot;</span><span class="p">,</span> <span class="s2">&quot;/path to output dir&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Currently, the following conversions are supported:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input extensions</p></th>
+<th class="head"><p>Output formats</p></th>
+<th class="head"><p>Datatype</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dcm</p></td>
+<td><p>NIfTI</p></td>
+<td><p>Magnetic resonance imaging</p></td>
+</tr>
+<tr class="row-odd"><td><p>bdf, cnt, data, edf, gdf, mat, mff, nxe, set, vhdr</p></td>
+<td><p>BrainVision, EDF, FIF</p></td>
+<td><p>Electroencephalography</p></td>
+</tr>
+<tr class="row-even"><td><p>edf</p></td>
+<td><p>ASCII</p></td>
+<td><p>Eye tracking</p></td>
+</tr>
+<tr class="row-odd"><td><p>nirx</p></td>
+<td><p>SNIRF</p></td>
+<td><p>Functional near-infrared spectroscopy</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="interfacing-with-a-database">
+<h2>Interfacing with a Database<a class="headerlink" href="#interfacing-with-a-database" title="Permalink to this heading">#</a></h2>
+<p>napi can connect to databases <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#supported-databases">supported by SQLAlchemy</a>
+with <code class="xref py py-class docutils literal notranslate"><span class="pre">DBManager</span></code> based on a <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#database-urls">Database URL</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napi</span>
+
+<span class="c1"># Create connection with database</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">DBManager</span><span class="p">(</span><span class="s2">&quot;database URL&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To create a table in the database, the table schema is described by
+the <a class="reference internal" href="writing-configs/mapping.html"><span class="doc">Database mapping</span></a> config and passed to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">create_table()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="s2">&quot;/path to mapping&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To insert records into a table in the database, a
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object whose columns match the table columns
+is provided as an argument to <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_table()</span></code> along
+with the table name:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;table name&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If no table of the name is present, a table is created
+automatically. This might not be desirable if you would like to
+define relationships between tables as the created table is vanilla
+and lacks these.</p>
+</div>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_table()</span></code> can retrieve records from a table in
+the database given the table name. A subset of table columns can be
+provided via <code class="docutils literal notranslate"><span class="pre">cols</span></code>, if not all columns are retrieved.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s2">&quot;table name&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="analyzing">
+<h2>Analyzing<a class="headerlink" href="#analyzing" title="Permalink to this heading">#</a></h2>
+<p>It should be possible to interface napi with any tooklit available in
+python. We recommend the below libaries as we have found them to play
+well with napi for neuroimaging and genomics datasets:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Datatype</p></th>
+<th class="head"><p>Recommended libraries</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Magnetic resonance imaging</p></td>
+<td><p><a class="reference external" href="https://nipy.org/nibabel/">nibabel</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Electroencephalography</p></td>
+<td><p><a class="reference external" href="https://mne.tools/stable/index.html">mne</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Eye tracking</p></td>
+<td><p><a class="reference external" href="https://mne.tools/stable/index.html">mne</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Functional near-infrared spectroscopy</p></td>
+<td><p><a class="reference external" href="https://mne.tools/mne-nirs/stable/index.html">mne-nirs</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Genomics</p></td>
+<td><p><a class="reference external" href="https://pysam.readthedocs.io/en/latest/index.html">pysam</a>,
+<a class="reference external" href="https://scikit-allel.readthedocs.io/en/latest/">scikit-allel</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Typically, it might be desirable to extract features from each file
+and represent them as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query and retrieve files</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="s2">&quot;eeg&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;edf&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">mne</span>              <span class="c1"># For Electroencephalography data</span>
+<span class="kn">import</span> <span class="nn">pandas</span>           <span class="c1"># To store the features</span>
+
+<span class="c1"># Create a function to extract and return feature</span>
+<span class="k">def</span> <span class="nf">extract_feature</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_edf</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">feature</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">get_data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">feature</span>
+
+<span class="c1"># Extract for all files</span>
+<span class="n">feature_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">extract_feature</span><span class="p">,</span> <span class="n">files</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="reporting">
+<h2>Reporting<a class="headerlink" href="#reporting" title="Permalink to this heading">#</a></h2>
+<p>High-level summaries of a dataset can be reported by passing a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code> instance to
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Report</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">napi</span><span class="o">.</span><span class="n">Report</span><span class="p">(</span><span class="n">lay</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The tags based on which the summary is to be generated can be provided
+via the <code class="docutils literal notranslate"><span class="pre">tags</span></code> argument. <cite>subject</cite> is the used if no values are
+provided.</p>
 </section>
 <section id="errors-and-exceptions">
 <h2>Errors and Exceptions<a class="headerlink" href="#errors-and-exceptions" title="Permalink to this heading">#</a></h2>
+<p>napi wraps built-in python exceptions with appropriate messages, for
+example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported transform value </span><span class="si">{</span><span class="n">transform</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a> for context.</p>
 </section>
 <section id="logging">
 <h2>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">#</a></h2>
+<p>If you are using the standard library <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> module, napi will emit
+several logs. In some cases, this can be undesireable. You can use the
+standard logger interface to change the log level for napi’s logger:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;napi&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">The ADBS Dataset</p>
 <p>If you would like to use napi to access the ADBS dataset, visit
-<a class="reference internal" href="adbs/index.html"><span class="doc">The ADBS Dataset</span></a> documentation</p>
+<a class="reference internal" href="adbs/index.html"><span class="doc">The ADBS Dataset</span></a> documentation.</p>
 </section>
 </section>
 
@@ -287,7 +507,14 @@
             
           </div>
           <div class="right-details">
-            
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/girishm/napi/" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
           </div>
         </div>
         
@@ -308,9 +535,12 @@
 <li><a class="reference internal" href="#">User Guide</a><ul>
 <li><a class="reference internal" href="#installing">Installing</a></li>
 <li><a class="reference internal" href="#organizing-the-dataset">Organizing the dataset</a></li>
-<li><a class="reference internal" href="#converting-file-formats">Converting file formats</a></li>
+<li><a class="reference internal" href="#indexing">Indexing</a></li>
 <li><a class="reference internal" href="#filter-and-query">Filter and Query</a></li>
-<li><a class="reference internal" href="#analyze">Analyze</a></li>
+<li><a class="reference internal" href="#converting-file-formats">Converting file formats</a></li>
+<li><a class="reference internal" href="#interfacing-with-a-database">Interfacing with a Database</a></li>
+<li><a class="reference internal" href="#analyzing">Analyzing</a></li>
+<li><a class="reference internal" href="#reporting">Reporting</a></li>
 <li><a class="reference internal" href="#errors-and-exceptions">Errors and Exceptions</a></li>
 <li><a class="reference internal" href="#logging">Logging</a></li>
 </ul>

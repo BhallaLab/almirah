@@ -7,7 +7,7 @@ from sqlalchemy import select
 from sqlalchemy import func
 from sqlalchemy import tuple_
 
-from .layout import File, Tag
+from .layout import Base, File, Tag
 from ..db import DBManager
 
 
@@ -15,9 +15,8 @@ class Indexer:
     """Index files in a Layout."""
 
     def __init__(self, db_manager=None):
-        self.db = db_manager
-        if not db_manager:
-            self.db = DBManager()
+        self.db = db_manager if db_manager else DBManager()
+        Base.metadata.create_all(self.db.engine)
 
     def __call__(self, layout, valid_only=True):
         logging.info(f"Indexing layout with root {layout.root}")

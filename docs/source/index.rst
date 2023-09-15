@@ -90,7 +90,7 @@ about it.
 Translate to another dataset
 ----------------------------
 
-If your dataset is a BIDS dataset, congrats you are done!
+If your dataset is a BIDS dataset, congrats you are done! 🎉
 
 If you dataset follows a different specification, describe it as a
 config file by referring to :doc:`writing-configs/specification`. This

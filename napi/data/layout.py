@@ -6,6 +6,7 @@ import logging
 from typing import List
 from typing import Dict
 
+from sqlalchemy import inspect
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import relationship
@@ -119,7 +120,7 @@ class Layout(Base):
         name=None,
         spec=None,
         indexer=None,
-        index=True,
+        reindex=False,
         valid_only=True,
     ):
         """Factory method for Layout."""
@@ -137,7 +138,7 @@ class Layout(Base):
         lay.spec = spec if spec else Specification()
         indexer.add(lay)
 
-        if index:
+        if reindex or not inspect(lay).persistent:
             indexer(lay, valid_only)
 
         return lay

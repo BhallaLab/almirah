@@ -319,6 +319,6 @@ def get_spec(path=None, name=None):
         path = os.path.join(os.path.dirname(__file__), "configs", "bids.yaml")
 
     spec = utils.read_yaml(path)
-    name = name if name else os.path.splitext(path)[0]
+    name = name if name else os.path.splitext(os.path.basename(path))[0]
 
     return spec, name

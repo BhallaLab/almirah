@@ -270,7 +270,7 @@ _SUPPORTED = {
     },
     (".edf",): {"to": ("ASCII",), "using": edf2asc},
     (".dcm",): {"to": ("NIfTI",), "using": dcm2nii},
-    (".nirx",): {"to": ("snirf",), "using": nirs_conv},
+    (".nirx",): {"to": ("SNIRF",), "using": nirs_conv},
 }
 _DCM2NII_VALID_FLAGS = {"--forceDcm2niix", "--clobber"}
 _EDF2ASC_VALID_FLAGS = {

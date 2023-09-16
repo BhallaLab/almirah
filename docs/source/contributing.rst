@@ -17,6 +17,8 @@ If you wish to add a new feature or fix a bug:
 #. Write a test which shows that the bug was fixed or that the feature
    works as expected.
 #. Format your changes with black.
+#. Add a `changelog entry <https://github.com/girishmm/napi/blob/main/changelog/README.md>`_
+   if required.   
 #. Send a pull request and bug us till it gets merged and published.
 
 Setting up your development environment
@@ -72,14 +74,19 @@ The documentation is built `continuously on GitHub Actions
 request. Hence, it is not necessary to push documentation builds to
 the repository.
 
+If you are planning a release and want to update the changelog in
+docs, run ``towncrier build --version X.Y.Z`` before building check
+the final look.
+
 Releases
 --------
 
 A release candidate can be created by any contributor.
 
 - Announce intent to release by communicating to all contributors.
-- Update CHANGES.rst with the release notes.
+- Run ``towncrier build --version X.Y.Z`` to update ``CHANGES.rst``
+  with the release notes. Adjust as necessary.
 - Update ``pyproject.toml`` and ``conf.py`` with the proper version
   number.
 - Commit the changes to a ``release-X.Y.Z`` branch.
-- Create a pull request.  
+- Create a pull request!

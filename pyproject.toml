@@ -32,10 +32,20 @@ pytest = "^7.4.0"
 furo = "^2023.9.10"
 sphinx-autobuild = "^2021.3.14"
 sphinx-copybutton = "^0.5.2"
+towncrier = "^23.6.0"
 
-[tool.poetry.group.plotting.dependencies]
-seaborn = "^0.12.2"
+[tool.poetry.group.hacks.dependencies]
+seaborn = "^0.12.2"                     # Workaround for mne-nirs till new release
+importlib-resources = "<6.0"            # Workaround for towncrier till new release
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.towncrier]
+package = "napi"
+package_dir = "napi"
+directory = "changelog"
+filename = "CHANGES.rst"
+issue_format = "`#{issue} <https://github.com/girishmm/napi/issues/{issue}>`__"
+title_format = "{version} ({project_date})"

@@ -17,6 +17,7 @@ If you wish to add a new feature or fix a bug:
 #. Write a test which shows that the bug was fixed or that the feature
    works as expected.
 #. Format your changes with black.
+#. Update `documentation <#contributing-to-documentation>`_ if required.
 #. Add a `changelog entry <https://github.com/girishmm/napi/blob/main/changelog/README.md>`_
    if required.   
 #. Send a pull request and bug us till it gets merged and published.

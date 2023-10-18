@@ -7,6 +7,8 @@ import shutil
 import logging
 import subprocess
 
+from os.path import dirname as up
+
 
 def copy(src, dst, overwrite=False):
     """Copies from source to destination."""
@@ -99,3 +101,12 @@ def get_dtype(dtype, default_length=250):
 
     length = int(length) if length else None
     return dtype, length
+
+
+def get_tutorial_dataset(dst):
+    """Copies the tutorial dataset to destination."""
+
+    import napi
+
+    path = os.path.join(up(up(napi.__file__)), "tests/data/tutorial")
+    copy(path, dst)

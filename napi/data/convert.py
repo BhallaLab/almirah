@@ -7,7 +7,6 @@ import logging
 import mne_bids
 import mne_nirs
 
-from itertools import chain
 from mne_bids import get_anonymization_daysback
 
 from ..utils import run_shell
@@ -218,26 +217,15 @@ def convert(files, out, dst, **kwargs):
             f"Found {len(extension)}: {', '.join(extension)}",
         )
 
-    # Check if extension supported
-    extension = extension.pop()
-    supported_extensions = _SUPPORTED.keys()
-    valid_extensions = chain(*supported_extensions)
-    if extension not in valid_extensions:
-        raise ValueError(
-            f"Extension {extension} is not supported \n"
-            f"Valid input extensions are:{', '.join(valid_extensions)}"
-        )
-
     # Check if output format supported and choose converter
-    for extensions in supported_extensions:
-        if extension in extensions:
-            outs = _SUPPORTED[extensions]["to"]
-            if out not in outs:
-                raise ValueError(
-                    f"Output format {out} is not supported \n"
-                    f"Valid output formats are: {', '.join(outs)}"
-                )
-            converter = _SUPPORTED[extensions]["using"]
+    extension = extension.pop()
+    for outs in _SUPPORTED:
+        if out in outs and extension in _SUPPORTED[outs]["from"]:
+            converter = _SUPPORTED[outs]["using"]
+            break
+
+    if not converter:
+        raise ValueError(f"Extension {extension} or output {out} mismatch.")
 
     if not dst or dst == "":
         raise ValueError("Expected valid destination path, received empty")
@@ -249,28 +237,28 @@ def convert(files, out, dst, **kwargs):
 
 _SUPPORTED = {
     (
-        ".bdf",
-        ".cnt",
-        ".data",
-        ".edf",
-        ".gdf",
-        ".mat",
-        ".mff",
-        ".nxe",
-        ".set",
-        ".vhdr",
+        "BrainVision",
+        "EDF",
+        "FIF",
+        "auto",
     ): {
-        "to": (
-            "BrainVision",
-            "EDF",
-            "FIF",
-            "auto",
+        "from": (
+            ".bdf",
+            ".cnt",
+            ".data",
+            ".edf",
+            ".gdf",
+            ".mat",
+            ".mff",
+            ".nxe",
+            ".set",
+            ".vhdr",
         ),
         "using": eeg_conv,
     },
-    (".edf",): {"to": ("ASCII",), "using": edf2asc},
-    (".dcm",): {"to": ("NIfTI",), "using": dcm2nii},
-    (".nirx",): {"to": ("SNIRF",), "using": nirs_conv},
+    ("ASCII",): {"from": (".edf",), "using": edf2asc},
+    ("NIfTI",): {"from": (".dcm",), "using": dcm2nii},
+    ("SNIRF",): {"from": (".nirx",), "using": nirs_conv},
 }
 _DCM2NII_VALID_FLAGS = {"--forceDcm2niix", "--clobber"}
 _EDF2ASC_VALID_FLAGS = {

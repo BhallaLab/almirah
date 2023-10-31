@@ -187,8 +187,8 @@ def eeg_conv(files, out, dst, **kwargs):
             verbose=verbose,
         )
 
-        logging.info(f"Converted {file.path} and stored to {new_path}")
-    logging.info(f"Conversion to {format} format complete")
+        logging.info(f"Converted {file.path} and stored to {path}")
+    logging.info(f"Conversion to {out} format complete")
 
 
 def convert(files, out, dst, **kwargs):

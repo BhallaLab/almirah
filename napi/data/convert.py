@@ -11,7 +11,27 @@ from ..utils import run_shell
 
 
 def dcm2nii(files, out, dst, **kwargs):
-    """Convert DICOM files to NIfTI and write to disk."""
+    """Convert DICOM files to NIfTI and write to disk.
+
+    Parameters
+    ----------
+    files : List of Files
+        List of File objects that represent the files to be converted.
+
+    out : str
+        Output format desired.
+
+    dst: str
+        Destination directory where converted files will be stored.
+
+    config: str
+        Path to config file. Should be compatible with dcm2bids
+        version installed.
+
+    Returns
+    -------
+    None
+    """
 
     # Set and build command
     flags = kwargs.get("flags", None)

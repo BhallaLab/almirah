@@ -7,8 +7,6 @@ import logging
 import mne_bids
 import mne_nirs
 
-from mne_bids import get_anonymization_daysback
-
 from ..utils import run_shell
 
 
@@ -148,21 +146,6 @@ def eeg_conv(files, out, dst, **kwargs):
             "suffix": "suffix",
         }
 
-    raw_collection = []
-    path_collection = []
-    for file in files:
-        raw = mne.io.read_raw(file.path)
-        raw.info["line_freq"] = line_freq
-
-        # Form BIDSPath parameters from tag mapped_column
-        path_params = {}
-        for param, tag in tag_map.items():
-            tag = file.tags.get(tag, None)
-            path_params[param] = tag.value if tag else None
-        path = mne_bids.BIDSPath(root=dst, **path_params)
-        raw_collection.append(raw)
-        path_collection.append(path)
-
     # Set overwrite preferences
     overwrite = kwargs.get("overwrite", True)
     logging.info(f"Using overwrite = {overwrite} for conversion")
@@ -179,18 +162,22 @@ def eeg_conv(files, out, dst, **kwargs):
     anonymize = kwargs.get("anonymize", None)
     if not anonymize:
         logging.info("Continuing without data anonymization")
-
     else:
-        daysback_min, daysback_max = get_anonymization_daysback(raw_collection)
-        if not (daysback_min <= anonymize["daysback"] <= daysback_max):
-            raise ValueError(
-                f"Expected {daysback_min} < daysback < {daysback_max} \n"
-                f"Received daysback value of {anonymize['daysback']} days"
-            )
         logging.info(f"Using daysback of {anonymize['daysback']} to anonymize")
 
-    for raw, path in zip(raw_collection, path_collection):
-        new_path = mne_bids.write_raw_bids(
+    for file in files:
+        raw = mne.io.read_raw(file.path)
+        raw.info["line_freq"] = line_freq
+
+        # Form BIDSPath parameters from tag mapped_column
+        path_params = {}
+        for param, tag in tag_map.items():
+            tag = file.tags.get(tag, None)
+            path_params[param] = tag.value if tag else None
+
+        path = mne_bids.BIDSPath(root=dst, **path_params)
+
+        mne_bids.write_raw_bids(
             raw,
             path,
             event_id=event_id,

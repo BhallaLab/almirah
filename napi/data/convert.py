@@ -38,17 +38,14 @@ def dcm2nii(files, out, dst, **kwargs):
     if flags:
         tmp.extend(flags)
     tmp = shlex.join(tmp)
-    tmp = tmp.format(dst=dst)
 
     # Set logging level
     verbose = kwargs.get("logging", "INFO")
-    tmp = tmp.format(verbose=verbose)
 
     # Set configuration file
     config = kwargs.get("config", None)
     if not config:
         raise KeyError("Expected config path, but not found")
-    tmp = tmp.format(config=config)
 
     # Set argument mappping
     tag_map = kwargs.get("tag_map", None)
@@ -66,7 +63,7 @@ def dcm2nii(files, out, dst, **kwargs):
             if tag:
                 args[param] = tag.value
         args["path"] = file.path
-        cmd = tmp.format(**args)
+        cmd = tmp.format(**args, dst=dst, verbose=verbose, config=config)
         run_shell(cmd)
         logging.info(f"Converted {file.path} and stored to {dst}")
     logging.info("Conversion to nii complete")

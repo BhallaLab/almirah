@@ -168,11 +168,10 @@ class Specification:
             "tag_rules",
         ]:
             if mandatory_key not in rules:
-                raise KeyError(f"Expected but not found '{mandatory_key}' in rules")
+                raise KeyError(f"Expected '{mandatory_key}' in rule.")
 
         source = rules.get("source")
         destination = rules.get("destination")
-
         logging.info(f"Initiating organization of {source} -> {destination}")
 
         overwrite = rules.get("overwrite", False)
@@ -180,10 +179,8 @@ class Specification:
             logging.warning("If found, existing files will be overwritten")
 
         add = rules.get("add", None)
-        for addition in add or []:
-            logging.info(
-                f"File {addition['path']} will be added to all contents as a {addition['position']}"
-            )
+        for a in add or []:
+            logging.info(f"File {a['path']} will be added as {a['position']}.")
 
         logging.debug(f"Matching contents with pattern {rules.get('pattern')}")
 
@@ -201,53 +198,45 @@ class Specification:
                 logging.debug(f"Foraging for {tag_name} tag")
 
                 if "value" in rule:
-                    tag_val = rule.get("value")
-                    tags[tag_name] = tag_val
-                    logging.debug(f"Setting tag with {tag_val}")
+                    val = rule.get("value")
+                    tags[tag_name] = val
+                    logging.debug(f"Setting tag with {val}")
                 else:
                     match = re.findall(rule.get("pattern"), file)
                     if match and len(match) != 1:
-                        logging.error(
-                            "Expected single match, more found. Choosing last over others"
-                        )
+                        logging.error("Expected single match, more found.")
 
-                    tag_val = match[-1] if match else None
-                    logging.debug(f"Matching with pattern yields {tag_val}")
+                    # Choose last match always
+                    val = match[-1] if match else None
+                    logging.debug(f"Matching with pattern yields {val}")
 
-                    if "prepend" in rule and tag_val:
-                        tag_val = "".join([str(rule.get("prepend")), tag_val])
-                        logging.debug(f"Prepending tag value to get {tag_val}")
+                    if "prepend" in rule and val:
+                        val = "".join([str(rule.get("prepend")), val])
+                        logging.debug(f"Prepending tag value to get {val}")
 
-                    if (
-                        "length" in rule
-                        and tag_val
-                        and len(tag_val) != rule.get("length")
-                    ):
+                    if "length" in rule and val and len(val) != rule.get("length"):
                         if "iffy_prepend" in rule:
-                            logging.debug(
-                                "Additional prepends as tag of insufficient length"
-                            )
-                            tag_val = "".join([str(rule.get("iffy_prepend")), tag_val])
-                        if len(tag_val) != rule.get("length"):
+                            logging.debug("Insufficient length, prepending")
+                            val = "".join([str(rule.get("iffy_prepend")), val])
+
+                        if len(val) != rule.get("length"):
                             logging.debug("Tag value of insufficient length")
-                            tag_val = None
+                            val = None
 
-                    if rule.get("case") in ["lower", "upper"] and tag_val:
-                        tag_val = (
-                            tag_val.lower()
-                            if rule.get("case") == "lower"
-                            else tag_val.upper()
-                        )
+                    if c := rule.get("case") in ["lower", "upper"] and val:
+                        val = val.lower() if c == "lower" else val.upper()
 
-                    if "default" in rule and not tag_val:
-                        tag_val = rule.get("default")
-                        logging.debug(f"Using default value of {tag_val} for tag")
+                    if "default" in rule and not val:
+                        val = rule.get("default")
+                        logging.debug(f"Using default value of {val} for tag")
 
-                    if not tag_val:
-                        logging.error(f"Unable to find value of tag {tag_name}")
 
-                logging.info(f"File marked with {tag_name}:{tag_val} tag")
-                tags.update({tag_name: tag_val})
+
+                    if not val:
+                        logging.error(f"Value for tag {tag_name} not found.")
+
+                logging.info(f"File marked with {tag_name}:{val} tag")
+                tags.update({tag_name: val})
 
             # Warning, clunky code ahead. To be made better
             rel_path = self.build_path(tags)
@@ -272,7 +261,7 @@ class Specification:
                         )
                     else:
                         raise ValueError(
-                            f"Expected position to be either content or fellow. Received {addition['position']}"
+                            "Expected position to be either content or fellow"
                         )
                     utils.copy(addition["path"], addition_path, overwrite)
                     logging.info(f"Added addition at {addition_path}")

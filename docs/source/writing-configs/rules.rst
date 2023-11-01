@@ -44,6 +44,17 @@ The root directory where data is present.
 
 The directory in which to store the organized data.
 
+.. _map:
+``map``
+~~~~~~~
+
+Path to the *csv* file that will be used for mapping to get the value
+of another tag based a retrieved tag.
+
+If provided, then ``from`` and ``to`` keys are to be provided in the
+specific tag section of ``tag_rules`` too to complete the rule. There
+should be a one-to-one mapping between ``from`` and ``to``.
+
 ``pattern``
 ~~~~~~~~~~~
 
@@ -125,6 +136,19 @@ The valid rules that can be used are:
 ``value``
     **The** value to use for the tag. Overrides captured values if
     necessary.
+
+``from``
+    The column in :ref:`map` file that maps to the tag
+    value retrieved by ``pattern``.
+
+    ``to`` rule and :ref:`map` file path have to be provided to complete
+    this rule.
+
+``to``
+    The column in :ref:`map` file that maps to the tag name mentioned.
+
+    ``to`` rule and :ref:`map` file path have to be provided to complete
+    this rule.
 
 .. important::
 

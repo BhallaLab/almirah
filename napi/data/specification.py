@@ -5,6 +5,7 @@ import os
 import logging
 import warnings
 
+import pandas as pd
 from string import Formatter
 
 from .. import utils
@@ -174,6 +175,11 @@ class Specification:
         destination = rules.get("destination")
         logging.info(f"Initiating organization of {source} -> {destination}")
 
+        map_ = rules.get("map")
+        if map_:
+            mapping = pd.read_csv(map_, dtype=str)
+            logging.info(f"File {map_} will be used for mapping tag values")
+
         overwrite = rules.get("overwrite", False)
         if overwrite:
             logging.warning("If found, existing files will be overwritten")
@@ -230,7 +236,19 @@ class Specification:
                         val = rule.get("default")
                         logging.debug(f"Using default value of {val} for tag")
 
+                    if "from" in rule and val:
+                        from_, to = rule.get("from"), rule.get("to")
 
+                        if not to or not map_:
+                            raise KeyError("Expected to and map if from found")
+
+                        m = mapping.where(mapping[from_] == val).dropna()
+
+                        if len(m) != 1:
+                            logging.error(f"Expected unique map for {val}")
+                            continue
+
+                        val = m[to].values[0]
 
                     if not val:
                         logging.error(f"Value for tag {tag_name} not found.")

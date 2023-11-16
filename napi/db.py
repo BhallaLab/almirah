@@ -329,7 +329,8 @@ def get_db(db_path):
 
 def common_records(child, parent, child_on=None, parent_on=None):
     """Check whether each record in a DataFrame is contained in another."""
-    mask = (
+
+    return (
         pd.merge(
             child.reset_index(),
             parent,
@@ -339,9 +340,9 @@ def common_records(child, parent, child_on=None, parent_on=None):
             indicator="exists",
         )
         .replace({"both": True, "left_only": False, "right_only": False})
-        .set_index("index")
+        .set_index("index")["exists"]
+        .astype("bool")
     )
-    return mask["exists"].astype("bool")
 
 
 def migrate(

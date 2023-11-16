@@ -454,17 +454,24 @@ def set_dtype(series, dtype, **kwargs):
 
 def transform(series, dtype_kws=None, **kwargs):
     """Transform series and return with appropriate datatype."""
+
+    s = series.copy(deep=True)
+
     if pat := kwargs.get("extract"):
-        series = series.astype(str).str.extract(pat)
+        s = s.astype(str).str.extract(pat, expand=False)
 
     if ca := kwargs.get("case"):
-        series = series.str.upper() if ca == "upper" else series.str.lower()
+        s = s.str.upper() if ca == "upper" else s.str.lower()
 
     if not dtype_kws:
         dtype_kws = dict()
 
-    series = set_dtype(series, kwargs["dtype"], **dtype_kws)
-    return series
+    s = set_dtype(s, kwargs["dtype"], **dtype_kws)
+
+    error = series.notna() & s.isna()
+    utils.log_df(series[error], "Bad transform: \n{df}", level=logging.DEBUG)
+
+    return s
 
 
 def validate(series, **kwargs):

@@ -119,6 +119,7 @@ class DBManager:
         resolve_dups=False,
         check_fks=True,
         resolve_fks=False,
+        insert_ignore=False,
         drop_na=None,
         threshold=None,
         if_exists="append",
@@ -148,6 +149,8 @@ class DBManager:
         resolve_fks : bool, default False
             Attempt to resolve missing foreign keys by inserting to parent.
 
+        insert_ignore : bool, default Flase
+            Ignore insertion of records already present in table.
 
         drop_na : list of df column names, default None
             If provided, records with na in all given columns are dropped.
@@ -212,6 +215,13 @@ class DBManager:
 
         if check_fks:
             df = df[self.resolve_fks(df, table, resolve_fks)]
+
+        if insert_ignore:
+            mask = common_records(df, self.get_table(table).astype(df.dtypes))
+            logging.info(f"Ignoring insert of {mask.sum()} common records")
+            df = df[~mask]
+
+        logging.info(f"Inserting {len(df.index)} records")
 
         df.to_sql(
             table,

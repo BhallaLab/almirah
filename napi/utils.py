@@ -7,6 +7,7 @@ import shutil
 import logging
 import subprocess
 
+from functools import reduce
 from os.path import dirname as up
 
 
@@ -39,6 +40,14 @@ def get_dir_contents(root, pattern, skip=None):
                 m.append(os.path.join(dir, content))
     matches = [c for c in m if not any([re.search(s, c) for s in skip or []])]
     return matches
+
+
+def deep_get(dictionary, keys, default=None):
+    return reduce(
+        lambda d, key: d.get(key, default) if isinstance(d, dict) else default,
+        keys.split("."),
+        dictionary,
+    )
 
 
 def read_yaml(path):

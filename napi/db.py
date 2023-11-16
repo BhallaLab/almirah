@@ -460,6 +460,9 @@ def transform(series, dtype_kws=None, **kwargs):
     if pat := kwargs.get("extract"):
         s = s.astype(str).str.extract(pat, expand=False)
 
+    if rep := kwargs.get("replace"):
+        s = s.replace({k["value"]: k["with"] for k in rep})
+
     if ca := kwargs.get("case"):
         s = s.str.upper() if ca == "upper" else s.str.lower()
 

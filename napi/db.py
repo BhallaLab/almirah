@@ -311,17 +311,6 @@ def get_db(db_path):
     return create_engine(db_path)
 
 
-def get_transform(transform):
-    """Returns pandas method equivalent of transform string."""
-
-    TRANSFORM_EQUIVALENT = {"lowercase": str.lower, "uppercase": str.upper}
-
-    if transform not in TRANSFORM_EQUIVALENT.keys():
-        raise ValueError(f"Unsupported transform value {transform}")
-
-    return TRANSFORM_EQUIVALENT[transform]
-
-
 def common_records(child, parent, child_on=None, parent_on=None):
     """Check whether each record in a DataFrame is contained in another."""
     mask = (
@@ -467,8 +456,9 @@ def transform(series, dtype_kws=None, **kwargs):
     if pat := kwargs.get("extract"):
         series = series.astype(str).str.extract(pat)
 
-    if tr := kwargs.get("transform"):
-        series = series.apply(get_transform(tr))
+
+    if ca := kwargs.get("case"):
+        series = series.str.upper() if ca == "upper" else series.str.lower()
 
     if not dtype_kws:
         dtype_kws = dict()

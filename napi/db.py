@@ -58,13 +58,11 @@ class DBManager:
         """Build SQLalchmy constraint objects given links."""
         return ForeignKeyConstraint(cols, links)
 
-    def create_table(self, description):
+    def create_table(self, table, cols, refs=[]):
         """Create or extend table in db given the description."""
-        cols = [self.build_column(**c) for c in description.get("cols")]
-        cns = [self.build_constraint(**r) for r in description.get("refs", [])]
-        table = Table(
-            description["table"], self.meta, *cols, *cns, extend_existing=True
-        )
+        cls = [self.build_column(**c) for c in cols]
+        cns = [self.build_constraint(**r) for r in refs]
+        table = Table(table, self.meta, *cls, *cns, extend_existing=True)
         table.create(bind=self.engine, checkfirst=True)
 
     def get_primary(self, table):
@@ -420,7 +418,7 @@ def migrate(
             continue
 
         # Load records into target
-        t.create_table(m)
+        t.create_table(m["table"], m["cols"], m.get("refs", []))
         t.to_table(tar_df, m["table"], threshold=m.get("threshold"), **kwargs)
 
 

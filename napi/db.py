@@ -491,4 +491,5 @@ def validate(series, **kwargs):
     if members := kwargs.get("in"):
         mask &= series.isin(members) | series.isna()
 
+    utils.log_df(series[~mask], "Bad validation: \n{df}", level=logging.DEBUG)
     return mask

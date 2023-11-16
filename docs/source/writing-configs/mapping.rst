@@ -118,7 +118,13 @@ Values can be transformed and massaged to a different format using:
     Perform case tranformations to the value.
 
     Accepts ``lower`` or ``upper`` to convert all characters to
-    lowercase and uppercase respectively.    
+    lowercase and uppercase respectively.
+
+``replace``
+    Replace one value with another.
+
+    Accepts a sequence of ``value``:``with`` key pairs where ``with``
+    replaces ``value``.
 
 ``refs``
 ~~~~~~~~

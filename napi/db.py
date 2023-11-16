@@ -414,6 +414,9 @@ def migrate(
         utils.log_df(src_df[tr_error], "Unable to transform records: \n {df}")
         utils.log_df(src_df[~mask], "Found invalid records: \n {df}")
 
+        # Reshape data records
+        tar_df = reshape(tar_df[mask & ~tr_error], m.get("reshape", dict()))
+
         if dry_run:
             continue
 
@@ -464,6 +467,27 @@ def set_dtype(series, dtype, **kwargs):
         series = series.astype(dtype)
 
     return series.convert_dtypes()
+
+
+def reshape(df, steps):
+    """Reshape a dataframe into appropriate shape."""
+
+    for procedure in steps:
+        [(p, k)] = procedure.items()
+
+        if p == "add":
+            df[k["name"]] = k["value"]
+
+        if p == "split":
+            df[k["rename"]] = df[k["name"]].str.split(k["pat"], expand=True)
+
+        if p == "melt":
+            df = df.melt(**k)
+
+        if p == "pivot":
+            df = df.pivot_table(**k).reset_index()
+
+    return df
 
 
 def transform(series, dtype_kws=None, **kwargs):

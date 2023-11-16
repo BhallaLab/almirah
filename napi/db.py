@@ -393,9 +393,9 @@ def migrate(
         for col in m["cols"]:
             name, maps = col["name"], col["maps"]
             logging.debug(f"Transforming and validating column {name}")
-            tar_df[name] = transform(src_df[maps], dtype_kws, **col)
-            tr_error |= src_df[maps].notna() & tar_df[name].isna()
+            tar_df[name], err = transform(src_df[maps], dtype_kws, **col)
             mask &= validate(tar_df[name], **col)
+            tr_error |= err
 
         utils.log_df(src_df[tr_error], "Unable to transform records: \n {df}")
         utils.log_df(src_df[~mask], "Found invalid records: \n {df}")
@@ -471,7 +471,7 @@ def transform(series, dtype_kws=None, **kwargs):
     error = series.notna() & s.isna()
     utils.log_df(series[error], "Bad transform: \n{df}", level=logging.DEBUG)
 
-    return s
+    return s, error
 
 
 def validate(series, **kwargs):

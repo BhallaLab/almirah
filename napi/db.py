@@ -392,6 +392,7 @@ def migrate(
 
         for col in m["cols"]:
             name, maps = col["name"], col["maps"]
+            logging.debug(f"Transforming and validating column {name}")
             tar_df[name] = transform(src_df[maps], dtype_kws, **col)
             tr_error |= src_df[maps].notna() & tar_df[name].isna()
             mask &= validate(tar_df[name], **col)
@@ -455,7 +456,6 @@ def transform(series, dtype_kws=None, **kwargs):
     """Transform series and return with appropriate datatype."""
     if pat := kwargs.get("extract"):
         series = series.astype(str).str.extract(pat)
-
 
     if ca := kwargs.get("case"):
         series = series.str.upper() if ca == "upper" else series.str.lower()

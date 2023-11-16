@@ -115,11 +115,12 @@ class DBManager:
         self,
         df,
         table,
-        drop_na=None,
         check_dups=True,
         resolve_dups=False,
         check_fks=True,
         resolve_fks=False,
+        drop_na=None,
+        threshold=None,
         if_exists="append",
         index=False,
         insert_method=None,
@@ -135,9 +136,6 @@ class DBManager:
         table : str
             Table in database into which the records will be inserted.
 
-        drop_na : list of df column names, default None
-            If provided, records with na in all given columns is dropped.
-
         check_dups : bool, default True
             Check for duplicates in records.
 
@@ -149,6 +147,13 @@ class DBManager:
 
         resolve_fks : bool, default False
             Attempt to resolve missing foreign keys by inserting to parent.
+
+
+        drop_na : list of df column names, default None
+            If provided, records with na in all given columns are dropped.
+
+        threshold : int, None
+            If non-NA values < threshold, then record dropped.
 
         if_exists : ['append', 'replace', 'fail'], default 'append'
             Insert behavior in case table exists.
@@ -198,8 +203,9 @@ class DBManager:
 
         """
 
-        if drop_na:
-            df = df.dropna(subset=drop_na)
+        if drop_na or threshold:
+            logging.info("Dropping records with missing information")
+            df = df.dropna(subset=drop_na, thresh=threshold)
 
         if check_dups:
             df = df[self.resolve_dups(df, table, resolve_dups)]
@@ -404,7 +410,7 @@ def migrate(
 
         # Load records into target
         t.create_table(m)
-        t.to_table(tar_df[mask & ~tr_error], m["table"], **kwargs)
+        t.to_table(tar_df, m["table"], threshold=m.get("threshold"), **kwargs)
 
 
 def set_dtype(series, dtype, **kwargs):

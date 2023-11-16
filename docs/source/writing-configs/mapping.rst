@@ -114,11 +114,11 @@ Values can be transformed and massaged to a different format using:
 
     The value captured is used in place of the complete value.
 
-``transform``
-    Perform string tranformations to the value.
+``case``
+    Perform case tranformations to the value.
 
-    Currently, ``lowercase`` and ``uppercase`` to convert all cased
-    characters to lowercase and uppercase respectively are supported.
+    Accepts ``lower`` or ``upper`` to convert all characters to
+    lowercase and uppercase respectively.    
 
 ``refs``
 ~~~~~~~~

@@ -333,7 +333,7 @@ def migrate(
     target,
     mapping,
     dry_run=False,
-    na_values=None,
+    na_vals=[],
     dtype_kws=None,
     **kwargs,
 ):
@@ -358,7 +358,7 @@ def migrate(
         If dry run, no records are inserted into target and tables are
         not created, but errors and invalid records are logged.
 
-    na_values: list, optional
+    na_vals: list, optional
         List of values to be considered as record not available. By
         default, the values '', 'None', 'NONE', 'NA', and 'Not Applicable'
         are considered.
@@ -375,15 +375,14 @@ def migrate(
     s = DBManager(src)
     t = DBManager(target)
 
-    if not na_values:
-        na_values = ["", "None", "NONE", "NA", "Not applicable"]
+    na_vals = ["", "None", "NONE", "NA", "N/A", "<NA>", "Not applicable"] + na_vals
 
     for m in mapping:
         logging.info(f"Transferring table {m['maps']} -> {m['table']}")
 
         # Extract source records
         src_df = s.get_table(m["maps"])
-        src_df = src_df.replace(na_values, pd.NA)
+        src_df = src_df.replace(na_vals, pd.NA)
         tar_df = pd.DataFrame(index=src_df.index)
 
         # Transform and validate

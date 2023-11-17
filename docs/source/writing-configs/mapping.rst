@@ -55,9 +55,10 @@ The table in source database from which records will be selected.
 ``cols``
 ~~~~~~~~
 
-All details regarding column mappings sit inside the ``cols`` key. It
-consists of a sequence of entries that provide information on the
-column, its datatype, validations to pass, and transformations if any.
+All details regarding fixed column mappings sit inside the ``cols``
+key. It consists of a sequence of entries that provide information on
+the column, its datatype, validations to pass, and transformations if
+any.
 
 The column mapping is defined using:
 
@@ -125,6 +126,26 @@ Values can be transformed and massaged to a different format using:
 
     Accepts a sequence of ``value``:``with`` key pairs where ``with``
     replaces ``value``.
+
+``attach``
+~~~~~~~~~~
+
+Columns that will be attached due to reshaping sit inside the
+``attach`` key. It supports all sub-keys supported by ``cols``.
+
+It is redundant to provide map value for columns in ``attach`` as
+their value are inferred from the records based on the reshape
+procedure. If your column needs to map to a column in source table,
+maybe ``cols`` or ``detach`` is more relevant.
+
+``detach``
+~~~~~~~~~~
+
+Columns that will be removed in the processing of reshaping sit inside
+the ``detach`` key. It supports all sub-keys supported by ``cols``.
+
+Columns under ``detach`` are typically serve as columns that are
+considered for melting into one.
 
 ``refs``
 ~~~~~~~~

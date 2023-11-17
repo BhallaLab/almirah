@@ -142,9 +142,33 @@ link.
 Both ``cols`` and ``links`` can be provided as comma-separated values
 enclosed in square brackets.
 
+``reshape``
+~~~~~~~~~~~
 
+Provide step-wise instructions to massage the records from one
+structure to another.
 
-    
+Reshaping instructions can be provided as a sequence of supported
+procedures as keys with a sequence of their respective arguments under
+them. The procedures are implemented using pandas methods and will
+thus use the same argument names as the specific pandas method.
 
+Reshaping procedures:
 
+``add``
+    Add new column ``name`` with given ``value``. Takes a ``name`` and
+    ``value`` key sequence with their values.
 
+``split``
+    Split column ``name`` into multiple columns based on delimiter
+    ``pat`` and rename the generated columns to ``rename``.
+
+``melt``
+    Massage a set of columns into a single column.
+
+    Uses arguments similar to :meth:`~pandas.DataFrame.melt`.
+
+``pivot``
+    Pivot to wide-form by grouping rows with similar identifiers.
+
+    Uses arguments similar to :meth:`~pandas.DataFrame.pivot_table`.

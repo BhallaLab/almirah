@@ -7,6 +7,8 @@ Database Interface
 
 .. autofunction:: napi.db.migrate
 
+.. autofunction:: napi.db.reshape		  
+
 .. autofunction:: napi.db.transform
 
 .. autofunction:: napi.db.validate		  

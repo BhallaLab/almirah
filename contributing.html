@@ -243,6 +243,9 @@ to start making your changes.</p></li>
 <li><p>Write a test which shows that the bug was fixed or that the feature
 works as expected.</p></li>
 <li><p>Format your changes with black.</p></li>
+<li><p>Update <a class="reference external" href="#contributing-to-documentation">documentation</a> if required.</p></li>
+<li><p>Add a <a class="reference external" href="https://github.com/girishmm/napi/blob/main/changelog/README.md">changelog entry</a>
+if required.</p></li>
 <li><p>Send a pull request and bug us till it gets merged and published.</p></li>
 </ol>
 <section id="setting-up-your-development-environment">
@@ -283,17 +286,21 @@ running the test suite.</p>
 <p>The documentation is built <a class="reference external" href="https://github.com/girishmm/napi/actions">continuously on GitHub Actions</a> with every push
 request. Hence, it is not necessary to push documentation builds to
 the repository.</p>
+<p>If you are planning a release and want to update the changelog in
+docs, run <code class="docutils literal notranslate"><span class="pre">towncrier</span> <span class="pre">build</span> <span class="pre">--version</span> <span class="pre">X.Y.Z</span></code> before building check
+the final look.</p>
 </section>
 <section id="releases">
 <h2>Releases<a class="headerlink" href="#releases" title="Permalink to this heading">#</a></h2>
 <p>A release candidate can be created by any contributor.</p>
 <ul class="simple">
 <li><p>Announce intent to release by communicating to all contributors.</p></li>
-<li><p>Update CHANGES.rst with the release notes.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">towncrier</span> <span class="pre">build</span> <span class="pre">--version</span> <span class="pre">X.Y.Z</span></code> to update <code class="docutils literal notranslate"><span class="pre">CHANGES.rst</span></code>
+with the release notes. Adjust as necessary.</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> with the proper version
 number.</p></li>
 <li><p>Commit the changes to a <code class="docutils literal notranslate"><span class="pre">release-X.Y.Z</span></code> branch.</p></li>
-<li><p>Create a pull request.</p></li>
+<li><p>Create a pull request!</p></li>
 </ul>
 </section>
 </section>

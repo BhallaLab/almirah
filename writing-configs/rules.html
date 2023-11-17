@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -221,7 +221,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -229,7 +229,133 @@
         <article role="main">
           <section id="organization-rules">
 <h1>Organization rules<a class="headerlink" href="#organization-rules" title="Permalink to this heading">#</a></h1>
-<p>To be added</p>
+<p>To organize an unformatted dataset according to a specification, user
+instructions are required. These can be mentioned as rules using
+supported keywords. This document will list all supported rules that
+will support the organization task. Multiple dataset rules can be
+mentioned in a single config by separating them with <code class="docutils literal notranslate"><span class="pre">---</span></code>.</p>
+<p>A minimal rule config to copy all files but one looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/data&quot;</span>
+<span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/destination&quot;</span>
+<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;.*&quot;</span>
+<span class="nt">tag_rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filename</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(.*)\\.&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extension</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(\\.[^/\\\\]+)$&quot;</span>
+<span class="nt">skip</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ignore_this_file</span>
+</pre></div>
+</div>
+<p>The above rules can be used to organize a dataset with <code class="xref py py-meth docutils literal notranslate"><span class="pre">organize()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Organize according to a specification</span>
+<span class="n">specification</span><span class="o">.</span><span class="n">organize</span><span class="p">(</span><span class="n">rules_loaded_as_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="top-level-keys">
+<h2>Top-level keys<a class="headerlink" href="#top-level-keys" title="Permalink to this heading">#</a></h2>
+<section id="source">
+<h3><code class="docutils literal notranslate"><span class="pre">source</span></code><a class="headerlink" href="#source" title="Permalink to this heading">#</a></h3>
+<p>The root directory where data is present.</p>
+</section>
+<section id="destination">
+<h3><code class="docutils literal notranslate"><span class="pre">destination</span></code><a class="headerlink" href="#destination" title="Permalink to this heading">#</a></h3>
+<p>The directory in which to store the organized data.</p>
+</section>
+<section id="map">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">map</span></code><a class="headerlink" href="#map" title="Permalink to this heading">#</a></h3>
+<p>Path to the <em>csv</em> file that will be used for mapping to get the value
+of another tag based a retrieved tag.</p>
+<p>If provided, then <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code> keys are to be provided in the
+specific tag section of <code class="docutils literal notranslate"><span class="pre">tag_rules</span></code> too to complete the rule. There
+should be a one-to-one mapping between <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code>.</p>
+</section>
+<section id="pattern">
+<h3><code class="docutils literal notranslate"><span class="pre">pattern</span></code><a class="headerlink" href="#pattern" title="Permalink to this heading">#</a></h3>
+<p>All source directory contents matching this will be considered for
+organization.</p>
+</section>
+<section id="overwrite">
+<h3><code class="docutils literal notranslate"><span class="pre">overwrite</span></code><a class="headerlink" href="#overwrite" title="Permalink to this heading">#</a></h3>
+<p>Boolean value indicating whether to overwrite data if exists.</p>
+</section>
+<section id="add">
+<h3><code class="docutils literal notranslate"><span class="pre">add</span></code><a class="headerlink" href="#add" title="Permalink to this heading">#</a></h3>
+<p>Add common files directly to each matched source directory
+content. The <code class="docutils literal notranslate"><span class="pre">add</span></code> key consists of a sequence of <code class="docutils literal notranslate"><span class="pre">path</span></code> and
+<code class="docutils literal notranslate"><span class="pre">position</span></code> entries.</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">path</span></code></dt><dd><p>Path to the common file.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">position</span></code></dt><dd><p>Position at which to add the common file.</p>
+<p>Valid values are <code class="docutils literal notranslate"><span class="pre">content</span></code> and <code class="docutils literal notranslate"><span class="pre">fellow</span></code>. They place the file
+to be added either inside or at the same level as the matched
+source directory content respectively.</p>
+</dd>
+</dl>
+</section>
+<section id="copy-fellows">
+<h3><code class="docutils literal notranslate"><span class="pre">copy_fellows</span></code><a class="headerlink" href="#copy-fellows" title="Permalink to this heading">#</a></h3>
+<p>Boolean value indicating whether to copy other files present at the
+same directory level.</p>
+</section>
+<section id="skip">
+<h3><code class="docutils literal notranslate"><span class="pre">skip</span></code><a class="headerlink" href="#skip" title="Permalink to this heading">#</a></h3>
+<p>Sequence of paths to ignore.</p>
+</section>
+<section id="tag-rules">
+<h3><code class="docutils literal notranslate"><span class="pre">tag_rules</span></code><a class="headerlink" href="#tag-rules" title="Permalink to this heading">#</a></h3>
+<p>All details regarding inferring tags from filenames in the source
+directory sit inside the <code class="docutils literal notranslate"><span class="pre">tag_rules</span></code> key. The tags inferred are used
+for building the path according to the specification. The
+<code class="docutils literal notranslate"><span class="pre">tag_rules</span></code> key consists of a sequence of tag <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pattern</span></code> entries along with valid rules for each tag.</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>The name of the tag.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pattern</span></code></dt><dd><p>Regex pattern to retreive the tag value from file path.</p>
+<p>It is required to have a mandatory single capturing group in the
+pattern. The captured value is used as the tag value if it passes
+the rules.</p>
+</dd>
+</dl>
+<p>The valid rules that can be used are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">default</span></code></dt><dd><p>The default value to use if no value is captured via <code class="docutils literal notranslate"><span class="pre">pattern</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">case</span></code></dt><dd><p>Accepts either <code class="docutils literal notranslate"><span class="pre">upper</span></code> or <code class="docutils literal notranslate"><span class="pre">lower</span></code> and accordingly changes the
+case of the value captured.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">length</span></code></dt><dd><p>Mentions the valid length of captured string.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">iffy_prepend</span></code> is provided, the value is validated again post
+prefix addition.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">iffy_prepend</span></code></dt><dd><p>If the length of the captured string does not equal the <code class="docutils literal notranslate"><span class="pre">length</span></code>
+rule, then the <code class="docutils literal notranslate"><span class="pre">iffy_prepend</span></code> value is added as a prefix to the
+captured value.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">value</span></code></dt><dd><p><strong>The</strong> value to use for the tag. Overrides captured values if
+necessary.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">from</span></code></dt><dd><p>The column in <a class="reference internal" href="#map"><span class="std std-ref">map</span></a> file that maps to the tag
+value retrieved by <code class="docutils literal notranslate"><span class="pre">pattern</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">to</span></code> rule and <a class="reference internal" href="#map"><span class="std std-ref">map</span></a> file path have to be provided to complete
+this rule.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">to</span></code></dt><dd><p>The column in <a class="reference internal" href="#map"><span class="std std-ref">map</span></a> file that maps to the tag name mentioned.</p>
+<p><code class="docutils literal notranslate"><span class="pre">to</span></code> rule and <a class="reference internal" href="#map"><span class="std std-ref">map</span></a> file path have to be provided to complete
+this rule.</p>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If a mandatory tag cannot be inferred from the file path, then
+path building fails and the file is not added to the organized
+dataset. More info on the tag that could not be inferred can be
+found in logs.</p>
+</div>
+</section>
+</section>
 </section>
 
         </article>
@@ -282,8 +408,38 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Organization rules</a><ul>
+<li><a class="reference internal" href="#top-level-keys">Top-level keys</a><ul>
+<li><a class="reference internal" href="#source"><code class="docutils literal notranslate"><span class="pre">source</span></code></a></li>
+<li><a class="reference internal" href="#destination"><code class="docutils literal notranslate"><span class="pre">destination</span></code></a></li>
+<li><a class="reference internal" href="#map"><code class="docutils literal notranslate"><span class="pre">map</span></code></a></li>
+<li><a class="reference internal" href="#pattern"><code class="docutils literal notranslate"><span class="pre">pattern</span></code></a></li>
+<li><a class="reference internal" href="#overwrite"><code class="docutils literal notranslate"><span class="pre">overwrite</span></code></a></li>
+<li><a class="reference internal" href="#add"><code class="docutils literal notranslate"><span class="pre">add</span></code></a></li>
+<li><a class="reference internal" href="#copy-fellows"><code class="docutils literal notranslate"><span class="pre">copy_fellows</span></code></a></li>
+<li><a class="reference internal" href="#skip"><code class="docutils literal notranslate"><span class="pre">skip</span></code></a></li>
+<li><a class="reference internal" href="#tag-rules"><code class="docutils literal notranslate"><span class="pre">tag_rules</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -221,7 +221,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -229,6 +229,304 @@
         <article role="main">
           <section id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">napi</span></code> is a tool to organize, query, and summarize data. In this
+tutorial we will use <code class="docutils literal notranslate"><span class="pre">napi</span></code> on a dummy test dataset that represents
+imaging data obtained from mice to illustrate some of its usecases. In
+case you have not installed <code class="docutils literal notranslate"><span class="pre">napi</span></code> yet, please go to the
+<a class="reference internal" href="user-guide.html#installing"><span class="std std-ref">Installing</span></a> section and follow the instructions.</p>
+<p>First, let us obtain the dataset to work on for the tutorial. It comes
+along with <code class="docutils literal notranslate"><span class="pre">napi</span></code> and can be copied to a convenient location using
+the <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_tutorial_dataset()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napi.utils</span> <span class="kn">import</span> <span class="n">get_tutorial_dataset</span>
+
+<span class="n">get_tutorial_dataset</span><span class="p">(</span><span class="s2">&quot;path/to/store&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The dataset contents can be listed using the <code class="docutils literal notranslate"><span class="pre">tree</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>tree<span class="w"> </span><span class="s2">&quot;path/to/store&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">.</span>
+<span class="go">├── 72</span>
+<span class="go">│   ├── DAY01_G72_20180201.npy</span>
+<span class="go">│   └── DAY02_G72_20180202.npy</span>
+<span class="go">├── DAY01_G171_20180101.npy</span>
+<span class="go">├── Day2_171_20180102.npy</span>
+<span class="go">└── G433</span>
+<span class="go">    ├── DAY_G433_20180301.npy</span>
+<span class="go">    └── day02_G433_20180301.npy</span>
+
+<span class="go">3 directories, 6 files</span>
+</pre></div>
+</div>
+<p>The dataset is not formatted and is difficult to navigate as can be
+seen from content hierarchy. Let us attempt to change this.</p>
+<section id="defining-a-specification">
+<h2>Defining a Specification<a class="headerlink" href="#defining-a-specification" title="Permalink to this heading">#</a></h2>
+<p>The first step to all things <code class="docutils literal notranslate"><span class="pre">napi</span></code> can do is defining the
+<a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a>. To come up with a
+<code class="docutils literal notranslate"><span class="pre">Specification</span></code> for this dataset, let us think about how we would
+structure this dataset manually.</p>
+<section id="deciding-path-patterns">
+<h3>Deciding path patterns<a class="headerlink" href="#deciding-path-patterns" title="Permalink to this heading">#</a></h3>
+<p>We would prefer to navigate in the following order from the dataset
+root directory, <code class="docutils literal notranslate"><span class="pre">mice</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">day</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">file</span></code>. This is intuitive and
+leaves scope for expansion on new data generation. Based on this, the
+path relative to the dataset root would look like <cite>mice/day/file</cite>.
+Further, the file name should contain the details of mice, day, and
+the type of imaging for identification. For example, a nice file name
+would be <cite>mice-G433_day-01_imaging-calcium.npy</cite>.</p>
+<p>The above decided path can be mentioned in the <code class="docutils literal notranslate"><span class="pre">Specification</span></code>
+config under the <code class="docutils literal notranslate"><span class="pre">path_patterns</span></code> key like:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">path_patterns</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;mice-{mice}/day-{day}/mice-{mice}_day-{day}_imaging-{imaging}{extension}&quot;</span>
+</pre></div>
+</div>
+<p>Here, contents enclosed in <code class="docutils literal notranslate"><span class="pre">{}</span></code> represent that these are tag
+values. A <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> in <code class="docutils literal notranslate"><span class="pre">napi</span></code> is associated with a bunch of
+tags. It is possible to provide more details on tags regarding valid
+values, the default value, and if the <code class="xref py py-class docutils literal notranslate"><span class="pre">Tag</span></code> is mandatory.</p>
+</section>
+<section id="building-paths">
+<h3>Building paths<a class="headerlink" href="#building-paths" title="Permalink to this heading">#</a></h3>
+<p>Now that we have the basic <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a>, we
+can build valid paths by providing the required tags. Tags are
+<cite>key</cite>:<cite>value</cite> pairs that convey an information regarding the file. For
+our decided path, the tags we require for path building are <code class="docutils literal notranslate"><span class="pre">mice</span></code>,
+<code class="docutils literal notranslate"><span class="pre">day</span></code>, <code class="docutils literal notranslate"><span class="pre">imaging</span></code>, and <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napi</span> <span class="kn">import</span> <span class="n">Specification</span>
+
+<span class="c1"># Create a Specification object</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">Specification</span><span class="p">(</span><span class="s2">&quot;/path/to/config&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check out paths built based on tags provided</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">mice</span><span class="o">=</span><span class="s1">&#39;G433&#39;</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">imaging</span><span class="o">=</span><span class="s1">&#39;calcium&#39;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s1">&#39;.npy&#39;</span><span class="p">)</span>
+<span class="c1"># mice-G433/day-01/mice-G433_day-01_imaging-calcium.npy</span>
+
+<span class="n">spec</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">mice</span><span class="o">=</span><span class="s1">&#39;G41&#39;</span><span class="p">,</span> <span class="n">imaging</span><span class="o">=</span><span class="s1">&#39;calcium&#39;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s1">&#39;.npy&#39;</span><span class="p">)</span>
+<span class="c1"># Returns None as no valid path be built using only these tags</span>
+</pre></div>
+</div>
+</section>
+<section id="extracting-tags-from-path">
+<h3>Extracting tags from path<a class="headerlink" href="#extracting-tags-from-path" title="Permalink to this heading">#</a></h3>
+<p>Certain times, we might need to extract tags from a path. For example,
+what is the <code class="docutils literal notranslate"><span class="pre">mice</span></code> tag or the <code class="docutils literal notranslate"><span class="pre">day</span></code> tag given the path? These can
+be provided as a sequence of <em>name</em>:<em>regex pattern</em> pairs under the
+<code class="docutils literal notranslate"><span class="pre">tags</span></code> key like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tags</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">mice</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[/</span><span class="se">\\\\</span><span class="s2">]mice-([a-zA-Z0-9]+)&quot;</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">day</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[/</span><span class="se">\\\\</span><span class="s2">]+day-([0-9]+)&quot;</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">imaging</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[_/</span><span class="se">\\\\</span><span class="s2">]+imaging-([a-zA-Z]+)&quot;</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">extension</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[^./</span><span class="se">\\\\</span><span class="s2">](</span><span class="se">\\</span><span class="s2">.[^/</span><span class="se">\\\\</span><span class="s2">]+)$&quot;</span>
+</pre></div>
+</div>
+<p>The capturing group in the regex pattern extracts the tag value from
+the path.</p>
+<p>Putting all of these together, we have our <code class="docutils literal notranslate"><span class="pre">Specification</span></code> config:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mice</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[/\\\\]mice-([a-zA-Z0-9]+)&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">day</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[/\\\\]+day-([0-9]+)&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imaging</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[_/\\\\]+imaging-([a-zA-Z]+)&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extension</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[^./\\\\](\\.[^/\\\\]+)$&quot;</span>
+<span class="nt">path_patterns</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;mice-{mice}/day-{day}/mice-{mice}_day-{day}_imaging-{imaging}{extension}&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="organizing-the-dataset">
+<h2>Organizing the dataset<a class="headerlink" href="#organizing-the-dataset" title="Permalink to this heading">#</a></h2>
+<p>With the <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code> defined, it is now possible to
+restructure a dataset given that we are able to retrieve the tags
+required to build a valid path from each target file. If we are able
+to build a valid relative path, then it just boils down to just moving
+the file to that position with respect to the root directory. Lets us
+do this for our dataset.</p>
+<p>Required parameters to begin organizing a dataset are:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code>: The root directory of unorganized data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination</span></code>: The directory where organized data will be stored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pattern</span></code>: All filenames matching this pattern are considered for
+organizing. For our dataset, this can be <code class="docutils literal notranslate"><span class="pre">*.npy</span></code>.</p></li>
+</ol>
+<section id="establishing-tag-rules">
+<h3>Establishing tag rules<a class="headerlink" href="#establishing-tag-rules" title="Permalink to this heading">#</a></h3>
+<p>Let us consider all the file names in the dataset, namely:</p>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">DAY01_G72_20180201.npy</span>
+<span class="go">DAY02_G72_20180202.npy</span>
+<span class="go">DAY01_G171_20180101.npy</span>
+<span class="go">Day2_171_20180102.npy</span>
+<span class="go">DAY_G433_20180301.npy</span>
+<span class="go">day02_G433_20180301.npy</span>
+</pre></div>
+</div>
+<p>We notice that the <code class="docutils literal notranslate"><span class="pre">day</span></code> tag value is at the beginning between the
+string <cite>day</cite> (ignoring case) and an <cite>_</cite> (underscore). This can be
+extracted with the regex pattern <code class="docutils literal notranslate"><span class="pre">(?i)day([0-9]+)_</span></code>. But one of the
+files does not have any info on the day value and for this no value
+will be captured. Since we have exclusive information from the person
+who performed the experiments, we know it is <code class="docutils literal notranslate"><span class="pre">1</span></code> and by default if
+no value is captured we would like to choose this. Further, to
+maintain uniformity we would like to ensure that the length of <code class="docutils literal notranslate"><span class="pre">day</span></code>
+tag is <code class="docutils literal notranslate"><span class="pre">2</span></code>, and if not prefix it with <code class="docutils literal notranslate"><span class="pre">0</span></code>. Putting these together
+as a tag retrieval rule:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags_rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">day</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(?i)day([0-9]+)_&quot;</span>
+<span class="w">    </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">iffy_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>Similarly, we see that the value following the first underscore gives
+the <code class="docutils literal notranslate"><span class="pre">mice</span></code> info. This can be extracted with the regex pattern
+<code class="docutils literal notranslate"><span class="pre">_([a-zA-Z0-9]+)_</span></code>. Since one of the files does not have the
+<code class="docutils literal notranslate"><span class="pre">mice</span></code> info beginning with the suffix <em>G</em>, we choose to extract only
+the numbers with the regex pattern using <code class="docutils literal notranslate"><span class="pre">_G?([0-9]+)_</span></code> and prepend
+it with <em>G</em>. Putting these together as a rule:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags_rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mice</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;_G?([0-9]+)_&quot;</span>
+<span class="w">    </span><span class="nt">prepend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G</span>
+</pre></div>
+</div>
+<p>There is no value for the <code class="docutils literal notranslate"><span class="pre">imaging</span></code> tag in path but we know that it
+is <em>calcium</em> imaging data, so let us set all values to <em>calcium</em>. And
+similarly, let <code class="docutils literal notranslate"><span class="pre">extension</span></code> be <em>.npy</em>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags_rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imaging</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">calcium</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extension</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npy</span>
+</pre></div>
+</div>
+<p>Putting these together, we get our organization rules config:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/unorganized/data&quot;</span>
+<span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/store/organized/data&quot;</span>
+<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*.npy&quot;</span>
+<span class="nt">tags_rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">day</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(?i)day([0-9]+)_&quot;</span>
+<span class="w">    </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">iffy_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mice</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;_G?([0-9]+)_&quot;</span>
+<span class="w">    </span><span class="nt">prepend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imaging</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">calcium</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extension</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npy</span>
+</pre></div>
+</div>
+</section>
+<section id="executing-the-rules">
+<h3>Executing the rules<a class="headerlink" href="#executing-the-rules" title="Permalink to this heading">#</a></h3>
+<p>To run this set of rules and obtain the organized dataset, we can use
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">organize()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">read_yaml</span>
+
+<span class="c1"># Load rules into dictionary</span>
+<span class="n">rules</span> <span class="o">=</span> <span class="n">read_yaml</span><span class="p">(</span><span class="s2">&quot;/path/to/rules&quot;</span><span class="p">)</span>
+
+<span class="c1"># Execute rules and use Specification for path building</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">organize</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Listing the contents of the organized dataset using <code class="docutils literal notranslate"><span class="pre">tree</span></code> after the
+run gives:</p>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">.</span>
+<span class="go">├── mice-G72</span>
+<span class="go">│   ├── day-01</span>
+<span class="go">│   │   └── mice-G72_day-01_imaging-calcium.npy</span>
+<span class="go">│   └── day-02</span>
+<span class="go">│       └── mice-G72_day-02_imaging-calcium.npy</span>
+<span class="go">├── mice-G171</span>
+<span class="go">│   ├── day-01</span>
+<span class="go">│   │   └── mice-G171_day-01_imaging-calcium.npy</span>
+<span class="go">│   └── day-02</span>
+<span class="go">│       └── mice-G171_day-02_imaging-calcium.npy</span>
+<span class="go">└── mice-G433</span>
+<span class="go">    ├── day-01</span>
+<span class="go">    │   └── mice-G433_day-01_imaging-calcium.npy</span>
+<span class="go">    └── day-02</span>
+<span class="go">        └── mice-G433_day-02_imaging-calcium.npy</span>
+</pre></div>
+</div>
+<p>This is much easier to navigate and structured. Along with this comes
+the bonus of being able to query the dataset once indexed. In
+<code class="docutils literal notranslate"><span class="pre">napi</span></code>, a collection of files with a common root directory form a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> and a collection of layouts form a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+</section>
+</section>
+<section id="querying">
+<h2>Querying<a class="headerlink" href="#querying" title="Permalink to this heading">#</a></h2>
+<p>Tags associated with files can help in filtering through the
+dataset. We can retrieve a subset of files that satisfy certain
+tags. An operation called indexing makes this possible.</p>
+<section id="the-indexing-operation">
+<h3>The indexing operation<a class="headerlink" href="#the-indexing-operation" title="Permalink to this heading">#</a></h3>
+<p>In brief, the indexing operation on a <code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> or a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code> crawls top-down from the root directory and figures
+out the <em>tag</em>:<em>file</em> associations. These associations are stored and
+used while querying to filter through the dataset. Additional
+associations for a file excluding tags present in the path can be
+provided with an accompanying <em>JSON</em> file that shares the same
+filename. Indexing is performed automatically on creation of a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<p>To index our tutorial dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napi</span> <span class="kn">import</span> <span class="n">Layout</span>
+
+<span class="c1"># Create a Layout instance with data path and Specification</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;/path/to/organized/data&quot;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">spec</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+<span class="c1"># /path/to/organized/data</span>
+</pre></div>
+</div>
+<p>The returned instance has all details including the files in it and
+tags for each file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files in layout: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Files in layout: 6</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The first file is </span><span class="si">{</span><span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+<span class="c1"># The first file is &lt;File path=`/path/to/file`&gt;.</span>
+</pre></div>
+</div>
+<p>With this, we can start querying in multiple ways.</p>
+</section>
+<section id="filtering-with-tags">
+<h3>Filtering with tags<a class="headerlink" href="#filtering-with-tags" title="Permalink to this heading">#</a></h3>
+<p>An instance associated with the indexer can be queried with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_files()</span></code> using tag values. For example, retrieve
+all files of mice <em>G171</em> where recording was done on day <em>02</em>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layout</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">mice</span><span class="o">=</span><span class="s1">&#39;G171&#39;</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s1">&#39;02&#39;</span><span class="p">)</span>
+<span class="c1"># [&#39;/root/mice-G171_day-01_imaging-calcium.npy&#39;,</span>
+<span class="c1">#  &#39;/root/mice-G171_day-02_imaging-calcium.npy&#39;]</span>
+</pre></div>
+</div>
+<p>A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> objects is returned. These can be utilised for
+further downstream analysis pipelines.</p>
+</section>
+</section>
+<section id="other-capabilities">
+<h2>Other capabilities<a class="headerlink" href="#other-capabilities" title="Permalink to this heading">#</a></h2>
+<p>This tutorial is a quick run-through some of the things <code class="docutils literal notranslate"><span class="pre">napi</span></code> can help with. There are other things it can do:</p>
+<ul class="simple">
+<li><p>Migrate database records from one schema to another</p></li>
+<li><p>Interface with DataLad compatible datasets</p></li>
+</ul>
+<p>The <a class="reference internal" href="reference/index.html"><span class="doc">API Reference</span></a> acts as good starting point if you need these.</p>
+</section>
 </section>
 
         </article>
@@ -281,8 +579,43 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Tutorial</a><ul>
+<li><a class="reference internal" href="#defining-a-specification">Defining a Specification</a><ul>
+<li><a class="reference internal" href="#deciding-path-patterns">Deciding path patterns</a></li>
+<li><a class="reference internal" href="#building-paths">Building paths</a></li>
+<li><a class="reference internal" href="#extracting-tags-from-path">Extracting tags from path</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#organizing-the-dataset">Organizing the dataset</a><ul>
+<li><a class="reference internal" href="#establishing-tag-rules">Establishing tag rules</a></li>
+<li><a class="reference internal" href="#executing-the-rules">Executing the rules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#querying">Querying</a><ul>
+<li><a class="reference internal" href="#the-indexing-operation">The indexing operation</a></li>
+<li><a class="reference internal" href="#filtering-with-tags">Filtering with tags</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-capabilities">Other capabilities</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

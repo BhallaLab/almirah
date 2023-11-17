@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -221,7 +221,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -229,7 +229,70 @@
         <article role="main">
           <section id="specification-details">
 <h1>Specification details<a class="headerlink" href="#specification-details" title="Permalink to this heading">#</a></h1>
-<p>To be added</p>
+<p>A Specification is a agreed-upon standard that describes how a dataset
+should be organized. It includes the file paths allowed, the tags
+associated with a file, and their role in file name generation. This
+document will detail how to provide each of this options.</p>
+<p>A minimal configuration of tags for a dataset looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filename</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[/\\\\](.*)\\.&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extension</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(\\.[^/\\\\]+)$&quot;</span>
+<span class="nt">path_patterns</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;{filename}{extension}&quot;</span>
+</pre></div>
+</div>
+<p>Using the above minimal specification for path building with <code class="xref py py-meth docutils literal notranslate"><span class="pre">build_path()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build path according to specification with tags as parameters</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">specification</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print the built path.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="c1"># file.txt</span>
+</pre></div>
+</div>
+<section id="top-level-keys">
+<h2>Top-level keys<a class="headerlink" href="#top-level-keys" title="Permalink to this heading">#</a></h2>
+<section id="tags">
+<h3><code class="docutils literal notranslate"><span class="pre">tags</span></code><a class="headerlink" href="#tags" title="Permalink to this heading">#</a></h3>
+<p>All details regarding permissible tags sit inside the <code class="docutils literal notranslate"><span class="pre">tags</span></code>
+key. The <code class="docutils literal notranslate"><span class="pre">tags</span></code> key consists of a sequence of <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pattern</span></code> entries.</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>The name of the tag.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pattern</span></code></dt><dd><p>Regex pattern to retreive the tag value from file path.</p>
+<p>It is required to have a mandatory single capturing group in the
+pattern. The captured value is used as the tag value.</p>
+</dd>
+</dl>
+</section>
+<section id="path-patterns">
+<h3><code class="docutils literal notranslate"><span class="pre">path_patterns</span></code><a class="headerlink" href="#path-patterns" title="Permalink to this heading">#</a></h3>
+<p>All details regarding permissible file paths sit inside the
+<code class="docutils literal notranslate"><span class="pre">path_patterns</span></code> key. The <code class="docutils literal notranslate"><span class="pre">path_patterns</span></code> key consists of a
+sequence of paths relative to the dataset root. Usage of tag values in
+paths is supported.</p>
+<p>A path can contain both template and ordinary patterns. The template patterns are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">[contents]</span></code></dt><dd><p>Used to indicate that the contents are optional.</p>
+<p>The path <code class="docutils literal notranslate"><span class="pre">/dir[/subdir]/file</span></code> will match both <code class="docutils literal notranslate"><span class="pre">/dir/file</span></code> and
+<code class="docutils literal notranslate"><span class="pre">dir/subdir/file</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">{name&lt;values&gt;|default}</span></code></dt><dd><p>Used to indicate that the template will be filled in by a tag value.</p>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> refers to the name of the tag, <code class="docutils literal notranslate"><span class="pre">values</span></code> refers to the
+set of valid values separated by <code class="docutils literal notranslate"><span class="pre">|</span></code>, and <code class="docutils literal notranslate"><span class="pre">default</span></code> refers to
+the default value that is chosen while building path name from
+tags associated.  <code class="docutils literal notranslate"><span class="pre">values</span></code> and <code class="docutils literal notranslate"><span class="pre">default</span></code> are optional.</p>
+<p>The path <code class="docutils literal notranslate"><span class="pre">/dir/{filename&lt;file1|file2&gt;|file1}</span></code> will match
+<code class="docutils literal notranslate"><span class="pre">/dir/file1</span></code> and <code class="docutils literal notranslate"><span class="pre">/dir/file2</span></code> but not <code class="docutils literal notranslate"><span class="pre">/dir/file3</span></code>. If no
+<code class="docutils literal notranslate"><span class="pre">filename</span></code> tag is provided during path building, <code class="docutils literal notranslate"><span class="pre">file1</span></code> is
+chosen as the default.</p>
+</dd>
+</dl>
+</section>
+</section>
 </section>
 
         </article>
@@ -282,8 +345,31 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Specification details</a><ul>
+<li><a class="reference internal" href="#top-level-keys">Top-level keys</a><ul>
+<li><a class="reference internal" href="#tags"><code class="docutils literal notranslate"><span class="pre">tags</span></code></a></li>
+<li><a class="reference internal" href="#path-patterns"><code class="docutils literal notranslate"><span class="pre">path_patterns</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

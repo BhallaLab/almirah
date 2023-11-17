@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -221,7 +221,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -229,7 +229,159 @@
         <article role="main">
           <section id="database-mapping">
 <h1>Database mapping<a class="headerlink" href="#database-mapping" title="Permalink to this heading">#</a></h1>
-<p>To be added</p>
+<p>It is convenient to store tabular records in a SQL database. There
+might be usecases where it is necessary to migrate to another
+schema. For this, the mapping between the columns in the previous
+schema to the new schema is required along with any transformations to
+be performed. napi supports database migration with help from a
+user-written mapping config whose options are detailed in this
+document. Each table is defined as a seperated document and are
+separated by <code class="docutils literal notranslate"><span class="pre">---</span></code>.</p>
+<p>A minimal configuration to migrate a table with columns <code class="docutils literal notranslate"><span class="pre">id</span></code> and
+<code class="docutils literal notranslate"><span class="pre">name</span></code> looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_table_name</span>
+<span class="nt">maps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">target_table_name</span>
+<span class="nt">cols</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
+<span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">    </span><span class="nt">maps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+<span class="w">    </span><span class="nt">maps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+</pre></div>
+</div>
+<p>The above mapping can be used for database migration with <code class="xref py py-meth docutils literal notranslate"><span class="pre">migrate()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, import migrate from the db module</span>
+<span class="kn">from</span> <span class="nn">napi.db</span> <span class="kn">import</span> <span class="n">migrate</span>
+
+<span class="c1"># Migrate from source to target according to mapping</span>
+<span class="n">migrate</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="top-level-keys">
+<h2>Top-level keys<a class="headerlink" href="#top-level-keys" title="Permalink to this heading">#</a></h2>
+<section id="table">
+<h3><code class="docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#table" title="Permalink to this heading">#</a></h3>
+<p>The table in target database to which records will be inserted.</p>
+<p>If the table does not exist, it is created.</p>
+</section>
+<section id="maps">
+<h3><code class="docutils literal notranslate"><span class="pre">maps</span></code><a class="headerlink" href="#maps" title="Permalink to this heading">#</a></h3>
+<p>The table in source database from which records will be selected.</p>
+</section>
+<section id="cols">
+<h3><code class="docutils literal notranslate"><span class="pre">cols</span></code><a class="headerlink" href="#cols" title="Permalink to this heading">#</a></h3>
+<p>All details regarding fixed column mappings sit inside the <code class="docutils literal notranslate"><span class="pre">cols</span></code>
+key. It consists of a sequence of entries that provide information on
+the column, its datatype, validations to pass, and transformations if
+any.</p>
+<p>The column mapping is defined using:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>The column in target table that corresponds to the source column.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dtype</span></code></dt><dd><p>The datatype of the column values.</p>
+<p>Can be <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">datetime</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">integer</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">str</span></code>. Optionally <code class="docutils literal notranslate"><span class="pre">str</span></code> accepts a length parameter as
+<code class="docutils literal notranslate"><span class="pre">str(length)</span></code> that defines the maximum number of characters
+allowed.</p>
+<p>If the values received from source column is of a different type,
+then type casting is attempted which on failing default to <code class="docutils literal notranslate"><span class="pre">Not</span>
+<span class="pre">Available</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">maps</span></code></dt><dd><p>The column in the source table that this columns corresponds to.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">primary</span></code></dt><dd><p>Boolean value indicating whether the column is a primary key.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">refs</span></code></dt><dd><p>If the column refers to a column in a different table, its complete name.</p>
+<p>This is used to provide foreign key constraints. The complete name
+should be of the form <code class="docutils literal notranslate"><span class="pre">{table</span> <span class="pre">name}.{column</span> <span class="pre">name}</span></code>.</p>
+</dd>
+</dl>
+<p>Validations can be provided using:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">like</span></code></dt><dd><p>Regex pattern defining how the value should look like from start to end.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">between</span></code></dt><dd><p>Bounds within which the value should lie.</p>
+<p>The bounds can be provided as comma-separated values enclosed in
+square brackets. For example, <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">10]</span></code> to indicate that the
+value should lie between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">in</span></code></dt><dd><p>Sequence of valid values.</p>
+<p>The valid values can be comma-separated in square brackets. For
+example, <code class="docutils literal notranslate"><span class="pre">[Yes,</span> <span class="pre">No]</span></code> to indicated that the value should be
+either <code class="docutils literal notranslate"><span class="pre">Yes</span></code> or <code class="docutils literal notranslate"><span class="pre">No</span></code>.</p>
+</dd>
+</dl>
+<p>Values can be transformed and massaged to a different format using:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">extract</span></code></dt><dd><p>Regex pattern with a capturing group.</p>
+<p>The value captured is used in place of the complete value.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">case</span></code></dt><dd><p>Perform case tranformations to the value.</p>
+<p>Accepts <code class="docutils literal notranslate"><span class="pre">lower</span></code> or <code class="docutils literal notranslate"><span class="pre">upper</span></code> to convert all characters to
+lowercase and uppercase respectively.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">replace</span></code></dt><dd><p>Replace one value with another.</p>
+<p>Accepts a sequence of <code class="docutils literal notranslate"><span class="pre">value</span></code>:<code class="docutils literal notranslate"><span class="pre">with</span></code> key pairs where <code class="docutils literal notranslate"><span class="pre">with</span></code>
+replaces <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="attach">
+<h3><code class="docutils literal notranslate"><span class="pre">attach</span></code><a class="headerlink" href="#attach" title="Permalink to this heading">#</a></h3>
+<p>Columns that will be attached due to reshaping sit inside the
+<code class="docutils literal notranslate"><span class="pre">attach</span></code> key. It supports all sub-keys supported by <code class="docutils literal notranslate"><span class="pre">cols</span></code>.</p>
+<p>It is redundant to provide map value for columns in <code class="docutils literal notranslate"><span class="pre">attach</span></code> as
+their value are inferred from the records based on the reshape
+procedure. If your column needs to map to a column in source table,
+maybe <code class="docutils literal notranslate"><span class="pre">cols</span></code> or <code class="docutils literal notranslate"><span class="pre">detach</span></code> is more relevant.</p>
+</section>
+<section id="detach">
+<h3><code class="docutils literal notranslate"><span class="pre">detach</span></code><a class="headerlink" href="#detach" title="Permalink to this heading">#</a></h3>
+<p>Columns that will be removed in the processing of reshaping sit inside
+the <code class="docutils literal notranslate"><span class="pre">detach</span></code> key. It supports all sub-keys supported by <code class="docutils literal notranslate"><span class="pre">cols</span></code>.</p>
+<p>Columns under <code class="docutils literal notranslate"><span class="pre">detach</span></code> are typically serve as columns that are
+considered for melting into one.</p>
+</section>
+<section id="refs">
+<h3><code class="docutils literal notranslate"><span class="pre">refs</span></code><a class="headerlink" href="#refs" title="Permalink to this heading">#</a></h3>
+<p>If a set of columns make a composite foreign key constraint, they can
+be provided as a sequence of columns and their respective foreign key
+link.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">cols</span></code></dt><dd><p>Columns in the table that are part of the composite reference.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">links</span></code></dt><dd><p>The complete name of the column referred to in the same order as <code class="docutils literal notranslate"><span class="pre">cols</span></code>.</p>
+</dd>
+</dl>
+<p>Both <code class="docutils literal notranslate"><span class="pre">cols</span></code> and <code class="docutils literal notranslate"><span class="pre">links</span></code> can be provided as comma-separated values
+enclosed in square brackets.</p>
+</section>
+<section id="reshape">
+<h3><code class="docutils literal notranslate"><span class="pre">reshape</span></code><a class="headerlink" href="#reshape" title="Permalink to this heading">#</a></h3>
+<p>Provide step-wise instructions to massage the records from one
+structure to another.</p>
+<p>Reshaping instructions can be provided as a sequence of supported
+procedures as keys with a sequence of their respective arguments under
+them. The procedures are implemented using pandas methods and will
+thus use the same argument names as the specific pandas method.</p>
+<p>Reshaping procedures:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">add</span></code></dt><dd><p>Add new column <code class="docutils literal notranslate"><span class="pre">name</span></code> with given <code class="docutils literal notranslate"><span class="pre">value</span></code>. Takes a <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">value</span></code> key sequence with their values.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">split</span></code></dt><dd><p>Split column <code class="docutils literal notranslate"><span class="pre">name</span></code> into multiple columns based on delimiter
+<code class="docutils literal notranslate"><span class="pre">pat</span></code> and rename the generated columns to <code class="docutils literal notranslate"><span class="pre">rename</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">melt</span></code></dt><dd><p>Massage a set of columns into a single column.</p>
+<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html#pandas.DataFrame.melt" title="(in pandas v2.1.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">melt()</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pivot</span></code></dt><dd><p>Pivot to wide-form by grouping rows with similar identifiers.</p>
+<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html#pandas.DataFrame.pivot_table" title="(in pandas v2.1.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pivot_table()</span></code></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 </section>
 
         </article>
@@ -282,8 +434,36 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Database mapping</a><ul>
+<li><a class="reference internal" href="#top-level-keys">Top-level keys</a><ul>
+<li><a class="reference internal" href="#table"><code class="docutils literal notranslate"><span class="pre">table</span></code></a></li>
+<li><a class="reference internal" href="#maps"><code class="docutils literal notranslate"><span class="pre">maps</span></code></a></li>
+<li><a class="reference internal" href="#cols"><code class="docutils literal notranslate"><span class="pre">cols</span></code></a></li>
+<li><a class="reference internal" href="#attach"><code class="docutils literal notranslate"><span class="pre">attach</span></code></a></li>
+<li><a class="reference internal" href="#detach"><code class="docutils literal notranslate"><span class="pre">detach</span></code></a></li>
+<li><a class="reference internal" href="#refs"><code class="docutils literal notranslate"><span class="pre">refs</span></code></a></li>
+<li><a class="reference internal" href="#reshape"><code class="docutils literal notranslate"><span class="pre">reshape</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

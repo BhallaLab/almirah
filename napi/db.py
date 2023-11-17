@@ -404,7 +404,7 @@ def migrate(
         tr_error = pd.Series(False, index=src_df.index)
         mask = pd.Series(True, index=src_df.index)
 
-        for col in m["cols"]:
+        for col in m["cols"] + m.get("detach", []):
             name, maps = col["name"], col["maps"]
             logging.debug(f"Transforming and validating column {name}")
             tar_df[name], err = transform(src_df[maps], dtype_kws, **col)
@@ -421,7 +421,7 @@ def migrate(
             continue
 
         # Load records into target
-        t.create_table(m["table"], m["cols"], m.get("refs", []))
+        t.create_table(m["table"], m["cols"] + m.get("attach", []), m.get("refs", []))
         t.to_table(tar_df, m["table"], threshold=m.get("threshold"), **kwargs)
 
 

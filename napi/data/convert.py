@@ -110,8 +110,7 @@ def edf2asc(files, out, dst, **kwargs):
         # Fill command with arguments
         args = {}
         new_path = os.path.join(
-            dst,
-            file.build_modified_path({"extension": "asc", "sourcetype": None}),
+            dst, file.build_modified_path(extension="asc", sourcetype=None)
         )
         args["path"] = file.path
         args["new_path"] = new_path
@@ -130,7 +129,8 @@ def nirs_conv(files, out, dst, **kwargs):
         new_path = os.path.join(
             dst,
             file.build_modified_path(
-                {"extension": "snirf", "sourcetype": None},
+                extension="snirf",
+                sourcetype=None,
             ),
         )
         os.makedirs(os.path.dirname(new_path), exist_ok=True)

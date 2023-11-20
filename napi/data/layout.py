@@ -74,11 +74,9 @@ class File(Base):
         r = os.path.join(self.layout.prefix, r) if self.layout else r
         return r
 
-    def build_modified_path(self, changes):
+    def build_modified_path(self, **changes):
         "Returns the path for file given changes to tags."
-        valid_tags = self.layout.spec.get_valid_tags()
-        t = {n: t.value for n, t in self.tags.items() if n in valid_tags}
-        t.update(changes)
+        t = self.get_tags().update(changes)
         return self.layout.spec.build_path(t)
 
     def get_tags(self):

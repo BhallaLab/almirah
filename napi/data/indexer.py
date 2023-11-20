@@ -62,9 +62,7 @@ class Indexer:
         logging.info("Adding file tags")
         file.add_tag_from_func("is_dir", os.path.isdir)
         tags = self.layout.spec.extract_tags(file.rel_path)
-        for name, value in tags.items():
-            tag = Tag(file.path, name, value)
-            file.tags[tag.name] = tag
+        file.add_tags(**tags)
 
     def _tags_filter(self, **filters):
         # Unpack filters dict to tuple

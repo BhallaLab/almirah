@@ -81,6 +81,11 @@ class File(Base):
         """Add a tag to the file based on func return value."""
         self.tags[name] = Tag(self.path, name, func(self.path))
 
+    def build_path(self):
+        """Build path based on tags associated with file."""
+        t = self.get_tags()
+        return self.layout.spec.build_path(t)
+
     def build_modified_path(self, **changes):
         "Returns the path for file given changes to tags."
         t = self.get_tags().update(changes)

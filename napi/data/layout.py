@@ -41,12 +41,6 @@ class Tag(Base):
         self.name = name
         self.value = value
 
-    @staticmethod
-    def boolean_tag(file, name, func):
-        """Add a boolean tag to file based on func return value."""
-        tag = Tag(file.path, name, func(file.path))
-        file.tags[name] = tag
-
     def __repr__(self):
         return f"<Tag {self.name}:'{self.value}'>"
 
@@ -73,6 +67,10 @@ class File(Base):
         r = os.path.relpath(self.path, self.root)
         r = os.path.join(self.layout.prefix, r) if self.layout else r
         return r
+
+    def add_tag_from_func(self, name, func):
+        """Add a tag to the file based on func return value."""
+        self.tags[name] = Tag(self.path, name, func(self.path))
 
     def build_modified_path(self, **changes):
         "Returns the path for file given changes to tags."

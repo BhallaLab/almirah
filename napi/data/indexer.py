@@ -112,6 +112,10 @@ class Indexer:
     def add(self, obj):
         self.db.session.add(obj)
 
+    def get(self, cls, primary):
+        """Get record as an object provided its ORM class and primary key."""
+        return self.db.session.get(cls, primary)
+
     def run_query(self, query):
         """Run a query on db associated and return all results."""
         return self.db.session.scalars(query).all()

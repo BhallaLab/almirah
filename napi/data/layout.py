@@ -81,6 +81,10 @@ class File(Base):
         t.update(changes)
         return self.layout.spec.build_path(t)
 
+    def get_tags(self):
+        """Returns tags associated with the file."""
+        return {n: t.value for n, t in self.tags.items()}
+
     def __repr__(self):
         return f"<File path='{self.rel_path}'>"
 

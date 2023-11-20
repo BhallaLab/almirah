@@ -146,13 +146,13 @@ class Layout(Base):
     def get_files(self, **filters):
         """Return files that match criteria."""
         files_filter = self.indexer._files_filter(self.root, **filters)
-        files = self.indexer.get(files_filter)
+        files = self.indexer.run_query(files_filter)
         return files
 
     def get_tag_values(self, name, **filters):
         """Return all values available for a tag name."""
         tag_values = self.indexer._tag_values(self.root, name, **filters)
-        values = self.indexer.get(tag_values)
+        values = self.indexer.run_query(tag_values)
         return values
 
     def __repr__(self):

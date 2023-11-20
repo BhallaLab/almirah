@@ -112,8 +112,6 @@ class Indexer:
     def add(self, obj):
         self.db.session.add(obj)
 
-    def get(self, query):
+    def run_query(self, query):
         """Run a query on db associated and return all results."""
-        res = self.db.session.scalars(query).all()
-        logging.debug(f"Query used for get: \n{query}")
-        return res
+        return self.db.session.scalars(query).all()

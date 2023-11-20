@@ -68,6 +68,15 @@ class File(Base):
         r = os.path.join(self.layout.prefix, r) if self.layout else r
         return r
 
+    def add_tag(self, name, value):
+        """Add a tag to file."""
+        self.tags[name] = Tag(self.path, name, value)
+
+    def add_tags(self, **tags):
+        """Add tags to file. If tag present, value is updated."""
+        for name, value in tags.items():
+            self.add_tag(name, value)
+
     def add_tag_from_func(self, name, func):
         """Add a tag to the file based on func return value."""
         self.tags[name] = Tag(self.path, name, func(self.path))

@@ -23,6 +23,13 @@ __all__ = ["Tag", "File", "Layout"]
 class Base(DeclarativeBase):
     """Represents base object of ORM."""
 
+    @classmethod
+    def get_existing(cls, *primary, indexer):
+        """Returns existing record as ORM object if present."""
+
+        obj = indexer.get(cls, primary)
+        return obj
+
 
 class Tag(Base):
     """Generic tag representation."""

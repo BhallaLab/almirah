@@ -133,6 +133,14 @@ class Layout(Base):
         self.kind = self._decipher_kind()
         self.prefix = self._decipher_prefix()
 
+    @staticmethod
+    def _get_indexer(indexer):
+        from .indexer import Indexer
+
+        if not indexer:
+            indexer = Indexer()
+        return indexer
+
     def _decipher_kind(self):
         for k in ["sourcedata", "derivatives"]:
             if k in self.root:
@@ -142,34 +150,72 @@ class Layout(Base):
     def _decipher_prefix(self):
         return self.root[p:] if (p := self.root.rfind(self.kind)) != -1 else ""
 
+    def _setup_support(self, indexer, specification):
+        self.indexer = indexer
+        self.spec = specification
+
     @staticmethod
     def create(
         root,
-        name=None,
-        spec=None,
+        url=None,
         indexer=None,
+        spec=Specification(),
         reindex=False,
         valid_only=True,
+        from_url=False,
     ):
-        """Factory method for Layout."""
+        """Factory method for Layout.
 
-        from .indexer import Indexer
+        Parameters
+        ----------
+        root : str
+            Path of root directory of data.
 
-        indexer = indexer if indexer else Indexer()
+        url : str
+            Datalad supported URL for remote residence.
 
-        logging.info("Loading existing info if any on layout")
-        lay = indexer._merge(Layout(root, name))
-        lay._init_on_load()
+        indexer : napi.Indexer
+            db to use for indexing.
 
-        # Set support classes
-        lay.indexer = indexer
-        lay.spec = spec if spec else Specification()
-        indexer.add(lay)
+        spec : napi.Specification
+            Specification to apply.
 
-        if reindex or not inspect(lay).persistent:
-            indexer(lay, valid_only)
+        reindex : bool, default False
+            If True, force reindexing of Layout.
 
-        return lay
+        valid_only : bool, default True
+            If False, all contents of indexed irrespective of spec abidance.
+
+        from_url : bool, default False
+            If True, clone data from url to populate layout.
+
+        Returns
+        -------
+        layout: napi.Layout
+            If layout has already been indexed before, a reference to
+            the indexed Layout is returned. Else, a new Layout
+            instance is indexed and returned.
+
+        """
+
+        indexer = Layout._get_indexer(indexer)
+        layout = Layout.get_existing(root, indexer=indexer)
+
+        if not layout:
+            layout = Layout(root, url)
+            layout._init_on_load()
+
+        layout._setup_support(indexer, spec)
+        indexer.add(layout)
+
+        if from_url:
+            layout.clone_from_url()
+
+        if reindex or not inspect(layout).persistent:
+            layout.reindex(valid_only)
+
+        return layout
+
     def clone_from_url(self):
         """Clone layout from a datalad url."""
         logging.info(f"Cloning layout from {self.url}")

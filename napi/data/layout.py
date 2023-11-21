@@ -110,14 +110,17 @@ class Layout(Base):
     """Representation of file collection in a directory."""
 
     __tablename__ = "layouts"
+
     root: Mapped[str] = mapped_column(primary_key=True)
+    url: Mapped[str] = mapped_column(nullable=True)
 
     files: Mapped[List["File"]] = relationship(
         back_populates="layout", cascade="all, delete-orphan"
     )
 
-    def __init__(self, root):
+    def __init__(self, root, url):
         self.root = root
+        self.url = url
 
     @reconstructor
     def _init_on_load(self):

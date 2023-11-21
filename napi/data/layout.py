@@ -3,6 +3,8 @@
 import os
 import logging
 
+from datalad import api
+
 from typing import List
 from typing import Dict
 
@@ -98,6 +100,10 @@ class File(Base):
         t = self.get_tags().update(changes)
         return self.layout.spec.build_path(t)
 
+    def get(self):
+        """Get file from remote dataset."""
+        api.get(self.path, dataset=self.root)
+
     def get_tags(self):
         """Returns tags associated with the file."""
         return {n: t.value for n, t in self.tags.items()}
@@ -164,6 +170,10 @@ class Layout(Base):
             indexer(lay, valid_only)
 
         return lay
+    def clone_from_url(self):
+        """Clone layout from a datalad url."""
+        logging.info(f"Cloning layout from {self.url}")
+        api.clone(source=self.url, path=self.root)
 
     def get_files(self, **filters):
         """Return files that match criteria."""

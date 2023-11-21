@@ -111,15 +111,13 @@ class Layout(Base):
 
     __tablename__ = "layouts"
     root: Mapped[str] = mapped_column(primary_key=True)
-    name: Mapped[str]
 
     files: Mapped[List["File"]] = relationship(
         back_populates="layout", cascade="all, delete-orphan"
     )
 
-    def __init__(self, root, name=None):
+    def __init__(self, root):
         self.root = root
-        self.name = name if name else os.path.basename(root)
 
     @reconstructor
     def _init_on_load(self):

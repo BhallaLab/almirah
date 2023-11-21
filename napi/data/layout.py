@@ -176,5 +176,10 @@ class Layout(Base):
         values = self.indexer.run_query(tag_values)
         return values
 
+    def reindex(self, valid_only=True):
+        """Reindex layout to include additions to the layout."""
+        logging.info(f"Reindexing {self}")
+        self.indexer(self, valid_only)
+
     def __repr__(self):
         return f"<Layout root='{self.root}'>"

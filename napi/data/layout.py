@@ -35,13 +35,12 @@ class Tag(Base):
     """Generic tag representation."""
 
     __tablename__ = "tags"
-    path: Mapped[str] = mapped_column(
-        "path", ForeignKey("files.path"), primary_key=True
-    )
-    name: Mapped[str] = mapped_column("name", primary_key=True)
-    value: Mapped[str] = mapped_column("value")
 
-    file: Mapped["File"] = relationship(back_populates="tags")
+    path: Mapped[str] = mapped_column(ForeignKey("files.path"), primary_key=True)
+    name: Mapped[str] = mapped_column(primary_key=True)
+    value: Mapped[str]
+
+    files: Mapped["File"] = relationship(back_populates="tags")
 
     def __init__(self, path, name, value):
         self.path = path
@@ -56,8 +55,9 @@ class File(Base):
     """Generic file representation."""
 
     __tablename__ = "files"
-    path: Mapped[str] = mapped_column("path", primary_key=True)
-    root: Mapped[str] = mapped_column("root", ForeignKey("layouts.root"))
+
+    path: Mapped[str] = mapped_column(primary_key=True)
+    root: Mapped[str] = mapped_column(ForeignKey("layouts.root"))
 
     layout: Mapped["Layout"] = relationship(back_populates="files")
     tags: Mapped[Dict[str, "Tag"]] = relationship(

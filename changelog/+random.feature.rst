@@ -1,1 +1,0 @@
-BIDS specification support for neuroimaging datasets.

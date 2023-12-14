@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorial" href="tutorial.html" /><link rel="prev" title="napi" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorial" href="tutorial.html" /><link rel="prev" title="almirah" href="index.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
-        <title>User Guide - napi 0.1.0 documentation</title>
+        <title>User Guide - almirah 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">napi 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">almirah 0.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -172,14 +172,7 @@
 <li class="toctree-l2"><a class="reference internal" href="adbs/reference/index.html">Dataset Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/napi.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/napi.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/napi.indexing.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/napi.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/napi.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/napi.report.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/napi.utils.html">Utilities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -205,7 +198,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/girishmm/napi/edit/main/docs/source/user-guide.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/user-guide.rst" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -231,8 +224,8 @@
 <h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this heading">#</a></h1>
 <section id="installing">
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this heading">#</a></h2>
-<p>napi can be installed with <a class="reference external" href="https://pip.pypa.io">pip</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napi
+<p>almirah can be installed with <a class="reference external" href="https://pip.pypa.io">pip</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>almirah
 </pre></div>
 </div>
 </section>
@@ -240,11 +233,11 @@
 <h2>Organizing the dataset<a class="headerlink" href="#organizing-the-dataset" title="Permalink to this heading">#</a></h2>
 <p>The first step to using any dataset is getting it in shape to allow
 manual exploration or automated retrieval of a subset. To get started,
-import the napi module:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napi</span>
+import the almirah module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">almirah</span>
 </pre></div>
 </div>
-<p>napi relies on two components to organize a dataset:</p>
+<p>almirah relies on two components to organize a dataset:</p>
 <ul class="simple">
 <li><p>a <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code> object that takes in the
 <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a> config as an argument to
@@ -253,7 +246,7 @@ config is provided, the BIDS specification is used by default.</p></li>
 <li><p>an <a class="reference internal" href="writing-configs/rules.html"><span class="doc">Organization rules</span></a> config that lays down the rules that
 will be followed for organization.</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">Specification</span><span class="p">(</span><span class="s2">&quot;/path to details&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">almirah</span><span class="o">.</span><span class="n">Specification</span><span class="p">(</span><span class="s2">&quot;/path to details&quot;</span><span class="p">)</span>
 <span class="n">spec</span><span class="o">.</span><span class="n">organize</span><span class="p">(</span><span class="s2">&quot;/path to rules&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -277,12 +270,12 @@ that is derived from the filename and metadata files associated to a
 file. To create an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code>, pass the root
 directory path of the dataset as an argument to
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lay</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;/path to dataset&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lay</span> <span class="o">=</span> <span class="n">almirah</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;/path to dataset&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Unless otherwise specified by passing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code>
-instance via <code class="docutils literal notranslate"><span class="pre">spec</span></code>, napi will use the BIDS specification.</p>
-<p>napi automatically retrieves a previous index and skips indexing if
+instance via <code class="docutils literal notranslate"><span class="pre">spec</span></code>, almirah will use the BIDS specification.</p>
+<p>almirah automatically retrieves a previous index and skips indexing if
 the layout is found, to force reindexing set <code class="docutils literal notranslate"><span class="pre">reindex</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">valid_only</span> <span class="pre">=</span> <span class="pre">False</span></code> does not limit the files indexed to
 only those that having matching paths in the specification
@@ -290,8 +283,8 @@ associated. This can act as a quick way to index the whole directory
 or a dirty trick when you do not have time to redefine the
 specification to accomodate a new path.</p>
 <p>It is also possible to have a collection of layouts as a
-:class`~napi.Dataset`:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">create</span><span class="p">([</span><span class="s2">&quot;/path to datasets&quot;</span><span class="p">])</span>
+:class`~almirah.Dataset`:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">almirah</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">create</span><span class="p">([</span><span class="s2">&quot;/path to datasets&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>By this, parts of a dataset located in diverse paths can be virtually
@@ -301,7 +294,7 @@ collected into one while querying.</p>
 <h2>Filter and Query<a class="headerlink" href="#filter-and-query" title="Permalink to this heading">#</a></h2>
 <p>To retrieve a subset of files that match certain tags, provide the
 criterions as keyword arguments to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_files()</span></code>
-and napi will return the <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> objects of passing files:</p>
+and almirah will return the <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> objects of passing files:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;A3456&quot;</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -349,12 +342,12 @@ desired, and the output directory as arguments to
 </section>
 <section id="interfacing-with-a-database">
 <h2>Interfacing with a Database<a class="headerlink" href="#interfacing-with-a-database" title="Permalink to this heading">#</a></h2>
-<p>napi can connect to databases <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#supported-databases">supported by SQLAlchemy</a>
+<p>almirah can connect to databases <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#supported-databases">supported by SQLAlchemy</a>
 with <code class="xref py py-class docutils literal notranslate"><span class="pre">DBManager</span></code> based on a <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#database-urls">Database URL</a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napi</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">almirah</span>
 
 <span class="c1"># Create connection with database</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">napi</span><span class="o">.</span><span class="n">DBManager</span><span class="p">(</span><span class="s2">&quot;database URL&quot;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">almirah</span><span class="o">.</span><span class="n">DBManager</span><span class="p">(</span><span class="s2">&quot;database URL&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To create a table in the database, the table schema is described by
@@ -364,7 +357,7 @@ the <a class="reference internal" href="writing-configs/mapping.html"><span clas
 </pre></div>
 </div>
 <p>To insert records into a table in the database, a
-<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object whose columns match the table columns
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object whose columns match the table columns
 is provided as an argument to <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_table()</span></code> along
 with the table name:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;table name&quot;</span><span class="p">)</span>
@@ -386,9 +379,9 @@ provided via <code class="docutils literal notranslate"><span class="pre">cols</
 </section>
 <section id="analyzing">
 <h2>Analyzing<a class="headerlink" href="#analyzing" title="Permalink to this heading">#</a></h2>
-<p>It should be possible to interface napi with any tooklit available in
+<p>It should be possible to interface almirah with any tooklit available in
 python. We recommend the below libaries as we have found them to play
-well with napi for neuroimaging and genomics datasets:</p>
+well with almirah for neuroimaging and genomics datasets:</p>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
 <thead>
@@ -417,7 +410,7 @@ well with napi for neuroimaging and genomics datasets:</p>
 </table>
 </div>
 <p>Typically, it might be desirable to extract features from each file
-and represent them as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>:</p>
+and represent them as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query and retrieve files</span>
 <span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="s2">&quot;eeg&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;edf&quot;</span><span class="p">)</span>
 
@@ -440,7 +433,7 @@ and represent them as a <a class="reference external" href="https://pandas.pydat
 <p>High-level summaries of a dataset can be reported by passing a
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code> instance to
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Report</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">napi</span><span class="o">.</span><span class="n">Report</span><span class="p">(</span><span class="n">lay</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">almirah</span><span class="o">.</span><span class="n">Report</span><span class="p">(</span><span class="n">lay</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The tags based on which the summary is to be generated can be provided
@@ -449,7 +442,7 @@ provided.</p>
 </section>
 <section id="errors-and-exceptions">
 <h2>Errors and Exceptions<a class="headerlink" href="#errors-and-exceptions" title="Permalink to this heading">#</a></h2>
-<p>napi wraps built-in python exceptions with appropriate messages, for
+<p>almirah wraps built-in python exceptions with appropriate messages, for
 example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported transform value </span><span class="si">{</span><span class="n">transform</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -458,14 +451,14 @@ example:</p>
 </section>
 <section id="logging">
 <h2>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">#</a></h2>
-<p>If you are using the standard library <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> module, napi will emit
+<p>If you are using the standard library <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> module, almirah will emit
 several logs. In some cases, this can be undesireable. You can use the
-standard logger interface to change the log level for napi’s logger:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;napi&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+standard logger interface to change the log level for almirah’s logger:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;almirah&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="rubric">The ADBS Dataset</p>
-<p>If you would like to use napi to access the ADBS dataset, visit
+<p>If you would like to use almirah to access the ADBS dataset, visit
 <a class="reference internal" href="adbs/index.html"><span class="doc">The ADBS Dataset</span></a> documentation.</p>
 </section>
 </section>
@@ -508,7 +501,7 @@ standard logger interface to change the log level for napi’s logger:</p>
           </div>
           <div class="right-details">
             <div class="icons">
-              <a class="muted-link " href="https://github.com/girishmm/napi/" aria-label="GitHub">
+              <a class="muted-link " href="https://github.com/girishmm/almirah/" aria-label="GitHub">
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
                 </svg>

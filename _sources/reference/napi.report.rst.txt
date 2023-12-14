@@ -1,4 +1,4 @@
 Reporting
 =========
 
-.. autoclass:: napi.data.Report
+.. autoclass:: almirah.data.Report

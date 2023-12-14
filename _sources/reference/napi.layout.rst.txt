@@ -1,8 +1,8 @@
 Files and Layout
 ================
 
-.. autoclass:: napi.File
+.. autoclass:: almirah.File
 
-.. autoclass:: napi.Layout
+.. autoclass:: almirah.Layout
 
-.. autoclass:: napi.Tag	       
+.. autoclass:: almirah.Tag	       

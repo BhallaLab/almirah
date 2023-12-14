@@ -1,21 +1,21 @@
 Tutorial
 ========
 
-.. currentmodule:: napi
+.. currentmodule:: almirah
 
-``napi`` is a tool to organize, query, and summarize data. In this
-tutorial we will use ``napi`` on a dummy test dataset that represents
+``almirah`` is a tool to organize, query, and summarize data. In this
+tutorial we will use ``almirah`` on a dummy test dataset that represents
 imaging data obtained from mice to illustrate some of its usecases. In
-case you have not installed ``napi`` yet, please go to the
+case you have not installed ``almirah`` yet, please go to the
 :ref:`Installing` section and follow the instructions.
 
 First, let us obtain the dataset to work on for the tutorial. It comes
-along with ``napi`` and can be copied to a convenient location using
+along with ``almirah`` and can be copied to a convenient location using
 the :meth:`~utils.get_tutorial_dataset`.
 
 .. code-block:: python
 
-	       from napi.utils import get_tutorial_dataset
+	       from almirah.utils import get_tutorial_dataset
 
 	       get_tutorial_dataset("path/to/store")
 
@@ -45,7 +45,7 @@ seen from content hierarchy. Let us attempt to change this.
 Defining a Specification
 --------------------------
 
-The first step to all things ``napi`` can do is defining the
+The first step to all things ``almirah`` can do is defining the
 :doc:`writing-configs/specification`. To come up with a
 ``Specification`` for this dataset, let us think about how we would
 structure this dataset manually.
@@ -70,7 +70,7 @@ config under the ``path_patterns`` key like:
 		  - "mice-{mice}/day-{day}/mice-{mice}_day-{day}_imaging-{imaging}{extension}"
 
 Here, contents enclosed in ``{}`` represent that these are tag
-values. A :class:`~File` in ``napi`` is associated with a bunch of
+values. A :class:`~File` in ``almirah`` is associated with a bunch of
 tags. It is possible to provide more details on tags regarding valid
 values, the default value, and if the :class:`~Tag` is mandatory.
 
@@ -85,7 +85,7 @@ our decided path, the tags we require for path building are ``mice``,
 
 .. code-block:: python
 
-		from napi import Specification
+		from almirah import Specification
 
 		# Create a Specification object
 		spec = Specification("/path/to/config")
@@ -274,7 +274,7 @@ run gives:
 
 This is much easier to navigate and structured. Along with this comes
 the bonus of being able to query the dataset once indexed. In
-``napi``, a collection of files with a common root directory form a
+``almirah``, a collection of files with a common root directory form a
 :class:`~Layout` and a collection of layouts form a :class:`~Dataset`.
 
 Querying
@@ -300,7 +300,7 @@ To index our tutorial dataset:
 
 .. code-block:: python
 
-		from napi import Layout
+		from almirah import Layout
 
 		# Create a Layout instance with data path and Specification
 		layout = Layout.create("/path/to/organized/data", spec=spec)
@@ -343,7 +343,7 @@ further downstream analysis pipelines.
 Other capabilities
 ------------------
 
-This tutorial is a quick run-through some of the things ``napi`` can help with. There are other things it can do:
+This tutorial is a quick run-through some of the things ``almirah`` can help with. There are other things it can do:
 
 * Migrate database records from one schema to another
 * Interface with DataLad compatible datasets

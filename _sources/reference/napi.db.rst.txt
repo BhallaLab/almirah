@@ -1,14 +1,14 @@
 Database Interface
 ==================
 
-.. autoclass:: napi.DBManager
+.. autoclass:: almirah.DBManager
 
-.. autofunction:: napi.db.common_records
+.. autofunction:: almirah.db.common_records
 
-.. autofunction:: napi.db.migrate
+.. autofunction:: almirah.db.migrate
 
-.. autofunction:: napi.db.reshape		  
+.. autofunction:: almirah.db.reshape		  
 
-.. autofunction:: napi.db.transform
+.. autofunction:: almirah.db.transform
 
-.. autofunction:: napi.db.validate		  
+.. autofunction:: almirah.db.validate		  

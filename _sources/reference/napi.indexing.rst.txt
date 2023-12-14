@@ -1,4 +1,4 @@
 Indexing
 ========
 
-.. autoclass:: napi.Indexer
+.. autoclass:: almirah.Indexer

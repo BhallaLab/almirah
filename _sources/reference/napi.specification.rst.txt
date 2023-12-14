@@ -1,5 +1,5 @@
 Specification
 =============
 
-.. autoclass:: napi.Specification	       
+.. autoclass:: almirah.Specification	       
        

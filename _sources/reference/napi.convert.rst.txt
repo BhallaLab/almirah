@@ -1,4 +1,4 @@
 File format conversion
 ======================
 
-.. autofunction:: napi.data.convert		  
+.. autofunction:: almirah.data.convert		  

@@ -1,13 +1,13 @@
 Database mapping
 ================
 
-.. currentmodule:: napi.db
+.. currentmodule:: almirah.db
 
 It is convenient to store tabular records in a SQL database. There
 might be usecases where it is necessary to migrate to another
 schema. For this, the mapping between the columns in the previous
 schema to the new schema is required along with any transformations to
-be performed. napi supports database migration with help from a
+be performed. almirah supports database migration with help from a
 user-written mapping config whose options are detailed in this
 document. Each table is defined as a seperated document and are
 separated by ``---``.
@@ -32,7 +32,7 @@ The above mapping can be used for database migration with :meth:`~migrate`:
 .. code-blocK:: python
 
 		# First, import migrate from the db module
-		from napi.db import migrate
+		from almirah.db import migrate
 
 		# Migrate from source to target according to mapping
 		migrate(src, target, mapping)

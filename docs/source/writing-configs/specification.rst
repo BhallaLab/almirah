@@ -1,7 +1,7 @@
 Specification details
 =====================
 
-.. currentmodule:: napi.Specification
+.. currentmodule:: almirah.Specification
 
 A Specification is a agreed-upon standard that describes how a dataset
 should be organized. It includes the file paths allowed, the tags

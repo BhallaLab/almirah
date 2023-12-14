@@ -3,10 +3,10 @@ API Reference
 
 .. toctree::
 
-   napi.specification
-   napi.layout
-   napi.indexing
-   napi.convert
-   napi.db
-   napi.report   
-   napi.utils
+   almirah.specification
+   almirah.layout
+   almirah.indexing
+   almirah.convert
+   almirah.db
+   almirah.report   
+   almirah.utils

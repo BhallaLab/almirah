@@ -6,5 +6,5 @@ commands, and logging records from database.
 
 These can also be used independently in other scenarios.
 
-.. automodule:: napi.utils
+.. automodule:: almirah.utils
     :exclude-members: get_dtype		

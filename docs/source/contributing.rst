@@ -1,7 +1,7 @@
 Contributing
 ============
 
-napi was initially developed to handle and maintain neuroimaging
+almirah was initially developed to handle and maintain neuroimaging
 datasets. But we believe this can be useful for other datasets too!
 
 We happily accept contributions for all things related to dataset
@@ -9,16 +9,16 @@ management.
 
 If you wish to add a new feature or fix a bug:
 
-#. `Check for open issues <https://github.com/girishmm/napi/issues>`_
+#. `Check for open issues <https://github.com/girishmm/almirah/issues>`_
    or open a fresh issue to start a discussion around a feature idea
    or a bug.
-#. Fork the `repository on Github <https://github.com/girishmm/napi>`_
+#. Fork the `repository on Github <https://github.com/girishmm/almirah>`_
    to start making your changes.
 #. Write a test which shows that the bug was fixed or that the feature
    works as expected.
 #. Format your changes with black.
 #. Update `documentation <#contributing-to-documentation>`_ if required.
-#. Add a `changelog entry <https://github.com/girishmm/napi/blob/main/changelog/README.md>`_
+#. Add a `changelog entry <https://github.com/girishmm/almirah/blob/main/changelog/README.md>`_
    if required.   
 #. Send a pull request and bug us till it gets merged and published.
 
@@ -30,8 +30,8 @@ In order to setup the development environment all you need is `poetry
 
 .. code-block:: bash
 		
-		$ git clone git@github.com:girishmm/napi.git
-		$ cd napi
+		$ git clone git@github.com:girishmm/almriah.git
+		$ cd almirah
 		$ poetry install
 
 .. note::
@@ -71,7 +71,7 @@ However, if you have run **sphinx-quickstart**, it creates a
 		$ make html
 
 The documentation is built `continuously on GitHub Actions
-<https://github.com/girishmm/napi/actions>`_ with every push
+<https://github.com/girishmm/almirah/actions>`_ with every push
 request. Hence, it is not necessary to push documentation builds to
 the repository.
 

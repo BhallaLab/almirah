@@ -115,7 +115,7 @@ def get_dtype(dtype, default_length=250):
 def get_tutorial_dataset(dst):
     """Copies the tutorial dataset to destination."""
 
-    import napi
+    import almirah
 
-    path = os.path.join(up(up(napi.__file__)), "tests/data/tutorial")
+    path = os.path.join(up(up(almirah.__file__)), "tests/data/tutorial")
     copy(path, dst)

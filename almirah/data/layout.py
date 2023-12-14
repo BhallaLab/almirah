@@ -174,10 +174,10 @@ class Layout(Base):
         url : str
             Datalad supported URL for remote residence.
 
-        indexer : napi.Indexer
+        indexer : almirah.Indexer
             db to use for indexing.
 
-        spec : napi.Specification
+        spec : almirah.Specification
             Specification to apply.
 
         reindex : bool, default False
@@ -191,7 +191,7 @@ class Layout(Base):
 
         Returns
         -------
-        layout: napi.Layout
+        layout: almirah.Layout
             If layout has already been indexed before, a reference to
             the indexed Layout is returned. Else, a new Layout
             instance is indexed and returned.

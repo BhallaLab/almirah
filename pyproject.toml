@@ -1,52 +1,48 @@
 [tool.poetry]
-name = "napi"
+name = "almirah"
 version = "0.1.0"
-description = "API to access and analyze data stored as structured files."
+description = "a wardrobe for datasets"
 authors = ["girish <girishmm@ncbs.res.in>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pandas = "^2.1.4"
 pyyaml = "^6.0.1"
-sqlalchemy = "^2.0.19"
 datalad = "^0.19.3"
-
-[tool.poetry.group.data.dependencies]
-mne = "^1.4.2"
-nibabel = "^5.1.0"
+sqlalchemy = "^2.0.19"
 
 [tool.poetry.group.mri.dependencies]
-dcm2bids = "^3.0.1"
+nibabel = "^5.2.0"
+dcm2bids = "^3.1.1"
 pydeface = "^2.0.2"
 
 [tool.poetry.group.eeg.dependencies]
+mne = "^1.6.0"
 pybv = "^0.7.5"
-mne-bids = "^0.12"
-edflib-python = "^1.0.7"
+mne-bids = "^0.14"
+edflib-python = "^1.0.8"
 
 [tool.poetry.group.nirs.dependencies]
-mne-nirs = "^0.5.0"
+mne = "^1.6.0"
+mne-nirs = "^0.6.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 furo = "^2023.9.10"
-sphinx-autobuild = "^2021.3.14"
-sphinx-copybutton = "^0.5.2"
 towncrier = "^23.6.0"
-
-[tool.poetry.group.hacks.dependencies]
-seaborn = "^0.12.2"                     # Workaround for mne-nirs till new release
-importlib-resources = "<6.0"            # Workaround for towncrier till new release
+sphinx-copybutton = "^0.5.2"
+sphinx-autobuild = "^2021.3.14"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.towncrier]
-package = "napi"
-package_dir = "napi"
+package = "almirah"
+package_dir = "almirah"
 directory = "changelog"
 filename = "CHANGES.rst"
-issue_format = "`#{issue} <https://github.com/girishmm/napi/issues/{issue}>`__"
+issue_format = "`#{issue} <https://github.com/girishmm/almirah/issues/{issue}>`__"
 title_format = "{version} ({project_date})"

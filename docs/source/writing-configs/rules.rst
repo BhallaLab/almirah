@@ -1,7 +1,7 @@
 Organization rules
 ==================
 
-.. currentmodule:: napi.Specification
+.. currentmodule:: almirah.Specification
 
 To organize an unformatted dataset according to a specification, user
 instructions are required. These can be mentioned as rules using

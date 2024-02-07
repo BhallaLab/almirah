@@ -70,7 +70,7 @@ def run_shell(cmd, suppress_output=True):
     return sp
 
 
-def log_df(df, msg, level=logging.ERROR, **kwargs):
+def log_df(df, msg, hide=list(), level=logging.ERROR, **kwargs):
     """
     Log df records with a message.
 
@@ -82,14 +82,19 @@ def log_df(df, msg, level=logging.ERROR, **kwargs):
     msg: str
         Log message compatible with string formatting.
 
+    hide: list-like or scalar, optional
+        Sensitive column or columns to hide.
+
     level: int, optional
         Logging level to use. Accepts logging.LEVEL values.
 
     kwargs: key, value mappings
         Other keyword arguments are passed to `str.format()`.
     """
+
     if not df.empty:
-        logging.log(level, msg.format(df=df.to_string(), **kwargs))
+        logging.log(level, msg + "\n%s", df.drop(columns=hide).to_string(), **kwargs)
+
 
 def log_col(series, msg, hide=False, level=logging.ERROR, **kwargs):
     """Log column values with a message."""

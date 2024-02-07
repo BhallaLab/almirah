@@ -35,6 +35,10 @@ towncrier = "^23.6.0"
 sphinx-copybutton = "^0.5.2"
 sphinx-autobuild = "^2021.3.14"
 
+
+[tool.poetry.group.sql.dependencies]
+pymysql = "^1.1.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

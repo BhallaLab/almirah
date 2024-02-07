@@ -19,7 +19,7 @@ from sqlalchemy.types import DateTime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from . import utils
+from .utils import get_dtype, log_df, log_col
 
 __all__ = ["DBManager", "common_records", "migrate", "transform", "validate"]
 
@@ -90,7 +90,7 @@ class DBManager:
             "str": String,
         }
 
-        dtype, length = utils.get_dtype(dtype, default_length)
+        dtype, length = get_dtype(dtype, default_length)
         stype = SQL_TYPE_EQUIVALENT[dtype]
 
         return stype(length) if length else stype()
@@ -260,7 +260,7 @@ class DBManager:
 
         """
         dups = df.duplicated(self.get_primary(table), resolve)
-        utils.log_df(df[dups], "Found duplicate records: \n {df}")
+        log_df(df[dups], "Found duplicate records")
         return ~dups
 
     def resolve_fks(self, df, table, resolve=False):
@@ -295,7 +295,7 @@ class DBManager:
             p_df = self.get_table(fkc.referred_table.name, p_cols)
             p_mask = common_records(df, p_df, fkc.column_keys, p_cols)
 
-            utils.log_df(df[~p_mask], "Missing parent records: \n {df}")
+            log_df(df[~p_mask], "Missing parent records")
 
             if not p_mask.all() and resolve:
                 logging.info("Resolving missing records by insert to parent")
@@ -396,39 +396,27 @@ def migrate(
     s = DBManager(src)
     t = DBManager(target)
 
-    na_vals = ["", "None", "NONE", "NA", "N/A", "<NA>", "Not applicable"] + na_vals
+    na = ["", "None", "NONE", "NA", "N/A", "<NA>", "Not applicable"] + na_vals
 
     for m in mapping:
         logging.info(f"Transferring table {m['maps']} -> {m['table']}")
 
         # Extract source records
-        src_df = s.get_table(m["maps"])
-        src_df = src_df.replace(na_vals, pd.NA)
-        tar_df = pd.DataFrame(index=src_df.index)
+        records = s.get_table(m["maps"]).replace(na, pd.NA)
 
         # Transform and validate
-        tr_error = pd.Series(False, index=src_df.index)
-        mask = pd.Series(True, index=src_df.index)
-
-        for col in m["cols"] + m.get("detach", []):
-            name, maps = col["name"], col["maps"]
-            logging.debug(f"Transforming and validating column {name}")
-            tar_df[name], err = transform(src_df[maps], dtype_kws, **col)
-            mask &= validate(tar_df[name], **col)
-            tr_error |= err
-
-        utils.log_df(src_df[tr_error], "Unable to transform records: \n {df}")
-        utils.log_df(src_df[~mask], "Found invalid records: \n {df}")
+        records = transform(records, dtype_kws, m)
+        mask = validate(records, m)
 
         # Reshape data records
-        tar_df = reshape(tar_df[mask & ~tr_error], m.get("reshape", dict()))
+        df = reshape(records[mask], m.get("reshape", dict()))
 
         if dry_run:
             continue
 
         # Load records into target
         t.create_table(m["table"], m["cols"] + m.get("attach", []), m.get("refs", []))
-        t.to_table(tar_df, m["table"], threshold=m.get("threshold"), **kwargs)
+        t.to_table(df, m["table"], threshold=m.get("threshold"), **kwargs)
 
 
 def set_dtype(series, dtype, **kwargs):
@@ -448,16 +436,16 @@ def set_dtype(series, dtype, **kwargs):
         if the dtype is 'datetime'.
     """
 
-    dtype, _ = utils.get_dtype(dtype)
+    dtype, _ = get_dtype(dtype)
 
-    if dtype == "datetime":
+    if dtype == str:
+        series = series.astype(dtype)
+
+    elif dtype == "datetime":
         series = pd.to_datetime(series, errors="coerce", **kwargs)
 
     elif dtype in {"float", "integer"}:
         series = pd.to_numeric(series, errors="coerce", downcast=dtype)
-
-    elif dtype == str:
-        series = series.astype(dtype)
 
     elif dtype == "boolean":
         series = series.replace(
@@ -475,68 +463,103 @@ def set_dtype(series, dtype, **kwargs):
     return series.convert_dtypes()
 
 
-def reshape(df, steps):
-    """Reshape a dataframe into appropriate shape."""
+def reshape(records, steps):
+    """Reshape table records into appropriate shape."""
 
     for procedure in steps:
         [(p, k)] = procedure.items()
 
         if p == "add":
-            df[k["name"]] = k["value"]
+            records[k["name"]] = k["value"]
 
         if p == "split":
-            df[k["rename"]] = df[k["name"]].str.split(k["pat"], expand=True)
+            records[k["rename"]] = records[k["name"]].str.split(k["pat"], expand=True)
 
         if p == "melt":
-            df = df.melt(**k)
+            records = records.melt(**k)
 
         if p == "pivot":
-            df = df.pivot_table(**k).reset_index()
+            records = records.pivot_table(**k).reset_index()
 
-    return df
+    return records
 
 
-def transform(series, dtype_kws=None, **kwargs):
-    """Transform series and return with appropriate datatype."""
+def transform(records, dtype_kws, mapping):
+    """Transform table records into appropriate format."""
 
-    s = series.copy(deep=True)
+    df = pd.DataFrame(index=records.index)
+    to_hide = check_for_key("hide", mapping)
+    error = pd.Series(False, index=records.index)
+
+    for col in mapping["cols"] + mapping.get("detach", []):
+        name, maps = col["name"], col["maps"]
+        logging.debug(f"Transforming column {name}")
+        df[name], col_error = transform_column(records[maps], dtype_kws, **col)
+        error |= col_error
+
+    log_df(records[error], "Error transforming records", hide=to_hide)
+    return df[~error]
+
+
+def transform_column(series, dtype_kws=dict(), **kwargs):
+    """Transform column to appropriate datatype."""
+
+    hide = kwargs.get("hide", False)
+    s, error = series.copy(deep=True), series.isna()
 
     if pat := kwargs.get("extract"):
         s = s.astype(str).str.extract(pat, expand=False)
+        logging.info(f"Extracting and replacing based on pattern {pat}")
 
     if rep := kwargs.get("replace"):
         s = s.replace({k["value"]: k["with"] for k in rep})
+        logging.info("Replacing existing values with given in config")
 
     if ca := kwargs.get("case"):
         s = s.str.upper() if ca == "upper" else s.str.lower()
-
-    if not dtype_kws:
-        dtype_kws = dict()
+        logging.info(f"Changing case to {ca}")
 
     s = set_dtype(s, kwargs["dtype"], **dtype_kws)
-
     error = series.notna() & s.isna()
-    utils.log_df(series[error], "Bad transform: \n{df}", level=logging.DEBUG)
+    log_col(series[error], f"Error transforming values to {kwargs['dtype']}", hide=hide)
 
     return s, error
 
 
-def validate(series, **kwargs):
-    """Validate series and return mask."""
+def validate(records, mapping):
+    """Validate table records and return mask where True means valid."""
 
+    to_hide = check_for_key("hide", mapping)
+    mask = pd.Series(True, index=records.index)
+
+    for col in mapping["cols"] + mapping.get("detach", []):
+        logging.debug(f"Validating column {col['name']}")
+        mask &= validate_column(records[col["name"]], **col)
+
+    log_df(records[~mask], "Found invalid records", hide=to_hide)
+    return mask
+
+
+def validate_column(series, **kwargs):
+    """Validate column and return mask where True means valid."""
+
+    hide = kwargs.get("hide", False)
     mask = pd.Series(True, index=series.index)
 
     if kwargs.get("primary"):
-        mask &= series.notna()
+        mask &= (m := series.notna())
+        log_col(series[~m], "Primary column values cannot be NA", hide=hide)
 
     if pat := kwargs.get("like"):
-        mask &= series.astype(str).str.fullmatch(pat) | series.isna()
+        mask &= (m := series.astype(str).str.fullmatch(pat) | series.isna())
+        log_col(series[~m], f"Values do not match pattern {pat}", hide=hide)
 
     if bounds := kwargs.get("between"):
-        mask &= series.between(*bounds) | series.isna()
+        mask &= (m := series.between(*bounds) | series.isna())
+        log_col(series[~m], f"Values not between bounds {bounds}", hide=hide)
 
     if members := kwargs.get("in"):
-        mask &= series.isin(members) | series.isna()
+        mask &= (m := series.isin(members) | series.isna())
+        log_col(series[~m], f"Values not in {members}", hide=hide)
 
-    utils.log_df(series[~mask], "Bad validation: \n{df}", level=logging.DEBUG)
     return mask

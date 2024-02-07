@@ -11,9 +11,7 @@ from string import Formatter
 from .. import utils
 
 
-_TAG_PATTERN = re.compile(
-    r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})",
-)
+_TAG_PATTERN = re.compile(r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})")
 
 __all__ = ["Specification"]
 
@@ -63,7 +61,7 @@ class Specification:
             return True
         return False
 
-    def build_path(self, tags):
+    def build_path(self, tags, strict=False):
         """Construct path provided a set of tags.
 
         Parameters
@@ -71,10 +69,16 @@ class Specification:
         tags : dict
             A dictionary with tag name, value pairs.
 
+        strict : bool
+            If True, the tags provided should exactly match the
+            requirements. If False, extra tags are ignored and the
+            first matching path is built.
+
         Returns
         -------
         path : str
             The constructed path if successful, else `None`.
+
         """
 
         path_patterns = self.spec.get("path_patterns")
@@ -92,31 +96,26 @@ class Specification:
         for pattern in path_patterns:
             path = pattern
             matches = _TAG_PATTERN.findall(pattern)
-            tags_defined = [t[1] for t in matches]
 
             # Do not tamper with tags provided so that
             # it can be used for other patterns
             tags_copy = tags.copy()
 
-            # Skip if all tags not matched
-            if set(tags_copy.keys()) - set(tags_defined):
+            # Skip if strict set and all tags not matched
+            if strict and set(tags_copy.keys()) - set([t[1] for t in matches]):
                 continue
 
             # Validate and fill in missing tags with default
-            for subpattern, name, valid, default in matches:
-                valid_expanded = [v for v in valid.split("|")]
+            for subpattern, name, valid_vals, default in matches:
+                valid = [v for v in valid_vals.split("|")]
 
-                if (
-                    valid_expanded
-                    and name in tags_copy
-                    and tags_copy[name] not in valid_expanded
-                ):
+                if valid and name in tags_copy and tags_copy[name] not in valid:
                     continue
 
                 if name not in tags_copy and default:
                     tags_copy[name] = default
 
-                if valid_expanded and default and default not in valid_expanded:
+                if valid and default and default not in valid:
                     warnings.warn(
                         f"Pattern {subpattern} is inconsistent as it defines an invalid default value"
                     )

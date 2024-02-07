@@ -343,6 +343,12 @@ def common_records(child, parent, child_on=None, parent_on=None):
     )
 
 
+def check_for_key(key, mapping):
+    """Return columns in table mapping which contain the key provided."""
+
+    return [c["name"] for c in mapping["cols"] if key in c.keys()]
+
+
 def migrate(
     src,
     target,

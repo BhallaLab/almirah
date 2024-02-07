@@ -91,6 +91,16 @@ def log_df(df, msg, level=logging.ERROR, **kwargs):
     if not df.empty:
         logging.log(level, msg.format(df=df.to_string(), **kwargs))
 
+def log_col(series, msg, hide=False, level=logging.ERROR, **kwargs):
+    """Log column values with a message."""
+
+    if hide:
+        series = series.index.to_series()
+        logging.info("Column values will not be displayed as hide set")
+
+    if not series.empty:
+        logging.log(level, msg + "\n%s", series.to_string(), **kwargs)
+
 
 def get_dtype(dtype, default_length=250):
     """Returns supported dtype and length from provided dtype string."""

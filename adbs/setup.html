@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Specification details" href="specification.html" /><link rel="prev" title="Tutorial" href="../tutorial.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="API Reference" href="../reference/index.html" /><link rel="prev" title="Dataset Reference" href="reference/index.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
-        <title>Writing configs - almirah 0.1.0 documentation</title>
+        <title>Setting up your own infrastructure - almirah 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -161,16 +161,16 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../user-guide.html">User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Writing configs</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Writing configs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="specification.html">Specification details</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rules.html">Organization rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mapping.html">Database mapping</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../writing-configs/index.html">Writing configs</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Writing configs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../writing-configs/specification.html">Specification details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../writing-configs/rules.html">Organization rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../adbs/index.html">The ADBS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The ADBS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../adbs/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../adbs/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../adbs/setup.html">Setting up your own infrastructure</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">The ADBS Dataset</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The ADBS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html">From access to analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html">Dataset Reference</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Setting up your own infrastructure</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
@@ -200,7 +200,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/writing-configs/index.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/adbs/setup.rst" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -216,27 +216,50 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="writing-configs">
-<h1>Writing configs<a class="headerlink" href="#writing-configs" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+          <section id="setting-up-your-own-infrastructure">
+<h1>Setting up your own infrastructure<a class="headerlink" href="#setting-up-your-own-infrastructure" title="Permalink to this heading">#</a></h1>
+<p>A similar setup to the one used to store the ADBS data might be of use
+to a data acquisition project of similar scale. This document briefly
+summarises the packages, tools, and platforms that act in cohesion to
+make this dataset possible.</p>
+<section id="data-storage-platform">
+<h2>Data Storage Platform<a class="headerlink" href="#data-storage-platform" title="Permalink to this heading">#</a></h2>
+<p>A local instance of <a class="reference external" href="https://gin.g-node.org/">GIN</a> in a docker container is the platform of
+choice for data storage. Its support for <a class="reference external" href="https://git-annex.branchable.com/">git-annex</a> and <a class="reference external" href="https://www.datalad.org/">datalad</a>
+were the main factors behind this decision. Detailed steps to setup
+can be found in the <a class="reference external" href="https://gin.g-node.org/G-Node/Info/wiki/In+House">documentation</a>.</p>
+<p>The web interface of this local instance can be accessed from outside
+the campus network and user registration is controlled. Seperate
+repositories enact different zones of access. <a class="reference external" href="https://girishmm.github.io/almirah/">almirah</a> can be used
+to download data from these repositories provided the user has access.</p>
+</section>
+<section id="library-dependencies">
+<h2>Library Dependencies<a class="headerlink" href="#library-dependencies" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://girishmm.github.io/almirah/">almirah</a> provides out-of-the-box routines that are implemented as
+wrappers around other standard libraries in different languages. These
+libraries might have dependencies that are not resolved during
+<a class="reference external" href="https://girishmm.github.io/almirah/">almirah</a> installation. The pipelines and their respective externally
+installed dependencies are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>MRI format conversion : <a class="reference external" href="https://github.com/rordenlab/dcm2niix">dcm2niix</a></p></li>
+<li><p>MRI defacing          : <a class="reference external" href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki">FMRIB Software Library</a></p></li>
+<li><p>MRI preprocessing     : <a class="reference external" href="https://surfer.nmr.mgh.harvard.edu/">FreeSurfer</a>, <a href="#id1"><span class="problematic" id="id2">`Structured Paramatric Mapping`_</span></a></p></li>
+</ul>
+</div></blockquote>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Though not mentioned explicitly, it is implied that it is necessary
+to have the language the library is implemented in installed. For
+example, <a class="reference external" href="https://www.fil.ion.ucl.ac.uk/spm/">SPM</a> requires <a class="reference external" href="https://in.mathworks.com/products/matlab.html">MATLAB</a>.</p>
 </div>
-<p>almirah needs a helping hand from files called configs for certain
-tasks. These config files customize almirah’s workflow for your dataset
-needs by setting the knobs and switches of almirah as they suit
-you. Config files for almirah are written in <a class="reference external" href="https://yaml.org/spec/1.2.2/">YAML</a>. Please see <a class="reference external" href="https://yaml.org/">https://yaml.org/</a> for how
-to write YAML.</p>
-<p>The <a class="reference internal" href="specification.html"><span class="doc">Specification details</span></a> describes the Specification, a comprehensive
-set of rules on how data should be organized.</p>
-<p>The <a class="reference internal" href="rules.html"><span class="doc">Organization rules</span></a> provides a set of instructions that guide almirah as it
-attempts to organize and arrange a dataset.</p>
-<p>The <a class="reference internal" href="mapping.html"><span class="doc">Database mapping</span></a> supplies the mapping from one schema to another to
-assist in migration of records from one SQL database to another.</p>
+</section>
 </section>
 
         </article>
@@ -244,23 +267,23 @@ assist in migration of records from one SQL database to another.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="specification.html">
+          <a class="next-page" href="../reference/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Specification details</div>
+                <div class="title">API Reference</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../tutorial.html">
+          <a class="prev-page" href="reference/index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Tutorial</div>
+                <div class="title">Dataset Reference</div>
                 
               </div>
             </a>
@@ -289,8 +312,28 @@ assist in migration of records from one SQL database to another.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Setting up your own infrastructure</a><ul>
+<li><a class="reference internal" href="#data-storage-platform">Data Storage Platform</a></li>
+<li><a class="reference internal" href="#library-dependencies">Library Dependencies</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

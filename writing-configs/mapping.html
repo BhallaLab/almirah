@@ -170,6 +170,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../adbs/index.html">The ADBS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The ADBS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../adbs/tutorial.html">From access to analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../adbs/reference/index.html">Dataset Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adbs/setup.html">Setting up your own infrastructure</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
@@ -320,6 +321,10 @@ lowercase and uppercase respectively.</p>
 replaces <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
 </dd>
 </dl>
+<p>Validation and transformation generates log messages in which column
+values may show up in case of errors. To stop these values from
+displaying in columns containing sensitive information, the <code class="docutils literal notranslate"><span class="pre">hide</span></code>
+flag inside <code class="docutils literal notranslate"><span class="pre">cols</span></code> can be set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </section>
 <section id="attach">
 <h3><code class="docutils literal notranslate"><span class="pre">attach</span></code><a class="headerlink" href="#attach" title="Permalink to this heading">#</a></h3>
@@ -368,10 +373,10 @@ thus use the same argument names as the specific pandas method.</p>
 <code class="docutils literal notranslate"><span class="pre">pat</span></code> and rename the generated columns to <code class="docutils literal notranslate"><span class="pre">rename</span></code>.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">melt</span></code></dt><dd><p>Massage a set of columns into a single column.</p>
-<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html#pandas.DataFrame.melt" title="(in pandas v2.1.4)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">melt()</span></code></a>.</p>
+<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html#pandas.DataFrame.melt" title="(in pandas v2.2.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">melt()</span></code></a>.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">pivot</span></code></dt><dd><p>Pivot to wide-form by grouping rows with similar identifiers.</p>
-<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html#pandas.DataFrame.pivot_table" title="(in pandas v2.1.4)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pivot_table()</span></code></a>.</p>
+<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html#pandas.DataFrame.pivot_table" title="(in pandas v2.2.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pivot_table()</span></code></a>.</p>
 </dd>
 </dl>
 </section>

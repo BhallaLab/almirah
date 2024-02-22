@@ -170,6 +170,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="adbs/index.html">The ADBS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The ADBS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="adbs/tutorial.html">From access to analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="adbs/reference/index.html">Dataset Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adbs/setup.html">Setting up your own infrastructure</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
@@ -358,7 +359,7 @@ the <a class="reference internal" href="writing-configs/mapping.html"><span clas
 </pre></div>
 </div>
 <p>To insert records into a table in the database, a
-<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object whose columns match the table columns
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object whose columns match the table columns
 is provided as an argument to <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_table()</span></code> along
 with the table name:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;table name&quot;</span><span class="p">)</span>
@@ -411,7 +412,7 @@ well with almirah for neuroimaging and genomics datasets:</p>
 </table>
 </div>
 <p>Typically, it might be desirable to extract features from each file
-and represent them as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>:</p>
+and represent them as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query and retrieve files</span>
 <span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="s2">&quot;eeg&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;edf&quot;</span><span class="p">)</span>
 

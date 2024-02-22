@@ -127,6 +127,11 @@ Values can be transformed and massaged to a different format using:
     Accepts a sequence of ``value``:``with`` key pairs where ``with``
     replaces ``value``.
 
+Validation and transformation generates log messages in which column
+values may show up in case of errors. To stop these values from
+displaying in columns containing sensitive information, the ``hide``
+flag inside ``cols`` can be set to ``True``.
+
 ``attach``
 ~~~~~~~~~~
 

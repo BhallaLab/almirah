@@ -18,13 +18,14 @@ def copy(src, dst, overwrite=False):
 
     if os.path.exists(dst):
         if not overwrite:
-            logging.warning("Skipping copy as file exists")
+            logging.error(f"Skipping copy of {src} to {dst} as file exists")
             return
         if overwrite:
-            logging.warning("Overwriting existing file")
+            logging.warning(f"Overwriting and copying {src} to {dst}")
             remover = shutil.rmtree if os.path.isdir(dst) else os.remove
             remover(dst)
 
+    logging.debug(f"Initiating copy of {src} to {dst}")
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     copier = shutil.copytree if os.path.isdir(src) else shutil.copy2
     copier(src, dst)

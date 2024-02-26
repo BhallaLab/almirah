@@ -168,20 +168,15 @@ class Specification:
             "tag_rules",
         ]:
             if mandatory_key not in rules:
-                raise KeyError(f"Expected '{mandatory_key}' in rule.")
+                raise KeyError(f"Expected '{mandatory_key}' key in rule.")
 
         source = rules.get("source")
         destination = rules.get("destination")
         logging.info(f"Initiating organization of {source} -> {destination}")
 
-        map_ = rules.get("map")
-        if map_:
-            mapping = pd.read_csv(map_, dtype=str)
-            logging.info(f"File {map_} will be used for mapping tag values")
-
         overwrite = rules.get("overwrite", False)
         if overwrite:
-            logging.warning("If found, existing files will be overwritten")
+            logging.warning("Overwrite set: Existing files may be overwritten")
 
         add = rules.get("add", None)
         for a in add or []:
@@ -209,7 +204,7 @@ class Specification:
                 else:
                     match = re.findall(rule.get("pattern"), file)
                     if match and len(match) != 1:
-                        logging.error("Expected single match, more found.")
+                        logging.warning("Expected single match, found more.")
 
                     # Choose last match always
                     val = match[-1] if match else None
@@ -235,22 +230,23 @@ class Specification:
                         val = rule.get("default")
                         logging.debug(f"Using default value of {val} for tag")
 
-                    if "from" in rule and val:
-                        from_, to = rule.get("from"), rule.get("to")
+                    if "replace" in rule and val:
+                        rep = rule.get("replace")
+                        col, with_, from_ = [rep[x] for x in ["col", "with", "from"]]
+                        logging.info(f"File {from_} will be used to map tag values")
+                        mapping = pd.read_csv(from_, dtype=str)
 
-                        if not to or not map_:
-                            raise KeyError("Expected to and map if from found")
-
-                        m = mapping.where(mapping[from_] == val).dropna()
+                        # TODO: Modularize below code snippet
+                        m = mapping.where(mapping[col] == val).dropna()
 
                         if len(m) != 1:
                             logging.error(f"Expected unique map for {val}")
                             continue
 
-                        val = m[to].values[0]
+                        val = m[with_].values[0]
 
                     if not val:
-                        logging.error(f"Value for tag {tag_name} not found.")
+                        logging.error(f"Value for {tag_name} tag not found in {file}.")
 
                 logging.info(f"File marked with {tag_name}:{val} tag")
                 tags.update({tag_name: val})
@@ -309,12 +305,11 @@ class Specification:
                 # Copy fellow files
                 rel_path = self.build_path(tags_copy)
                 if not rel_path:
-                    logging.info("Unable to build destination path for file")
+                    logging.error(f"Unable to build destination path for file {file}")
                     continue
                 new_path = os.path.join(rules.get("destination"), rel_path)
                 logging.info(f"Target destination path is {new_path}")
                 utils.copy(fellow, new_path, overwrite)
-                logging.info("Moved file to target")
 
     def __repr__(self):
         return f"<Specification name={self.name}>"

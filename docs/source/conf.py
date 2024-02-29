@@ -46,8 +46,8 @@ pygments_style = "friendly"
 html_theme = "furo"
 html_static_path = ["_static"]
 html_theme_options = {
-    "light_logo": "logo-light-mode.png",
-    "dark_logo": "logo-dark-mode.png",
+    "light_logo": "logo-light.png",
+    "dark_logo": "logo-dark.png",
     "navigation_with_keys": True,
     "sidebar_hide_name": True,
     "source_repository": "https://github.com/girishmm/almirah/",

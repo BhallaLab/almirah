@@ -44,6 +44,7 @@ intersphinx_mapping = {
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 pygments_style = "friendly"
 html_theme = "furo"
+html_favicon = "images/favicon.png"
 html_static_path = ["_static"]
 html_theme_options = {
     "light_logo": "logo-light.png",

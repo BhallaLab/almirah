@@ -253,8 +253,12 @@ class Specification:
                         # TODO: Modularize below code snippet
                         m = mapping.where(mapping[col] == val).dropna()
 
-                        if len(m) != 1:
-                            logging.error(f"Expected unique map for {val}")
+                        if len(m) == 0:
+                            logging.error(f"No mapping found for {val}")
+                            continue
+
+                        if len(m) > 1:
+                            logging.error(f"Expected unique map for {val}, found many")
                             continue
 
                         val = m[with_].values[0]

@@ -230,6 +230,20 @@ class Specification:
                         val = rule.get("default")
                         logging.debug(f"Using default value of {val} for tag")
 
+                    if "padding" in rule and val:
+                        pad = rule.get("padding")
+
+                        # Set defaults
+                        direction = (pad.get("direction", "left"),)
+                        char = (pad.get("char", "0"),)
+                        length = pad["length"]
+
+                        if direction == "left":
+                            val.rjust(length, char)
+
+                        elif direction == "right":
+                            val.ljust(length, char)
+
                     if "replace" in rule and val:
                         rep = rule.get("replace")
                         col, with_, from_ = [rep[x] for x in ["col", "with", "from"]]

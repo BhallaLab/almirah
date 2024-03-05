@@ -3,8 +3,6 @@
 import os
 import logging
 
-from datalad import api
-
 from typing import List
 from typing import Dict
 
@@ -103,6 +101,8 @@ class File(Base):
 
     def get(self):
         """Get file from remote dataset."""
+        from datalad import api
+
         api.get(self.path, dataset=self.root)
 
     def get_tags(self):
@@ -219,8 +219,11 @@ class Layout(Base):
 
     def clone_from_url(self):
         """Clone layout from a datalad url."""
-        logging.info(f"Cloning layout from {self.url}")
+
+        from datalad import api
+
         api.clone(source=self.url, path=self.root)
+        logging.info(f"Cloning layout from {self.url}")
 
     def get_files(self, **filters):
         """Return files that match criteria."""

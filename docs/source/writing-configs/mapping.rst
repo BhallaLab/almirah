@@ -122,10 +122,17 @@ Values can be transformed and massaged to a different format using:
     lowercase and uppercase respectively.
 
 ``replace``
-    Replace one value with another.
+    Replace one value with another either based on a mapping.
 
-    Accepts a sequence of ``value``:``with`` key pairs where ``with``
-    replaces ``value``.
+    If the mapping is present in an external file, it can be provided
+    as collection of mappings with ``field``, ``using``, and ``file``
+    keys. The ``field`` and ``using`` keys indicate the column which
+    might contain the value to be replaced and the column which will
+    contain the value that will replace respectively. The path to the
+    external file is provided by``file``.
+
+    The mapping can also be provided directly as a sequence of
+    ``value``:``with`` key pairs where ``with`` replaces ``value``.
 
 Validation and transformation generates log messages in which column
 values may show up in case of errors. To stop these values from

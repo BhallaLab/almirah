@@ -501,6 +501,43 @@ def transform(records, dtype_kws, mapping):
     return df[~error]
 
 
+def replace_value(value, field, using, file):
+    # Get mapping
+    mapping = pd.read_csv(file, dtype=str)
+
+    # Find value to replace
+    result = mapping.query("`%s` == @value" % field)
+
+    if len(result) == 0:
+        logging.error(f"Value '{value}' not found in field '{field}' of file '{file}'.")
+        return
+
+    if len(result) > 1:
+        logging.error(f"Non-unique mappings for value '{value}' in file {file}")
+        return
+
+    return result.at[0, using]
+
+
+def replace_column(series, field, using, file, strict=True):
+    # Load mapping from file
+    mapping = pd.read_csv(file, dtype=str)
+    logging.info(f"Replacing values in '{field}' with '{using}' from {file}")
+
+    # Stop if non-unique mappings
+    if mapping.duplicated([field]).any():
+        raise ValueError(f"Non-unique mappings found in file {file}")
+
+    mapping = pd.Series(mapping[using], index=mapping[field])
+    replaced = series.map(mapping)
+
+    # Retain original value if replacement not strict
+    if not strict:
+        replaced.fillna(series, inplace=True)
+
+    return replaced
+
+
 def transform_column(series, dtype_kws=dict(), **kwargs):
     """Transform column to appropriate datatype."""
 
@@ -512,8 +549,12 @@ def transform_column(series, dtype_kws=dict(), **kwargs):
         logging.info(f"Extracting and replacing based on pattern {pat}")
 
     if rep := kwargs.get("replace"):
-        s = s.replace({k["value"]: k["with"] for k in rep})
-        logging.info("Replacing existing values with given in config")
+        if "field" in rep:
+            replace_column(s, **rep)
+            logging.info("Replacing values with mapping in external file")
+        else:
+            s = s.replace({k["value"]: k["with"] for k in rep})
+            logging.info("Replacing values with given in config")
 
     if ca := kwargs.get("case"):
         s = s.str.upper() if ca == "upper" else s.str.lower()

@@ -97,8 +97,9 @@ class File(Base):
 
     def build_modified_path(self, **changes):
         "Returns the path for file given changes to tags."
-        t = self.get_tags().update(changes)
-        return self.layout.spec.build_path(t)
+        tags = self.get_tags()
+        tags.update(changes)
+        return self.layout.spec.build_path(tags)
 
     def get(self):
         """Get file from remote dataset."""

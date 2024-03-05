@@ -1,0 +1,1 @@
+Fixed path building failure on presence of tags not mentioned in specification.

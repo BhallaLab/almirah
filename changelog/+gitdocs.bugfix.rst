@@ -1,0 +1,1 @@
+Docs build environment in git updated to prevent empty api reference pages.

@@ -126,6 +126,7 @@ def nirs_conv(files, out, dst, **kwargs):
 
     for file in files:
         raw = mne.io.read_raw_nirx(file.path)
+        raw.anonymize(**kwargs.get("anonymize", {}))
         new_path = os.path.join(
             dst,
             file.build_modified_path(

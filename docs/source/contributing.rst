@@ -16,7 +16,7 @@ If you wish to add a new feature or fix a bug:
    to start making your changes.
 #. Write a test which shows that the bug was fixed or that the feature
    works as expected.
-#. Format your changes with black.
+#. Format your changes with `black <https://black.readthedocs.io/en/stable/>`_.
 #. Update `documentation <#contributing-to-documentation>`_ if required.
 #. Add a `changelog entry <https://github.com/girishmm/almirah/blob/main/changelog/README.md>`_
    if required.   

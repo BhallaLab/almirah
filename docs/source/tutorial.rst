@@ -343,21 +343,10 @@ further downstream analysis pipelines.
 Other capabilities
 ------------------
 
-This tutorial is a quick run-through some of the things ``almirah`` can help with. There are other things it can do:
+This tutorial is a quick run-through some of the things ``almirah``
+can help with. There are other things it can do:
 
 * Migrate database records from one schema to another
 * Interface with DataLad compatible datasets
 
-The :doc:`reference/index` acts as good starting point if you need these.  
-
-		
-
-      
-
-
-
-		
-		
-   
-
-
+The :doc:`reference/index` acts as good starting point if you need these.

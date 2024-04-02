@@ -1,1 +1,0 @@
-Ability to hide sensitive columns in db from log

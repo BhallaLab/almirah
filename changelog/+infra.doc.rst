@@ -1,1 +1,0 @@
-Included pointers to setup a similar data storage architecture.

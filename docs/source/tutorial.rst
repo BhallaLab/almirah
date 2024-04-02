@@ -4,10 +4,10 @@ Tutorial
 .. currentmodule:: almirah
 
 ``almirah`` is a tool to organize, query, and summarize data. In this
-tutorial we will use ``almirah`` on a dummy test dataset that represents
-imaging data obtained from mice to illustrate some of its usecases. In
-case you have not installed ``almirah`` yet, please go to the
-:ref:`Installing` section and follow the instructions.
+tutorial we will use ``almirah`` on a dummy test dataset that
+represents imaging data obtained from mice to illustrate some of its
+usecases. In case you have not installed ``almirah`` yet, please go to
+the :ref:`Installing` section and follow the instructions.
 
 First, let us obtain the dataset to work on for the tutorial. It comes
 along with ``almirah`` and can be copied to a convenient location using

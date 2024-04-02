@@ -32,6 +32,8 @@ With some time on config writing, almirah can:
 - Query and filter across the dataset.
 - Migrate records from one database to another.
 
+.. _Installing:
+  
 Installing
 ----------
 
@@ -73,7 +75,8 @@ The :doc:`reference/index` documentation provides API-level
 documentation.
 
 Can you use almirah to manage your dataset? Of course. Have a look at
-:ref:`translate` section for files to tweak to achieve this.
+the :ref:`translate_to_another_dataset` section for files to tweak to
+achieve this.
 
 Who uses almirah?
 -----------------
@@ -85,7 +88,7 @@ datasets too! Even non-neuroimaging ones!
 If almirah was able to help with your dataset, we would love to hear
 about it.
 
-.. _translate:
+.. _translate_to_another_dataset:
 
 Translate to another dataset
 ----------------------------

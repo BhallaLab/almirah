@@ -29,7 +29,7 @@ A minimal configuration to migrate a table with columns ``id`` and
 
 The above mapping can be used for database migration with :meth:`~migrate`:
 
-.. code-blocK:: python
+.. code-block:: python
 
 		# First, import migrate from the db module
 		from almirah.db import migrate

@@ -89,5 +89,6 @@ A release candidate can be created by any contributor.
   with the release notes. Adjust as necessary.
 - Update ``pyproject.toml`` and ``conf.py`` with the proper version
   number.
-- Commit the changes to a ``release-X.Y.Z`` branch.
+- Commit the changes to your branch and tag the commit with version
+  number, namely ``X.Y.Z``.
 - Create a pull request!

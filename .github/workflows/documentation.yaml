@@ -8,9 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+      - uses: abatilo/actions-poetry@v2
+      - name: Environment setup
+        run: poetry install --with dev
       - name: Build HTML
-        uses: ammaraskar/sphinx-action@master
+        run: poetry run make -C docs html
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:

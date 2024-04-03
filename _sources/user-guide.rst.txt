@@ -262,8 +262,8 @@ standard logger interface to change the log level for almirah's logger:
 
 		logging.getLogger("almirah").setLevel(logging.WARNING)
 		
-.. rubric:: The ADBS Dataset
+.. rubric:: The CALM-BRAINS Dataset
    
-If you would like to use almirah to access the ADBS dataset, visit
-:doc:`adbs/index` documentation.
+If you would like to use almirah to access the CALM-BRAINS dataset,
+visit :doc:`calmbrains/index` documentation.
 

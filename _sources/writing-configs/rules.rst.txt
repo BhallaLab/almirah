@@ -44,17 +44,6 @@ The root directory where data is present.
 
 The directory in which to store the organized data.
 
-.. _map:
-``map``
-~~~~~~~
-
-Path to the *csv* file that will be used for mapping to get the value
-of another tag based a retrieved tag.
-
-If provided, then ``from`` and ``to`` keys are to be provided in the
-specific tag section of ``tag_rules`` too to complete the rule. There
-should be a one-to-one mapping between ``from`` and ``to``.
-
 ``pattern``
 ~~~~~~~~~~~
 
@@ -137,18 +126,23 @@ The valid rules that can be used are:
     **The** value to use for the tag. Overrides captured values if
     necessary.
 
-``from``
-    The column in :ref:`map` file that maps to the tag
-    value retrieved by ``pattern``.
+``replace``
+    If provided, the tag value is replaced by looking up a one-to-one
+    mapping from a *csv* file.
 
-    ``to`` rule and :ref:`map` file path have to be provided to complete
-    this rule.
+    Takes a sequence of mappings with keys ``col``, ``with``, and
+    ``from`` to form the rule.
 
-``to``
-    The column in :ref:`map` file that maps to the tag name mentioned.
-
-    ``to`` rule and :ref:`map` file path have to be provided to complete
-    this rule.
+    ``col``
+       Column name in the mapping that represents the tag. This will
+       be looked up.
+	
+    ``with``
+       Column name in the mapping that will be used to replace the
+       value.
+	
+    ``from``
+       Path to the mapping *csv* file.
 
 .. important::
 
@@ -156,6 +150,3 @@ The valid rules that can be used are:
     path building fails and the file is not added to the organized
     dataset. More info on the tag that could not be inferred can be
     found in logs.
-    
-
-

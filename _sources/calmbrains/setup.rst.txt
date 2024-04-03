@@ -1,10 +1,10 @@
 Setting up your own infrastructure
 ==================================
 
-A similar setup to the one used to store the ADBS data might be of use
-to a data acquisition project of similar scale. This document briefly
-summarises the packages, tools, and platforms that act in cohesion to
-make this dataset possible.
+A similar setup to the one used to store the CALM-BRAINS data might be
+of use to a data acquisition project of similar scale. This document
+briefly summarises the packages, tools, and platforms that act in
+cohesion to make this dataset possible.
 
 Data Storage Platform
 ---------------------
@@ -36,12 +36,12 @@ installed dependencies are:
 
   * MRI format conversion : `dcm2niix`_
   * MRI defacing          : `FMRIB Software Library`_
-  * MRI preprocessing     : `FreeSurfer`_, `Structured Paramatric Mapping`_
+  * MRI preprocessing     : `FreeSurfer`_, `Statistical Parametric Mapping`_
 
 .. _dcm2niix: https://github.com/rordenlab/dcm2niix
 .. _FreeSurfer: https://surfer.nmr.mgh.harvard.edu/
 .. _FMRIB Software Library: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki
-.. _Structured Parametric Mapping: https://www.fil.ion.ucl.ac.uk/spm/
+.. _Statistical Parametric Mapping: https://www.fil.ion.ucl.ac.uk/spm/
 
 .. important::
    

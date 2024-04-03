@@ -4,10 +4,10 @@ Tutorial
 .. currentmodule:: almirah
 
 ``almirah`` is a tool to organize, query, and summarize data. In this
-tutorial we will use ``almirah`` on a dummy test dataset that represents
-imaging data obtained from mice to illustrate some of its usecases. In
-case you have not installed ``almirah`` yet, please go to the
-:ref:`Installing` section and follow the instructions.
+tutorial we will use ``almirah`` on a dummy test dataset that
+represents imaging data obtained from mice to illustrate some of its
+usecases. In case you have not installed ``almirah`` yet, please go to
+the :ref:`Installing` section and follow the instructions.
 
 First, let us obtain the dataset to work on for the tutorial. It comes
 along with ``almirah`` and can be copied to a convenient location using
@@ -343,21 +343,10 @@ further downstream analysis pipelines.
 Other capabilities
 ------------------
 
-This tutorial is a quick run-through some of the things ``almirah`` can help with. There are other things it can do:
+This tutorial is a quick run-through some of the things ``almirah``
+can help with. There are other things it can do:
 
 * Migrate database records from one schema to another
 * Interface with DataLad compatible datasets
 
-The :doc:`reference/index` acts as good starting point if you need these.  
-
-		
-
-      
-
-
-
-		
-		
-   
-
-
+The :doc:`reference/index` acts as good starting point if you need these.

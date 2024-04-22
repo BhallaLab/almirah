@@ -1,3 +1,25 @@
+0.3.0 (2024-04-23)
+==================
+
+Features
+--------
+
+- Generalized Dataset functionality with Components
+- Uniqueness-ensured models for consistency
+
+
+Deprecations and Removals
+-------------------------
+
+- Removed support for reporting
+
+
+Misc
+----
+
+- Codebase refactored for improved performance and maintainability
+
+
 0.2.0 (2024-04-02)
 ==================
 

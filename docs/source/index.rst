@@ -3,6 +3,7 @@ almirah
 
 .. toctree::
    :hidden:
+   :maxdepth: 3      
 
    user-guide
    tutorial

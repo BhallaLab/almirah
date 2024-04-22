@@ -1,4 +1,4 @@
-"""Collection of file format converters."""
+"""File format conversion utility functions."""
 
 import os
 import mne
@@ -7,23 +7,21 @@ import logging
 import mne_bids
 import mne_nirs
 
-from ..utils import run_shell
+from .gen import run_shell
 
 
 def dcm2nii(files, out, dst, **kwargs):
-    """Convert DICOM files to NIfTI and write to disk.
+    """
+    Convert DICOM files to NIfTI and write to disk.
 
     Parameters
     ----------
     files : List of Files
         List of File objects that represent the files to be converted.
-
     out : str
         Output format desired.
-
     dst: str
         Destination directory where converted files will be stored.
-
     config: str
         Path to config file. Should be compatible with dcm2bids
         version installed.
@@ -121,7 +119,7 @@ def edf2asc(files, out, dst, **kwargs):
     logging.info("Conversion to asc complete")
 
 
-def nirs_conv(files, out, dst, **kwargs):
+def nirx2snirf(files, out, dst, **kwargs):
     """Convert NIRS data format and write to disk."""
 
     for file in files:
@@ -140,7 +138,7 @@ def nirs_conv(files, out, dst, **kwargs):
     logging.info("Conversion to snirf complete")
 
 
-def eeg_conv(files, out, dst, **kwargs):
+def eeg_converter(files, out, dst, **kwargs):
     """Convert EEG data format and write to disk."""
 
     # Set conversion logging level
@@ -259,11 +257,11 @@ _SUPPORTED = {
             ".set",
             ".vhdr",
         ),
-        "using": eeg_conv,
+        "using": eeg_converter,
     },
     ("ASCII",): {"from": (".edf",), "using": edf2asc},
     ("NIfTI",): {"from": (".dcm",), "using": dcm2nii},
-    ("SNIRF",): {"from": (".nirx",), "using": nirs_conv},
+    ("SNIRF",): {"from": (".nirx",), "using": nirx2snirf},
 }
 _DCM2NII_VALID_FLAGS = {"--forceDcm2niix", "--clobber"}
 _EDF2ASC_VALID_FLAGS = {

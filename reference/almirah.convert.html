@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Database Interface" href="almirah.db.html" /><link rel="prev" title="Indexing" href="almirah.indexing.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Unique Objects" href="almirah.unique.html" /><link rel="prev" title="Reporting" href="almirah.reporting.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>File format conversion - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>File format conversion - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -235,12 +235,51 @@
           </label>
         </div>
         <article role="main">
-          <section id="file-format-conversion">
-<h1>File format conversion<a class="headerlink" href="#file-format-conversion" title="Link to this heading">#</a></h1>
+          <section id="module-almirah.utils.convert">
+<span id="file-format-conversion"></span><h1>File format conversion<a class="headerlink" href="#module-almirah.utils.convert" title="Link to this heading">¶</a></h1>
+<p>File format conversion utility functions.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="almirah.data.convert">
-<span class="sig-prename descclassname"><span class="pre">almirah.data.</span></span><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/convert.html#convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.data.convert" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="almirah.utils.convert.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/utils/convert.html#convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.convert.convert" title="Link to this definition">¶</a></dt>
 <dd><p>Convert a file collection from one format to another.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.utils.convert.dcm2nii">
+<span class="sig-name descname"><span class="pre">dcm2nii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/utils/convert.html#dcm2nii"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.convert.dcm2nii" title="Link to this definition">¶</a></dt>
+<dd><p>Convert DICOM files to NIfTI and write to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> (<em>List</em><em> of </em><em>Files</em>) – List of File objects that represent the files to be converted.</p></li>
+<li><p><strong>out</strong> (<em>str</em>) – Output format desired.</p></li>
+<li><p><strong>dst</strong> (<em>str</em>) – Destination directory where converted files will be stored.</p></li>
+<li><p><strong>config</strong> (<em>str</em>) – Path to config file. Should be compatible with dcm2bids
+version installed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.utils.convert.edf2asc">
+<span class="sig-name descname"><span class="pre">edf2asc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/utils/convert.html#edf2asc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.convert.edf2asc" title="Link to this definition">¶</a></dt>
+<dd><p>Convert Eye track data format and write to disk.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.utils.convert.eeg_converter">
+<span class="sig-name descname"><span class="pre">eeg_converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/utils/convert.html#eeg_converter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.convert.eeg_converter" title="Link to this definition">¶</a></dt>
+<dd><p>Convert EEG data format and write to disk.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.utils.convert.nirx2snirf">
+<span class="sig-name descname"><span class="pre">nirx2snirf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/utils/convert.html#nirx2snirf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.convert.nirx2snirf" title="Link to this definition">¶</a></dt>
+<dd><p>Convert NIRS data format and write to disk.</p>
 </dd></dl>
 
 </section>
@@ -250,23 +289,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="almirah.db.html">
+          <a class="next-page" href="almirah.unique.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Database Interface</div>
+                <div class="title">Unique Objects</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="almirah.indexing.html">
+          <a class="prev-page" href="almirah.reporting.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Indexing</div>
+                <div class="title">Reporting</div>
                 
               </div>
             </a>
@@ -308,7 +347,11 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">File format conversion</a><ul>
-<li><a class="reference internal" href="#almirah.data.convert"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.convert.convert"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.convert.dcm2nii"><code class="docutils literal notranslate"><span class="pre">dcm2nii()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.convert.edf2asc"><code class="docutils literal notranslate"><span class="pre">edf2asc()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.convert.eeg_converter"><code class="docutils literal notranslate"><span class="pre">eeg_converter()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.convert.nirx2snirf"><code class="docutils literal notranslate"><span class="pre">nirx2snirf()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -320,8 +363,8 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

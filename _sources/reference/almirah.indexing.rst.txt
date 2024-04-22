@@ -1,4 +1,0 @@
-Indexing
-========
-
-.. autoclass:: almirah.Indexer

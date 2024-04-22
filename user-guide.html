@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorial" href="tutorial.html" /><link rel="prev" title="almirah" href="index.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>User Guide - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>User Guide - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -236,16 +236,16 @@
         </div>
         <article role="main">
           <section id="user-guide">
-<h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1>
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">¶</a></h1>
 <section id="installing">
-<h2>Installing<a class="headerlink" href="#installing" title="Link to this heading">#</a></h2>
+<h2>Installing<a class="headerlink" href="#installing" title="Link to this heading">¶</a></h2>
 <p>almirah can be installed with <a class="reference external" href="https://pip.pypa.io">pip</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>almirah
 </pre></div>
 </div>
 </section>
 <section id="organizing-the-dataset">
-<h2>Organizing the dataset<a class="headerlink" href="#organizing-the-dataset" title="Link to this heading">#</a></h2>
+<h2>Organizing the dataset<a class="headerlink" href="#organizing-the-dataset" title="Link to this heading">¶</a></h2>
 <p>The first step to using any dataset is getting it in shape to allow
 manual exploration or automated retrieval of a subset. To get started,
 import the almirah module:</p>
@@ -254,7 +254,7 @@ import the almirah module:</p>
 </div>
 <p>almirah relies on two components to organize a dataset:</p>
 <ul class="simple">
-<li><p>a <a class="reference internal" href="reference/almirah.specification.html#almirah.Specification" title="almirah.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> object that takes in the
+<li><p>a <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code> object that takes in the
 <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a> config as an argument to
 describe the details of the specification to be abided by. If no
 config is provided, the BIDS specification is used by default.</p></li>
@@ -274,21 +274,21 @@ mimics the general pattern of the specification is used.</p>
 </div>
 </section>
 <section id="indexing">
-<h2>Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h2>
+<h2>Indexing<a class="headerlink" href="#indexing" title="Link to this heading">¶</a></h2>
 <p>The indexing operation crawls through the organized dataset and stores
 files and directories that have a matching path in the specification
 in a database. This enables easy querying and filtering.</p>
 <p>At an abstract level, each dataset can be thought of as a
-<a class="reference internal" href="reference/almirah.layout.html#almirah.Layout" title="almirah.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> of files. Each <a class="reference internal" href="reference/almirah.layout.html#almirah.File" title="almirah.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a> is associated
-with a bunch of tags. Each <a class="reference internal" href="reference/almirah.layout.html#almirah.Tag" title="almirah.Tag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tag</span></code></a> is a <em>name:value</em> pair
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> of files. Each <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> is associated
+with a bunch of tags. Each <code class="xref py py-class docutils literal notranslate"><span class="pre">Tag</span></code> is a <em>name:value</em> pair
 that is derived from the filename and metadata files associated to a
-file. To create an instance of <a class="reference internal" href="reference/almirah.layout.html#almirah.Layout" title="almirah.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a>, pass the root
+file. To create an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code>, pass the root
 directory path of the dataset as an argument to
-<a class="reference internal" href="reference/almirah.layout.html#almirah.Layout.create" title="almirah.Layout.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code></a>:</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lay</span> <span class="o">=</span> <span class="n">almirah</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;/path to dataset&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Unless otherwise specified by passing a <a class="reference internal" href="reference/almirah.specification.html#almirah.Specification" title="almirah.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>
+<p>Unless otherwise specified by passing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code>
 instance via <code class="docutils literal notranslate"><span class="pre">spec</span></code>, almirah will use the BIDS specification.</p>
 <p>almirah automatically retrieves a previous index and skips indexing if
 the layout is found, to force reindexing set <code class="docutils literal notranslate"><span class="pre">reindex</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
@@ -306,21 +306,21 @@ specification to accomodate a new path.</p>
 collected into one while querying.</p>
 </section>
 <section id="filter-and-query">
-<h2>Filter and Query<a class="headerlink" href="#filter-and-query" title="Link to this heading">#</a></h2>
+<h2>Filter and Query<a class="headerlink" href="#filter-and-query" title="Link to this heading">¶</a></h2>
 <p>To retrieve a subset of files that match certain tags, provide the
-criterions as keyword arguments to <a class="reference internal" href="reference/almirah.layout.html#almirah.Layout.get_files" title="almirah.Layout.get_files"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_files()</span></code></a>
-and almirah will return the <a class="reference internal" href="reference/almirah.layout.html#almirah.File" title="almirah.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a> objects of passing files:</p>
+criterions as keyword arguments to <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_files()</span></code>
+and almirah will return the <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> objects of passing files:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;A3456&quot;</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="converting-file-formats">
-<h2>Converting file formats<a class="headerlink" href="#converting-file-formats" title="Link to this heading">#</a></h2>
+<h2>Converting file formats<a class="headerlink" href="#converting-file-formats" title="Link to this heading">¶</a></h2>
 <p>Sometimes you want to convert the file format of a file. For example,
 from DICOM to NIfTI, or from EDF (Eyelink Data Format) to ASCII. These
 are possible by provided the files to be converted, the output format
 desired, and the output directory as arguments to
-<a class="reference internal" href="reference/almirah.convert.html#almirah.data.convert" title="almirah.data.convert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code></a>:</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;dcm&quot;</span><span class="p">)</span>
 <span class="n">lay</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s2">&quot;NIfTI&quot;</span><span class="p">,</span> <span class="s2">&quot;/path to output dir&quot;</span><span class="p">)</span>
 </pre></div>
@@ -356,9 +356,9 @@ desired, and the output directory as arguments to
 </div>
 </section>
 <section id="interfacing-with-a-database">
-<h2>Interfacing with a Database<a class="headerlink" href="#interfacing-with-a-database" title="Link to this heading">#</a></h2>
+<h2>Interfacing with a Database<a class="headerlink" href="#interfacing-with-a-database" title="Link to this heading">¶</a></h2>
 <p>almirah can connect to databases <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#supported-databases">supported by SQLAlchemy</a>
-with <a class="reference internal" href="reference/almirah.db.html#almirah.DBManager" title="almirah.DBManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBManager</span></code></a> based on a <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#database-urls">Database URL</a>:</p>
+with <code class="xref py py-class docutils literal notranslate"><span class="pre">DBManager</span></code> based on a <a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/engines.html#database-urls">Database URL</a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">almirah</span>
 
 <span class="c1"># Create connection with database</span>
@@ -367,13 +367,13 @@ with <a class="reference internal" href="reference/almirah.db.html#almirah.DBMan
 </div>
 <p>To create a table in the database, the table schema is described by
 the <a class="reference internal" href="writing-configs/mapping.html"><span class="doc">Database mapping</span></a> config and passed to
-<a class="reference internal" href="reference/almirah.db.html#almirah.DBManager.create_table" title="almirah.DBManager.create_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_table()</span></code></a>:</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">create_table()</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="s2">&quot;/path to mapping&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To insert records into a table in the database, a
-<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object whose columns match the table columns
-is provided as an argument to <a class="reference internal" href="reference/almirah.db.html#almirah.DBManager.to_table" title="almirah.DBManager.to_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_table()</span></code></a> along
+<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> object whose columns match the table columns
+is provided as an argument to <code class="xref py py-meth docutils literal notranslate"><span class="pre">to_table()</span></code> along
 with the table name:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;table name&quot;</span><span class="p">)</span>
 </pre></div>
@@ -385,7 +385,7 @@ automatically. This might not be desirable if you would like to
 define relationships between tables as the created table is vanilla
 and lacks these.</p>
 </div>
-<p><a class="reference internal" href="reference/almirah.db.html#almirah.DBManager.get_table" title="almirah.DBManager.get_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_table()</span></code></a> can retrieve records from a table in
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_table()</span></code> can retrieve records from a table in
 the database given the table name. A subset of table columns can be
 provided via <code class="docutils literal notranslate"><span class="pre">cols</span></code>, if not all columns are retrieved.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s2">&quot;table name&quot;</span><span class="p">)</span>
@@ -393,7 +393,7 @@ provided via <code class="docutils literal notranslate"><span class="pre">cols</
 </div>
 </section>
 <section id="analyzing">
-<h2>Analyzing<a class="headerlink" href="#analyzing" title="Link to this heading">#</a></h2>
+<h2>Analyzing<a class="headerlink" href="#analyzing" title="Link to this heading">¶</a></h2>
 <p>It should be possible to interface almirah with any tooklit available in
 python. We recommend the below libaries as we have found them to play
 well with almirah for neuroimaging and genomics datasets:</p>
@@ -425,7 +425,7 @@ well with almirah for neuroimaging and genomics datasets:</p>
 </table>
 </div>
 <p>Typically, it might be desirable to extract features from each file
-and represent them as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>:</p>
+and represent them as a <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query and retrieve files</span>
 <span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="s2">&quot;eeg&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;edf&quot;</span><span class="p">)</span>
 
@@ -444,9 +444,9 @@ and represent them as a <a class="reference external" href="https://pandas.pydat
 </div>
 </section>
 <section id="reporting">
-<h2>Reporting<a class="headerlink" href="#reporting" title="Link to this heading">#</a></h2>
+<h2>Reporting<a class="headerlink" href="#reporting" title="Link to this heading">¶</a></h2>
 <p>High-level summaries of a dataset can be reported by passing a
-<a class="reference internal" href="reference/almirah.layout.html#almirah.Layout" title="almirah.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code> instance to
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code> instance to
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Report</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">almirah</span><span class="o">.</span><span class="n">Report</span><span class="p">(</span><span class="n">lay</span><span class="p">)</span>
 </pre></div>
@@ -456,17 +456,17 @@ via the <code class="docutils literal notranslate"><span class="pre">tags</span>
 provided.</p>
 </section>
 <section id="errors-and-exceptions">
-<h2>Errors and Exceptions<a class="headerlink" href="#errors-and-exceptions" title="Link to this heading">#</a></h2>
+<h2>Errors and Exceptions<a class="headerlink" href="#errors-and-exceptions" title="Link to this heading">¶</a></h2>
 <p>almirah wraps built-in python exceptions with appropriate messages, for
 example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported transform value </span><span class="si">{</span><span class="n">transform</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a> for context.</p>
+<p>See <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code> for context.</p>
 </section>
 <section id="logging">
-<h2>Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h2>
-<p>If you are using the standard library <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> module, almirah will emit
+<h2>Logging<a class="headerlink" href="#logging" title="Link to this heading">¶</a></h2>
+<p>If you are using the standard library <code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code> module, almirah will emit
 several logs. In some cases, this can be undesireable. You can use the
 standard logger interface to change the log level for almirah’s logger:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;almirah&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
@@ -562,8 +562,8 @@ visit <a class="reference internal" href="calmbrains/index.html"><span class="do
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=95e61db4"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+</div><script src="_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>

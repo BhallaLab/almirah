@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Code of Conduct" href="code-of-conduct.html" /><link rel="prev" title="Utilities" href="reference/almirah.utils.html" />
 
-    <link rel="shortcut icon" href="_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Contributing - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>Contributing - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -236,7 +236,7 @@
         </div>
         <article role="main">
           <section id="contributing">
-<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h1>
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h1>
 <p>almirah was initially developed to handle and maintain neuroimaging
 datasets. But we believe this can be useful for other datasets too!</p>
 <p>We happily accept contributions for all things related to dataset
@@ -257,7 +257,7 @@ if required.</p></li>
 <li><p>Send a pull request and bug us till it gets merged and published.</p></li>
 </ol>
 <section id="setting-up-your-development-environment">
-<h2>Setting up your development environment<a class="headerlink" href="#setting-up-your-development-environment" title="Link to this heading">#</a></h2>
+<h2>Setting up your development environment<a class="headerlink" href="#setting-up-your-development-environment" title="Link to this heading">¶</a></h2>
 <p>In order to setup the development environment all you need is <a class="reference external" href="https://python-poetry.org/">poetry</a> installed in your machine.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:girishmm/almriah.git
 $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>almirah
@@ -273,7 +273,7 @@ will be added in later.</p>
 </div>
 </section>
 <section id="running-tests">
-<h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">#</a></h2>
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h2>
 <p>We use <a class="reference external" href="https://docs.pytest.org/en/7.1.x/index.html">pytest</a> for
 running the test suite.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pytest
@@ -281,7 +281,7 @@ running the test suite.</p>
 </div>
 </section>
 <section id="contributing-to-documentation">
-<h2>Contributing to documentation<a class="headerlink" href="#contributing-to-documentation" title="Link to this heading">#</a></h2>
+<h2>Contributing to documentation<a class="headerlink" href="#contributing-to-documentation" title="Link to this heading">¶</a></h2>
 <p>You can build the docs locally using <a class="reference external" href="https://www.sphinx-doc.org/en/master/">sphinx</a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>docs/source<span class="w"> </span>docs/build/html
 </pre></div>
@@ -299,7 +299,7 @@ docs, run <code class="docutils literal notranslate"><span class="pre">towncrier
 the final look.</p>
 </section>
 <section id="releases">
-<h2>Releases<a class="headerlink" href="#releases" title="Link to this heading">#</a></h2>
+<h2>Releases<a class="headerlink" href="#releases" title="Link to this heading">¶</a></h2>
 <p>A release candidate can be created by any contributor.</p>
 <ul class="simple">
 <li><p>Announce intent to release by communicating to all contributors.</p></li>
@@ -392,8 +392,8 @@ number, namely <code class="docutils literal notranslate"><span class="pre">X.Y.
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=95e61db4"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+</div><script src="_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>

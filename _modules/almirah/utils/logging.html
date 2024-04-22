@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>almirah.data.report - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>almirah.utils.logging - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -178,20 +178,20 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -225,65 +225,76 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for almirah.data.report</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Module for easy report generation and data summary.&quot;&quot;&quot;</span>
+          <h1>Source code for almirah.utils.logging</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Logging utility functions.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">distinct</span><span class="p">,</span> <span class="n">func</span>
-
-<span class="kn">from</span> <span class="nn">.layout</span> <span class="kn">import</span> <span class="n">File</span><span class="p">,</span> <span class="n">Tag</span>
-
-
-<div class="viewcode-block" id="Report">
-<a class="viewcode-back" href="../../../reference/almirah.report.html#almirah.data.Report">[docs]</a>
-<span class="k">class</span> <span class="nc">Report</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Collection of report generating methods.&quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="Report.generate">
-<a class="viewcode-back" href="../../../reference/almirah.report.html#almirah.data.Report.generate">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;subject&quot;</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate report for a layout.&quot;&quot;&quot;</span>
-        <span class="n">sess</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">indexer</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">session</span>
-        <span class="n">tag_counts</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
-            <span class="n">count</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span>
-                <span class="n">select</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">distinct</span><span class="p">(</span><span class="n">Tag</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-                <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Tag</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">tag</span><span class="p">)</span>
-                <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">File</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
-                <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">File</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">tag_counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="s2">&quot;lengthy&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
-        <span class="c1"># Generate report string</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Layout ... name: </span><span class="si">{</span><span class="n">layout</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tags</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> | </span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2">: </span><span class="si">{</span><span class="n">tag_counts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 
-<div class="viewcode-block" id="Report.generate_for_dataset">
-<a class="viewcode-back" href="../../../reference/almirah.report.html#almirah.data.Report.generate_for_dataset">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">generate_for_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate report for a dataset.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="log_df">
+<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.logging.log_df">[docs]</a>
+<span class="k">def</span> <span class="nf">log_df</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hide</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log DataFrame records with a message.</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset ... </span><span class="si">{</span><span class="n">dataset</span><span class="o">.</span><span class="n">primary</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df: pandas.DataFrame</span>
+<span class="sd">        DataFrame to be logged.</span>
+<span class="sd">    msg: str</span>
+<span class="sd">        Log message compatible with string formatting.</span>
+<span class="sd">    hide: list-like or scalar, optional</span>
+<span class="sd">        Sensitive column or columns to hide.</span>
+<span class="sd">    level: int, optional</span>
+<span class="sd">        Logging level to use. Accepts logging.LEVEL values.</span>
+<span class="sd">    kwargs: key, value mappings</span>
+<span class="sd">        Other keyword arguments are passed to `str.format()`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">msg</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">hide</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-        <span class="n">sources</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">sourcedata</span><span class="o">.</span><span class="n">layouts</span><span class="p">:</span>
-            <span class="n">sources</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sources | </span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">ders</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">derivatives</span><span class="o">.</span><span class="n">layouts</span><span class="p">:</span>
-            <span class="n">ders</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pipelines | </span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ders</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">layouts</span><span class="p">:</span>
-            <span class="n">Report</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">lay</span><span class="p">)</span></div>
-</div>
+<div class="viewcode-block" id="log_col">
+<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.logging.log_col">[docs]</a>
+<span class="k">def</span> <span class="nf">log_col</span><span class="p">(</span>
+    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hide</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log column values with a message.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    series : pd.Series</span>
+<span class="sd">        Series to be logged.</span>
+<span class="sd">    msg : str</span>
+<span class="sd">        Log message compatible with string formatting.</span>
+<span class="sd">    hide : bool, optional</span>
+<span class="sd">        If True, hides the values of the series.</span>
+<span class="sd">    level : int, optional</span>
+<span class="sd">        Logging level to use. Accepts logging.LEVEL values.</span>
+<span class="sd">    kwargs : key, value mappings</span>
+<span class="sd">        Other keyword arguments are passed to `str.format()`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">hide</span><span class="p">:</span>
+        <span class="n">series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Column values will not be displayed as hide set&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">series</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">msg</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">to_string</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 </pre></div>
         </article>
@@ -324,8 +335,8 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+</div><script src="../../../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>

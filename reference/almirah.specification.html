@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Files and Layout" href="almirah.layout.html" /><link rel="prev" title="API Reference" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Indexing" href="almirah.indexer.html" /><link rel="prev" title="Layout, File, and Tag" href="almirah.layout.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Specification - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>Specification - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -235,64 +235,23 @@
           </label>
         </div>
         <article role="main">
-          <section id="specification">
-<h1>Specification<a class="headerlink" href="#specification" title="Link to this heading">#</a></h1>
+          <section id="module-almirah.specification">
+<span id="specification"></span><h1>Specification<a class="headerlink" href="#module-almirah.specification" title="Link to this heading">¶</a></h1>
+<p>Define the specification for the dataset.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="almirah.Specification">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">almirah.</span></span><span class="sig-name descname"><span class="pre">Specification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/specification.html#Specification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.Specification" title="Link to this definition">#</a></dt>
-<dd><p>Representation of the specification used.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.Specification.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#almirah.Specification.name" title="Link to this definition">#</a></dt>
-<dd><p>The name of the specification.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The dict-converted YAML specification file or its path.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<dl class="simple">
-<dt>The YAML file that describes the specification can be split into two parts.</dt><dd><ul class="simple">
-<li><p>tag definitions</p></li>
-<li><p>path definitions</p></li>
-</ul>
-</dd>
-</dl>
-<p>More information on these will follow.</p>
+<dt class="sig sig-object py" id="almirah.specification.Specification">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Specification</span></span><a class="reference internal" href="../_modules/almirah/specification.html#Specification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.specification.Specification" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>Generic specification representation.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.Specification.get_valid_tags">
-<span class="sig-name descname"><span class="pre">get_valid_tags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/specification.html#Specification.get_valid_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.Specification.get_valid_tags" title="Link to this definition">#</a></dt>
-<dd><p>Returns valid tag names.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.Specification.extract_tags">
-<span class="sig-name descname"><span class="pre">extract_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/specification.html#Specification.extract_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.Specification.extract_tags" title="Link to this definition">#</a></dt>
-<dd><p>Returns <a class="reference external" href="tag:value">tag:value</a> pairs for file.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.Specification.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/specification.html#Specification.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.Specification.validate" title="Link to this definition">#</a></dt>
-<dd><p>Returns True if path is valid.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.Specification.build_path">
-<span class="sig-name descname"><span class="pre">build_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/specification.html#Specification.build_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.Specification.build_path" title="Link to this definition">#</a></dt>
-<dd><p>Construct path provided a set of tags.</p>
+<dt class="sig sig-object py" id="almirah.specification.Specification.build_path">
+<span class="sig-name descname"><span class="pre">build_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/specification.html#Specification.build_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.specification.Specification.build_path" title="Link to this definition">¶</a></dt>
+<dd><p>Construct path given a set of tags.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – A dictionary with tag name, value pairs.</p></li>
-<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If True, the tags provided should exactly match the
+<li><p><strong>tags</strong> (<em>dict</em>) – Dictionary of name:value tag pairs.</p></li>
+<li><p><strong>strict</strong> (<em>bool</em>) – If True, the tags provided should exactly match the
 requirements. If False, extra tags are ignored and the
 first matching path is built.</p></li>
 </ul>
@@ -301,23 +260,103 @@ first matching path is built.</p></li>
 <dd class="field-even"><p><strong>path</strong> – The constructed path if successful, else <cite>None</cite>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.Specification.organize">
-<span class="sig-name descname"><span class="pre">organize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rules</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/specification.html#Specification.organize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.Specification.organize" title="Link to this definition">#</a></dt>
-<dd><p>Create a organized copy of a source directory based on rules.</p>
+<dt class="sig sig-object py" id="almirah.specification.Specification.create_from_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/specification.html#Specification.create_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.specification.Specification.create_from_file" title="Link to this definition">¶</a></dt>
+<dd><p>Create Specification from yaml file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.specification.Specification.extract_tags">
+<span class="sig-name descname"><span class="pre">extract_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/specification.html#Specification.extract_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.specification.Specification.extract_tags" title="Link to this definition">¶</a></dt>
+<dd><p>Return <a class="reference external" href="tag:value">tag:value</a> pairs based on file path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.specification.Specification.get">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">identifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/specification.html#Specification.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.specification.Specification.get" title="Link to this definition">¶</a></dt>
+<dd><p>Return an instance from index if found, else None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rules</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – A dictionary describing the instructions for organizing.</p>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>An instance of cls or None if not found.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.specification.Specification.get_identifiers">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.specification.Specification.get_identifiers" title="Link to this definition">¶</a></dt>
+<dd><p>Return dictionary of class identifier attributes and their values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.specification.Specification.options">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.specification.Specification.options" title="Link to this definition">¶</a></dt>
+<dd><p>Return all existing instances from index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.specification.Specification.organize">
+<span class="sig-name descname"><span class="pre">organize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rules</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/specification.html#Specification.organize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.specification.Specification.organize" title="Link to this definition">¶</a></dt>
+<dd><p>Create organized copy of source directories based on defined rules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rules</strong> (<em>dict</em>) – Dictionary describing instructions for organizing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.specification.Specification.validate_path">
+<span class="sig-name descname"><span class="pre">validate_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/specification.html#Specification.validate_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.specification.Specification.validate_path" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if path is valid according to specification.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.specification.Specification.details">
+<span class="sig-name descname"><span class="pre">details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.specification.Specification.details" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.specification.Specification.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.specification.Specification.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.specification.Specification.registry">
+<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.specification.Specification.registry" title="Link to this definition">¶</a></dt>
+<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
+<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.specification.Specification.tags">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tags</span></span><a class="headerlink" href="#almirah.specification.Specification.tags" title="Link to this definition">¶</a></dt>
+<dd><p>Return list of tags defined in the specification.</p>
 </dd></dl>
 
 </dd></dl>
@@ -329,23 +368,23 @@ first matching path is built.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="almirah.layout.html">
+          <a class="next-page" href="almirah.indexer.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Files and Layout</div>
+                <div class="title">Indexing</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="almirah.layout.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">API Reference</div>
+                <div class="title">Layout, File, and Tag</div>
                 
               </div>
             </a>
@@ -387,13 +426,19 @@ first matching path is built.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Specification</a><ul>
-<li><a class="reference internal" href="#almirah.Specification"><code class="docutils literal notranslate"><span class="pre">Specification</span></code></a><ul>
-<li><a class="reference internal" href="#almirah.Specification.name"><code class="docutils literal notranslate"><span class="pre">Specification.name</span></code></a></li>
-<li><a class="reference internal" href="#almirah.Specification.get_valid_tags"><code class="docutils literal notranslate"><span class="pre">Specification.get_valid_tags()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.Specification.extract_tags"><code class="docutils literal notranslate"><span class="pre">Specification.extract_tags()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.Specification.validate"><code class="docutils literal notranslate"><span class="pre">Specification.validate()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.Specification.build_path"><code class="docutils literal notranslate"><span class="pre">Specification.build_path()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.Specification.organize"><code class="docutils literal notranslate"><span class="pre">Specification.organize()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification"><code class="docutils literal notranslate"><span class="pre">Specification</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.specification.Specification.build_path"><code class="docutils literal notranslate"><span class="pre">Specification.build_path()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.create_from_file"><code class="docutils literal notranslate"><span class="pre">Specification.create_from_file()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.extract_tags"><code class="docutils literal notranslate"><span class="pre">Specification.extract_tags()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.get"><code class="docutils literal notranslate"><span class="pre">Specification.get()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Specification.get_identifiers()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.options"><code class="docutils literal notranslate"><span class="pre">Specification.options()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.organize"><code class="docutils literal notranslate"><span class="pre">Specification.organize()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.validate_path"><code class="docutils literal notranslate"><span class="pre">Specification.validate_path()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.details"><code class="docutils literal notranslate"><span class="pre">Specification.details</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.name"><code class="docutils literal notranslate"><span class="pre">Specification.name</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.registry"><code class="docutils literal notranslate"><span class="pre">Specification.registry</span></code></a></li>
+<li><a class="reference internal" href="#almirah.specification.Specification.tags"><code class="docutils literal notranslate"><span class="pre">Specification.tags</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -407,8 +452,8 @@ first matching path is built.</p></li>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

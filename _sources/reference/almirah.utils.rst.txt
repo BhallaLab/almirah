@@ -1,10 +1,24 @@
 Utilities
 =========
 
-Useful methods for moving files around, reading configs, running shell
-commands, and logging records from database.
+Library-specific
+----------------
 
-These can also be used independently in other scenarios.
+.. autofunction:: almirah.utils.lib.get_tutorial_dataset
 
-.. automodule:: almirah.utils
-    :exclude-members: get_dtype		
+Dataframe Manipulation
+----------------------
+
+.. automodule:: almirah.utils.df
+
+Logging
+-------
+
+.. automodule:: almirah.utils.logging
+
+General-purpose
+---------------
+
+.. automodule:: almirah.utils.gen		
+
+		

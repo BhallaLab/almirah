@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <link rel="shortcut icon" href="../../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>almirah.db - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>almirah.database - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -178,20 +178,20 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -225,140 +225,160 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for almirah.db</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Database and DataFrame functionality for data access and manipulation.&quot;&quot;&quot;</span>
+          <h1>Source code for almirah.database</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Database functionality for data write and access.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">URL</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Table</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">MetaData</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">ForeignKey</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">UniqueConstraint</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">ForeignKeyConstraint</span>
 
-<span class="kn">from</span> <span class="nn">sqlalchemy.types</span> <span class="kn">import</span> <span class="n">Boolean</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.types</span> <span class="kn">import</span> <span class="n">Float</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.types</span> <span class="kn">import</span> <span class="n">Integer</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.types</span> <span class="kn">import</span> <span class="n">String</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.types</span> <span class="kn">import</span> <span class="n">DateTime</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">Mapped</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">mapped_column</span>
 
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span>
+<span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">uniquify</span>
+<span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">DBManager</span>
+<span class="kn">from</span> <span class="nn">.indexer</span> <span class="kn">import</span> <span class="n">index</span>
+<span class="kn">from</span> <span class="nn">.dataset</span> <span class="kn">import</span> <span class="n">Component</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_dtype</span><span class="p">,</span> <span class="n">log_df</span><span class="p">,</span> <span class="n">log_col</span>
+<span class="kn">from</span> <span class="nn">.utils.df</span> <span class="kn">import</span> <span class="n">common_rows</span>
+<span class="kn">from</span> <span class="nn">.utils.df</span> <span class="kn">import</span> <span class="n">convert_column_type</span>
+<span class="kn">from</span> <span class="nn">.utils.logging</span> <span class="kn">import</span> <span class="n">log_df</span>
+<span class="kn">from</span> <span class="nn">.utils.logging</span> <span class="kn">import</span> <span class="n">log_col</span>
+<span class="kn">from</span> <span class="nn">.utils.sqlalchemy</span> <span class="kn">import</span> <span class="n">get_sql_type</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DBManager&quot;</span><span class="p">,</span> <span class="s2">&quot;common_records&quot;</span><span class="p">,</span> <span class="s2">&quot;migrate&quot;</span><span class="p">,</span> <span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="s2">&quot;validate&quot;</span><span class="p">]</span>
 
+<div class="viewcode-block" id="Database">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database">[docs]</a>
+<span class="nd">@uniquify</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Database</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic database representation.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DBManager">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager">[docs]</a>
-<span class="k">class</span> <span class="nc">DBManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interface to connect with db and perform operations.&quot;&quot;&quot;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;databases&quot;</span>
+    <span class="n">__identifier_attrs__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;backend&quot;</span><span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_metadata</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_sessionmaker</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;components.id&quot;</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">host</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_init_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">meta</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">()</span>
-        <span class="n">meta</span><span class="o">.</span><span class="n">reflect</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">meta</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span><span class="n">UniqueConstraint</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;backend&quot;</span><span class="p">),)</span>
+    <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;polymorphic_identity&quot;</span><span class="p">:</span> <span class="s2">&quot;database&quot;</span><span class="p">}</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sessionmaker</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="n">backend</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connection to </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> not established&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">connection</span>
 
-<div class="viewcode-block" id="DBManager.build_column">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.build_column">[docs]</a>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">meta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connection to </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> not established&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">metadata</span>
+
+<div class="viewcode-block" id="Database.build_column">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.build_column">[docs]</a>
     <span class="k">def</span> <span class="nf">build_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build SQLalchemy Column object given column description.&quot;&quot;&quot;</span>
         <span class="n">primary</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">fk</span> <span class="o">=</span> <span class="p">[</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span> <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;refs&quot;</span><span class="p">))</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="k">return</span> <span class="n">Column</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span> <span class="o">*</span><span class="n">fk</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="n">primary</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Column</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">get_sql_type</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span> <span class="o">*</span><span class="n">fk</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="n">primary</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="DBManager.build_constraint">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.build_constraint">[docs]</a>
+<div class="viewcode-block" id="Database.build_constraint">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.build_constraint">[docs]</a>
     <span class="k">def</span> <span class="nf">build_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">links</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build SQLalchmy constraint objects given links.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ForeignKeyConstraint</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">links</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="DBManager.create_table">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.create_table">[docs]</a>
+<div class="viewcode-block" id="Database.create_table">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.create_table">[docs]</a>
     <span class="k">def</span> <span class="nf">create_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">refs</span><span class="o">=</span><span class="p">[]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create or extend table in db given the description.&quot;&quot;&quot;</span>
-        <span class="bp">cls</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">build_column</span><span class="p">(</span><span class="o">**</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
-        <span class="n">cns</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">build_constraint</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">]</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="o">*</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">cns</span><span class="p">,</span> <span class="n">extend_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">table</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="n">checkfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="DBManager.get_primary">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.get_primary">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_primary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns priamry keys for table.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="n">table</span><span class="p">]</span><span class="o">.</span><span class="n">primary_key</span><span class="p">]</span></div>
-
-
-<div class="viewcode-block" id="DBManager.get_type">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.get_type">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">default_length</span><span class="o">=</span><span class="mi">250</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return supported SQLalchemy type equivalent of provided dtype string.</span>
+<span class="sd">        Create or extend table within database given the description.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        dtype: str</span>
-<span class="sd">            Supported dtype string representation.</span>
-
-<span class="sd">        default_length: int, optional</span>
-<span class="sd">            Default length of string. Used if required by db backend.</span>
+<span class="sd">        table_name : str</span>
+<span class="sd">            Name of the table to create or extend.</span>
+<span class="sd">        columns : list of dict</span>
+<span class="sd">            List of columns specifications to add to the table.</span>
+<span class="sd">        constraints : list of dict, optional</span>
+<span class="sd">            List of table constraints.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">SQL_TYPE_EQUIVALENT</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;boolean&quot;</span><span class="p">:</span> <span class="n">Boolean</span><span class="p">,</span>
-            <span class="s2">&quot;datetime&quot;</span><span class="p">:</span> <span class="n">DateTime</span><span class="p">,</span>
-            <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">Float</span><span class="p">,</span>
-            <span class="s2">&quot;integer&quot;</span><span class="p">:</span> <span class="n">Integer</span><span class="p">,</span>
-            <span class="s2">&quot;str&quot;</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
-        <span class="p">}</span>
-
-        <span class="n">dtype</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="n">get_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">default_length</span><span class="p">)</span>
-        <span class="n">stype</span> <span class="o">=</span> <span class="n">SQL_TYPE_EQUIVALENT</span><span class="p">[</span><span class="n">dtype</span><span class="p">]</span>
-
-        <span class="k">return</span> <span class="n">stype</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="k">if</span> <span class="n">length</span> <span class="k">else</span> <span class="n">stype</span><span class="p">()</span></div>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">build_column</span><span class="p">(</span><span class="o">**</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
+        <span class="n">cns</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">build_constraint</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">]</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="o">*</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">cns</span><span class="p">,</span> <span class="n">extend_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">,</span> <span class="n">checkfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="DBManager.get_table">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.get_table">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Database.connect">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.connect">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve table records in db as a DataFrame.</span>
+<span class="sd">        Establish a connection to the database.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        username : str</span>
+<span class="sd">            The database username.</span>
+<span class="sd">        password : str</span>
+<span class="sd">            The database password.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SQLAlchemyError</span>
+<span class="sd">            If the connection cannot be established.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">URL</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span>
+            <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span>
+            <span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+            <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">DBManager</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Database.get_primary">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.get_primary">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_primary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return priamry keys for table.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="n">table</span><span class="p">]</span><span class="o">.</span><span class="n">primary_key</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Database.get_records">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.get_records">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve records from table in database as a DataFrame.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        table : str</span>
 <span class="sd">            Table in database from which to retrieve records.</span>
-
 <span class="sd">        cols : list of str</span>
 <span class="sd">            Column names to select from table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="DBManager.to_table">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.to_table">[docs]</a>
+<div class="viewcode-block" id="Database.to_table">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.to_table">[docs]</a>
     <span class="k">def</span> <span class="nf">to_table</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">df</span><span class="p">,</span>
@@ -375,62 +395,46 @@
         <span class="n">insert_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write records in DataFrame to a table.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write records in DataFrame to a table.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        df : pandas.DataFrame</span>
 <span class="sd">            DataFrame containing records.</span>
-
 <span class="sd">        table : str</span>
 <span class="sd">            Table in database into which the records will be inserted.</span>
-
 <span class="sd">        check_dups : bool, default True</span>
 <span class="sd">            Check for duplicates in records.</span>
-
 <span class="sd">        resolve_dups : [False, &#39;first&#39;, &#39;last&#39;], default False</span>
 <span class="sd">            Resolution method for duplicates if found.</span>
-
 <span class="sd">        check_fks : bool, default False</span>
 <span class="sd">            Check if foreign keys present in parent.</span>
-
 <span class="sd">        resolve_fks : bool, default False</span>
 <span class="sd">            Attempt to resolve missing foreign keys by inserting to parent.</span>
-
 <span class="sd">        insert_ignore : bool, default Flase</span>
 <span class="sd">            Ignore insertion of records already present in table.</span>
-
 <span class="sd">        drop_na : list of df column names, default None</span>
 <span class="sd">            If provided, records with na in all given columns are dropped.</span>
-
 <span class="sd">        threshold : int, None</span>
 <span class="sd">            If non-NA values &lt; threshold, then record dropped.</span>
-
 <span class="sd">        if_exists : [&#39;append&#39;, &#39;replace&#39;, &#39;fail&#39;], default &#39;append&#39;</span>
 <span class="sd">            Insert behavior in case table exists.</span>
-
 <span class="sd">            - &#39;append&#39; : Insert new values to the existing table.</span>
 <span class="sd">            - &#39;replace&#39; : Drop the table before inserting new values.</span>
 <span class="sd">            - &#39;fail&#39; : Raise a ValueError if table exists.</span>
-
 <span class="sd">        index : bool, default False</span>
 <span class="sd">            Write DataFrame index as a column. Uses index_label as the</span>
 <span class="sd">            column name in the table.</span>
-
 <span class="sd">        insert_method : {None, &#39;multi&#39;, callable}, optional</span>
 <span class="sd">            Controls the SQL insertion clause used.</span>
-
 <span class="sd">            - None : Uses standard SQL INSERT clause (one per row).</span>
 <span class="sd">            - ‘multi’: Pass multiple values in a single INSERT clause.</span>
 <span class="sd">            - callable with signature ``(pd_table, conn, keys, data_iter)``.</span>
-
 <span class="sd">            Details and a sample callable implementation can be found</span>
-<span class="sd">            in the pandas section `insert method</span>
-<span class="sd">            &lt;https://pandas.pydata.org/docs/user_guide/io.html#io-sql-method&gt;`_.</span>
-
+<span class="sd">            on Insertion method section of :ref:`pandas:io.sql.method`.</span>
 <span class="sd">        kwargs : key, value mappings Other keyword arguments are</span>
-<span class="sd">            passed down to `pandas.DataFrame.to_sql()</span>
-<span class="sd">            &lt;https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html&gt;`_</span>
+<span class="sd">            passed down to :doc:`pandas:reference/api/pandas.DataFrame.to_sql`.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -444,14 +448,10 @@
 <span class="sd">        ValueError</span>
 <span class="sd">            - When values provided are not sufficient for insert operation.</span>
 <span class="sd">            - When the table already exists and `if_exists` is &#39;fail&#39;.</span>
-
 <span class="sd">        OperationalError</span>
 <span class="sd">            - Most likely there are duplicates records in the</span>
 <span class="sd">              DataFrame. Other reasons are related to the database</span>
-<span class="sd">              operation and are detailed in sqlalchemy section</span>
-<span class="sd">              `OperationalError</span>
-<span class="sd">              &lt;https://docs.sqlalchemy.org/en/20/errors.html#operationalerror&gt;`_.</span>
-
+<span class="sd">              operation and are detailed on :ref:`sqlalchemy:error_e3q8`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">drop_na</span> <span class="ow">or</span> <span class="n">threshold</span><span class="p">:</span>
@@ -465,7 +465,7 @@
             <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">resolve_fks</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">resolve_fks</span><span class="p">)]</span>
 
         <span class="k">if</span> <span class="n">insert_ignore</span><span class="p">:</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="n">common_records</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">))</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">common_rows</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">))</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ignoring insert of </span><span class="si">{</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> common records&quot;</span><span class="p">)</span>
             <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
 
@@ -481,11 +481,11 @@
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="DBManager.resolve_dups">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.resolve_dups">[docs]</a>
+<div class="viewcode-block" id="Database.resolve_dups">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.resolve_dups">[docs]</a>
     <span class="k">def</span> <span class="nf">resolve_dups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">resolve</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolve duplicate primary keys in DataFrame.</span>
+<span class="sd">        Resolve duplicate primary keys.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -495,7 +495,6 @@
 <span class="sd">            Table the records will be inserted into.</span>
 <span class="sd">        resolve : [False, &#39;first&#39;, &#39;last&#39;], default False</span>
 <span class="sd">            Determines resolution method.</span>
-
 <span class="sd">            * False : Mark all duplicates as False.</span>
 <span class="sd">            * &#39;first&#39; : Mark duplicates as False except for first occurence.</span>
 <span class="sd">            * &#39;last&#39; : Mark duplicates as False except for last occurence.</span>
@@ -510,17 +509,18 @@
 <span class="sd">        ------</span>
 <span class="sd">        ValueError</span>
 <span class="sd">            When primary key duplicates are found and `resolve` is True.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">dups</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_primary</span><span class="p">(</span><span class="n">table</span><span class="p">),</span> <span class="n">resolve</span><span class="p">)</span>
         <span class="n">log_df</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">dups</span><span class="p">],</span> <span class="s2">&quot;Found duplicate records&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="o">~</span><span class="n">dups</span></div>
 
 
-<div class="viewcode-block" id="DBManager.resolve_fks">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.DBManager.resolve_fks">[docs]</a>
+<div class="viewcode-block" id="Database.resolve_fks">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.resolve_fks">[docs]</a>
     <span class="k">def</span> <span class="nf">resolve_fks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">resolve</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve missing foreign keys.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        df : pandas.DataFrame</span>
@@ -542,14 +542,13 @@
 <span class="sd">        constraint on a table does not reference all the columns that</span>
 <span class="sd">        provide the required values to insert records into the parent</span>
 <span class="sd">        table.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">fkc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="n">table</span><span class="p">]</span><span class="o">.</span><span class="n">foreign_key_constraints</span><span class="p">:</span>
             <span class="n">p_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">fk</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">fk</span> <span class="ow">in</span> <span class="n">fkc</span><span class="o">.</span><span class="n">elements</span><span class="p">]</span>
-            <span class="n">p_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">fkc</span><span class="o">.</span><span class="n">referred_table</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p_cols</span><span class="p">)</span>
-            <span class="n">p_mask</span> <span class="o">=</span> <span class="n">common_records</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">p_df</span><span class="p">,</span> <span class="n">fkc</span><span class="o">.</span><span class="n">column_keys</span><span class="p">,</span> <span class="n">p_cols</span><span class="p">)</span>
+            <span class="n">p_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="n">fkc</span><span class="o">.</span><span class="n">referred_table</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p_cols</span><span class="p">)</span>
+            <span class="n">p_mask</span> <span class="o">=</span> <span class="n">common_rows</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">p_df</span><span class="p">,</span> <span class="n">fkc</span><span class="o">.</span><span class="n">column_keys</span><span class="p">,</span> <span class="n">p_cols</span><span class="p">)</span>
 
             <span class="n">log_df</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">p_mask</span><span class="p">],</span> <span class="s2">&quot;Missing parent records&quot;</span><span class="p">)</span>
 
@@ -569,38 +568,32 @@
         <span class="k">return</span> <span class="n">mask</span></div>
 
 
+<div class="viewcode-block" id="Database.report">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.report">[docs]</a>
+    <span class="k">def</span> <span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate report for database.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:&lt;60}</span><span class="s2"> : </span><span class="si">{:&gt;60}</span><span class="s2"> records&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">rows</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Database.query">
+<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.query">[docs]</a>
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return table records that fit filter criteria.&quot;&quot;&quot;</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">table</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">returns</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">items</span><span class="p">()])]</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;DBManager &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&#39;&gt;&quot;</span></div>
-
-
-
-<span class="k">def</span> <span class="nf">get_db</span><span class="p">(</span><span class="n">db_path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns SQLalchemy engine for provided URL.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">db_path</span><span class="p">:</span>
-        <span class="n">db_path</span> <span class="o">=</span> <span class="s2">&quot;sqlite:///</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;index.sqlite&quot;</span><span class="p">)</span>
-        <span class="p">)</span>
-    <span class="k">return</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="common_records">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.common_records">[docs]</a>
-<span class="k">def</span> <span class="nf">common_records</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">child_on</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_on</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether each record in a DataFrame is contained in another.&quot;&quot;&quot;</span>
-
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-            <span class="n">child</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span>
-            <span class="n">parent</span><span class="p">,</span>
-            <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-            <span class="n">left_on</span><span class="o">=</span><span class="n">child_on</span><span class="p">,</span>
-            <span class="n">right_on</span><span class="o">=</span><span class="n">parent_on</span><span class="p">,</span>
-            <span class="n">indicator</span><span class="o">=</span><span class="s2">&quot;exists&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;both&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;left_only&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;right_only&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
-        <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)[</span><span class="s2">&quot;exists&quot;</span><span class="p">]</span>
-        <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;bool&quot;</span><span class="p">)</span>
-    <span class="p">)</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Database url: &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">backend</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2">&#39;&gt;&quot;</span></div>
 
 
 
@@ -610,11 +603,9 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">[</span><span class="s2">&quot;cols&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 
 
-<div class="viewcode-block" id="migrate">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.migrate">[docs]</a>
 <span class="k">def</span> <span class="nf">migrate</span><span class="p">(</span>
     <span class="n">src</span><span class="p">,</span>
-    <span class="n">target</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">,</span>
     <span class="n">mapping</span><span class="p">,</span>
     <span class="n">dry_run</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">na_vals</span><span class="o">=</span><span class="p">[],</span>
@@ -622,50 +613,40 @@
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Transforms and migrates records from one db to another.</span>
+<span class="sd">    Transform and migrate records from one database to another.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    src: str</span>
-<span class="sd">        SQLAlchemy database URL of database from which data is</span>
-<span class="sd">        transferred.</span>
-
-<span class="sd">    target: str</span>
-<span class="sd">        SQLAlchemy database URL of database to which data is</span>
-<span class="sd">        transferred.</span>
-
+<span class="sd">        Connection established source Database instance from which data is to</span>
+<span class="sd">        be transferred.</span>
+<span class="sd">    dst: str</span>
+<span class="sd">        Connection established destination Database instance to which data is</span>
+<span class="sd">        to be transferred.</span>
 <span class="sd">    mapping: dict</span>
 <span class="sd">        Dictionary providing information on column mappings, type,</span>
 <span class="sd">        transformations, and validation checks.</span>
-
 <span class="sd">    dry_run: bool</span>
 <span class="sd">        If dry run, no records are inserted into target and tables are</span>
 <span class="sd">        not created, but errors and invalid records are logged.</span>
-
 <span class="sd">    na_vals: list, optional</span>
 <span class="sd">        List of values to be considered as record not available. By</span>
 <span class="sd">        default, the values &#39;&#39;, &#39;None&#39;, &#39;NONE&#39;, &#39;NA&#39;, and &#39;Not Applicable&#39;</span>
 <span class="sd">        are considered.</span>
-
 <span class="sd">    dtype_kws : dict, optional</span>
 <span class="sd">        Key, value pairs that will be passed to</span>
-<span class="sd">        :meth:`napi.db.set_dtype()`.</span>
-
+<span class="sd">        :func:`almirah.utils.df.convert_column_type` kwargs.</span>
 <span class="sd">    kwargs : key, value mappings</span>
 <span class="sd">        Other keyword arguments are passed down to</span>
-<span class="sd">        :meth:`napi.db.to_table`.</span>
+<span class="sd">        `almirah.Database.to_table`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">s</span> <span class="o">=</span> <span class="n">DBManager</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">DBManager</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-
     <span class="n">na</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span> <span class="s2">&quot;NA&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;NA&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;Not applicable&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">na_vals</span>
 
     <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Transferring table </span><span class="si">{</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;maps&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;table&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Extract source records</span>
-        <span class="n">records</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;maps&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">na</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;maps&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">na</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span>
 
         <span class="c1"># Transform and validate</span>
         <span class="n">records</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">dtype_kws</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
@@ -678,59 +659,12 @@
             <span class="k">continue</span>
 
         <span class="c1"># Load records into target</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;cols&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attach&quot;</span><span class="p">,</span> <span class="p">[]),</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;refs&quot;</span><span class="p">,</span> <span class="p">[]))</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;threshold&quot;</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="n">dst</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;cols&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attach&quot;</span><span class="p">,</span> <span class="p">[]),</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;refs&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">to_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;threshold&quot;</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-
-<span class="k">def</span> <span class="nf">set_dtype</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Set dtype of series.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    series: pandas.Series</span>
-<span class="sd">        Series for which the dtype has to set.</span>
-
-<span class="sd">    dtype: str</span>
-<span class="sd">        Supported dtype to which the series will be converted.</span>
-
-<span class="sd">    kwargs: key, value mappings</span>
-<span class="sd">        Other keyword arguments are passed down to `pandas.to_datetime()`_</span>
-<span class="sd">        if the dtype is &#39;datetime&#39;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">dtype</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;datetime&quot;</span><span class="p">:</span>
-        <span class="n">series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="k">elif</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;float&quot;</span><span class="p">,</span> <span class="s2">&quot;integer&quot;</span><span class="p">}:</span>
-        <span class="n">series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;boolean&quot;</span><span class="p">:</span>
-        <span class="n">series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;0&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;True&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;False&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;Yes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;No&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="p">}</span>
-        <span class="p">)</span>
-        <span class="n">series</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">series</span><span class="o">.</span><span class="n">convert_dtypes</span><span class="p">()</span>
-
-
-<div class="viewcode-block" id="reshape">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.reshape">[docs]</a>
 <span class="k">def</span> <span class="nf">reshape</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reshape table records into appropriate shape.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reshape records into appropriate shape.&quot;&quot;&quot;</span>
 
     <span class="k">for</span> <span class="n">procedure</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
         <span class="p">[(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">procedure</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -747,14 +681,52 @@
         <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s2">&quot;pivot&quot;</span><span class="p">:</span>
             <span class="n">records</span> <span class="o">=</span> <span class="n">records</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="o">**</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-    <span class="k">return</span> <span class="n">records</span></div>
+    <span class="k">return</span> <span class="n">records</span>
 
 
+<span class="k">def</span> <span class="nf">replace_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return unique replacement for given value based on mapping in file.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="transform">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.transform">[docs]</a>
+    <span class="c1"># Load file into dataframe</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># Find value to replace</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;`</span><span class="si">%s</span><span class="s2">` == @value&quot;</span> <span class="o">%</span> <span class="n">column</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39; not found in column &#39;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&#39; of &#39;</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Non-unique mappings for value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39; in </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mapping</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">replace_column</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace values in series based on mapping in file.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Load file into dataframe</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Replacing values in &#39;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&#39; with &#39;</span><span class="si">{</span><span class="n">mapping</span><span class="si">}</span><span class="s2">&#39; from </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Stop if non-unique mappings</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="n">column</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Non-unique mappings found in file </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">mapping</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="n">replaced</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Retain original value if replacement not strict</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">strict</span><span class="p">:</span>
+        <span class="n">replaced</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">replaced</span>
+
+
 <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">dtype_kws</span><span class="p">,</span> <span class="n">mapping</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform table records into appropriate format.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform table into appropriate format.&quot;&quot;&quot;</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">records</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
     <span class="n">to_hide</span> <span class="o">=</span> <span class="n">check_for_key</span><span class="p">(</span><span class="s2">&quot;hide&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span>
@@ -767,45 +739,7 @@
         <span class="n">error</span> <span class="o">|=</span> <span class="n">col_error</span>
 
     <span class="n">log_df</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="n">error</span><span class="p">],</span> <span class="s2">&quot;Error transforming records&quot;</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="n">to_hide</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">error</span><span class="p">]</span></div>
-
-
-
-<span class="k">def</span> <span class="nf">replace_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
-    <span class="c1"># Get mapping</span>
-    <span class="n">mapping</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
-
-    <span class="c1"># Find value to replace</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">mapping</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;`</span><span class="si">%s</span><span class="s2">` == @value&quot;</span> <span class="o">%</span> <span class="n">field</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39; not found in field &#39;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&#39; of file &#39;</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Non-unique mappings for value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39; in file </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
-
-    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">using</span><span class="p">]</span>
-
-
-<span class="k">def</span> <span class="nf">replace_column</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="c1"># Load mapping from file</span>
-    <span class="n">mapping</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Replacing values in &#39;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&#39; with &#39;</span><span class="si">{</span><span class="n">using</span><span class="si">}</span><span class="s2">&#39; from </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Stop if non-unique mappings</span>
-    <span class="k">if</span> <span class="n">mapping</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="n">field</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Non-unique mappings found in file </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="n">mapping</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mapping</span><span class="p">[</span><span class="n">using</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">mapping</span><span class="p">[</span><span class="n">field</span><span class="p">])</span>
-    <span class="n">replaced</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span>
-
-    <span class="c1"># Retain original value if replacement not strict</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">strict</span><span class="p">:</span>
-        <span class="n">replaced</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">replaced</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">error</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">transform_column</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">dtype_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -830,17 +764,15 @@
         <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="n">ca</span> <span class="o">==</span> <span class="s2">&quot;upper&quot;</span> <span class="k">else</span> <span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Changing case to </span><span class="si">{</span><span class="n">ca</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">s</span> <span class="o">=</span> <span class="n">set_dtype</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">dtype_kws</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">convert_column_type</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">dtype_kws</span><span class="p">)</span>
     <span class="n">error</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">s</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
     <span class="n">log_col</span><span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">error</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;Error transforming values to </span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="n">hide</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">error</span>
 
 
-<div class="viewcode-block" id="validate">
-<a class="viewcode-back" href="../../reference/almirah.db.html#almirah.validate">[docs]</a>
 <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">mapping</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate table records and return mask where True means valid.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate table and return mask where True means valid.&quot;&quot;&quot;</span>
 
     <span class="n">to_hide</span> <span class="o">=</span> <span class="n">check_for_key</span><span class="p">(</span><span class="s2">&quot;hide&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">records</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -850,8 +782,7 @@
         <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">validate_column</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]],</span> <span class="o">**</span><span class="n">col</span><span class="p">)</span>
 
     <span class="n">log_df</span><span class="p">(</span><span class="n">records</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">],</span> <span class="s2">&quot;Found invalid records&quot;</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="n">to_hide</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">mask</span></div>
-
+    <span class="k">return</span> <span class="n">mask</span>
 
 
 <span class="k">def</span> <span class="nf">validate_column</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -916,8 +847,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+</div><script src="../../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>

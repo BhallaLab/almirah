@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Dataset Reference" href="reference/index.html" /><link rel="prev" title="The CALM-BRAINS Dataset" href="index.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>From access to analysis - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>From access to analysis - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -236,14 +236,14 @@
         </div>
         <article role="main">
           <section id="from-access-to-analysis">
-<h1>From access to analysis<a class="headerlink" href="#from-access-to-analysis" title="Link to this heading">#</a></h1>
+<h1>From access to analysis<a class="headerlink" href="#from-access-to-analysis" title="Link to this heading">¶</a></h1>
 <p>The CALM-BRAINS dataset is a rich collection of data obtained from
 over 2000 subjects. To know more about the contents of the dataset,
 please head over to <a class="reference internal" href="reference/index.html"><span class="doc">Dataset Reference</span></a>. The dataset is made of two
 parts: files that organized according to <a class="reference external" href="https://bids.neuroimaging.io/">BIDS</a> and questionnaires that are stored
 in SQL tables.</p>
 <section id="requesting-for-access">
-<h2>Requesting for access<a class="headerlink" href="#requesting-for-access" title="Link to this heading">#</a></h2>
+<h2>Requesting for access<a class="headerlink" href="#requesting-for-access" title="Link to this heading">¶</a></h2>
 <p>If you are interested and would like access, we are happy to help
 you. Due to the sensitive nature of the dataset, it is currently not
 possible to make it openly available. Please write to <a class="reference external" href="mailto:bhalla&#37;&#52;&#48;ncbs&#46;res&#46;in">us</a> with a
@@ -270,7 +270,7 @@ explorer</a>. On login, you can browse through tables and even query
 using SQL. Outputs can be downloaded as csv files.</p>
 </section>
 <section id="obtaining-a-subset-of-data-files">
-<h2>Obtaining a subset of data files<a class="headerlink" href="#obtaining-a-subset-of-data-files" title="Link to this heading">#</a></h2>
+<h2>Obtaining a subset of data files<a class="headerlink" href="#obtaining-a-subset-of-data-files" title="Link to this heading">¶</a></h2>
 <p>It is often the case that only a subset of data is required. Let’s
 say, you would like to download data relating to only the OCD cohort
 or specific to resting state EEG. Can this be achieved? Definitely!!</p>
@@ -326,7 +326,7 @@ possible this way.</p>
 </div>
 </section>
 <section id="retrieving-questionnaire-data">
-<h2>Retrieving questionnaire data<a class="headerlink" href="#retrieving-questionnaire-data" title="Link to this heading">#</a></h2>
+<h2>Retrieving questionnaire data<a class="headerlink" href="#retrieving-questionnaire-data" title="Link to this heading">¶</a></h2>
 <p>It is possible to query questionnaire data in tables, or for that
 matter, any table in a database using <a class="reference external" href="https://girishmm.github.io/almirah/">almirah</a>. The database
 information is already built into the index, so all you need extra are
@@ -343,7 +343,7 @@ your credentials.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p>The records are returned as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html" title="(in pandas v2.2.1)"><span>pandas.DataFrame</span></a>.</p>
+<p>The records are returned as a <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html" title="(in pandas v2.2.2)"><span>pandas.DataFrame</span></a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Use the <a class="reference internal" href="reference/index.html"><span class="doc">Dataset Reference</span></a> to checkout the info provided by
@@ -352,7 +352,7 @@ need.</p>
 </div>
 </section>
 <section id="analysis">
-<h2>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h2>
+<h2>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">¶</a></h2>
 <p>Now you know how to access and retrieve contents of the CALM-BRAINS
 dataset. How can you use it?</p>
 <p>We leave that to you and look forward to how this dataset helps with
@@ -365,7 +365,7 @@ do follow through the <a class="reference internal" href="examples/index.html"><
 through simple analysis flows.</p>
 </section>
 <section id="citing-and-contributing">
-<h2>Citing and Contributing<a class="headerlink" href="#citing-and-contributing" title="Link to this heading">#</a></h2>
+<h2>Citing and Contributing<a class="headerlink" href="#citing-and-contributing" title="Link to this heading">¶</a></h2>
 <p>If you use the dataset in your work, please cite the dataset release
 version you used. If you would like your analysis outputs to be
 available for others, do reach out to <a class="reference external" href="mailto:bhalla&#37;&#52;&#48;ncbs&#46;res&#46;in">us</a>. We would be happy to add
@@ -452,8 +452,8 @@ them as derivatives.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

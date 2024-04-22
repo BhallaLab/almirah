@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>almirah.data.convert - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>almirah.utils.convert - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -178,20 +178,20 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -225,8 +225,8 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for almirah.data.convert</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Collection of file format converters.&quot;&quot;&quot;</span>
+          <h1>Source code for almirah.utils.convert</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;File format conversion utility functions.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">mne</span>
@@ -235,23 +235,23 @@
 <span class="kn">import</span> <span class="nn">mne_bids</span>
 <span class="kn">import</span> <span class="nn">mne_nirs</span>
 
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">run_shell</span>
+<span class="kn">from</span> <span class="nn">.gen</span> <span class="kn">import</span> <span class="n">run_shell</span>
 
 
+<div class="viewcode-block" id="dcm2nii">
+<a class="viewcode-back" href="../../../reference/almirah.convert.html#almirah.utils.convert.dcm2nii">[docs]</a>
 <span class="k">def</span> <span class="nf">dcm2nii</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert DICOM files to NIfTI and write to disk.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert DICOM files to NIfTI and write to disk.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    files : List of Files</span>
 <span class="sd">        List of File objects that represent the files to be converted.</span>
-
 <span class="sd">    out : str</span>
 <span class="sd">        Output format desired.</span>
-
 <span class="sd">    dst: str</span>
 <span class="sd">        Destination directory where converted files will be stored.</span>
-
 <span class="sd">    config: str</span>
 <span class="sd">        Path to config file. Should be compatible with dcm2bids</span>
 <span class="sd">        version installed.</span>
@@ -314,9 +314,12 @@
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">dst</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
         <span class="n">run_shell</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">dst</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to nii complete&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to nii complete&quot;</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="edf2asc">
+<a class="viewcode-back" href="../../../reference/almirah.convert.html#almirah.utils.convert.edf2asc">[docs]</a>
 <span class="k">def</span> <span class="nf">edf2asc</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert Eye track data format and write to disk.&quot;&quot;&quot;</span>
 
@@ -346,10 +349,13 @@
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
         <span class="n">run_shell</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">new_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to asc complete&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to asc complete&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">nirs_conv</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="nirx2snirf">
+<a class="viewcode-back" href="../../../reference/almirah.convert.html#almirah.utils.convert.nirx2snirf">[docs]</a>
+<span class="k">def</span> <span class="nf">nirx2snirf</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert NIRS data format and write to disk.&quot;&quot;&quot;</span>
 
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -365,10 +371,13 @@
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">new_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">mne_nirs</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_raw_snirf</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">new_path</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">new_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to snirf complete&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to snirf complete&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">eeg_conv</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="eeg_converter">
+<a class="viewcode-back" href="../../../reference/almirah.convert.html#almirah.utils.convert.eeg_converter">[docs]</a>
+<span class="k">def</span> <span class="nf">eeg_converter</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert EEG data format and write to disk.&quot;&quot;&quot;</span>
 
     <span class="c1"># Set conversion logging level</span>
@@ -434,11 +443,12 @@
         <span class="p">)</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Conversion to </span><span class="si">{</span><span class="n">out</span><span class="si">}</span><span class="s2"> format complete&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Conversion to </span><span class="si">{</span><span class="n">out</span><span class="si">}</span><span class="s2"> format complete&quot;</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="convert">
-<a class="viewcode-back" href="../../../reference/almirah.convert.html#almirah.data.convert">[docs]</a>
+<a class="viewcode-back" href="../../../reference/almirah.convert.html#almirah.utils.convert.convert">[docs]</a>
 <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a file collection from one format to another.&quot;&quot;&quot;</span>
 
@@ -490,11 +500,11 @@
             <span class="s2">&quot;.set&quot;</span><span class="p">,</span>
             <span class="s2">&quot;.vhdr&quot;</span><span class="p">,</span>
         <span class="p">),</span>
-        <span class="s2">&quot;using&quot;</span><span class="p">:</span> <span class="n">eeg_conv</span><span class="p">,</span>
+        <span class="s2">&quot;using&quot;</span><span class="p">:</span> <span class="n">eeg_converter</span><span class="p">,</span>
     <span class="p">},</span>
     <span class="p">(</span><span class="s2">&quot;ASCII&quot;</span><span class="p">,):</span> <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;.edf&quot;</span><span class="p">,),</span> <span class="s2">&quot;using&quot;</span><span class="p">:</span> <span class="n">edf2asc</span><span class="p">},</span>
     <span class="p">(</span><span class="s2">&quot;NIfTI&quot;</span><span class="p">,):</span> <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;.dcm&quot;</span><span class="p">,),</span> <span class="s2">&quot;using&quot;</span><span class="p">:</span> <span class="n">dcm2nii</span><span class="p">},</span>
-    <span class="p">(</span><span class="s2">&quot;SNIRF&quot;</span><span class="p">,):</span> <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;.nirx&quot;</span><span class="p">,),</span> <span class="s2">&quot;using&quot;</span><span class="p">:</span> <span class="n">nirs_conv</span><span class="p">},</span>
+    <span class="p">(</span><span class="s2">&quot;SNIRF&quot;</span><span class="p">,):</span> <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;.nirx&quot;</span><span class="p">,),</span> <span class="s2">&quot;using&quot;</span><span class="p">:</span> <span class="n">nirx2snirf</span><span class="p">},</span>
 <span class="p">}</span>
 <span class="n">_DCM2NII_VALID_FLAGS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;--forceDcm2niix&quot;</span><span class="p">,</span> <span class="s2">&quot;--clobber&quot;</span><span class="p">}</span>
 <span class="n">_EDF2ASC_VALID_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
@@ -572,8 +582,8 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+</div><script src="../../../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>

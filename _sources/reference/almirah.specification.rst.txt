@@ -1,5 +1,4 @@
 Specification
 =============
 
-.. autoclass:: almirah.Specification	       
-       
+.. automodule:: almirah.specification

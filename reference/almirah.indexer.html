@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Utilities" href="almirah.utils.html" /><link rel="prev" title="Database Interface" href="almirah.db.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Reporting" href="almirah.reporting.html" /><link rel="prev" title="Specification" href="almirah.specification.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Reporting - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>Indexing - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -213,7 +213,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/reference/almirah.report.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/reference/almirah.indexer.rst" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -235,23 +235,68 @@
           </label>
         </div>
         <article role="main">
-          <section id="reporting">
-<h1>Reporting<a class="headerlink" href="#reporting" title="Link to this heading">#</a></h1>
+          <section id="module-almirah.indexer">
+<span id="indexing"></span><h1>Indexing<a class="headerlink" href="#module-almirah.indexer" title="Link to this heading">¶</a></h1>
+<p>Indexing functionality for metadata search and filtering.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="almirah.data.Report">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">almirah.data.</span></span><span class="sig-name descname"><span class="pre">Report</span></span><a class="reference internal" href="../_modules/almirah/data/report.html#Report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.data.Report" title="Link to this definition">#</a></dt>
-<dd><p>Collection of report generating methods.</p>
+<dt class="sig sig-object py" id="almirah.indexer.Indexer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Indexer</span></span><a class="reference internal" href="../_modules/almirah/indexer.html#Indexer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.indexer.Indexer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Interface to interact with the index.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.data.Report.generate">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'summary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['subject']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/report.html#Report.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.data.Report.generate" title="Link to this definition">#</a></dt>
-<dd><p>Generate report for a layout.</p>
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/indexer.html#Indexer.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.indexer.Indexer.add" title="Link to this definition">¶</a></dt>
+<dd><p>Add objects to the index.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.data.Report.generate_for_dataset">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_for_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/data/report.html#Report.generate_for_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.data.Report.generate_for_dataset" title="Link to this definition">#</a></dt>
-<dd><p>Generate report for a dataset.</p>
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.commit">
+<span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/indexer.html#Indexer.commit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.indexer.Indexer.commit" title="Link to this definition">¶</a></dt>
+<dd><p>Commit the current transaction.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">identifiers</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/almirah/indexer.html#Indexer.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.indexer.Indexer.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a single object based on the identifiers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/almirah/indexer.html#Indexer.options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.indexer.Indexer.options" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve all objects matching the given filters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.retrieve">
+<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stmt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/indexer.html#Indexer.retrieve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.indexer.Indexer.retrieve" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.rollback">
+<span class="sig-name descname"><span class="pre">rollback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/indexer.html#Indexer.rollback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.indexer.Indexer.rollback" title="Link to this definition">¶</a></dt>
+<dd><p>Roll back the current transaction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.db">
+<span class="sig-name descname"><span class="pre">db</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;DBManager</span> <span class="pre">url='sqlite:////home/runner/index.sqlite'&gt;</span></em><a class="headerlink" href="#almirah.indexer.Indexer.db" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.path">
+<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/index.sqlite'</span></em><a class="headerlink" href="#almirah.indexer.Indexer.path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.read_only">
+<span class="sig-name descname"><span class="pre">read_only</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#almirah.indexer.Indexer.read_only" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.indexer.Indexer.session">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#almirah.indexer.Indexer.session" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -262,23 +307,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="almirah.utils.html">
+          <a class="next-page" href="almirah.reporting.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Utilities</div>
+                <div class="title">Reporting</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="almirah.db.html">
+          <a class="prev-page" href="almirah.specification.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Database Interface</div>
+                <div class="title">Specification</div>
                 
               </div>
             </a>
@@ -319,10 +364,18 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Reporting</a><ul>
-<li><a class="reference internal" href="#almirah.data.Report"><code class="docutils literal notranslate"><span class="pre">Report</span></code></a><ul>
-<li><a class="reference internal" href="#almirah.data.Report.generate"><code class="docutils literal notranslate"><span class="pre">Report.generate()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.data.Report.generate_for_dataset"><code class="docutils literal notranslate"><span class="pre">Report.generate_for_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#">Indexing</a><ul>
+<li><a class="reference internal" href="#almirah.indexer.Indexer"><code class="docutils literal notranslate"><span class="pre">Indexer</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.add"><code class="docutils literal notranslate"><span class="pre">Indexer.add()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.commit"><code class="docutils literal notranslate"><span class="pre">Indexer.commit()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.get"><code class="docutils literal notranslate"><span class="pre">Indexer.get()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.options"><code class="docutils literal notranslate"><span class="pre">Indexer.options()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.retrieve"><code class="docutils literal notranslate"><span class="pre">Indexer.retrieve()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.rollback"><code class="docutils literal notranslate"><span class="pre">Indexer.rollback()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.db"><code class="docutils literal notranslate"><span class="pre">Indexer.db</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.path"><code class="docutils literal notranslate"><span class="pre">Indexer.path</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.read_only"><code class="docutils literal notranslate"><span class="pre">Indexer.read_only</span></code></a></li>
+<li><a class="reference internal" href="#almirah.indexer.Indexer.session"><code class="docutils literal notranslate"><span class="pre">Indexer.session</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -336,8 +389,8 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

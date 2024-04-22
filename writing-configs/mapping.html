@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="The CALM-BRAINS Dataset" href="../calmbrains/index.html" /><link rel="prev" title="Organization rules" href="rules.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Database mapping - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>Database mapping - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -236,7 +236,7 @@
         </div>
         <article role="main">
           <section id="database-mapping">
-<h1>Database mapping<a class="headerlink" href="#database-mapping" title="Link to this heading">#</a></h1>
+<h1>Database mapping<a class="headerlink" href="#database-mapping" title="Link to this heading">¶</a></h1>
 <p>It is convenient to store tabular records in a SQL database. There
 might be usecases where it is necessary to migrate to another
 schema. For this, the mapping between the columns in the previous
@@ -258,7 +258,7 @@ separated by <code class="docutils literal notranslate"><span class="pre">---</s
 <span class="w">    </span><span class="nt">maps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
 </pre></div>
 </div>
-<p>The above mapping can be used for database migration with <a class="reference internal" href="../reference/almirah.db.html#almirah.db.migrate" title="almirah.db.migrate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">migrate()</span></code></a>:</p>
+<p>The above mapping can be used for database migration with <code class="xref py py-meth docutils literal notranslate"><span class="pre">migrate()</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, import migrate from the db module</span>
 <span class="kn">from</span> <span class="nn">almirah.db</span> <span class="kn">import</span> <span class="n">migrate</span>
 
@@ -267,18 +267,18 @@ separated by <code class="docutils literal notranslate"><span class="pre">---</s
 </pre></div>
 </div>
 <section id="top-level-keys">
-<h2>Top-level keys<a class="headerlink" href="#top-level-keys" title="Link to this heading">#</a></h2>
+<h2>Top-level keys<a class="headerlink" href="#top-level-keys" title="Link to this heading">¶</a></h2>
 <section id="table">
-<h3><code class="docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#table" title="Link to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#table" title="Link to this heading">¶</a></h3>
 <p>The table in target database to which records will be inserted.</p>
 <p>If the table does not exist, it is created.</p>
 </section>
 <section id="maps">
-<h3><code class="docutils literal notranslate"><span class="pre">maps</span></code><a class="headerlink" href="#maps" title="Link to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">maps</span></code><a class="headerlink" href="#maps" title="Link to this heading">¶</a></h3>
 <p>The table in source database from which records will be selected.</p>
 </section>
 <section id="cols">
-<h3><code class="docutils literal notranslate"><span class="pre">cols</span></code><a class="headerlink" href="#cols" title="Link to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">cols</span></code><a class="headerlink" href="#cols" title="Link to this heading">¶</a></h3>
 <p>All details regarding fixed column mappings sit inside the <code class="docutils literal notranslate"><span class="pre">cols</span></code>
 key. It consists of a sequence of entries that provide information on
 the column, its datatype, validations to pass, and transformations if
@@ -346,7 +346,7 @@ displaying in columns containing sensitive information, the <code class="docutil
 flag inside <code class="docutils literal notranslate"><span class="pre">cols</span></code> can be set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </section>
 <section id="attach">
-<h3><code class="docutils literal notranslate"><span class="pre">attach</span></code><a class="headerlink" href="#attach" title="Link to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">attach</span></code><a class="headerlink" href="#attach" title="Link to this heading">¶</a></h3>
 <p>Columns that will be attached due to reshaping sit inside the
 <code class="docutils literal notranslate"><span class="pre">attach</span></code> key. It supports all sub-keys supported by <code class="docutils literal notranslate"><span class="pre">cols</span></code>.</p>
 <p>It is redundant to provide map value for columns in <code class="docutils literal notranslate"><span class="pre">attach</span></code> as
@@ -355,14 +355,14 @@ procedure. If your column needs to map to a column in source table,
 maybe <code class="docutils literal notranslate"><span class="pre">cols</span></code> or <code class="docutils literal notranslate"><span class="pre">detach</span></code> is more relevant.</p>
 </section>
 <section id="detach">
-<h3><code class="docutils literal notranslate"><span class="pre">detach</span></code><a class="headerlink" href="#detach" title="Link to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">detach</span></code><a class="headerlink" href="#detach" title="Link to this heading">¶</a></h3>
 <p>Columns that will be removed in the processing of reshaping sit inside
 the <code class="docutils literal notranslate"><span class="pre">detach</span></code> key. It supports all sub-keys supported by <code class="docutils literal notranslate"><span class="pre">cols</span></code>.</p>
 <p>Columns under <code class="docutils literal notranslate"><span class="pre">detach</span></code> are typically serve as columns that are
 considered for melting into one.</p>
 </section>
 <section id="refs">
-<h3><code class="docutils literal notranslate"><span class="pre">refs</span></code><a class="headerlink" href="#refs" title="Link to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">refs</span></code><a class="headerlink" href="#refs" title="Link to this heading">¶</a></h3>
 <p>If a set of columns make a composite foreign key constraint, they can
 be provided as a sequence of columns and their respective foreign key
 link.</p>
@@ -376,7 +376,7 @@ link.</p>
 enclosed in square brackets.</p>
 </section>
 <section id="reshape">
-<h3><code class="docutils literal notranslate"><span class="pre">reshape</span></code><a class="headerlink" href="#reshape" title="Link to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">reshape</span></code><a class="headerlink" href="#reshape" title="Link to this heading">¶</a></h3>
 <p>Provide step-wise instructions to massage the records from one
 structure to another.</p>
 <p>Reshaping instructions can be provided as a sequence of supported
@@ -392,10 +392,10 @@ thus use the same argument names as the specific pandas method.</p>
 <code class="docutils literal notranslate"><span class="pre">pat</span></code> and rename the generated columns to <code class="docutils literal notranslate"><span class="pre">rename</span></code>.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">melt</span></code></dt><dd><p>Massage a set of columns into a single column.</p>
-<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html#pandas.DataFrame.melt" title="(in pandas v2.2.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">melt()</span></code></a>.</p>
+<p>Uses arguments similar to <code class="xref py py-meth docutils literal notranslate"><span class="pre">melt()</span></code>.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">pivot</span></code></dt><dd><p>Pivot to wide-form by grouping rows with similar identifiers.</p>
-<p>Uses arguments similar to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html#pandas.DataFrame.pivot_table" title="(in pandas v2.2.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pivot_table()</span></code></a>.</p>
+<p>Uses arguments similar to <code class="xref py py-meth docutils literal notranslate"><span class="pre">pivot_table()</span></code>.</p>
 </dd>
 </dl>
 </section>
@@ -486,8 +486,8 @@ thus use the same argument names as the specific pandas method.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

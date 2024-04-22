@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Specification" href="almirah.specification.html" /><link rel="prev" title="Setting up your own infrastructure" href="../calmbrains/setup.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Dataset and its Components" href="almirah.dataset.html" /><link rel="prev" title="Setting up your own infrastructure" href="../calmbrains/setup.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>API Reference - almirah 0.2.0 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
+        <title>API Reference - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.2.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -179,20 +179,20 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Files and Layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.indexing.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html">Database Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.report.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="almirah.utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id1">0.2.0 (2024-04-02)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id2">0.1.0 (2023-12-14)</a></li>
 </ul>
 
 </div>
@@ -236,110 +236,208 @@
         </div>
         <article role="main">
           <section id="api-reference">
-<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">#</a></h1>
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="almirah.dataset.html">Dataset and its Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.add"><code class="docutils literal notranslate"><span class="pre">Dataset.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.get"><code class="docutils literal notranslate"><span class="pre">Dataset.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Dataset.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.options"><code class="docutils literal notranslate"><span class="pre">Dataset.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.query"><code class="docutils literal notranslate"><span class="pre">Dataset.query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.report"><code class="docutils literal notranslate"><span class="pre">Dataset.report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.components"><code class="docutils literal notranslate"><span class="pre">Dataset.components</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.id"><code class="docutils literal notranslate"><span class="pre">Dataset.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.name"><code class="docutils literal notranslate"><span class="pre">Dataset.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.registry"><code class="docutils literal notranslate"><span class="pre">Dataset.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Dataset.type"><code class="docutils literal notranslate"><span class="pre">Dataset.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Component"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Component.get"><code class="docutils literal notranslate"><span class="pre">Component.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Component.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Component.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Component.options"><code class="docutils literal notranslate"><span class="pre">Component.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Component.id"><code class="docutils literal notranslate"><span class="pre">Component.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Component.registry"><code class="docutils literal notranslate"><span class="pre">Component.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.dataset.html#almirah.dataset.Component.type"><code class="docutils literal notranslate"><span class="pre">Component.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="almirah.database.html">Database and DBManager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="almirah.database.html#almirah.database.Database"><code class="docutils literal notranslate"><span class="pre">Database</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.build_column"><code class="docutils literal notranslate"><span class="pre">Database.build_column()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.build_constraint"><code class="docutils literal notranslate"><span class="pre">Database.build_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.connect"><code class="docutils literal notranslate"><span class="pre">Database.connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.create_table"><code class="docutils literal notranslate"><span class="pre">Database.create_table()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.get"><code class="docutils literal notranslate"><span class="pre">Database.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Database.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.get_primary"><code class="docutils literal notranslate"><span class="pre">Database.get_primary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.get_records"><code class="docutils literal notranslate"><span class="pre">Database.get_records()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.options"><code class="docutils literal notranslate"><span class="pre">Database.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.query"><code class="docutils literal notranslate"><span class="pre">Database.query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.report"><code class="docutils literal notranslate"><span class="pre">Database.report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.resolve_dups"><code class="docutils literal notranslate"><span class="pre">Database.resolve_dups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.resolve_fks"><code class="docutils literal notranslate"><span class="pre">Database.resolve_fks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.to_table"><code class="docutils literal notranslate"><span class="pre">Database.to_table()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.backend"><code class="docutils literal notranslate"><span class="pre">Database.backend</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.connection"><code class="docutils literal notranslate"><span class="pre">Database.connection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.host"><code class="docutils literal notranslate"><span class="pre">Database.host</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.id"><code class="docutils literal notranslate"><span class="pre">Database.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.meta"><code class="docutils literal notranslate"><span class="pre">Database.meta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.name"><code class="docutils literal notranslate"><span class="pre">Database.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.registry"><code class="docutils literal notranslate"><span class="pre">Database.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.database.Database.type"><code class="docutils literal notranslate"><span class="pre">Database.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.database.html#almirah.core.db.DBManager"><code class="docutils literal notranslate"><span class="pre">DBManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.core.db.DBManager.reflect"><code class="docutils literal notranslate"><span class="pre">DBManager.reflect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.core.db.DBManager.Session"><code class="docutils literal notranslate"><span class="pre">DBManager.Session</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.core.db.DBManager.connection"><code class="docutils literal notranslate"><span class="pre">DBManager.connection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.database.html#almirah.core.db.DBManager.session"><code class="docutils literal notranslate"><span class="pre">DBManager.session</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="almirah.layout.html">Layout, File, and Tag</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html#almirah.layout.File"><code class="docutils literal notranslate"><span class="pre">File</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.download"><code class="docutils literal notranslate"><span class="pre">File.download()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.get"><code class="docutils literal notranslate"><span class="pre">File.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.get_identifiers"><code class="docutils literal notranslate"><span class="pre">File.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.index"><code class="docutils literal notranslate"><span class="pre">File.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.options"><code class="docutils literal notranslate"><span class="pre">File.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.report"><code class="docutils literal notranslate"><span class="pre">File.report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.attached"><code class="docutils literal notranslate"><span class="pre">File.attached</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.id"><code class="docutils literal notranslate"><span class="pre">File.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.layout"><code class="docutils literal notranslate"><span class="pre">File.layout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.path"><code class="docutils literal notranslate"><span class="pre">File.path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.registry"><code class="docutils literal notranslate"><span class="pre">File.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.rel_path"><code class="docutils literal notranslate"><span class="pre">File.rel_path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.root"><code class="docutils literal notranslate"><span class="pre">File.root</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.File.tags"><code class="docutils literal notranslate"><span class="pre">File.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout"><code class="docutils literal notranslate"><span class="pre">Layout</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.add"><code class="docutils literal notranslate"><span class="pre">Layout.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.clone"><code class="docutils literal notranslate"><span class="pre">Layout.clone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.get"><code class="docutils literal notranslate"><span class="pre">Layout.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Layout.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.index"><code class="docutils literal notranslate"><span class="pre">Layout.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.options"><code class="docutils literal notranslate"><span class="pre">Layout.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.query"><code class="docutils literal notranslate"><span class="pre">Layout.query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.report"><code class="docutils literal notranslate"><span class="pre">Layout.report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.files"><code class="docutils literal notranslate"><span class="pre">Layout.files</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.id"><code class="docutils literal notranslate"><span class="pre">Layout.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.registry"><code class="docutils literal notranslate"><span class="pre">Layout.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.root"><code class="docutils literal notranslate"><span class="pre">Layout.root</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.specification"><code class="docutils literal notranslate"><span class="pre">Layout.specification</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.specification_name"><code class="docutils literal notranslate"><span class="pre">Layout.specification_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.type"><code class="docutils literal notranslate"><span class="pre">Layout.type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Layout.url"><code class="docutils literal notranslate"><span class="pre">Layout.url</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking"><code class="docutils literal notranslate"><span class="pre">Marking</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking.get"><code class="docutils literal notranslate"><span class="pre">Marking.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Marking.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking.options"><code class="docutils literal notranslate"><span class="pre">Marking.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking.file_id"><code class="docutils literal notranslate"><span class="pre">Marking.file_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking.name"><code class="docutils literal notranslate"><span class="pre">Marking.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking.registry"><code class="docutils literal notranslate"><span class="pre">Marking.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Marking.tag_id"><code class="docutils literal notranslate"><span class="pre">Marking.tag_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag"><code class="docutils literal notranslate"><span class="pre">Tag</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.get"><code class="docutils literal notranslate"><span class="pre">Tag.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Tag.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.options"><code class="docutils literal notranslate"><span class="pre">Tag.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.files"><code class="docutils literal notranslate"><span class="pre">Tag.files</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.id"><code class="docutils literal notranslate"><span class="pre">Tag.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.name"><code class="docutils literal notranslate"><span class="pre">Tag.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.registry"><code class="docutils literal notranslate"><span class="pre">Tag.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.layout.Tag.value"><code class="docutils literal notranslate"><span class="pre">Tag.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="almirah.specification.html">Specification</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="almirah.specification.html#almirah.Specification"><code class="docutils literal notranslate"><span class="pre">Specification</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.Specification.name"><code class="docutils literal notranslate"><span class="pre">Specification.name</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.Specification.get_valid_tags"><code class="docutils literal notranslate"><span class="pre">Specification.get_valid_tags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.Specification.extract_tags"><code class="docutils literal notranslate"><span class="pre">Specification.extract_tags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.Specification.validate"><code class="docutils literal notranslate"><span class="pre">Specification.validate()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.Specification.build_path"><code class="docutils literal notranslate"><span class="pre">Specification.build_path()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.Specification.organize"><code class="docutils literal notranslate"><span class="pre">Specification.organize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification"><code class="docutils literal notranslate"><span class="pre">Specification</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.build_path"><code class="docutils literal notranslate"><span class="pre">Specification.build_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.create_from_file"><code class="docutils literal notranslate"><span class="pre">Specification.create_from_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.extract_tags"><code class="docutils literal notranslate"><span class="pre">Specification.extract_tags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.get"><code class="docutils literal notranslate"><span class="pre">Specification.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Specification.get_identifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.options"><code class="docutils literal notranslate"><span class="pre">Specification.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.organize"><code class="docutils literal notranslate"><span class="pre">Specification.organize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.validate_path"><code class="docutils literal notranslate"><span class="pre">Specification.validate_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.details"><code class="docutils literal notranslate"><span class="pre">Specification.details</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.name"><code class="docutils literal notranslate"><span class="pre">Specification.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.registry"><code class="docutils literal notranslate"><span class="pre">Specification.registry</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.specification.html#almirah.specification.Specification.tags"><code class="docutils literal notranslate"><span class="pre">Specification.tags</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="almirah.layout.html">Files and Layout</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html#almirah.File"><code class="docutils literal notranslate"><span class="pre">File</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.layout"><code class="docutils literal notranslate"><span class="pre">File.layout</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.tags"><code class="docutils literal notranslate"><span class="pre">File.tags</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.path"><code class="docutils literal notranslate"><span class="pre">File.path</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.root"><code class="docutils literal notranslate"><span class="pre">File.root</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.rel_path"><code class="docutils literal notranslate"><span class="pre">File.rel_path</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.add_tag"><code class="docutils literal notranslate"><span class="pre">File.add_tag()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.add_tags"><code class="docutils literal notranslate"><span class="pre">File.add_tags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.add_tag_from_func"><code class="docutils literal notranslate"><span class="pre">File.add_tag_from_func()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.build_path"><code class="docutils literal notranslate"><span class="pre">File.build_path()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.build_modified_path"><code class="docutils literal notranslate"><span class="pre">File.build_modified_path()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.get"><code class="docutils literal notranslate"><span class="pre">File.get()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.File.get_tags"><code class="docutils literal notranslate"><span class="pre">File.get_tags()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html#almirah.Layout"><code class="docutils literal notranslate"><span class="pre">Layout</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.files"><code class="docutils literal notranslate"><span class="pre">Layout.files</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.root"><code class="docutils literal notranslate"><span class="pre">Layout.root</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.url"><code class="docutils literal notranslate"><span class="pre">Layout.url</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.create"><code class="docutils literal notranslate"><span class="pre">Layout.create()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.clone_from_url"><code class="docutils literal notranslate"><span class="pre">Layout.clone_from_url()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.get_files"><code class="docutils literal notranslate"><span class="pre">Layout.get_files()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.get_tag_values"><code class="docutils literal notranslate"><span class="pre">Layout.get_tag_values()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Layout.reindex"><code class="docutils literal notranslate"><span class="pre">Layout.reindex()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html#almirah.Tag"><code class="docutils literal notranslate"><span class="pre">Tag</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Tag.files"><code class="docutils literal notranslate"><span class="pre">Tag.files</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Tag.path"><code class="docutils literal notranslate"><span class="pre">Tag.path</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Tag.name"><code class="docutils literal notranslate"><span class="pre">Tag.name</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.layout.html#almirah.Tag.value"><code class="docutils literal notranslate"><span class="pre">Tag.value</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="almirah.indexer.html">Indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer"><code class="docutils literal notranslate"><span class="pre">Indexer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.add"><code class="docutils literal notranslate"><span class="pre">Indexer.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.commit"><code class="docutils literal notranslate"><span class="pre">Indexer.commit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.get"><code class="docutils literal notranslate"><span class="pre">Indexer.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.options"><code class="docutils literal notranslate"><span class="pre">Indexer.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.retrieve"><code class="docutils literal notranslate"><span class="pre">Indexer.retrieve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.rollback"><code class="docutils literal notranslate"><span class="pre">Indexer.rollback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.db"><code class="docutils literal notranslate"><span class="pre">Indexer.db</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.path"><code class="docutils literal notranslate"><span class="pre">Indexer.path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.read_only"><code class="docutils literal notranslate"><span class="pre">Indexer.read_only</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.indexer.html#almirah.indexer.Indexer.session"><code class="docutils literal notranslate"><span class="pre">Indexer.session</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="almirah.indexing.html">Indexing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="almirah.indexing.html#almirah.Indexer"><code class="docutils literal notranslate"><span class="pre">Indexer</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="almirah.indexing.html#almirah.Indexer.add"><code class="docutils literal notranslate"><span class="pre">Indexer.add()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.indexing.html#almirah.Indexer.get"><code class="docutils literal notranslate"><span class="pre">Indexer.get()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.indexing.html#almirah.Indexer.run_query"><code class="docutils literal notranslate"><span class="pre">Indexer.run_query()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="almirah.reporting.html">Reporting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="almirah.convert.html">File format conversion</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html#almirah.data.convert"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html#almirah.utils.convert.convert"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html#almirah.utils.convert.dcm2nii"><code class="docutils literal notranslate"><span class="pre">dcm2nii()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html#almirah.utils.convert.edf2asc"><code class="docutils literal notranslate"><span class="pre">edf2asc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html#almirah.utils.convert.eeg_converter"><code class="docutils literal notranslate"><span class="pre">eeg_converter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html#almirah.utils.convert.nirx2snirf"><code class="docutils literal notranslate"><span class="pre">nirx2snirf()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="almirah.db.html">Database Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html#almirah.DBManager"><code class="docutils literal notranslate"><span class="pre">DBManager</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.session"><code class="docutils literal notranslate"><span class="pre">DBManager.session</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.connection"><code class="docutils literal notranslate"><span class="pre">DBManager.connection</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.build_column"><code class="docutils literal notranslate"><span class="pre">DBManager.build_column()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.build_constraint"><code class="docutils literal notranslate"><span class="pre">DBManager.build_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.create_table"><code class="docutils literal notranslate"><span class="pre">DBManager.create_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.get_primary"><code class="docutils literal notranslate"><span class="pre">DBManager.get_primary()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.get_type"><code class="docutils literal notranslate"><span class="pre">DBManager.get_type()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.get_table"><code class="docutils literal notranslate"><span class="pre">DBManager.get_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.to_table"><code class="docutils literal notranslate"><span class="pre">DBManager.to_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.resolve_dups"><code class="docutils literal notranslate"><span class="pre">DBManager.resolve_dups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.db.html#almirah.DBManager.resolve_fks"><code class="docutils literal notranslate"><span class="pre">DBManager.resolve_fks()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html#almirah.db.common_records"><code class="docutils literal notranslate"><span class="pre">common_records()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html#almirah.db.migrate"><code class="docutils literal notranslate"><span class="pre">migrate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html#almirah.db.reshape"><code class="docutils literal notranslate"><span class="pre">reshape()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html#almirah.db.transform"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.db.html#almirah.db.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="almirah.report.html">Reporting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="almirah.report.html#almirah.data.Report"><code class="docutils literal notranslate"><span class="pre">Report</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="almirah.report.html#almirah.data.Report.generate"><code class="docutils literal notranslate"><span class="pre">Report.generate()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="almirah.report.html#almirah.data.Report.generate_for_dataset"><code class="docutils literal notranslate"><span class="pre">Report.generate_for_dataset()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="almirah.unique.html">Unique Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html#almirah.core.uniquify.unique"><code class="docutils literal notranslate"><span class="pre">unique()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html#almirah.core.uniquify.uniquify"><code class="docutils literal notranslate"><span class="pre">uniquify()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="almirah.utils.html">Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.copy"><code class="docutils literal notranslate"><span class="pre">copy()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.get_dir_contents"><code class="docutils literal notranslate"><span class="pre">get_dir_contents()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.deep_get"><code class="docutils literal notranslate"><span class="pre">deep_get()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.read_yaml"><code class="docutils literal notranslate"><span class="pre">read_yaml()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.read_yamls"><code class="docutils literal notranslate"><span class="pre">read_yamls()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.run_shell"><code class="docutils literal notranslate"><span class="pre">run_shell()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.log_df"><code class="docutils literal notranslate"><span class="pre">log_df()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.log_col"><code class="docutils literal notranslate"><span class="pre">log_col()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#almirah.utils.get_tutorial_dataset"><code class="docutils literal notranslate"><span class="pre">get_tutorial_dataset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#library-specific">Library-specific</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.lib.get_tutorial_dataset"><code class="docutils literal notranslate"><span class="pre">get_tutorial_dataset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#module-almirah.utils.df">Dataframe Manipulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.df.common_rows"><code class="docutils literal notranslate"><span class="pre">common_rows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.df.convert_column_type"><code class="docutils literal notranslate"><span class="pre">convert_column_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#module-almirah.utils.logging">Logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.logging.log_col"><code class="docutils literal notranslate"><span class="pre">log_col()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.logging.log_df"><code class="docutils literal notranslate"><span class="pre">log_df()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html#module-almirah.utils.gen">General-purpose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.commafy"><code class="docutils literal notranslate"><span class="pre">commafy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.copy"><code class="docutils literal notranslate"><span class="pre">copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.deep_get"><code class="docutils literal notranslate"><span class="pre">deep_get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.denest_dict"><code class="docutils literal notranslate"><span class="pre">denest_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.filename"><code class="docutils literal notranslate"><span class="pre">filename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.get_dir_contents"><code class="docutils literal notranslate"><span class="pre">get_dir_contents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.get_incomplete_keys"><code class="docutils literal notranslate"><span class="pre">get_incomplete_keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.get_metadata"><code class="docutils literal notranslate"><span class="pre">get_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.listify"><code class="docutils literal notranslate"><span class="pre">listify()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.read_multi_yaml"><code class="docutils literal notranslate"><span class="pre">read_multi_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.read_yaml"><code class="docutils literal notranslate"><span class="pre">read_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="almirah.utils.html#almirah.utils.gen.run_shell"><code class="docutils literal notranslate"><span class="pre">run_shell()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -351,12 +449,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="almirah.specification.html">
+          <a class="next-page" href="almirah.dataset.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Specification</div>
+                <div class="title">Dataset and its Components</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -402,8 +500,8 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=95e61db4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

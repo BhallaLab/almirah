@@ -1,12 +1,18 @@
 API Reference
 =============
 
+.. currentmodule:: almirah
+
 .. toctree::
 
+   almirah.dataset
+   almirah.database
+   almirah.layout   
    almirah.specification
-   almirah.layout
-   almirah.indexing
+   almirah.indexer
+   almirah.reporting
    almirah.convert
-   almirah.db
-   almirah.report   
+   almirah.unique
    almirah.utils
+
+   

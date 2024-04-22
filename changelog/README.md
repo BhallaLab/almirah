@@ -5,8 +5,8 @@ small **rst**-formatted text that will be added to ``CHANGES.rst`` by
 If your change does not deserve a changelog entry, please skip this.
 
 The ``CHANGES.rst`` will be read by **users**, so this description
-should be aimed at napi users instead of describing internal changes
-which are only relevant to the developers.
+should be aimed at almirah users instead of describing internal
+changes which are only relevant to the developers.
 
 Make sure to use phrases the are self-sufficient and use punctuation:
 

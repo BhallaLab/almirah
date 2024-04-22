@@ -1,4 +1,4 @@
 File format conversion
 ======================
 
-.. autofunction:: almirah.data.convert		  
+.. automodule:: almirah.utils.convert

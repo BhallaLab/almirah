@@ -1,8 +1,4 @@
-Files and Layout
-================
+Layout, File, and Tag
+=====================
 
-.. autoclass:: almirah.File
-
-.. autoclass:: almirah.Layout
-
-.. autoclass:: almirah.Tag	       
+.. automodule:: almirah.layout

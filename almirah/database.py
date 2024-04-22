@@ -1,109 +1,129 @@
-"""Database and DataFrame functionality for data access and manipulation."""
+"""Database functionality for data write and access."""
 
-import os
 import logging
+import numpy as np
 import pandas as pd
 
+from sqlalchemy import URL
 from sqlalchemy import Table
 from sqlalchemy import Column
-from sqlalchemy import MetaData
 from sqlalchemy import ForeignKey
+from sqlalchemy import UniqueConstraint
 from sqlalchemy import ForeignKeyConstraint
 
-from sqlalchemy.types import Boolean
-from sqlalchemy.types import Float
-from sqlalchemy.types import Integer
-from sqlalchemy.types import String
-from sqlalchemy.types import DateTime
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from .core import uniquify
+from .core import DBManager
+from .indexer import index
+from .dataset import Component
 
-from .utils import get_dtype, log_df, log_col
+from .utils.df import common_rows
+from .utils.df import convert_column_type
+from .utils.logging import log_df
+from .utils.logging import log_col
+from .utils.sqlalchemy import get_sql_type
 
-__all__ = ["DBManager", "common_records", "migrate", "transform", "validate"]
 
+@uniquify(index)
+class Database(Component):
+    """Generic database representation."""
 
-class DBManager:
-    """Interface to connect with db and perform operations."""
+    __tablename__ = "databases"
+    __identifier_attrs__ = {"name", "host", "backend"}
 
-    def __init__(self, db_path=None):
-        self.engine = get_db(db_path)
-        self.meta = self._init_metadata()
-        self._sessionmaker = sessionmaker(self.engine)
-        self._session = None
+    id: Mapped[int] = mapped_column(ForeignKey("components.id"), primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)
+    host: Mapped[str] = mapped_column(nullable=False)
+    backend: Mapped[str] = mapped_column(nullable=True)
 
-    def _init_metadata(self):
-        meta = MetaData()
-        meta.reflect(bind=self.engine)
-        return meta
+    __table_args__ = (UniqueConstraint("name", "host", "backend"),)
+    __mapper_args__ = {"polymorphic_identity": "database"}
 
-    @property
-    def session(self):
-        if self._session is None:
-            self._session = self._sessionmaker()
-        return self._session
+    def __init__(self, *, name, host, backend):
+        self.name = name
+        self.host = host
+        self.backend = backend
 
     @property
     def connection(self):
-        return self.engine.connect()
+        if not self.db:
+            raise TypeError(f"Connection to {self} not established")
+        return self.db.connection
+
+    @property
+    def meta(self):
+        if not self.db:
+            raise TypeError(f"Connection to {self} not established")
+        return self.db.metadata
 
     def build_column(self, name, dtype, **kwargs):
         """Build SQLalchemy Column object given column description."""
         primary = kwargs.get("primary", False)
         fk = [ForeignKey(f)] if (f := kwargs.get("refs")) else []
-        return Column(name, self.get_type(dtype), *fk, primary_key=primary)
+        return Column(name, get_sql_type(dtype), *fk, primary_key=primary)
 
     def build_constraint(self, cols, links):
         """Build SQLalchmy constraint objects given links."""
         return ForeignKeyConstraint(cols, links)
 
     def create_table(self, table, cols, refs=[]):
-        """Create or extend table in db given the description."""
-        cls = [self.build_column(**c) for c in cols]
-        cns = [self.build_constraint(**r) for r in refs]
-        table = Table(table, self.meta, *cls, *cns, extend_existing=True)
-        table.create(bind=self.engine, checkfirst=True)
-
-    def get_primary(self, table):
-        """Returns priamry keys for table."""
-        return [c.name for c in self.meta.tables[table].primary_key]
-
-    def get_type(self, dtype, default_length=250):
         """
-        Return supported SQLalchemy type equivalent of provided dtype string.
+        Create or extend table within database given the description.
 
         Parameters
         ----------
-        dtype: str
-            Supported dtype string representation.
-
-        default_length: int, optional
-            Default length of string. Used if required by db backend.
+        table_name : str
+            Name of the table to create or extend.
+        columns : list of dict
+            List of columns specifications to add to the table.
+        constraints : list of dict, optional
+            List of table constraints.
         """
+        cls = [self.build_column(**c) for c in cols]
+        cns = [self.build_constraint(**r) for r in refs]
+        table = Table(table, self.meta, *cls, *cns, extend_existing=True)
+        table.create(bind=self.connection, checkfirst=True)
 
-        SQL_TYPE_EQUIVALENT = {
-            "boolean": Boolean,
-            "datetime": DateTime,
-            "float": Float,
-            "integer": Integer,
-            "str": String,
-        }
-
-        dtype, length = get_dtype(dtype, default_length)
-        stype = SQL_TYPE_EQUIVALENT[dtype]
-
-        return stype(length) if length else stype()
-
-    def get_table(self, table, cols=None):
+    def connect(self, username, password):
         """
-        Retrieve table records in db as a DataFrame.
+        Establish a connection to the database.
+
+        Parameters
+        ----------
+        username : str
+            The database username.
+        password : str
+            The database password.
+
+        Raises
+        ------
+        SQLAlchemyError
+            If the connection cannot be established.
+        """
+        url = URL.create(
+            self.backend,
+            username=username,
+            password=password,
+            host=self.host,
+            database=self.name,
+        )
+
+        self.db = DBManager(url)
+
+    def get_primary(self, table):
+        """Return priamry keys for table."""
+
+        return [c.name for c in self.meta.tables[table].primary_key]
+
+    def get_records(self, table, cols=None):
+        """Retrieve records from table in database as a DataFrame.
 
         Parameters
         ----------
         table : str
             Table in database from which to retrieve records.
-
         cols : list of str
             Column names to select from table.
         """
@@ -125,62 +145,46 @@ class DBManager:
         insert_method=None,
         **kwargs,
     ):
-        """Write records in DataFrame to a table.
+        """
+        Write records in DataFrame to a table.
 
         Parameters
         ----------
         df : pandas.DataFrame
             DataFrame containing records.
-
         table : str
             Table in database into which the records will be inserted.
-
         check_dups : bool, default True
             Check for duplicates in records.
-
         resolve_dups : [False, 'first', 'last'], default False
             Resolution method for duplicates if found.
-
         check_fks : bool, default False
             Check if foreign keys present in parent.
-
         resolve_fks : bool, default False
             Attempt to resolve missing foreign keys by inserting to parent.
-
         insert_ignore : bool, default Flase
             Ignore insertion of records already present in table.
-
         drop_na : list of df column names, default None
             If provided, records with na in all given columns are dropped.
-
         threshold : int, None
             If non-NA values < threshold, then record dropped.
-
         if_exists : ['append', 'replace', 'fail'], default 'append'
             Insert behavior in case table exists.
-
             - 'append' : Insert new values to the existing table.
             - 'replace' : Drop the table before inserting new values.
             - 'fail' : Raise a ValueError if table exists.
-
         index : bool, default False
             Write DataFrame index as a column. Uses index_label as the
             column name in the table.
-
         insert_method : {None, 'multi', callable}, optional
             Controls the SQL insertion clause used.
-
             - None : Uses standard SQL INSERT clause (one per row).
             - ‘multi’: Pass multiple values in a single INSERT clause.
             - callable with signature ``(pd_table, conn, keys, data_iter)``.
-
             Details and a sample callable implementation can be found
-            in the pandas section `insert method
-            <https://pandas.pydata.org/docs/user_guide/io.html#io-sql-method>`_.
-
+            on Insertion method section of :ref:`pandas:io.sql.method`.
         kwargs : key, value mappings Other keyword arguments are
-            passed down to `pandas.DataFrame.to_sql()
-            <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html>`_
+            passed down to :doc:`pandas:reference/api/pandas.DataFrame.to_sql`.
 
         Returns
         -------
@@ -194,14 +198,10 @@ class DBManager:
         ValueError
             - When values provided are not sufficient for insert operation.
             - When the table already exists and `if_exists` is 'fail'.
-
         OperationalError
             - Most likely there are duplicates records in the
               DataFrame. Other reasons are related to the database
-              operation and are detailed in sqlalchemy section
-              `OperationalError
-              <https://docs.sqlalchemy.org/en/20/errors.html#operationalerror>`_.
-
+              operation and are detailed on :ref:`sqlalchemy:error_e3q8`.
         """
 
         if drop_na or threshold:
@@ -215,7 +215,7 @@ class DBManager:
             df = df[self.resolve_fks(df, table, resolve_fks)]
 
         if insert_ignore:
-            mask = common_records(df, self.get_table(table).astype(df.dtypes))
+            mask = common_rows(df, self.get_records(table).astype(df.dtypes))
             logging.info(f"Ignoring insert of {mask.sum()} common records")
             df = df[~mask]
 
@@ -232,7 +232,7 @@ class DBManager:
 
     def resolve_dups(self, df, table, resolve=False):
         """
-        Resolve duplicate primary keys in DataFrame.
+        Resolve duplicate primary keys.
 
         Parameters
         ----------
@@ -242,7 +242,6 @@ class DBManager:
             Table the records will be inserted into.
         resolve : [False, 'first', 'last'], default False
             Determines resolution method.
-
             * False : Mark all duplicates as False.
             * 'first' : Mark duplicates as False except for first occurence.
             * 'last' : Mark duplicates as False except for last occurence.
@@ -257,14 +256,15 @@ class DBManager:
         ------
         ValueError
             When primary key duplicates are found and `resolve` is True.
-
         """
+
         dups = df.duplicated(self.get_primary(table), resolve)
         log_df(df[dups], "Found duplicate records")
         return ~dups
 
     def resolve_fks(self, df, table, resolve=False):
-        """
+        """Resolve missing foreign keys.
+
         Parameters
         ----------
         df : pandas.DataFrame
@@ -286,14 +286,13 @@ class DBManager:
         constraint on a table does not reference all the columns that
         provide the required values to insert records into the parent
         table.
-
         """
         mask = pd.Series(True, index=df.index)
 
         for fkc in self.meta.tables[table].foreign_key_constraints:
             p_cols = [fk.column.name for fk in fkc.elements]
-            p_df = self.get_table(fkc.referred_table.name, p_cols)
-            p_mask = common_records(df, p_df, fkc.column_keys, p_cols)
+            p_df = self.get_records(fkc.referred_table.name, p_cols)
+            p_mask = common_rows(df, p_df, fkc.column_keys, p_cols)
 
             log_df(df[~p_mask], "Missing parent records")
 
@@ -312,35 +311,26 @@ class DBManager:
             mask &= p_mask
         return mask
 
+    def report(self):
+        """Generate report for database."""
+        print(f"{self}:")
+
+        for table in self.meta.tables:
+            rows = len(self.get_records(table))
+            print("{:<60} : {:>60} records".format(table, rows))
+
+    def query(self, returns=None, **filters):
+        """Return table records that fit filter criteria."""
+        table = filters.pop("table", None)
+        if not table:
+            return None
+
+        df = self.get_records(table, returns)
+        df = df[np.logical_and.reduce([df[k] == v for k, v in filters.items()])]
+        return df
+
     def __repr__(self):
-        return f"<DBManager '{self.engine.url}'>"
-
-
-def get_db(db_path):
-    """Returns SQLalchemy engine for provided URL."""
-    if not db_path:
-        db_path = "sqlite:///{}".format(
-            os.path.join(os.path.expanduser("~"), "index.sqlite")
-        )
-    return create_engine(db_path)
-
-
-def common_records(child, parent, child_on=None, parent_on=None):
-    """Check whether each record in a DataFrame is contained in another."""
-
-    return (
-        pd.merge(
-            child.reset_index(),
-            parent,
-            how="left",
-            left_on=child_on,
-            right_on=parent_on,
-            indicator="exists",
-        )
-        .replace({"both": True, "left_only": False, "right_only": False})
-        .set_index("index")["exists"]
-        .astype("bool")
-    )
+        return f"<Database url: '{self.backend}:{self.name}@{self.host}'>"
 
 
 def check_for_key(key, mapping):
@@ -351,7 +341,7 @@ def check_for_key(key, mapping):
 
 def migrate(
     src,
-    target,
+    dst,
     mapping,
     dry_run=False,
     na_vals=[],
@@ -359,50 +349,40 @@ def migrate(
     **kwargs,
 ):
     """
-    Transforms and migrates records from one db to another.
+    Transform and migrate records from one database to another.
 
     Parameters
     ----------
     src: str
-        SQLAlchemy database URL of database from which data is
-        transferred.
-
-    target: str
-        SQLAlchemy database URL of database to which data is
-        transferred.
-
+        Connection established source Database instance from which data is to
+        be transferred.
+    dst: str
+        Connection established destination Database instance to which data is
+        to be transferred.
     mapping: dict
         Dictionary providing information on column mappings, type,
         transformations, and validation checks.
-
     dry_run: bool
         If dry run, no records are inserted into target and tables are
         not created, but errors and invalid records are logged.
-
     na_vals: list, optional
         List of values to be considered as record not available. By
         default, the values '', 'None', 'NONE', 'NA', and 'Not Applicable'
         are considered.
-
     dtype_kws : dict, optional
         Key, value pairs that will be passed to
-        :meth:`napi.db.set_dtype()`.
-
+        :func:`almirah.utils.df.convert_column_type` kwargs.
     kwargs : key, value mappings
         Other keyword arguments are passed down to
-        :meth:`napi.db.to_table`.
+        `almirah.Database.to_table`.
     """
-
-    s = DBManager(src)
-    t = DBManager(target)
-
     na = ["", "None", "NONE", "NA", "N/A", "<NA>", "Not applicable"] + na_vals
 
     for m in mapping:
         logging.info(f"Transferring table {m['maps']} -> {m['table']}")
 
         # Extract source records
-        records = s.get_table(m["maps"]).replace(na, pd.NA)
+        records = src.get_records(m["maps"]).replace(na, pd.NA)
 
         # Transform and validate
         records = transform(records, dtype_kws, m)
@@ -415,56 +395,12 @@ def migrate(
             continue
 
         # Load records into target
-        t.create_table(m["table"], m["cols"] + m.get("attach", []), m.get("refs", []))
-        t.to_table(df, m["table"], threshold=m.get("threshold"), **kwargs)
-
-
-def set_dtype(series, dtype, **kwargs):
-    """
-    Set dtype of series.
-
-    Parameters
-    ----------
-    series: pandas.Series
-        Series for which the dtype has to set.
-
-    dtype: str
-        Supported dtype to which the series will be converted.
-
-    kwargs: key, value mappings
-        Other keyword arguments are passed down to `pandas.to_datetime()`_
-        if the dtype is 'datetime'.
-    """
-
-    dtype, _ = get_dtype(dtype)
-
-    if dtype == str:
-        series = series.astype(dtype)
-
-    elif dtype == "datetime":
-        series = pd.to_datetime(series, errors="coerce", **kwargs)
-
-    elif dtype in {"float", "integer"}:
-        series = pd.to_numeric(series, errors="coerce", downcast=dtype)
-
-    elif dtype == "boolean":
-        series = series.replace(
-            {
-                "1": True,
-                "0": False,
-                "True": True,
-                "False": False,
-                "Yes": True,
-                "No": False,
-            }
-        )
-        series = series.astype(dtype)
-
-    return series.convert_dtypes()
+        dst.create_table(m["table"], m["cols"] + m.get("attach", []), m.get("refs", []))
+        dst.to_table(df, m["table"], threshold=m.get("threshold"), **kwargs)
 
 
 def reshape(records, steps):
-    """Reshape table records into appropriate shape."""
+    """Reshape records into appropriate shape."""
 
     for procedure in steps:
         [(p, k)] = procedure.items()
@@ -484,8 +420,49 @@ def reshape(records, steps):
     return records
 
 
+def replace_value(value, column, mapping, file):
+    """Return unique replacement for given value based on mapping in file."""
+
+    # Load file into dataframe
+    df = pd.read_csv(file, dtype=str)
+
+    # Find value to replace
+    result = df.query("`%s` == @value" % column)
+
+    if len(result) == 0:
+        logging.error(f"Value '{value}' not found in column '{column}' of '{file}'.")
+        return
+
+    if len(result) > 1:
+        logging.error(f"Non-unique mappings for value '{value}' in {file}")
+        return
+
+    return result.at[0, mapping]
+
+
+def replace_column(series, column, mapping, file, strict=True):
+    """Replace values in series based on mapping in file."""
+
+    # Load file into dataframe
+    df = pd.read_csv(file, dtype=str)
+    logging.info(f"Replacing values in '{column}' with '{mapping}' from {file}")
+
+    # Stop if non-unique mappings
+    if df.duplicated([column]).any():
+        raise ValueError(f"Non-unique mappings found in file {file}")
+
+    df = pd.Series(df[mapping], index=df[column])
+    replaced = series.map(df)
+
+    # Retain original value if replacement not strict
+    if not strict:
+        replaced.fillna(series, inplace=True)
+
+    return replaced
+
+
 def transform(records, dtype_kws, mapping):
-    """Transform table records into appropriate format."""
+    """Transform table into appropriate format."""
 
     df = pd.DataFrame(index=records.index)
     to_hide = check_for_key("hide", mapping)
@@ -499,43 +476,6 @@ def transform(records, dtype_kws, mapping):
 
     log_df(records[error], "Error transforming records", hide=to_hide)
     return df[~error]
-
-
-def replace_value(value, field, using, file):
-    # Get mapping
-    mapping = pd.read_csv(file, dtype=str)
-
-    # Find value to replace
-    result = mapping.query("`%s` == @value" % field)
-
-    if len(result) == 0:
-        logging.error(f"Value '{value}' not found in field '{field}' of file '{file}'.")
-        return
-
-    if len(result) > 1:
-        logging.error(f"Non-unique mappings for value '{value}' in file {file}")
-        return
-
-    return result.at[0, using]
-
-
-def replace_column(series, field, using, file, strict=True):
-    # Load mapping from file
-    mapping = pd.read_csv(file, dtype=str)
-    logging.info(f"Replacing values in '{field}' with '{using}' from {file}")
-
-    # Stop if non-unique mappings
-    if mapping.duplicated([field]).any():
-        raise ValueError(f"Non-unique mappings found in file {file}")
-
-    mapping = pd.Series(mapping[using], index=mapping[field])
-    replaced = series.map(mapping)
-
-    # Retain original value if replacement not strict
-    if not strict:
-        replaced.fillna(series, inplace=True)
-
-    return replaced
 
 
 def transform_column(series, dtype_kws=dict(), **kwargs):
@@ -560,7 +500,7 @@ def transform_column(series, dtype_kws=dict(), **kwargs):
         s = s.str.upper() if ca == "upper" else s.str.lower()
         logging.info(f"Changing case to {ca}")
 
-    s = set_dtype(s, kwargs["dtype"], **dtype_kws)
+    s = convert_column_type(s, kwargs["dtype"], **dtype_kws)
     error = series.notna() & s.isna()
     log_col(series[error], f"Error transforming values to {kwargs['dtype']}", hide=hide)
 
@@ -568,7 +508,7 @@ def transform_column(series, dtype_kws=dict(), **kwargs):
 
 
 def validate(records, mapping):
-    """Validate table records and return mask where True means valid."""
+    """Validate table and return mask where True means valid."""
 
     to_hide = check_for_key("hide", mapping)
     mask = pd.Series(True, index=records.index)

@@ -1,13 +1,12 @@
-from .db import DBManager
-from .data import Indexer
-from .data import File, Layout, Tag
-from .data import Specification
+from .core import Base
+from .layout import Tag
+from .layout import File
+from .layout import Layout
+from .indexer import index
+from .dataset import Dataset
+from .database import Database
+from .specification import Specification
 
-__all__ = [
-    "DBManager",
-    "File",
-    "Layout",
-    "Tag",
-    "Indexer",
-    "Specification",
-]
+__all__ = [Dataset, Database, Layout, Specification, File, Tag]
+
+Base.metadata.create_all(index.db.engine)

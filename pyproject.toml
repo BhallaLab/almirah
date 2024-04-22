@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "almirah"
-version = "0.2.0"
+version = "0.3.0"
 description = "a wardrobe for datasets"
 authors = ["girish <girishmm@ncbs.res.in>"]
 license = "MIT"
@@ -12,6 +12,7 @@ pandas = "^2.1.4"
 pyyaml = "^6.0.1"
 datalad = "^0.19.3"
 sqlalchemy = "^2.0.19"
+sqlalchemy-json = "^0.7.0"
 
 [tool.poetry.group.mri.dependencies]
 nibabel = "^5.2.0"
@@ -32,11 +33,8 @@ mne-nirs = "^0.6.0"
 pytest = "^7.4.0"
 furo = "^2023.9.10"
 towncrier = "^23.6.0"
-sphinx-copybutton = "^0.5.2"
 sphinx-autobuild = "^2021.3.14"
-
-[tool.poetry.group.mariadb.dependencies]
-pymysql = "^1.1.0"
+sphinx-copybutton = "^0.5.2"
 
 [build-system]
 requires = ["poetry-core"]

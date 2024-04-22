@@ -24,19 +24,25 @@ extensions = [
 
 # -- Default options for autodoc ---------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_default_options
-
+add_module_names = False
+autodoc_class_signature = "separated"
 autodoc_default_options = {
     "members": True,
-    "member-order": "bysource",
+    "member-order": "groupwise",
     "undoc-members": True,
+    "exclude-members": "__init__, __new__, metadata",
+    "show-inheritance": True,
+    "inherited-members": True,
 }
 
 # -- Places to look for intersphinx ------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
 
+intersphinx_disabled_reftypes = ["*"]
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "pandas": ("https://pandas.pydata.org/docs", None),
+    "sqlalchemy": ("https://docs.sqlalchemy.org/en/20", None),
 }
 
 # -- Options for HTML output -------------------------------------------------

@@ -84,6 +84,10 @@ def get_incomplete_keys(dict: Dict[Any, Any]) -> List[Any]:
 def get_metadata(path: str) -> Dict[str, Any]:
     """Return dict equivalent of json in file."""
     path = Path(path).with_suffix(".json")
+
+    if not path.exists:
+        return dict()
+
     with open(path) as file:
         content = json.load(file)
         return content

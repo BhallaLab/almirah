@@ -1,4 +1,4 @@
-almirah
+Almirah
 =======
 
 .. toctree::
@@ -8,7 +8,6 @@ almirah
    user-guide
    tutorial
    writing-configs/index
-   calmbrains/index
    reference/index
    contributing
    code-of-conduct   
@@ -65,19 +64,21 @@ almirah relies heavily on configs to guide its tasks. The
 :doc:`writing-configs/index` page describes the possibilities in
 detail.
 
-If you want to access the CALM-BRAINS dataset, please head over to
-:doc:`calmbrains/tutorial` for a walk-through. The
-:doc:`calmbrains/reference/index` documentation provides details on
-the files and records available in the dataset. If you have not heard
-of the study, but would like to know, :doc:`calmbrains/index` page can
-help acquaint you.
-
 The :doc:`reference/index` documentation provides API-level
 documentation.
 
-Can you use almirah to manage your dataset? Of course. Have a look at
-the :ref:`translate_to_another_dataset` section for files to tweak to
-achieve this.
+Can you use almirah to manage other datasets? Of course! Have a look
+at the :ref:`translate_to_another_dataset` section for files to tweak
+to achieve this.
+
+If you want to access the CALM Brain resource, please head over to the
+`user guide <https://girishmm.github.io/calm-brain/user-guide.html>`_
+for a walk-through. The `reference <https://girishmm.github.io/calm-brain/reference.html>`_
+documentation provides details on the files and records available in
+the dataset. If you have not heard of the resource, but would like to
+know, please visit the `CALM Brain`_ online page help acquaint you.
+
+.. _CALM Brain: https://www.calm-brain.ncbs.res.in/
 
 Who uses almirah?
 -----------------
@@ -96,7 +97,7 @@ Translate to another dataset
 
 If your dataset is a BIDS dataset, congrats you are done! 🎉
 
-If you dataset follows a different specification, describe it as a
+If your dataset follows a different specification, describe it as a
 config file by referring to :doc:`writing-configs/specification`. This
 should allow filtering and querying of the dataset.
 
@@ -134,7 +135,7 @@ Citing
 If you use almirah to help with your dataset, please consider citing this
 repository until a journal article is specifically available for almirah.
 
-If you use the CALM-BRAINS dataset in your research, please cite the
+If you use the CALM Brain resource in your research, please cite the
 reference below until a journal article is available for the dataset:
 
 .. code-block:: text

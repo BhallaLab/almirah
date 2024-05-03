@@ -4,7 +4,7 @@ Code of Conduct
 Each of us as a member of the community will ensure that all
 contributors and users enjoy their time here and feel
 welcome. Accordingly, everyone participating in the development or
-using the ADBS dataset in any way possible will display kindness, show
+usage of *almirah* in any way possible will display kindness, show
 respect, gracefully accept constructive feedback, responsibly report
 data security issues and generously help other community members
 including end-users seeking guidance.
@@ -51,7 +51,7 @@ and in public spaces when an individual is representing the project or
 its community. Examples of representing a project or community include
 using an official project e-mail address, posting via an official
 social media account, or acting as an appointed representative at an
-online or offline event. These extend to users of the ADBS Dataset too.
+online or offline event.
 
 Enforcement
 -----------
@@ -73,7 +73,7 @@ safety of the community, including but not limited to:
   period that puts a time-limited pause on a particular discussion
   topic or access to the ADBS dataset.
 - asking a contributor to no longer participate in the development or
-  usage of the ADBS dataset.
+  usage of *almirah*.
 
 Attribution
 -----------

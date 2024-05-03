@@ -130,10 +130,6 @@ class Layout(Component):
                 self.add(file)
                 file.index(metadata, reset, **funcs)
 
-    def report(self):
-        """Generate report for the Layout."""
-        pass
-
     def query(self, returns="file", **filters):
         """Return File instances that fit filter criteria."""
 
@@ -167,6 +163,18 @@ class Layout(Component):
             return [f.rel_path for f in files]
 
         return [[f.tags.get(t) for t in returns] for f in files]
+
+    def move_root(self, path):
+        """Abstractly move Layout and its entries to path."""
+        for file in self.files:
+            file.path = os.path.join(path, file.rel_path)
+            file.root = path
+
+        self.root = path
+
+    def report(self):
+        """Generate report for the Layout."""
+        pass
 
     def __repr__(self):
         return f"<Layout root: '{self.root}'>"

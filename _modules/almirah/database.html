@@ -146,8 +146,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -166,27 +166,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.layout.html">Layout, File, and Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.reporting.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.utils.html">Utilities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/unique.html">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
@@ -229,6 +218,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;Database functionality for data write and access.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -255,7 +245,7 @@
 
 
 <div class="viewcode-block" id="Database">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database">[docs]</a>
 <span class="nd">@uniquify</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Database</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic database representation.&quot;&quot;&quot;</span>
@@ -272,6 +262,7 @@
     <span class="n">__mapper_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;polymorphic_identity&quot;</span><span class="p">:</span> <span class="s2">&quot;database&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="n">backend</span>
@@ -289,7 +280,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">metadata</span>
 
 <div class="viewcode-block" id="Database.build_column">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.build_column">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.build_column">[docs]</a>
     <span class="k">def</span> <span class="nf">build_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build SQLalchemy Column object given column description.&quot;&quot;&quot;</span>
         <span class="n">primary</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -298,14 +289,14 @@
 
 
 <div class="viewcode-block" id="Database.build_constraint">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.build_constraint">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.build_constraint">[docs]</a>
     <span class="k">def</span> <span class="nf">build_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">links</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build SQLalchmy constraint objects given links.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ForeignKeyConstraint</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">links</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Database.create_table">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.create_table">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.create_table">[docs]</a>
     <span class="k">def</span> <span class="nf">create_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">refs</span><span class="o">=</span><span class="p">[]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create or extend table within database given the description.</span>
@@ -326,7 +317,7 @@
 
 
 <div class="viewcode-block" id="Database.connect">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.connect">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.connect">[docs]</a>
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Establish a connection to the database.</span>
@@ -343,6 +334,10 @@
 <span class="sd">        SQLAlchemyError</span>
 <span class="sd">            If the connection cannot be established.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;request&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Database not in connection mode&quot;</span><span class="p">)</span>
+
         <span class="n">url</span> <span class="o">=</span> <span class="n">URL</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span>
             <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
@@ -355,7 +350,7 @@
 
 
 <div class="viewcode-block" id="Database.get_primary">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.get_primary">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.get_primary">[docs]</a>
     <span class="k">def</span> <span class="nf">get_primary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return priamry keys for table.&quot;&quot;&quot;</span>
 
@@ -363,7 +358,7 @@
 
 
 <div class="viewcode-block" id="Database.get_records">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.get_records">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.get_records">[docs]</a>
     <span class="k">def</span> <span class="nf">get_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve records from table in database as a DataFrame.</span>
 
@@ -378,7 +373,7 @@
 
 
 <div class="viewcode-block" id="Database.to_table">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.to_table">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.to_table">[docs]</a>
     <span class="k">def</span> <span class="nf">to_table</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">df</span><span class="p">,</span>
@@ -482,7 +477,7 @@
 
 
 <div class="viewcode-block" id="Database.resolve_dups">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.resolve_dups">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.resolve_dups">[docs]</a>
     <span class="k">def</span> <span class="nf">resolve_dups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">resolve</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resolve duplicate primary keys.</span>
@@ -517,7 +512,7 @@
 
 
 <div class="viewcode-block" id="Database.resolve_fks">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.resolve_fks">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.resolve_fks">[docs]</a>
     <span class="k">def</span> <span class="nf">resolve_fks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">resolve</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve missing foreign keys.</span>
 
@@ -569,7 +564,7 @@
 
 
 <div class="viewcode-block" id="Database.report">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.report">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.report">[docs]</a>
     <span class="k">def</span> <span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate report for database.&quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
@@ -580,15 +575,22 @@
 
 
 <div class="viewcode-block" id="Database.query">
-<a class="viewcode-back" href="../../reference/almirah.database.html#almirah.database.Database.query">[docs]</a>
+<a class="viewcode-back" href="../../reference/database.html#almirah.database.Database.query">[docs]</a>
     <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return table records that fit filter criteria.&quot;&quot;&quot;</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">table</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">returns</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">items</span><span class="p">()])]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;request&quot;</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;table&quot;</span><span class="p">:</span> <span class="n">table</span><span class="p">,</span> <span class="s2">&quot;returns&quot;</span><span class="p">:</span> <span class="n">returns</span><span class="p">})</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_records</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">returns</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">items</span><span class="p">()])]</span>
+
         <span class="k">return</span> <span class="n">df</span></div>
 
 

@@ -146,8 +146,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -166,27 +166,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.layout.html">Layout, File, and Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.reporting.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.utils.html">Utilities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/unique.html">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
@@ -242,7 +231,7 @@
 
 
 <div class="viewcode-block" id="Indexer">
-<a class="viewcode-back" href="../../reference/almirah.indexer.html#almirah.indexer.Indexer">[docs]</a>
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer">[docs]</a>
 <span class="k">class</span> <span class="nc">Indexer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Interface to interact with the index.&quot;&quot;&quot;</span>
 
@@ -267,7 +256,7 @@
         <span class="k">return</span> <span class="n">stmt</span>
 
 <div class="viewcode-block" id="Indexer.add">
-<a class="viewcode-back" href="../../reference/almirah.indexer.html#almirah.indexer.Indexer.add">[docs]</a>
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer.add">[docs]</a>
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add objects to the index.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -282,7 +271,7 @@
 
 
 <div class="viewcode-block" id="Indexer.commit">
-<a class="viewcode-back" href="../../reference/almirah.indexer.html#almirah.indexer.Indexer.commit">[docs]</a>
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer.commit">[docs]</a>
     <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Commit the current transaction.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Indexer</span><span class="o">.</span><span class="n">read_only</span><span class="p">:</span>
@@ -290,7 +279,7 @@
 
 
 <div class="viewcode-block" id="Indexer.get">
-<a class="viewcode-back" href="../../reference/almirah.indexer.html#almirah.indexer.Indexer.get">[docs]</a>
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer.get">[docs]</a>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">identifiers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve a single object based on the identifiers.&quot;&quot;&quot;</span>
         <span class="n">stmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_query</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">identifiers</span><span class="p">)</span>
@@ -298,7 +287,7 @@
 
 
 <div class="viewcode-block" id="Indexer.options">
-<a class="viewcode-back" href="../../reference/almirah.indexer.html#almirah.indexer.Indexer.options">[docs]</a>
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer.options">[docs]</a>
     <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">filters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve all objects matching the given filters.&quot;&quot;&quot;</span>
         <span class="n">stmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_query</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">)</span>
@@ -306,13 +295,13 @@
 
 
 <div class="viewcode-block" id="Indexer.retrieve">
-<a class="viewcode-back" href="../../reference/almirah.indexer.html#almirah.indexer.Indexer.retrieve">[docs]</a>
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer.retrieve">[docs]</a>
     <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stmt</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">scalars</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Indexer.rollback">
-<a class="viewcode-back" href="../../reference/almirah.indexer.html#almirah.indexer.Indexer.rollback">[docs]</a>
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer.rollback">[docs]</a>
     <span class="k">def</span> <span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Roll back the current transaction.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span></div>

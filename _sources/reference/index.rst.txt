@@ -5,14 +5,12 @@ API Reference
 
 .. toctree::
 
-   almirah.dataset
-   almirah.database
-   almirah.layout   
-   almirah.specification
-   almirah.indexer
-   almirah.reporting
-   almirah.convert
-   almirah.unique
-   almirah.utils
-
-   
+   dataset
+   database
+   layout   
+   specification
+   indexer
+   reporting
+   convert
+   unique
+   utils

@@ -147,8 +147,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -167,27 +167,16 @@
 <li class="toctree-l2"><a class="reference internal" href="writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.layout.html">Layout, File, and Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.reporting.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.utils.html">Utilities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/unique.html">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -244,7 +233,7 @@ usecases. In case you have not installed <code class="docutils literal notransla
 the <a class="reference internal" href="index.html#installing"><span class="std std-ref">Installing</span></a> section and follow the instructions.</p>
 <p>First, let us obtain the dataset to work on for the tutorial. It comes
 along with <code class="docutils literal notranslate"><span class="pre">almirah</span></code> and can be copied to a convenient location using
-the <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_tutorial_dataset()</span></code>.</p>
+the <a class="reference internal" href="reference/utils.html#almirah.utils.lib.get_tutorial_dataset" title="almirah.utils.lib.get_tutorial_dataset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_tutorial_dataset()</span></code></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah.utils</span> <span class="kn">import</span> <span class="n">get_tutorial_dataset</span>
 
 <span class="n">get_tutorial_dataset</span><span class="p">(</span><span class="s2">&quot;path/to/store&quot;</span><span class="p">)</span>
@@ -273,39 +262,41 @@ seen from content hierarchy. Let us attempt to change this.</p>
 <h2>Defining a Specification<a class="headerlink" href="#defining-a-specification" title="Link to this heading">¶</a></h2>
 <p>The first step to all things <code class="docutils literal notranslate"><span class="pre">almirah</span></code> can do is defining the
 <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a>. To come up with a
-<code class="docutils literal notranslate"><span class="pre">Specification</span></code> for this dataset, let us think about how we would
-structure this dataset manually.</p>
+<a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> for this dataset, let us think
+about how we would structure this dataset manually.</p>
 <section id="deciding-path-patterns">
 <h3>Deciding path patterns<a class="headerlink" href="#deciding-path-patterns" title="Link to this heading">¶</a></h3>
 <p>We would prefer to navigate in the following order from the dataset
 root directory, <code class="docutils literal notranslate"><span class="pre">mice</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">day</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">file</span></code>. This is intuitive and
 leaves scope for expansion on new data generation. Based on this, the
-path relative to the dataset root would look like <cite>mice/day/file</cite>.
-Further, the file name should contain the details of mice, day, and
-the type of imaging for identification. For example, a nice file name
-would be <cite>mice-G433_day-01_imaging-calcium.npy</cite>.</p>
-<p>The above decided path can be mentioned in the <code class="docutils literal notranslate"><span class="pre">Specification</span></code>
-config under the <code class="docutils literal notranslate"><span class="pre">path_patterns</span></code> key like:</p>
+path relative to the dataset root would look like <cite>mice/day/file</cite>. The
+file name should contain the details of mice, day, and the type of
+imaging to uniquely identify it from others just using filename. For
+example, a nice file name would be <cite>mice-G433_day-01_imaging-calcium.npy</cite>.</p>
+<p>The above decided path can be mentioned in the
+<a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a> under the <code class="docutils literal notranslate"><span class="pre">path_patterns</span></code> key
+like:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">path_patterns</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;mice-{mice}/day-{day}/mice-{mice}_day-{day}_imaging-{imaging}{extension}&quot;</span>
 </pre></div>
 </div>
 <p>Here, contents enclosed in <code class="docutils literal notranslate"><span class="pre">{}</span></code> represent that these are tag
-values. A <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> in <code class="docutils literal notranslate"><span class="pre">almirah</span></code> is associated with a bunch of
-tags. It is possible to provide more details on tags regarding valid
-values, the default value, and if the <code class="xref py py-class docutils literal notranslate"><span class="pre">Tag</span></code> is mandatory.</p>
+values. A <a class="reference internal" href="reference/layout.html#almirah.layout.File" title="almirah.layout.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a> in <code class="docutils literal notranslate"><span class="pre">almirah</span></code> is associated with a
+bunch of tags. It is possible to provide more details on tags
+regarding valid values, the default value, and if the
+<a class="reference internal" href="reference/layout.html#almirah.layout.Tag" title="almirah.layout.Tag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tag</span></code></a> is mandatory.</p>
 </section>
 <section id="building-paths">
 <h3>Building paths<a class="headerlink" href="#building-paths" title="Link to this heading">¶</a></h3>
 <p>Now that we have the basic <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a>, we
 can build valid paths by providing the required tags. Tags are
-<cite>key</cite>:<cite>value</cite> pairs that convey an information regarding the file. For
+<em>key</em>:<em>value</em> pairs that convey an information regarding the file. For
 our decided path, the tags we require for path building are <code class="docutils literal notranslate"><span class="pre">mice</span></code>,
 <code class="docutils literal notranslate"><span class="pre">day</span></code>, <code class="docutils literal notranslate"><span class="pre">imaging</span></code>, and <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">Specification</span>
 
 <span class="c1"># Create a Specification object</span>
-<span class="n">spec</span> <span class="o">=</span> <span class="n">Specification</span><span class="p">(</span><span class="s2">&quot;/path/to/config&quot;</span><span class="p">)</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">Specification</span><span class="o">.</span><span class="n">create_from_file</span><span class="p">(</span><span class="s2">&quot;/path/to/config&quot;</span><span class="p">)</span>
 
 <span class="c1"># Check out paths built based on tags provided</span>
 <span class="n">spec</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">mice</span><span class="o">=</span><span class="s1">&#39;G433&#39;</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">imaging</span><span class="o">=</span><span class="s1">&#39;calcium&#39;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s1">&#39;.npy&#39;</span><span class="p">)</span>
@@ -322,20 +313,21 @@ our decided path, the tags we require for path building are <code class="docutil
 what is the <code class="docutils literal notranslate"><span class="pre">mice</span></code> tag or the <code class="docutils literal notranslate"><span class="pre">day</span></code> tag given the path? These can
 be provided as a sequence of <em>name</em>:<em>regex pattern</em> pairs under the
 <code class="docutils literal notranslate"><span class="pre">tags</span></code> key like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tags</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">mice</span>
-    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[/</span><span class="se">\\\\</span><span class="s2">]mice-([a-zA-Z0-9]+)&quot;</span>
-  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">day</span>
-    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[/</span><span class="se">\\\\</span><span class="s2">]+day-([0-9]+)&quot;</span>
-  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">imaging</span>
-    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[_/</span><span class="se">\\\\</span><span class="s2">]+imaging-([a-zA-Z]+)&quot;</span>
-  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">extension</span>
-    <span class="n">pattern</span><span class="p">:</span> <span class="s2">&quot;[^./</span><span class="se">\\\\</span><span class="s2">](</span><span class="se">\\</span><span class="s2">.[^/</span><span class="se">\\\\</span><span class="s2">]+)$&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mice</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[/\\\\]mice-([a-zA-Z0-9]+)&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">day</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[/\\\\]+day-([0-9]+)&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imaging</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[_/\\\\]+imaging-([a-zA-Z]+)&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extension</span>
+<span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[^./\\\\](\\.[^/\\\\]+)$&quot;</span>
 </pre></div>
 </div>
 <p>The capturing group in the regex pattern extracts the tag value from
 the path.</p>
-<p>Putting all of these together, we have our <code class="docutils literal notranslate"><span class="pre">Specification</span></code> config:</p>
+<p>Putting all of these together, we have our
+<a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tags</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mice</span>
 <span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[/\\\\]mice-([a-zA-Z0-9]+)&quot;</span>
@@ -353,12 +345,12 @@ the path.</p>
 </section>
 <section id="organizing-the-dataset">
 <h2>Organizing the dataset<a class="headerlink" href="#organizing-the-dataset" title="Link to this heading">¶</a></h2>
-<p>With the <code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code> defined, it is now possible to
-restructure a dataset given that we are able to retrieve the tags
-required to build a valid path from each target file. If we are able
-to build a valid relative path, then it just boils down to just moving
-the file to that position with respect to the root directory. Lets us
-do this for our dataset.</p>
+<p>With the <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> defined, it is now
+possible to restructure a dataset given that we are able to retrieve
+the tags required to build a valid path from each target file. If we
+are able to build a valid relative path, then it just boils down to
+just moving the file to that position with respect to the root
+directory. Lets us do this for our dataset.</p>
 <p>Required parameters to begin organizing a dataset are:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">source</span></code>: The root directory of unorganized data.</p></li>
@@ -473,7 +465,8 @@ run gives:</p>
 <p>This is much easier to navigate and structured. Along with this comes
 the bonus of being able to query the dataset once indexed. In
 <code class="docutils literal notranslate"><span class="pre">almirah</span></code>, a collection of files with a common root directory form a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> and a collection of layouts form a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> and a collection of layouts form a
+<a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.</p>
 </section>
 </section>
 <section id="querying">
@@ -483,26 +476,30 @@ dataset. We can retrieve a subset of files that satisfy certain
 tags. An operation called indexing makes this possible.</p>
 <section id="the-indexing-operation">
 <h3>The indexing operation<a class="headerlink" href="#the-indexing-operation" title="Link to this heading">¶</a></h3>
-<p>In brief, the indexing operation on a <code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> or a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code> crawls top-down from the root directory and figures
-out the <em>tag</em>:<em>file</em> associations. These associations are stored and
-used while querying to filter through the dataset. Additional
-associations for a file excluding tags present in the path can be
-provided with an accompanying <em>JSON</em> file that shares the same
-filename. Indexing is performed automatically on creation of a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<p>In brief, the indexing operation on a <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> or a
+<a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> crawls top-down from the root directory and
+figures out the <em>tag</em>:<em>file</em> associations. These associations are
+stored and used while querying to filter through the
+dataset. Additional associations for a file excluding tags present in
+the path can be provided with an accompanying <em>JSON</em> file that shares
+the same filename. Indexing is performed by
+<a class="reference internal" href="reference/layout.html#almirah.layout.Layout.index" title="almirah.layout.Layout.index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">index()</span></code></a>.</p>
 <p>To index our tutorial dataset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">Layout</span>
 
 <span class="c1"># Create a Layout instance with data path and Specification</span>
-<span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;/path/to/organized/data&quot;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">spec</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;/path/to/organized/data&quot;</span><span class="p">,</span> <span class="n">specification_name</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
-<span class="c1"># /path/to/organized/data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+<span class="c1"># &lt;Layout root: &#39;/path/to/organized/data&#39;&gt;</span>
 </pre></div>
 </div>
-<p>The returned instance has all details including the files in it and
-tags for each file.</p>
+<p>The returned instance does not yet have all details of files in it and
+tags for each file. For this, it has to be indexed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Index the Layout with tags mentioned in Specification</span>
+<span class="n">layout</span><span class="o">.</span><span class="n">index</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files in layout: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="c1"># Files in layout: 6</span>
 
@@ -510,14 +507,31 @@ tags for each file.</p>
 <span class="c1"># The first file is &lt;File path=`/path/to/file`&gt;.</span>
 </pre></div>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Before <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> creation, it is required that a
+<a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> be created and added to the
+index. The <code class="docutils literal notranslate"><span class="pre">specification_name</span></code> argument checks for the index to
+retrieve the <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>. This can be
+achieve like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">index</span>
+
+<span class="c1"># Add Specification to index</span>
+<span class="n">index</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+<span class="c1"># Without commiting, no writing is done to the index</span>
+<span class="n">index</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <p>With this, we can start querying in multiple ways.</p>
 </section>
 <section id="filtering-with-tags">
 <h3>Filtering with tags<a class="headerlink" href="#filtering-with-tags" title="Link to this heading">¶</a></h3>
-<p>An instance associated with the indexer can be queried with
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_files()</span></code> using tag values. For example, retrieve
+<p>Once indexer, the instance can be queried with
+<a class="reference internal" href="reference/layout.html#almirah.layout.Layout.query" title="almirah.layout.Layout.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> using tag values. For example, retrieve
 all files of mice <em>G171</em> where recording was done on day <em>02</em>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layout</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">mice</span><span class="o">=</span><span class="s1">&#39;G171&#39;</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s1">&#39;02&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layout</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">mice</span><span class="o">=</span><span class="s1">&#39;G171&#39;</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s1">&#39;02&#39;</span><span class="p">)</span>
 <span class="c1"># [&#39;/root/mice-G171_day-01_imaging-calcium.npy&#39;,</span>
 <span class="c1">#  &#39;/root/mice-G171_day-02_imaging-calcium.npy&#39;]</span>
 </pre></div>
@@ -525,6 +539,89 @@ all files of mice <em>G171</em> where recording was done on day <em>02</em>.</p>
 <p>A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code> objects is returned. These can be utilised for
 further downstream analysis pipelines.</p>
 </section>
+</section>
+<section id="more-components">
+<h2>More components!!<a class="headerlink" href="#more-components" title="Link to this heading">¶</a></h2>
+<p>Great! Now, we have organized a dataset and made it
+query-able. Though, we have used the word <em>dataset</em> liberally so far,
+in <code class="docutils literal notranslate"><span class="pre">almirah</span></code>, a <a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> and <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a>
+are conceptually different.</p>
+<p>A <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> is a collection of files in a directory that
+follow a <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>. A collection of
+<em>Layouts</em> make up a <a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>. These <em>Layouts</em> are
+said to be the <em>components</em> of the <a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.</p>
+<p>Now, with this in mind, we can see that we organized the tutorial
+dataset into a <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a>. If we have more <em>Layouts</em>
+related to the project, we can collect them under a
+<a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="c1"># Create a Dataset</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;tutorial&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add out previous Layout to the Dataset</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+<span class="c1"># If you have more, you can add them too</span>
+</pre></div>
+</div>
+<p>Operations performed on a <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> like indexing and
+querying can be performed on a <a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> too using
+<a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset.index" title="almirah.dataset.Dataset.index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">index()</span></code></a> and <a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset.query" title="almirah.dataset.Dataset.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a>.
+These will perform the operation on all the components of the dataset.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Objects like <a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> and <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a>
+are not written to the <code class="docutils literal notranslate"><span class="pre">index</span></code> by default. If you would like your
+objects to be persistent, you will have to write to the <code class="docutils literal notranslate"><span class="pre">index</span></code> by
+invoking <a class="reference internal" href="reference/indexer.html#almirah.indexer.Indexer.commit" title="almirah.indexer.Indexer.commit"><code class="xref py py-class docutils literal notranslate"><span class="pre">commit()</span></code></a></p>
+</div>
+</section>
+<section id="databases-as-components">
+<h2>Databases as components<a class="headerlink" href="#databases-as-components" title="Link to this heading">¶</a></h2>
+<p>Often, datasets have relevant information stored in databases. If we
+miss out on these, the dataset is not complete. Worry not, a
+<a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> can be added as a component to a
+<a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>. Further, <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> can be
+queried to retrieve records using <a class="reference internal" href="reference/database.html#almirah.database.Database.query" title="almirah.database.Database.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a>
+too. Queries with the parameter <code class="docutils literal notranslate"><span class="pre">table</span></code> to a
+<a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> are directed to its component databases
+only.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">Database</span>
+
+<span class="c1"># Create a Database instance for a mysql db &#39;tutorial&#39; running locally</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;tutorial&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;mysql&quot;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+
+<span class="c1"># Add db to Dataset</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> by default is in <em>connection mode</em>. This
+means, connection to the <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> has to be
+established using <a class="reference internal" href="reference/database.html#almirah.database.Database.connect" title="almirah.database.Database.connect"><code class="xref py py-meth docutils literal notranslate"><span class="pre">connect()</span></code></a> during each
+Python session. This is because, the <code class="docutils literal notranslate"><span class="pre">index</span></code> does not store
+usernames and passwords for security reasons. An alternative to this,
+is the <em>request mode</em>. This is only applicable for retrieving records
+and not other operations. To set this mode on object creation, provide
+the parameter <code class="docutils literal notranslate"><span class="pre">backend=&quot;request&quot;</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Database in &#39;request&#39; mode</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;tutorial&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;request&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this mode, queries are sent as <em>POST</em> requests to the url endpoint
+and the response is chosen as the result. For this to work, you should
+have setup a url endpoint on the server that the
+<a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> instance is running on. This url endpoint
+processes the request appropriately, and returns the records as a
+response in <em>JSON</em>. One way this can be achieved is by extracting
+<em>POST</em> request keys and passing them as arguments to
+<a class="reference internal" href="reference/database.html#almirah.database.Database.query" title="almirah.database.Database.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> in the view that handles requests to
+the url endpoint.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only databases supported by SQLAlchemy are functional via <code class="docutils literal notranslate"><span class="pre">almirah</span></code>.</p>
+</div>
 </section>
 <section id="other-capabilities">
 <h2>Other capabilities<a class="headerlink" href="#other-capabilities" title="Link to this heading">¶</a></h2>
@@ -534,7 +631,7 @@ can help with. There are other things it can do:</p>
 <li><p>Migrate database records from one schema to another</p></li>
 <li><p>Interface with DataLad compatible datasets</p></li>
 </ul>
-<p>The <a class="reference internal" href="reference/index.html"><span class="doc">API Reference</span></a> acts as good starting point if you need these.</p>
+<p>Please look up <a class="reference internal" href="reference/index.html"><span class="doc">API Reference</span></a> if you need these.</p>
 </section>
 </section>
 
@@ -617,6 +714,8 @@ can help with. There are other things it can do:</p>
 <li><a class="reference internal" href="#filtering-with-tags">Filtering with tags</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#more-components">More components!!</a></li>
+<li><a class="reference internal" href="#databases-as-components">Databases as components</a></li>
 <li><a class="reference internal" href="#other-capabilities">Other capabilities</a></li>
 </ul>
 </li>

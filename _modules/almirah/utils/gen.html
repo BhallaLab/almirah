@@ -146,8 +146,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../../_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -166,27 +166,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.layout.html">Layout, File, and Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.reporting.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/almirah.utils.html">Utilities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/unique.html">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
@@ -245,7 +234,7 @@
 
 
 <div class="viewcode-block" id="commafy">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.commafy">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.commafy">[docs]</a>
 <span class="k">def</span> <span class="nf">commafy</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the comma separated string version of a sequence.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span></div>
@@ -253,7 +242,7 @@
 
 
 <div class="viewcode-block" id="copy">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.copy">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.copy">[docs]</a>
 <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy content from source path to destination path.&quot;&quot;&quot;</span>
 
@@ -280,7 +269,7 @@
 
 
 <div class="viewcode-block" id="deep_get">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.deep_get">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.deep_get">[docs]</a>
 <span class="k">def</span> <span class="nf">deep_get</span><span class="p">(</span><span class="n">dictionary</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;dict.get() for nested dictionaries.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span>
@@ -292,7 +281,7 @@
 
 
 <div class="viewcode-block" id="denest_dict">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.denest_dict">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.denest_dict">[docs]</a>
 <span class="k">def</span> <span class="nf">denest_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return denested dict with all nested elements removed.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)}</span></div>
@@ -300,7 +289,7 @@
 
 
 <div class="viewcode-block" id="filename">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.filename">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.filename">[docs]</a>
 <span class="k">def</span> <span class="nf">filename</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the filename without extension given the path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span></div>
@@ -308,7 +297,7 @@
 
 
 <div class="viewcode-block" id="get_dir_contents">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.get_dir_contents">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.get_dir_contents">[docs]</a>
 <span class="k">def</span> <span class="nf">get_dir_contents</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return list of contents in a directory that match pattern.&quot;&quot;&quot;</span>
     <span class="n">m</span> <span class="o">=</span> <span class="p">[]</span>
@@ -323,7 +312,7 @@
 
 
 <div class="viewcode-block" id="get_incomplete_keys">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.get_incomplete_keys">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.get_incomplete_keys">[docs]</a>
 <span class="k">def</span> <span class="nf">get_incomplete_keys</span><span class="p">(</span><span class="nb">dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return keys whose value are None.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span></div>
@@ -331,10 +320,14 @@
 
 
 <div class="viewcode-block" id="get_metadata">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.get_metadata">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.get_metadata">[docs]</a>
 <span class="k">def</span> <span class="nf">get_metadata</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return dict equivalent of json in file.&quot;&quot;&quot;</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">()</span>
+
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">content</span></div>
@@ -342,7 +335,7 @@
 
 
 <div class="viewcode-block" id="listify">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.listify">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.listify">[docs]</a>
 <span class="k">def</span> <span class="nf">listify</span><span class="p">(</span><span class="n">dictionary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return dict with value type always List.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span>
@@ -352,7 +345,7 @@
 
 
 <div class="viewcode-block" id="read_yaml">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.read_yaml">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.read_yaml">[docs]</a>
 <span class="k">def</span> <span class="nf">read_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return dict equivalent of yaml in file.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -361,7 +354,7 @@
 
 
 <div class="viewcode-block" id="read_multi_yaml">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.read_multi_yaml">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.read_multi_yaml">[docs]</a>
 <span class="k">def</span> <span class="nf">read_multi_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return list of dict equivalents of yamls in file.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -370,7 +363,7 @@
 
 
 <div class="viewcode-block" id="run_shell">
-<a class="viewcode-back" href="../../../reference/almirah.utils.html#almirah.utils.gen.run_shell">[docs]</a>
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.gen.run_shell">[docs]</a>
 <span class="k">def</span> <span class="nf">run_shell</span><span class="p">(</span><span class="n">cmd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">suppress_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute shell command in background.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>

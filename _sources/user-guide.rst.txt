@@ -210,7 +210,7 @@ and represent them as a :class:`~pandas.DataFrame`:
 .. code-block:: python
 
 		# Query and retrieve files
-		files = lay.get_files(datatype="eeg", extension="edf")
+		files = lay.query(datatype="eeg", extension=".edf")
 
 		import mne              # For Electroencephalography data
 		import pandas           # To store the features
@@ -227,13 +227,12 @@ and represent them as a :class:`~pandas.DataFrame`:
 Reporting
 ---------
 
-High-level summaries of a dataset can be reported by passing a
-:class:`~almirah.Layout` or :class:`~almirah.Dataset` instance to
-:class:`~almirah.Report`.
+High-level summaries of a dataset can be reported by using
+:meth:`dataset.report`.
 
 .. code-block:: python
 
-		almirah.Report(lay)
+		obj.report()
 
 The tags based on which the summary is to be generated can be provided
 via the ``tags`` argument. `subject` is the used if no values are
@@ -262,8 +261,9 @@ standard logger interface to change the log level for almirah's logger:
 
 		logging.getLogger("almirah").setLevel(logging.WARNING)
 		
-.. rubric:: The CALM-BRAINS Dataset
+.. rubric:: The CALM Brain Resource
    
-If you would like to use almirah to access the CALM-BRAINS dataset,
-visit :doc:`calmbrains/index` documentation.
+If you would like to use almirah to access the CALM Brain resource,
+visit the `CALM Brain <https://girishmm.github.io/calm-brain/>`_
+documentation.
 

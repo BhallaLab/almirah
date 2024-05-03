@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="File format conversion" href="almirah.convert.html" /><link rel="prev" title="Indexing" href="almirah.indexer.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Utilities" href="utils.html" /><link rel="prev" title="File format conversion" href="convert.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Reporting - almirah 0.3.0 documentation</title>
+        <title>Unique Objects - almirah 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -147,8 +147,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -167,27 +167,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Layout, File, and Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html">Utilities</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html">File format conversion</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -213,7 +202,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/reference/almirah.reporting.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/reference/unique.rst" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -229,14 +218,59 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="reporting">
-<h1>Reporting<a class="headerlink" href="#reporting" title="Link to this heading">¶</a></h1>
+          <section id="module-almirah.core.uniquify">
+<span id="unique-objects"></span><h1>Unique Objects<a class="headerlink" href="#module-almirah.core.uniquify" title="Link to this heading">¶</a></h1>
+<p>Core function and decorator for look-up object instantiation.
+Adapted from: <a class="reference external" href="https://github.com/sqlalchemy/sqlalchemy/wiki/UniqueObject">https://github.com/sqlalchemy/sqlalchemy/wiki/UniqueObject</a></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.core.uniquify.unique">
+<span class="sig-name descname"><span class="pre">unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="indexer.html#almirah.indexer.Indexer" title="almirah.indexer.Indexer"><span class="pre">Indexer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/almirah/core/uniquify.html#unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.core.uniquify.unique" title="Link to this definition">¶</a></dt>
+<dd><p>Check and return existing instance if present, else create it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference internal" href="indexer.html#almirah.indexer.Indexer" title="almirah.indexer.Indexer"><em>Indexer</em></a>) – The almirah index used to store cached instances.</p></li>
+<li><p><strong>cls</strong> (<em>Type</em>) – The class of the object being instantiated.</p></li>
+<li><p><strong>constructor</strong> (<em>Callable</em>) – A callable used to create the object if not found.</p></li>
+<li><p><strong>args</strong> (<em>tuple</em>) – Positional arguments (should be empty for this usage).</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Keyword arguments used to instantiate the class.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of cls.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If positional arguments are given or required keyword arguments are missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.core.uniquify.uniquify">
+<span class="sig-name descname"><span class="pre">uniquify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="../_modules/almirah/core/uniquify.html#uniquify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.core.uniquify.uniquify" title="Link to this definition">¶</a></dt>
+<dd><p>Class decorator to augment classes for look-up instantiation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference internal" href="indexer.html#almirah.indexer.Indexer" title="almirah.indexer.Indexer"><em>Indexer</em></a>) – The index used to manage unique instances.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A decorator that modifies a class to use unique instantiation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article>
@@ -244,23 +278,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="almirah.convert.html">
+          <a class="next-page" href="utils.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">File format conversion</div>
+                <div class="title">Utilities</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="almirah.indexer.html">
+          <a class="prev-page" href="convert.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Indexing</div>
+                <div class="title">File format conversion</div>
                 
               </div>
             </a>
@@ -289,8 +323,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Unique Objects</a><ul>
+<li><a class="reference internal" href="#almirah.core.uniquify.unique"><code class="docutils literal notranslate"><span class="pre">unique()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.core.uniquify.uniquify"><code class="docutils literal notranslate"><span class="pre">uniquify()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

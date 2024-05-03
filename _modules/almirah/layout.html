@@ -146,8 +146,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -166,27 +166,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.layout.html">Layout, File, and Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.reporting.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/almirah.utils.html">Utilities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/unique.html">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
@@ -264,7 +253,7 @@
 
 
 <div class="viewcode-block" id="Layout">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Layout">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Layout">[docs]</a>
 <span class="nd">@uniquify</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Layout</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a structured layout of files in a directory.&quot;&quot;&quot;</span>
@@ -305,7 +294,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">specification_name</span> <span class="o">=</span> <span class="n">specification_name</span>
 
 <div class="viewcode-block" id="Layout.add">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Layout.add">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Layout.add">[docs]</a>
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;File&quot;</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds files to the layout, ensuring they fall within the layout&#39;s directory scope.</span>
@@ -326,7 +315,7 @@
 
 
 <div class="viewcode-block" id="Layout.clone">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Layout.clone">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Layout.clone">[docs]</a>
     <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clone Layout from datalad url.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">url</span><span class="p">:</span>
@@ -336,7 +325,7 @@
 
 
 <div class="viewcode-block" id="Layout.index">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Layout.index">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Layout.index">[docs]</a>
     <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">valid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">funcs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform indexing to add files in root to index.&quot;&quot;&quot;</span>
 
@@ -369,15 +358,8 @@
                 <span class="n">file</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">reset</span><span class="p">,</span> <span class="o">**</span><span class="n">funcs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Layout.report">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Layout.report">[docs]</a>
-    <span class="k">def</span> <span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate report for the Layout.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-
 <div class="viewcode-block" id="Layout.query">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Layout.query">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Layout.query">[docs]</a>
     <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">returns</span><span class="o">=</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return File instances that fit filter criteria.&quot;&quot;&quot;</span>
 
@@ -413,13 +395,31 @@
         <span class="k">return</span> <span class="p">[[</span><span class="n">f</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">returns</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span></div>
 
 
+<div class="viewcode-block" id="Layout.move_root">
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Layout.move_root">[docs]</a>
+    <span class="k">def</span> <span class="nf">move_root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Abstractly move Layout and its entries to path.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">rel_path</span><span class="p">)</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">path</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="Layout.report">
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Layout.report">[docs]</a>
+    <span class="k">def</span> <span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate report for the Layout.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Layout root: &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">&#39;&gt;&quot;</span></div>
 
 
 
 <div class="viewcode-block" id="File">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.File">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.File">[docs]</a>
 <span class="nd">@uniquify</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">File</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic file representation.&quot;&quot;&quot;</span>
@@ -456,7 +456,7 @@
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
 
 <div class="viewcode-block" id="File.download">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.File.download">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.File.download">[docs]</a>
     <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Download file from remote dataset.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attached</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">url</span><span class="p">:</span>
@@ -464,7 +464,7 @@
 
 
 <div class="viewcode-block" id="File.index">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.File.index">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.File.index">[docs]</a>
     <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">funcs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform indexing to add tags marking the file to index.&quot;&quot;&quot;</span>
 
@@ -486,7 +486,7 @@
 
 
 <div class="viewcode-block" id="File.report">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.File.report">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.File.report">[docs]</a>
     <span class="k">def</span> <span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate report for the File.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
@@ -498,7 +498,7 @@
 
 
 <div class="viewcode-block" id="Tag">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Tag">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Tag">[docs]</a>
 <span class="nd">@uniquify</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic tag representation.&quot;&quot;&quot;</span>
@@ -525,7 +525,7 @@
 
 
 <div class="viewcode-block" id="Marking">
-<a class="viewcode-back" href="../../reference/almirah.layout.html#almirah.layout.Marking">[docs]</a>
+<a class="viewcode-back" href="../../reference/layout.html#almirah.layout.Marking">[docs]</a>
 <span class="k">class</span> <span class="nc">Marking</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Representation of an association between a file and a tag.&quot;&quot;&quot;</span>
 

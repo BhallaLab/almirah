@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Indexing" href="almirah.indexer.html" /><link rel="prev" title="Layout, File, and Tag" href="almirah.layout.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Indexing" href="indexer.html" /><link rel="prev" title="Layout, File, and Tag" href="layout.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
         <title>Specification - almirah 0.3.0 documentation</title>
@@ -147,8 +147,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -167,27 +167,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.reporting.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="almirah.utils.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unique.html">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -213,7 +202,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/reference/almirah.specification.rst" title="Edit this page">
+  <a class="muted-link" href="https://github.com/girishmm/almirah/edit/main/docs/source/reference/specification.rst" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -368,7 +357,7 @@ first matching path is built.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="almirah.indexer.html">
+          <a class="next-page" href="indexer.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
@@ -377,7 +366,7 @@ first matching path is built.</p></li>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="almirah.layout.html">
+          <a class="prev-page" href="layout.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">

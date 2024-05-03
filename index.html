@@ -147,8 +147,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="_static/logo-light.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="_static/logo-dark.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="_static/logo-full-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/logo-full-dark.png" alt="Dark Logo"/>
   </div>
   
   
@@ -167,27 +167,16 @@
 <li class="toctree-l2"><a class="reference internal" href="writing-configs/mapping.html">Database mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="calmbrains/index.html">The CALM-BRAINS Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of The CALM-BRAINS Dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="calmbrains/tutorial.html">From access to analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calmbrains/reference/index.html">Dataset Reference</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="calmbrains/examples/index.html">Examples Gallery</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples Gallery</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="calmbrains/examples/1_mean_eeg.html">Cohort-wise resting state EEG distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="calmbrains/examples/2_hippo_brain_ratio.html">Cohort-wise Hippocampus to Total Brain Volume ratio distribution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="calmbrains/setup.html">Setting up your own infrastructure</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.dataset.html">Dataset and its Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.database.html">Database and DBManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.layout.html">Layout, File, and Tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.specification.html">Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.reporting.html">Reporting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.convert.html">File format conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.unique.html">Unique Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/almirah.utils.html">Utilities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/dataset.html">Dataset and its Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/database.html">Database and DBManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/layout.html">Layout, File, and Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/specification.html">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/indexer.html">Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reporting.html">Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/convert.html">File format conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/unique.html">Unique Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/utils.html">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -236,7 +225,7 @@
         </div>
         <article role="main">
           <section id="almirah">
-<h1>almirah<a class="headerlink" href="#almirah" title="Link to this heading">¶</a></h1>
+<h1>Almirah<a class="headerlink" href="#almirah" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <p>almirah aids in the organization, maintenance, and usage of both
@@ -279,17 +268,17 @@ overview.</p>
 <p>almirah relies heavily on configs to guide its tasks. The
 <a class="reference internal" href="writing-configs/index.html"><span class="doc">Writing configs</span></a> page describes the possibilities in
 detail.</p>
-<p>If you want to access the CALM-BRAINS dataset, please head over to
-<a class="reference internal" href="calmbrains/tutorial.html"><span class="doc">From access to analysis</span></a> for a walk-through. The
-<a class="reference internal" href="calmbrains/reference/index.html"><span class="doc">Dataset Reference</span></a> documentation provides details on
-the files and records available in the dataset. If you have not heard
-of the study, but would like to know, <a class="reference internal" href="calmbrains/index.html"><span class="doc">The CALM-BRAINS Dataset</span></a> page can
-help acquaint you.</p>
 <p>The <a class="reference internal" href="reference/index.html"><span class="doc">API Reference</span></a> documentation provides API-level
 documentation.</p>
-<p>Can you use almirah to manage your dataset? Of course. Have a look at
-the <a class="reference internal" href="#translate-to-another-dataset"><span class="std std-ref">Translate to another dataset</span></a> section for files to tweak to
-achieve this.</p>
+<p>Can you use almirah to manage other datasets? Of course! Have a look
+at the <a class="reference internal" href="#translate-to-another-dataset"><span class="std std-ref">Translate to another dataset</span></a> section for files to tweak
+to achieve this.</p>
+<p>If you want to access the CALM Brain resource, please head over to the
+<a class="reference external" href="https://girishmm.github.io/calm-brain/user-guide.html">user guide</a>
+for a walk-through. The <a class="reference external" href="https://girishmm.github.io/calm-brain/reference.html">reference</a>
+documentation provides details on the files and records available in
+the dataset. If you have not heard of the resource, but would like to
+know, please visit the <a class="reference external" href="https://www.calm-brain.ncbs.res.in/">CALM Brain</a> online page help acquaint you.</p>
 </section>
 <section id="who-uses-almirah">
 <h2>Who uses almirah?<a class="headerlink" href="#who-uses-almirah" title="Link to this heading">¶</a></h2>
@@ -302,7 +291,7 @@ about it.</p>
 <section id="translate-to-another-dataset">
 <span id="id2"></span><h2>Translate to another dataset<a class="headerlink" href="#translate-to-another-dataset" title="Link to this heading">¶</a></h2>
 <p>If your dataset is a BIDS dataset, congrats you are done! 🎉</p>
-<p>If you dataset follows a different specification, describe it as a
+<p>If your dataset follows a different specification, describe it as a
 config file by referring to <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a>. This
 should allow filtering and querying of the dataset.</p>
 <p>If you would like to organize data according to a described
@@ -333,7 +322,7 @@ on the <a class="reference external" href="https://github.com/girishmm/almirah">
 <h2>Citing<a class="headerlink" href="#citing" title="Link to this heading">¶</a></h2>
 <p>If you use almirah to help with your dataset, please consider citing this
 repository until a journal article is specifically available for almirah.</p>
-<p>If you use the CALM-BRAINS dataset in your research, please cite the
+<p>If you use the CALM Brain resource in your research, please cite the
 reference below until a journal article is available for the dataset:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Viswanath, B., Rao, N.P., Narayanaswamy, J.C. et al. Discovery
 biology of neuropsychiatric syndromes (DBNS): a center for
@@ -438,7 +427,7 @@ datasets. Journal of Open Source Software, 4(40), 1294.  doi:
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">almirah</a><ul>
+<li><a class="reference internal" href="#">Almirah</a><ul>
 <li><a class="reference internal" href="#installing">Installing</a></li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#who-uses-almirah">Who uses almirah?</a></li>

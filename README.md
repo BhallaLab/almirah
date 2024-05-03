@@ -6,7 +6,6 @@
   <h3 align="center">almirah</h3>
 
   <p align="center">
-	a wardrobe for datasets
 	<br />
 	<a href="https://girishmm.github.io/almirah"><strong>Explore the docs »</strong></a>
 	<br />
@@ -19,13 +18,14 @@
 
 ## About The Project
 
-Clothes can be organized, maintained, and easily accessed from a
-wardrobe. [almirah](https://github.com/girishmm/almirah) serves the
-same purpose for datasets.
+[almirah](https://github.com/girishmm/almirah) is designed to help
+organize, maintain, and access datasets efficiently. It provides tools
+for defining how data is stored, tagged, and retrieved, making it
+easier to work with complex data collections.
 
-You can define the method to follow to stack your contents on the
-almirah, and even tag. [almirah](https://github.com/girishmm/almirah)
-hopes to make working with datasets easier.
+For more information on how to use
+[almirah](https://github.com/girishmm/almirah) for your data projects,
+please see the [documentation](https://girishmm.github.io/almirah/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

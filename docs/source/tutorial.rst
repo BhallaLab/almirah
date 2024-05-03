@@ -11,7 +11,7 @@ the :ref:`Installing` section and follow the instructions.
 
 First, let us obtain the dataset to work on for the tutorial. It comes
 along with ``almirah`` and can be copied to a convenient location using
-the :meth:`~utils.get_tutorial_dataset`.
+the :meth:`~utils.lib.get_tutorial_dataset`.
 
 .. code-block:: python
 
@@ -47,8 +47,8 @@ Defining a Specification
 
 The first step to all things ``almirah`` can do is defining the
 :doc:`writing-configs/specification`. To come up with a
-``Specification`` for this dataset, let us think about how we would
-structure this dataset manually.
+:class:`~specification.Specification` for this dataset, let us think
+about how we would structure this dataset manually.
 
 Deciding path patterns
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -56,13 +56,14 @@ Deciding path patterns
 We would prefer to navigate in the following order from the dataset
 root directory, ``mice`` -> ``day`` -> ``file``. This is intuitive and
 leaves scope for expansion on new data generation. Based on this, the
-path relative to the dataset root would look like `mice/day/file`.
-Further, the file name should contain the details of mice, day, and
-the type of imaging for identification. For example, a nice file name
-would be `mice-G433_day-01_imaging-calcium.npy`.
+path relative to the dataset root would look like `mice/day/file`. The
+file name should contain the details of mice, day, and the type of
+imaging to uniquely identify it from others just using filename. For
+example, a nice file name would be `mice-G433_day-01_imaging-calcium.npy`.
 
-The above decided path can be mentioned in the ``Specification``
-config under the ``path_patterns`` key like:
+The above decided path can be mentioned in the
+:doc:`writing-configs/specification` under the ``path_patterns`` key
+like:
 
 .. code-block:: yaml
 
@@ -70,16 +71,17 @@ config under the ``path_patterns`` key like:
 		  - "mice-{mice}/day-{day}/mice-{mice}_day-{day}_imaging-{imaging}{extension}"
 
 Here, contents enclosed in ``{}`` represent that these are tag
-values. A :class:`~File` in ``almirah`` is associated with a bunch of
-tags. It is possible to provide more details on tags regarding valid
-values, the default value, and if the :class:`~Tag` is mandatory.
+values. A :class:`~layout.File` in ``almirah`` is associated with a
+bunch of tags. It is possible to provide more details on tags
+regarding valid values, the default value, and if the
+:class:`~layout.Tag` is mandatory.
 
 Building paths
 ~~~~~~~~~~~~~~
 
 Now that we have the basic :doc:`writing-configs/specification`, we
 can build valid paths by providing the required tags. Tags are
-`key`:`value` pairs that convey an information regarding the file. For
+*key*:*value* pairs that convey an information regarding the file. For
 our decided path, the tags we require for path building are ``mice``,
 ``day``, ``imaging``, and ``extension``.
 
@@ -88,7 +90,7 @@ our decided path, the tags we require for path building are ``mice``,
 		from almirah import Specification
 
 		# Create a Specification object
-		spec = Specification("/path/to/config")
+		spec = Specification.create_from_file("/path/to/config")
 
 		# Check out paths built based on tags provided
 		spec.build_path(mice='G433', day='01', imaging='calcium', extension='.npy')
@@ -105,7 +107,7 @@ what is the ``mice`` tag or the ``day`` tag given the path? These can
 be provided as a sequence of *name*:*regex pattern* pairs under the
 ``tags`` key like:
 
-.. code-block:: python
+.. code-block:: yaml
 
 		tags:
 		  - name: mice
@@ -120,7 +122,8 @@ be provided as a sequence of *name*:*regex pattern* pairs under the
 The capturing group in the regex pattern extracts the tag value from
 the path.
 
-Putting all of these together, we have our ``Specification`` config:
+Putting all of these together, we have our
+:doc:`writing-configs/specification`:
 
 .. code-block:: yaml
 
@@ -139,12 +142,12 @@ Putting all of these together, we have our ``Specification`` config:
 Organizing the dataset
 ----------------------
 
-With the :class:`~Specification` defined, it is now possible to
-restructure a dataset given that we are able to retrieve the tags
-required to build a valid path from each target file. If we are able
-to build a valid relative path, then it just boils down to just moving
-the file to that position with respect to the root directory. Lets us
-do this for our dataset.
+With the :class:`~specification.Specification` defined, it is now
+possible to restructure a dataset given that we are able to retrieve
+the tags required to build a valid path from each target file. If we
+are able to build a valid relative path, then it just boils down to
+just moving the file to that position with respect to the root
+directory. Lets us do this for our dataset.
 
 Required parameters to begin organizing a dataset are:
 
@@ -275,7 +278,8 @@ run gives:
 This is much easier to navigate and structured. Along with this comes
 the bonus of being able to query the dataset once indexed. In
 ``almirah``, a collection of files with a common root directory form a
-:class:`~Layout` and a collection of layouts form a :class:`~Dataset`.
+:class:`~layout.Layout` and a collection of layouts form a
+:class:`~dataset.Dataset`.
 
 Querying
 --------
@@ -287,14 +291,14 @@ tags. An operation called indexing makes this possible.
 The indexing operation
 ~~~~~~~~~~~~~~~~~~~~~~
 
-In brief, the indexing operation on a :class:`~Layout` or a
-:class:`~Dataset` crawls top-down from the root directory and figures
-out the *tag*:*file* associations. These associations are stored and
-used while querying to filter through the dataset. Additional
-associations for a file excluding tags present in the path can be
-provided with an accompanying *JSON* file that shares the same
-filename. Indexing is performed automatically on creation of a
-:class:`~Layout` or :class:`~Dataset`.
+In brief, the indexing operation on a :class:`~layout.Layout` or a
+:class:`~dataset.Dataset` crawls top-down from the root directory and
+figures out the *tag*:*file* associations. These associations are
+stored and used while querying to filter through the
+dataset. Additional associations for a file excluding tags present in
+the path can be provided with an accompanying *JSON* file that shares
+the same filename. Indexing is performed by
+:meth:`~layout.Layout.index`.
 
 To index our tutorial dataset:
 
@@ -303,13 +307,18 @@ To index our tutorial dataset:
 		from almirah import Layout
 
 		# Create a Layout instance with data path and Specification
-		layout = Layout.create("/path/to/organized/data", spec=spec)
+		layout = Layout(root="/path/to/organized/data", specification_name=spec.name)
 
-		print(layout.root)
-		# /path/to/organized/data
+		print(layout)
+		# <Layout root: '/path/to/organized/data'>
 
-The returned instance has all details including the files in it and
-tags for each file.
+The returned instance does not yet have all details of files in it and
+tags for each file. For this, it has to be indexed.
+
+.. code-block:: python
+
+		# Index the Layout with tags mentioned in Specification
+		layout.index()
 
 .. code-block:: python
 
@@ -319,26 +328,134 @@ tags for each file.
 		print(f"The first file is {layout.files[0]}.")
 		# The first file is <File path=`/path/to/file`>.
 
+.. important::
 
+   Before :class:`~layout.Layout` creation, it is required that a
+   :class:`~specification.Specification` be created and added to the
+   index. The ``specification_name`` argument checks for the index to
+   retrieve the :class:`~specification.Specification`. This can be
+   achieve like so:
 
+   .. code-block:: python
+
+		   from almirah import index
+
+		   # Add Specification to index
+		   index.add(spec)
+
+		   # Without commiting, no writing is done to the index
+		   index.commit()
 
 With this, we can start querying in multiple ways.
 
 Filtering with tags
 ~~~~~~~~~~~~~~~~~~~
 
-An instance associated with the indexer can be queried with
-:meth:`~Layout.get_files()` using tag values. For example, retrieve
+Once indexer, the instance can be queried with
+:meth:`~layout.Layout.query()` using tag values. For example, retrieve
 all files of mice *G171* where recording was done on day *02*.
 
 .. code-block:: python
 
-		layout.get_files(mice='G171', day='02')
+		layout.query(mice='G171', day='02')
 		# ['/root/mice-G171_day-01_imaging-calcium.npy',
 		#  '/root/mice-G171_day-02_imaging-calcium.npy']
 
 A list of :class:`File` objects is returned. These can be utilised for
 further downstream analysis pipelines.
+
+More components!!
+-----------------
+
+Great! Now, we have organized a dataset and made it
+query-able. Though, we have used the word *dataset* liberally so far,
+in ``almirah``, a :class:`~dataset.Dataset` and :class:`~layout.Layout`
+are conceptually different.
+
+A :class:`~layout.Layout` is a collection of files in a directory that
+follow a :class:`~specification.Specification`. A collection of
+*Layouts* make up a :class:`~dataset.Dataset`. These *Layouts* are
+said to be the *components* of the :class:`~dataset.Dataset`.
+
+Now, with this in mind, we can see that we organized the tutorial
+dataset into a :class:`~layout.Layout`. If we have more *Layouts*
+related to the project, we can collect them under a
+:class:`~dataset.Dataset`.
+
+.. code-block:: python
+
+		from almirah import Dataset
+
+		# Create a Dataset
+		dataset = Dataset(name="tutorial")
+
+		# Add out previous Layout to the Dataset
+		dataset.add(layout)
+
+		# If you have more, you can add them too
+
+Operations performed on a :class:`~layout.Layout` like indexing and
+querying can be performed on a :class:`~dataset.Dataset` too using
+:meth:`~dataset.Dataset.index` and :meth:`~dataset.Dataset.query`.
+These will perform the operation on all the components of the dataset.
+
+.. note::
+
+   Objects like :class:`~dataset.Dataset` and :class:`~layout.Layout`
+   are not written to the ``index`` by default. If you would like your
+   objects to be persistent, you will have to write to the ``index`` by
+   invoking :class:`~indexer.Indexer.commit()`
+
+Databases as components
+-----------------------
+
+Often, datasets have relevant information stored in databases. If we
+miss out on these, the dataset is not complete. Worry not, a
+:class:`~database.Database` can be added as a component to a
+:class:`~dataset.Dataset`. Further, :class:`~database.Database` can be
+queried to retrieve records using :meth:`~database.Database.query`
+too. Queries with the parameter ``table`` to a
+:class:`~dataset.Dataset` are directed to its component databases
+only.
+
+.. code-block:: python
+
+		from almirah import Database
+
+		# Create a Database instance for a mysql db 'tutorial' running locally
+		db = Database(name="tutorial", host="127.0.0.1", backend="mysql")
+		db.connect(username, password)
+
+		# Add db to Dataset
+		dataset.add(db)
+
+A :class:`~database.Database` by default is in *connection mode*. This
+means, connection to the :class:`~database.Database` has to be
+established using :meth:`~database.Database.connect` during each
+Python session. This is because, the ``index`` does not store
+usernames and passwords for security reasons. An alternative to this,
+is the *request mode*. This is only applicable for retrieving records
+and not other operations. To set this mode on object creation, provide
+the parameter ``backend="request"``:
+
+.. code-block:: python
+
+		# Create a Database in 'request' mode
+		db = Database(name="tutorial", host="127.0.0.1", backend="request")
+
+In this mode, queries are sent as *POST* requests to the url endpoint
+and the response is chosen as the result. For this to work, you should
+have setup a url endpoint on the server that the
+:class:`~database.Database` instance is running on. This url endpoint
+processes the request appropriately, and returns the records as a
+response in *JSON*. One way this can be achieved is by extracting
+*POST* request keys and passing them as arguments to
+:meth:`~database.Database.query` in the view that handles requests to
+the url endpoint.
+		
+.. note::
+
+   Only databases supported by SQLAlchemy are functional via ``almirah``.
 
 Other capabilities
 ------------------
@@ -349,4 +466,4 @@ can help with. There are other things it can do:
 * Migrate database records from one schema to another
 * Interface with DataLad compatible datasets
 
-The :doc:`reference/index` acts as good starting point if you need these.
+Please look up :doc:`reference/index` if you need these.

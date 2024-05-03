@@ -1,6 +1,7 @@
 """Database functionality for data write and access."""
 
 import logging
+import requests
 import numpy as np
 import pandas as pd
 
@@ -42,6 +43,7 @@ class Database(Component):
     __mapper_args__ = {"polymorphic_identity": "database"}
 
     def __init__(self, *, name, host, backend):
+        self.db = None
         self.name = name
         self.host = host
         self.backend = backend
@@ -102,6 +104,10 @@ class Database(Component):
         SQLAlchemyError
             If the connection cannot be established.
         """
+
+        if self.backend == "request":
+            raise TypeError("Database not in connection mode")
+
         url = URL.create(
             self.backend,
             username=username,
@@ -325,8 +331,15 @@ class Database(Component):
         if not table:
             return None
 
-        df = self.get_records(table, returns)
-        df = df[np.logical_and.reduce([df[k] == v for k, v in filters.items()])]
+        if self.backend == "request":
+            res = requests.post(self.host, data={"table": table, "returns": returns})
+            df = pd.DataFrame(res.json())
+        else:
+            df = self.get_records(table, returns)
+
+        if filters:
+            df = df[np.logical_and.reduce([df[k] == v for k, v in filters.items()])]
+
         return df
 
     def __repr__(self):

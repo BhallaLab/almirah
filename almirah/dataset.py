@@ -1,6 +1,5 @@
 """ Model classes to represent a dataset and its components."""
 
-from typing import Set
 from typing import List
 from typing import Optional
 
@@ -12,7 +11,6 @@ from sqlalchemy.orm import mapped_column
 
 from .core import Base
 from .core import uniquify
-
 from .indexer import index
 
 
@@ -39,7 +37,7 @@ class Dataset(Component):
 
     id: Mapped[int] = mapped_column(ForeignKey("components.id"), primary_key=True)
     name: Mapped[str] = mapped_column(unique=True, nullable=False)
-    components: Mapped[Set["Component"]] = relationship(secondary="collections")
+    components: Mapped[List["Component"]] = relationship(secondary="collections")
 
     __mapper_args__ = {"polymorphic_identity": "dataset"}
 
@@ -63,7 +61,14 @@ class Dataset(Component):
         if any(c == self or self in getattr(c, "components", []) for c in components):
             raise TypeError("Dataset cannot include itself as a component")
 
-        self.components.update(components)
+        self.components.extend(components)
+
+    def index(self, **kwargs):
+        """Perform indexing on components."""
+
+        for c in self.components:
+            if index := callable(getattr(c, "index")):
+                index(c, **kwargs)
 
     def report(self) -> None:
         """Generate report for dataset."""

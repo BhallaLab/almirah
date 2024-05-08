@@ -43,22 +43,35 @@ class Database(Component):
     __mapper_args__ = {"polymorphic_identity": "database"}
 
     def __init__(self, *, name, host, backend):
-        self.db = None
         self.name = name
         self.host = host
         self.backend = backend
 
     @property
     def connection(self):
-        if not self.db:
+        if self.backend == "request":
+            raise ValueError("Connection not permissible in request mode")
+
+        if not getattr(self, "db"):
             raise TypeError(f"Connection to {self} not established")
         return self.db.connection
 
     @property
     def meta(self):
-        if not self.db:
+        if self.backend == "request":
+            raise ValueError("Metadata not permissible in request mode")
+
+        if not getattr(self, "db"):
             raise TypeError(f"Connection to {self} not established")
         return self.db.metadata
+
+    @property
+    def token(self):
+        if self.backend != "request":
+            raise ValueError("Token only permissible in request mode")
+
+        if not getattr(self, "_token"):
+            raise TypeError(f"Connection to {self} not established")
 
     def build_column(self, name, dtype, **kwargs):
         """Build SQLalchemy Column object given column description."""
@@ -102,11 +115,19 @@ class Database(Component):
         Raises
         ------
         SQLAlchemyError
-            If the connection cannot be established.
+            If the connection cannot be established at database.
+        ValueError
+            If the connection cannot be established at URL endpoint.
         """
 
         if self.backend == "request":
-            raise TypeError("Database not in connection mode")
+            data = {"username": username, "password": password}
+            response = requests.post(self.host, data=data).json()
+
+            if "error" in response:
+                raise ValueError(response["error"])
+
+            self._token = response["token"]
 
         url = URL.create(
             self.backend,
@@ -332,8 +353,10 @@ class Database(Component):
             return None
 
         if self.backend == "request":
-            res = requests.post(self.host, data={"table": table, "returns": returns})
-            df = pd.DataFrame(res.json())
+            data = {"table": table, "returns": returns}
+            header = {"Authorization": f"Bearer {self.token}"}
+            response = requests.post(self.host, data=data, headers=header).json()
+            df = pd.DataFrame(response)
         else:
             df = self.get_records(table, returns)
 

@@ -213,13 +213,19 @@ class File(Base):
     @property
     def rel_path(self):
         if not self.attached:
-            raise TypeError("File not attached to a Layout")
+            raise TypeError(f"{self} not attached to a Layout")
         return os.path.relpath(self.path, self.root)
 
     def download(self):
         """Download file from remote dataset."""
-        if self.attached and self.layout.url:
-            get(self.path, dataset=self.layout.root)
+
+        if not self.attached:
+            raise TypeError(f"{self} not attached to a Layout")
+
+        if not self.layout.url:
+            raise ValueError(f"Remote url for {self.layout} not set")
+
+        get(self.path, dataset=self.layout.root)
 
     def index(self, metadata=False, reset=False, **funcs):
         """Perform indexing to add tags marking the file to index."""

@@ -14,11 +14,7 @@ class DBManager:
     def __init__(self, url: str):
         self.engine = create_engine(url)
         self.metadata = MetaData()
-        self.reflect()
-
-    def reflect(self) -> None:
-        """Reflects the database schema into metadata."""
-        self.metadata = self.metadata.reflect(bind=self.engine)
+        self.metadata.reflect(bind=self.engine)
 
     @property
     def connection(self) -> Connection:

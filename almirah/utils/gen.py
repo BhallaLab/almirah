@@ -109,7 +109,7 @@ def read_yaml(path: str) -> Dict[Any, Any]:
 def read_multi_yaml(path: str) -> List[Dict[Any, Any]]:
     """Return list of dict equivalents of yamls in file."""
     with open(os.path.expanduser(path)) as file:
-        return yaml.safe_load_all(file)
+        return [f for f in yaml.safe_load_all(file)]
 
 
 def run_shell(cmd: str, suppress_output: bool = True) -> subprocess.CompletedProcess:

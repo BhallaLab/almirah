@@ -476,19 +476,19 @@ def replace_value(value, column, mapping, file):
     return result.at[0, mapping]
 
 
-def replace_column(series, column, mapping, file, strict=True):
+def replace_column(series, value, to, file, strict=True):
     """Replace values in series based on mapping in file."""
 
     # Load file into dataframe
     df = pd.read_csv(file, dtype=str)
-    logging.info(f"Replacing values in '{column}' with '{mapping}' from {file}")
+    mapping = pd.Series(df[to].values, index=df[value].values)
+    logging.info(f"Replacing values in '{value}' with '{to}' from {file}")
 
     # Stop if non-unique mappings
-    if df.duplicated([column]).any():
+    if df.duplicated([value]).any():
         raise ValueError(f"Non-unique mappings found in file {file}")
 
-    df = pd.Series(df[mapping], index=df[column])
-    replaced = series.map(df)
+    replaced = series.map(mapping)
 
     # Retain original value if replacement not strict
     if not strict:
@@ -525,11 +525,11 @@ def transform_column(series, dtype_kws=dict(), **kwargs):
         logging.info(f"Extracting and replacing based on pattern {pat}")
 
     if rep := kwargs.get("replace"):
-        if "field" in rep:
-            replace_column(s, **rep)
+        if "file" in rep:
+            s = replace_column(s, **rep)
             logging.info("Replacing values with mapping in external file")
         else:
-            s = s.replace({k["value"]: k["with"] for k in rep})
+            s = s.replace({k["value"]: k["to"] for k in rep})
             logging.info("Replacing values with given in config")
 
     if ca := kwargs.get("case"):

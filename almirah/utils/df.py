@@ -86,5 +86,5 @@ def common_rows(
         left_on=child_on,
         right_on=parent_on,
         indicator=True,
-    )
-    return merged["_merge"].eq("both").set_index("index")
+    ).set_index("index")
+    return merged["_merge"].eq("both")

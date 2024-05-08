@@ -162,6 +162,7 @@ class Layout(Component):
         elif returns == "rel_path":
             return [f.rel_path for f in files]
 
+        returns = [returns] if isinstance(returns, str) else returns
         return [[f.tags.get(t) for t in returns] for f in files]
 
     def move_root(self, path):

@@ -35,7 +35,7 @@ def extract_dtype_from_db_type_string(
         If a non-string data type incorrectly specifies a length.
     """
 
-    SUPPORTED_DTYPES = {"boolean", "datetime", "float", "integer", "str"}
+    SUPPORTED_DTYPES = {"str", "date", "float", "boolean", "integer", "datetime"}
 
     match = re.match(r"(\w+).?(\d+)?", type_string)
     if not match:

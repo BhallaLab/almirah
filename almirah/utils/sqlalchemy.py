@@ -3,6 +3,7 @@
 from typing import Type
 from typing import Union
 
+from sqlalchemy.types import Date
 from sqlalchemy.types import Float
 from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
@@ -37,11 +38,12 @@ def get_sql_type(
     """
 
     SQL_TYPE_EQUIVALENT = {
-        "boolean": Boolean,
-        "datetime": DateTime,
-        "float": Float,
-        "integer": Integer,
         "str": String,
+        "date": Date,
+        "float": Float,
+        "boolean": Boolean,
+        "integer": Integer,
+        "datetime": DateTime,
     }
 
     dtype, length = extract_dtype_from_db_type_string(type_string, default_length)

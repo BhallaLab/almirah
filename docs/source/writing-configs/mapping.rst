@@ -68,8 +68,8 @@ The column mapping is defined using:
 ``dtype``
     The datatype of the column values.
 
-    Can be ``bool``, ``datetime``, ``float``, ``integer``, or
-    ``str``. Optionally ``str`` accepts a length parameter as
+    Can be ``str``, ``bool``, ``date``, ``float``, ``integer``, or
+    ``datetime``. Optionally ``str`` accepts a length parameter as
     ``str(length)`` that defines the maximum number of characters
     allowed.
 

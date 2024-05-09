@@ -1,3 +1,3 @@
-from .lib import get_tutorial_dataset
+from .lib import create_tutorial_dataset
 
-__all__ = [get_tutorial_dataset]
+__all__ = [create_tutorial_dataset]

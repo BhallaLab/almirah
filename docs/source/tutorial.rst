@@ -11,13 +11,13 @@ the :ref:`Installing` section and follow the instructions.
 
 First, let us obtain the dataset to work on for the tutorial. It comes
 along with ``almirah`` and can be copied to a convenient location using
-the :meth:`~utils.lib.get_tutorial_dataset`.
+the :meth:`~utils.lib.create_tutorial_dataset`.
 
 .. code-block:: python
 
-	       from almirah.utils import get_tutorial_dataset
+	       from almirah.utils import create_tutorial_dataset
 
-	       get_tutorial_dataset("path/to/store")
+	       create_tutorial_dataset("path/to/store")
 
 The dataset contents can be listed using the ``tree`` command.
 

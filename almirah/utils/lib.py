@@ -1,12 +1,8 @@
 """Library-specific utility functins."""
 
-import os
 import re
 from typing import Tuple
-
-from os.path import dirname as up
-
-from .gen import copy
+from pathlib import Path
 
 
 def extract_dtype_from_db_type_string(
@@ -54,17 +50,32 @@ def extract_dtype_from_db_type_string(
     return dtype, int(length) if length else None
 
 
-def get_tutorial_dataset(dst: str) -> None:
+def create_tutorial_dataset(root: str) -> None:
     """
-    Copies the tutorial dataset to destination.
+    Create tutorial dataset at root.
 
     Parameters
     ----------
-    dst : str
-        The destination path where the dataset will be copied.
+    root : str
+        The path where the dataset will be created.
     """
 
-    from almirah import __file__ as this_file
+    # Define the structure of directories and files
+    structure = {
+        "": ["DAY01_G171_20180101.npy", "Day2_171_20180102.npy"],
+        "72": ["DAY01_G72_20180201.npy", "DAY02_G72_20180202.npy"],
+        "G433": ["DAY_G433_20180301.npy", "day02_G433_20180301.npy"],
+    }
 
-    path = os.path.join(up(up(this_file)), "tests/data/tutorial")
-    copy(path, dst)
+    # Ensure the root directory exists
+    root_path = Path(root)
+    root_path.mkdir(parents=True, exist_ok=True)
+
+    # Loop through the structure dictionary to create files
+    for directory, files in structure.items():
+        dir_path = root_path / directory
+        dir_path.mkdir(parents=True, exist_ok=True)
+
+        for file_name in files:
+            file_path = dir_path / file_name
+            file_path.touch()

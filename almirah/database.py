@@ -125,7 +125,7 @@ class Database(Component):
 
         if self.backend == "request":
             data = {"username": username, "password": password}
-            response = requests.post(self.host, data=data).json()
+            response = requests.post(f"{self.host}authenticate/", data=data).json()
 
             if "error" in response:
                 raise ValueError(response["error"])

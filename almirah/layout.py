@@ -145,7 +145,7 @@ class Layout(Component):
         conditions = [and_(Tag.name == n, Tag.value.in_(v)) for n, v in filters.items()]
 
         # Combine conditions using AND to find matches
-        match = combine.where(or_(*conditions))
+        match = combine.where(File.root == self.root).where(or_(*conditions))
 
         # Trim down matches to only those that have all mentioned tags
         trim = match.group_by(File).having(func.count(Tag.name) == len(filters))

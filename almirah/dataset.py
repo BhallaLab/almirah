@@ -1,5 +1,7 @@
 """ Model classes to represent a dataset and its components."""
 
+import pandas as pd
+
 from typing import List
 from typing import Optional
 
@@ -96,10 +98,17 @@ class Dataset(Component):
         list
             List of components or queried data meeting the filter criteria.
         """
-        results = [r for c in self.components if (r := c.query(returns, **filters))]
-        if "table" in filters and results:
-            return results[0]
-        return [i for result in results for i in result]
+        results = list()
+        for c in self.components:
+            result = c.query(returns, **filters)
+
+            if isinstance(result, pd.DataFrame) and not result.empty:
+                return result
+
+            if result:
+                results.extend(result)
+
+        return results
 
     def __repr__(self) -> str:
         return f"<Dataset name: '{self.name}'>"

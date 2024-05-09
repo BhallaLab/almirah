@@ -22,8 +22,11 @@ from .dataset import Component
 
 from .utils.df import common_rows
 from .utils.df import convert_column_type
+from .utils.df import python_to_pandas_type
+
 from .utils.logging import log_df
 from .utils.logging import log_col
+
 from .utils.sqlalchemy import get_sql_type
 
 
@@ -154,7 +157,21 @@ class Database(Component):
         cols : list of str
             Column names to select from table.
         """
-        return pd.read_sql_table(table, self.connection, columns=cols)
+        if self.backend == "request":
+            data = {"table": table, "cols": cols}
+            header = {"Authorization": f"Bearer {self.token}"}
+            response = requests.post(self.host, data=data, headers=header)
+            records = pd.DataFrame(response.json())
+
+        else:
+            dtype = {}
+            for column in self.meta.tables[table].columns:
+                generic_type = column.type.as_generic()
+                dtype[column.name] = python_to_pandas_type(generic_type.python_type)
+            records = pd.read_sql_table(table, self.connection, columns=cols)
+            records = records.astype(dtype)
+
+        return records
 
     def to_table(
         self,
@@ -352,13 +369,7 @@ class Database(Component):
         if not table:
             return None
 
-        if self.backend == "request":
-            data = {"table": table, "returns": returns}
-            header = {"Authorization": f"Bearer {self.token}"}
-            response = requests.post(self.host, data=data, headers=header).json()
-            df = pd.DataFrame(response)
-        else:
-            df = self.get_records(table, returns)
+        df = self.get_records(table, returns)
 
         if filters:
             df = df[np.logical_and.reduce([df[k] == v for k, v in filters.items()])]

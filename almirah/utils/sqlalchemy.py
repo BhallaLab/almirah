@@ -1,7 +1,6 @@
 """SQLAlchemy utility functions."""
 
 from typing import Type
-from typing import Union
 
 from sqlalchemy.types import Date
 from sqlalchemy.types import Float
@@ -9,13 +8,12 @@ from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
 from sqlalchemy.types import Integer
 from sqlalchemy.types import DateTime
+from sqlalchemy.types import TypeEngine
 
 from .lib import extract_dtype_from_db_type_string
 
 
-def get_sql_type(
-    type_string: str, default_length: int = 250
-) -> Union[Type[Float], Type[String], Type[Boolean], Type[Integer], Type[DateTime]]:
+def get_sql_type(type_string: str, default_length: int = 250) -> Type[TypeEngine]:
     """
     Return the SQLAlchemy type equivalent for a given type string representation.
 

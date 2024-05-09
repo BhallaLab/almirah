@@ -96,7 +96,10 @@ class Layout(Component):
         """Clone Layout from datalad url."""
         if not self.url and not url:
             raise ValueError(f"Remote url for {self} not set")
-        self.url = url
+
+        if not self.url:
+            self.url = url
+
         clone(source=self.url, path=self.root)
 
     def index(self, root=None, metadata=False, valid_only=True, reset=False, **funcs):

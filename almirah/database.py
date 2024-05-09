@@ -52,7 +52,7 @@ class Database(Component):
         if self.backend == "request":
             raise ValueError("Connection not permissible in request mode")
 
-        if not getattr(self, "db"):
+        if not getattr(self, "db", None):
             raise TypeError(f"Connection to {self} not established")
         return self.db.connection
 

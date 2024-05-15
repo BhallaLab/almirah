@@ -178,51 +178,6 @@ provided via ``cols``, if not all columns are retrieved.
 
 .. code-block:: python
 
-		db.get_table("table name")
-
-Analyzing
----------
-
-It should be possible to interface almirah with any tooklit available in
-python. We recommend the below libaries as we have found them to play
-well with almirah for neuroimaging and genomics datasets:
-
-.. list-table::
-   :header-rows: 1
-
-   * - Datatype
-     - Recommended libraries
-   * - Magnetic resonance imaging
-     - `nibabel <https://nipy.org/nibabel/>`_
-   * - Electroencephalography
-     - `mne <https://mne.tools/stable/index.html>`_
-   * - Eye tracking
-     - `mne <https://mne.tools/stable/index.html>`_
-   * - Functional near-infrared spectroscopy
-     - `mne-nirs <https://mne.tools/mne-nirs/stable/index.html>`_
-   * - Genomics
-     - `pysam <https://pysam.readthedocs.io/en/latest/index.html>`_,
-       `scikit-allel <https://scikit-allel.readthedocs.io/en/latest/>`_
-
-Typically, it might be desirable to extract features from each file
-and represent them as a :class:`~pandas.DataFrame`:
-
-.. code-block:: python
-
-		# Query and retrieve files
-		files = lay.query(datatype="eeg", extension=".edf")
-
-		import mne              # For Electroencephalography data
-		import pandas           # To store the features
-
-		# Create a function to extract and return feature
-		def extract_feature(file):
-		    raw = mne.io.read_raw_edf(file.path)
-		    feature = raw.get_data.mean()
-		    return feature
-		    
-		# Extract for all files
-		feature_df = pandas.concat(map(extract_feature, files))
 
 Reporting
 ---------

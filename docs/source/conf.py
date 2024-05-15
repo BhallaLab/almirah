@@ -28,9 +28,9 @@ add_module_names = False
 autodoc_class_signature = "separated"
 autodoc_default_options = {
     "members": True,
-    "member-order": "groupwise",
+    "member-order": "bysource",
     "undoc-members": True,
-    "exclude-members": "__init__, __new__, metadata",
+    "exclude-members": "__init__, __new__, metadata, registry",
     "show-inheritance": True,
     "inherited-members": True,
 }

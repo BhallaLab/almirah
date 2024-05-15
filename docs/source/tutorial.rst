@@ -9,9 +9,9 @@ represents imaging data obtained from mice to illustrate some of its
 usecases. In case you have not installed ``almirah`` yet, please go to
 the :ref:`Installing` section and follow the instructions.
 
-First, let us obtain the dataset to work on for the tutorial. It comes
-along with ``almirah`` and can be copied to a convenient location using
-the :meth:`~utils.lib.create_tutorial_dataset`.
+The dummy dataset that we will be using comes along with ``almirah``
+and can be created at a convenient location using
+:meth:`~utils.lib.create_tutorial_dataset`.
 
 .. code-block:: python
 
@@ -331,27 +331,17 @@ tags for each file. For this, it has to be indexed.
 .. important::
 
    Before :class:`~layout.Layout` creation, it is required that a
-   :class:`~specification.Specification` be created and added to the
-   index. The ``specification_name`` argument checks for the index to
-   retrieve the :class:`~specification.Specification`. This can be
-   achieve like so:
-
-   .. code-block:: python
-
-		   from almirah import index
-
-		   # Add Specification to index
-		   index.add(spec)
-
-		   # Without commiting, no writing is done to the index
-		   index.commit()
+   :class:`~specification.Specification` be created. The
+   ``specification_name`` argument checks for the index to retrieve
+   the :class:`~specification.Specification`. This can be achieve like
+   so:
 
 With this, we can start querying in multiple ways.
 
 Filtering with tags
 ~~~~~~~~~~~~~~~~~~~
 
-Once indexer, the instance can be queried with
+Once indexed, the instance can be queried with
 :meth:`~layout.Layout.query()` using tag values. For example, retrieve
 all files of mice *G171* where recording was done on day *02*.
 
@@ -416,7 +406,10 @@ miss out on these, the dataset is not complete. Worry not, a
 queried to retrieve records using :meth:`~database.Database.query`
 too. Queries with the parameter ``table`` to a
 :class:`~dataset.Dataset` are directed to its component databases
-only.
+only. Connection to the :class:`~database.Database` has to be
+established using :meth:`~database.Database.connect` during each
+Python session. This is because, the ``index`` does not store
+usernames and passwords for security reasons.
 
 .. code-block:: python
 
@@ -429,33 +422,55 @@ only.
 		# Add db to Dataset
 		dataset.add(db)
 
-A :class:`~database.Database` by default is in *connection mode*. This
-means, connection to the :class:`~database.Database` has to be
-established using :meth:`~database.Database.connect` during each
-Python session. This is because, the ``index`` does not store
-usernames and passwords for security reasons. An alternative to this,
-is the *request mode*. This is only applicable for retrieving records
-and not other operations. To set this mode on object creation, provide
-the parameter ``backend="request"``:
+A :class:`~database.Database` by SQLAlchemy is in *connection
+mode*. An alternative to this, is the *request mode*. This is only
+applicable for retrieving records and not other operations. To set
+this mode on object creation, provide the parameter
+``backend="request"``:
 
 .. code-block:: python
 
 		# Create a Database in 'request' mode
 		db = Database(name="tutorial", host="127.0.0.1", backend="request")
 
-In this mode, queries are sent as *POST* requests to the url endpoint
-and the response is chosen as the result. For this to work, you should
-have setup a url endpoint on the server that the
-:class:`~database.Database` instance is running on. This url endpoint
-processes the request appropriately, and returns the records as a
-response in *JSON*. One way this can be achieved is by extracting
-*POST* request keys and passing them as arguments to
-:meth:`~database.Database.query` in the view that handles requests to
-the url endpoint.
-		
+		# Connect to end point
+		db.connect(username, password)
+
+In this mode, queries are sent as *POST* requests with appropriate
+authentication header to the url endpoint and the response is chosen
+as the result. For this to work, you should have setup a url endpoint
+on the server that the :class:`~database.Database` instance is running
+on and setup appropriate authentication on *host/authenticate* to
+return a token. This url endpoint processes the request appropriately,
+and returns the records as a response in *JSON*. One way this can be
+achieved is by extracting *POST* request keys and passing them as
+arguments to :meth:`~database.Database.query` in the view that handles
+requests to the url endpoint.
+
+Another mode of operation, deals with data in Google sheets. Here,
+each spreadsheet is treated as the Database and each worksheet in the
+spreatsheet is analogous to a table. To read data from sheets, set
+``backend="gsheet"`` and to connect provide the keyfile.
+
 .. note::
 
-   Only databases supported by SQLAlchemy are functional via ``almirah``.
+   Please have a look at the `Create service account keys`_ section of
+   Google worspace docs to create a keyfile.
+
+   _`Create service account keys`:https://cloud.google.com/iam/docs/keys-create-delete
+
+.. code-block:: python
+
+		# Create Database in 'gsheet' mode
+		db = Database(name='any name', host='gsheet url', backend='gsheet')
+
+		# Connect to gsheet via Google API
+		db.connect(keyfile='/path to keyfile')     
+		
+.. important::
+
+   Only databases supported by SQLAlchemy are functional via
+   ``almirah`` for operations other than reading.
 
 Other capabilities
 ------------------
@@ -466,4 +481,6 @@ can help with. There are other things it can do:
 * Migrate database records from one schema to another
 * Interface with DataLad compatible datasets
 
-Please look up :doc:`reference/index` if you need these.
+Please look up :doc:`reference/index` if you need these. If there is a
+feature you would like, but ``almirah`` does not support it yet,
+please do consider raising a request or :doc:`contributing`.

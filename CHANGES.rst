@@ -1,3 +1,28 @@
+0.4.1 (2024-05-16)
+==================
+
+Features
+--------
+
+- Ability to move Layouts for easy sharing of index
+- Ability to read from Google sheets
+- Added *request mode* to Database for URL endpoints that can return data
+- Support for *Date* type added to mapping config
+
+
+Bugfixes
+--------
+
+- Updated broken tutorial import (`#1 <https://github.com/girishmm/almirah/issues/1>`__)
+- Multiple bug fixes on Indexing, reading YAMLs, DB reflection, DB record retrieval, Layout cloning, and Layout querying
+
+
+Misc
+----
+
+- `#2 <https://github.com/girishmm/almirah/issues/2>`__
+
+
 0.3.0 (2024-04-23)
 ==================
 

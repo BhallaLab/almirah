@@ -190,3 +190,7 @@ and great work!
 - Yarkoni et al., (2019). PyBIDS: Python tools for BIDS
   datasets. Journal of Open Source Software, 4(40), 1294.  doi:
   https://doi.org/10.21105/joss.01294.
+
+- Michael Bayer. SQLAlchemy. In Amy Brown and Greg Wilson, editors,
+  The Architecture of Open Source Applications Volume II: Structure,
+  Scale, and a Few More Fearless Hacks 2012 http://aosabook.org.

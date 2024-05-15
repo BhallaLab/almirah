@@ -52,26 +52,34 @@ class Database(Component):
 
     @property
     def connection(self):
-        if self.backend == "request":
-            raise ValueError("Connection not permissible in request mode")
+        if self.backend in ["request", "gsheet"]:
+            raise TypeError("Connection only permissible in connection mode")
 
         if not getattr(self, "db", None):
             raise TypeError(f"Connection to {self} not established")
         return self.db.connection
 
     @property
+    def worksheet(self):
+        if self.backend != "gsheet":
+            raise TypeError("Worksheet only permissible in google sheets mode")
+
+        if not getattr(self, "client"):
+            raise TypeError(f"Connection to {self} not established")
+
+    @property
     def meta(self):
-        if self.backend == "request":
-            raise ValueError("Metadata not permissible in request mode")
+        if self.backend in ["request", "gsheet"]:
+            raise TypeError("Metadata only permissible in connection mode")
 
         if not getattr(self, "db"):
-            raise TypeError(f"Connection to {self} not established")
+            raise ValueError(f"Connection to {self} not established")
         return self.db.metadata
 
     @property
     def token(self):
         if self.backend != "request":
-            raise ValueError("Token only permissible in request mode")
+            raise TypeError("Token only permissible in request mode")
 
         if not getattr(self, "_token"):
             raise TypeError(f"Connection to {self} not established")
@@ -104,7 +112,7 @@ class Database(Component):
         table = Table(table, self.meta, *cls, *cns, extend_existing=True)
         table.create(bind=self.connection, checkfirst=True)
 
-    def connect(self, username, password):
+    def connect(self, username=None, password=None, keyfile=None):
         """
         Establish a connection to the database.
 
@@ -114,6 +122,8 @@ class Database(Component):
             The database username.
         password : str
             The database password.
+        keyfile : str
+            Path to the service account keyfile. Required if backend is gsheet.
 
         Raises
         ------
@@ -132,15 +142,22 @@ class Database(Component):
 
             self._token = response["token"]
 
-        url = URL.create(
-            self.backend,
-            username=username,
-            password=password,
-            host=self.host,
-            database=self.name,
-        )
+        elif self.backend == "gsheet":
+            import gspread
 
-        self.db = DBManager(url)
+            self._client = gspread.service_account(keyfile)
+            self.spreadsheet = self._client.open_by_url(self.host)
+
+        else:
+            url = URL.create(
+                self.backend,
+                username=username,
+                password=password,
+                host=self.host,
+                database=self.name,
+            )
+
+            self.db = DBManager(url)
 
     def get_primary(self, table):
         """Return priamry keys for table."""
@@ -162,6 +179,14 @@ class Database(Component):
             header = {"Authorization": f"Bearer {self.token}"}
             response = requests.post(self.host, data=data, headers=header)
             records = pd.DataFrame(response.json())
+
+        elif self.backend == "gsheet":
+            data = self.spreadsheet.worksheet(table).get_all_values()
+            headers = data.pop(0)
+            records = pd.DataFrame(data, columns=headers)
+
+            if cols:
+                records = records[cols]
 
         else:
             dtype = {}

@@ -1,11 +1,8 @@
 """File format conversion utility functions."""
 
 import os
-import mne
 import shlex
 import logging
-import mne_bids
-import mne_nirs
 
 from .gen import run_shell
 
@@ -122,6 +119,9 @@ def edf2asc(files, out, dst, **kwargs):
 def nirx2snirf(files, out, dst, **kwargs):
     """Convert NIRS data format and write to disk."""
 
+    import mne
+    import mne_nirs
+
     for file in files:
         raw = mne.io.read_raw_nirx(file.path)
         raw.anonymize(**kwargs.get("anonymize", {}))
@@ -140,6 +140,9 @@ def nirx2snirf(files, out, dst, **kwargs):
 
 def eeg_converter(files, out, dst, **kwargs):
     """Convert EEG data format and write to disk."""
+
+    import mne
+    import mne_bids
 
     # Set conversion logging level
     verbose = kwargs.get("logging", "INFO")

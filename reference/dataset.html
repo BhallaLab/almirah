@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Database and DBManager" href="database.html" /><link rel="prev" title="API Reference" href="index.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Dataset and its Components - almirah 0.3.0 documentation</title>
+        <title>Dataset and its Components - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -173,7 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
@@ -227,132 +226,20 @@
           <section id="dataset-and-its-components">
 <h1>Dataset and its Components<a class="headerlink" href="#dataset-and-its-components" title="Link to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Dataset</span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></a></p>
-<p>Represents a collection of components as a dataset.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><span class="pre">Component</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.add" title="Link to this definition">¶</a></dt>
-<dd><p>Adds components to the dataset.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>components</strong> (<a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><em>Component</em></a>) – <cite>Component</cite> instances to be added to the dataset.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>TypeError</strong> – If a dataset is added to itself or circular references are detected.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.get">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.dataset.Dataset.get" title="Link to this definition">¶</a></dt>
-<dd><p>Return an instance from index if found, else None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of cls or None if not found.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.get_identifiers">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.dataset.Dataset.get_identifiers" title="Link to this definition">¶</a></dt>
-<dd><p>Return dictionary of class identifier attributes and their values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.index" title="Link to this definition">¶</a></dt>
-<dd><p>Perform indexing on components.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.options">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.dataset.Dataset.options" title="Link to this definition">¶</a></dt>
-<dd><p>Return all existing instances from index.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.query" title="Link to this definition">¶</a></dt>
-<dd><p>Query components based on filter criteria.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>returns</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – Specific fields to return, defaults to all or object if None.</p></li>
-<li><p><strong>filters</strong> (<em>dict</em>) – Filter conditions to apply on the query.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of components or queried data meeting the filter criteria.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.report">
-<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.report" title="Link to this definition">¶</a></dt>
-<dd><p>Generate report for dataset.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.components">
-<span class="sig-name descname"><span class="pre">components</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><span class="pre">Component</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.components" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.dataset.Dataset.registry" title="Link to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Dataset.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="almirah.dataset.Component">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Component</span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Component" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
 <p>Generic component representation within the dataset architecture.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.dataset.Component.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Component.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.dataset.Component.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Component.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="almirah.dataset.Component.get">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.dataset.Component.get" title="Link to this definition">¶</a></dt>
@@ -395,21 +282,119 @@
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Dataset</span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></a></p>
+<p>Represents a collection of components as a dataset.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Component.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Component.id" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.id" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Component.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.dataset.Component.registry" title="Link to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.components">
+<span class="sig-name descname"><span class="pre">components</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><span class="pre">Component</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.components" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><span class="pre">Component</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.add" title="Link to this definition">¶</a></dt>
+<dd><p>Adds components to the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>components</strong> (<a class="reference internal" href="#almirah.dataset.Component" title="almirah.dataset.Component"><em>Component</em></a>) – <cite>Component</cite> instances to be added to the dataset.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If a dataset is added to itself or circular references are detected.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.index" title="Link to this definition">¶</a></dt>
+<dd><p>Perform indexing on components.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.report">
+<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.report" title="Link to this definition">¶</a></dt>
+<dd><p>Generate report for dataset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="../_modules/almirah/dataset.html#Dataset.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.dataset.Dataset.query" title="Link to this definition">¶</a></dt>
+<dd><p>Query components based on filter criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>returns</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – Specific fields to return, defaults to all or object if None.</p></li>
+<li><p><strong>filters</strong> (<em>dict</em>) – Filter conditions to apply on the query.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of components or queried data meeting the filter criteria.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.get">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.dataset.Dataset.get" title="Link to this definition">¶</a></dt>
+<dd><p>Return an instance from index if found, else None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of cls or None if not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.get_identifiers">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.dataset.Dataset.get_identifiers" title="Link to this definition">¶</a></dt>
+<dd><p>Return dictionary of class identifier attributes and their values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.options">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.dataset.Dataset.options" title="Link to this definition">¶</a></dt>
+<dd><p>Return all existing instances from index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.dataset.Component.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Component.type" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="almirah.dataset.Dataset.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.dataset.Dataset.type" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -479,28 +464,26 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Dataset and its Components</a><ul>
-<li><a class="reference internal" href="#almirah.dataset.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a><ul>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.add"><code class="docutils literal notranslate"><span class="pre">Dataset.add()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.get"><code class="docutils literal notranslate"><span class="pre">Dataset.get()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Dataset.get_identifiers()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.index"><code class="docutils literal notranslate"><span class="pre">Dataset.index()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.options"><code class="docutils literal notranslate"><span class="pre">Dataset.options()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.query"><code class="docutils literal notranslate"><span class="pre">Dataset.query()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.report"><code class="docutils literal notranslate"><span class="pre">Dataset.report()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.components"><code class="docutils literal notranslate"><span class="pre">Dataset.components</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.id"><code class="docutils literal notranslate"><span class="pre">Dataset.id</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.name"><code class="docutils literal notranslate"><span class="pre">Dataset.name</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.registry"><code class="docutils literal notranslate"><span class="pre">Dataset.registry</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Dataset.type"><code class="docutils literal notranslate"><span class="pre">Dataset.type</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#almirah.dataset.Component"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.dataset.Component.id"><code class="docutils literal notranslate"><span class="pre">Component.id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Component.type"><code class="docutils literal notranslate"><span class="pre">Component.type</span></code></a></li>
 <li><a class="reference internal" href="#almirah.dataset.Component.get"><code class="docutils literal notranslate"><span class="pre">Component.get()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.dataset.Component.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Component.get_identifiers()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.dataset.Component.options"><code class="docutils literal notranslate"><span class="pre">Component.options()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Component.id"><code class="docutils literal notranslate"><span class="pre">Component.id</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Component.registry"><code class="docutils literal notranslate"><span class="pre">Component.registry</span></code></a></li>
-<li><a class="reference internal" href="#almirah.dataset.Component.type"><code class="docutils literal notranslate"><span class="pre">Component.type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.id"><code class="docutils literal notranslate"><span class="pre">Dataset.id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.components"><code class="docutils literal notranslate"><span class="pre">Dataset.components</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.name"><code class="docutils literal notranslate"><span class="pre">Dataset.name</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.add"><code class="docutils literal notranslate"><span class="pre">Dataset.add()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.index"><code class="docutils literal notranslate"><span class="pre">Dataset.index()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.report"><code class="docutils literal notranslate"><span class="pre">Dataset.report()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.query"><code class="docutils literal notranslate"><span class="pre">Dataset.query()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.get"><code class="docutils literal notranslate"><span class="pre">Dataset.get()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Dataset.get_identifiers()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.options"><code class="docutils literal notranslate"><span class="pre">Dataset.options()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.dataset.Dataset.type"><code class="docutils literal notranslate"><span class="pre">Dataset.type</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -514,7 +497,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

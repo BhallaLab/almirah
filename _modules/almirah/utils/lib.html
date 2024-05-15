@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <link rel="shortcut icon" href="../../../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>almirah.utils.lib - almirah 0.3.0 documentation</title>
+        <title>almirah.utils.lib - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -172,7 +172,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/utils.html">Utilities</a></li>
@@ -217,13 +216,9 @@
           <h1>Source code for almirah.utils.lib</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Library-specific utility functins.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
-
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span> <span class="k">as</span> <span class="n">up</span>
-
-<span class="kn">from</span> <span class="nn">.gen</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 
 <span class="k">def</span> <span class="nf">extract_dtype_from_db_type_string</span><span class="p">(</span>
@@ -252,7 +247,7 @@
 <span class="sd">        If a non-string data type incorrectly specifies a length.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">SUPPORTED_DTYPES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;boolean&quot;</span><span class="p">,</span> <span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span> <span class="s2">&quot;str&quot;</span><span class="p">}</span>
+    <span class="n">SUPPORTED_DTYPES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span> <span class="s2">&quot;boolean&quot;</span><span class="p">,</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span> <span class="s2">&quot;datetime&quot;</span><span class="p">}</span>
 
     <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+).?(\d+)?&quot;</span><span class="p">,</span> <span class="n">type_string</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
@@ -271,22 +266,37 @@
     <span class="k">return</span> <span class="n">dtype</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="k">if</span> <span class="n">length</span> <span class="k">else</span> <span class="kc">None</span>
 
 
-<div class="viewcode-block" id="get_tutorial_dataset">
-<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.lib.get_tutorial_dataset">[docs]</a>
-<span class="k">def</span> <span class="nf">get_tutorial_dataset</span><span class="p">(</span><span class="n">dst</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="create_tutorial_dataset">
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.lib.create_tutorial_dataset">[docs]</a>
+<span class="k">def</span> <span class="nf">create_tutorial_dataset</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Copies the tutorial dataset to destination.</span>
+<span class="sd">    Create tutorial dataset at root.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    dst : str</span>
-<span class="sd">        The destination path where the dataset will be copied.</span>
+<span class="sd">    root : str</span>
+<span class="sd">        The path where the dataset will be created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="vm">__file__</span> <span class="k">as</span> <span class="n">this_file</span>
+    <span class="c1"># Define the structure of directories and files</span>
+    <span class="n">structure</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;DAY01_G171_20180101.npy&quot;</span><span class="p">,</span> <span class="s2">&quot;Day2_171_20180102.npy&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;72&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;DAY01_G72_20180201.npy&quot;</span><span class="p">,</span> <span class="s2">&quot;DAY02_G72_20180202.npy&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;G433&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;DAY_G433_20180301.npy&quot;</span><span class="p">,</span> <span class="s2">&quot;day02_G433_20180301.npy&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
 
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="n">this_file</span><span class="p">)),</span> <span class="s2">&quot;tests/data/tutorial&quot;</span><span class="p">)</span>
-    <span class="n">copy</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span></div>
+    <span class="c1"># Ensure the root directory exists</span>
+    <span class="n">root_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">root_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Loop through the structure dictionary to create files</span>
+    <span class="k">for</span> <span class="n">directory</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="n">root_path</span> <span class="o">/</span> <span class="n">directory</span>
+        <span class="n">dir_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">dir_path</span> <span class="o">/</span> <span class="n">file_name</span>
+            <span class="n">file_path</span><span class="o">.</span><span class="n">touch</span><span class="p">()</span></div>
 
 </pre></div>
         </article>
@@ -327,7 +337,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../../../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

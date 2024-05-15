@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Contributing" href="../contributing.html" /><link rel="prev" title="Unique Objects" href="unique.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Utilities - almirah 0.3.0 documentation</title>
+        <title>Utilities - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -173,7 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="unique.html">Unique Objects</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Utilities</a></li>
@@ -229,12 +228,12 @@
 <section id="library-specific">
 <h2>Library-specific<a class="headerlink" href="#library-specific" title="Link to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="almirah.utils.lib.get_tutorial_dataset">
-<span class="sig-name descname"><span class="pre">get_tutorial_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/utils/lib.html#get_tutorial_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.lib.get_tutorial_dataset" title="Link to this definition">¶</a></dt>
-<dd><p>Copies the tutorial dataset to destination.</p>
+<dt class="sig sig-object py" id="almirah.utils.lib.create_tutorial_dataset">
+<span class="sig-name descname"><span class="pre">create_tutorial_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/utils/lib.html#create_tutorial_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.lib.create_tutorial_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Create tutorial dataset at root.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dst</strong> (<em>str</em>) – The destination path where the dataset will be copied.</p>
+<dd class="field-odd"><p><strong>root</strong> (<em>str</em>) – The path where the dataset will be created.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -288,27 +287,27 @@ is ‘datetime’.</p></li>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-almirah.utils.logging">
-<span id="logging"></span><h2>Logging<a class="headerlink" href="#module-almirah.utils.logging" title="Link to this heading">¶</a></h2>
-<p>Logging utility functions.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="almirah.utils.logging.log_col">
-<span class="sig-name descname"><span class="pre">log_col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/utils/logging.html#log_col"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.logging.log_col" title="Link to this definition">¶</a></dt>
-<dd><p>Log column values with a message.</p>
+<dt class="sig sig-object py" id="almirah.utils.df.python_to_pandas_type">
+<span class="sig-name descname"><span class="pre">python_to_pandas_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">python_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/almirah/utils/df.html#python_to_pandas_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.df.python_to_pandas_type" title="Link to this definition">¶</a></dt>
+<dd><p>Return pandas type equivalent of python type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>series</strong> (<em>pd.Series</em>) – Series to be logged.</p></li>
-<li><p><strong>msg</strong> (<em>str</em>) – Log message compatible with string formatting.</p></li>
-<li><p><strong>hide</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, hides the values of the series.</p></li>
-<li><p><strong>level</strong> (<em>int</em><em>, </em><em>optional</em>) – Logging level to use. Accepts logging.LEVEL values.</p></li>
-<li><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value mappings</em>) – Other keyword arguments are passed to <cite>str.format()</cite>.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>python_type</strong> (<em>Any</em>) – Python type for which pandas equivalent is required.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representation of a pandas dtype.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
 
+</section>
+<section id="module-almirah.utils.logging">
+<span id="logging"></span><h2>Logging<a class="headerlink" href="#module-almirah.utils.logging" title="Link to this heading">¶</a></h2>
+<p>Logging utility functions.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="almirah.utils.logging.log_df">
 <span class="sig-name descname"><span class="pre">log_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/utils/logging.html#log_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.logging.log_df" title="Link to this definition">¶</a></dt>
@@ -319,6 +318,23 @@ is ‘datetime’.</p></li>
 <li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – DataFrame to be logged.</p></li>
 <li><p><strong>msg</strong> (<em>str</em>) – Log message compatible with string formatting.</p></li>
 <li><p><strong>hide</strong> (<em>list-like</em><em> or </em><em>scalar</em><em>, </em><em>optional</em>) – Sensitive column or columns to hide.</p></li>
+<li><p><strong>level</strong> (<em>int</em><em>, </em><em>optional</em>) – Logging level to use. Accepts logging.LEVEL values.</p></li>
+<li><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value mappings</em>) – Other keyword arguments are passed to <cite>str.format()</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.utils.logging.log_col">
+<span class="sig-name descname"><span class="pre">log_col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/utils/logging.html#log_col"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.logging.log_col" title="Link to this definition">¶</a></dt>
+<dd><p>Log column values with a message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Series to be logged.</p></li>
+<li><p><strong>msg</strong> (<em>str</em>) – Log message compatible with string formatting.</p></li>
+<li><p><strong>hide</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, hides the values of the series.</p></li>
 <li><p><strong>level</strong> (<em>int</em><em>, </em><em>optional</em>) – Logging level to use. Accepts logging.LEVEL values.</p></li>
 <li><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value mappings</em>) – Other keyword arguments are passed to <cite>str.format()</cite>.</p></li>
 </ul>
@@ -385,15 +401,15 @@ is ‘datetime’.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="almirah.utils.gen.read_multi_yaml">
-<span class="sig-name descname"><span class="pre">read_multi_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/almirah/utils/gen.html#read_multi_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.gen.read_multi_yaml" title="Link to this definition">¶</a></dt>
-<dd><p>Return list of dict equivalents of yamls in file.</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="almirah.utils.gen.read_yaml">
 <span class="sig-name descname"><span class="pre">read_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/almirah/utils/gen.html#read_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.gen.read_yaml" title="Link to this definition">¶</a></dt>
 <dd><p>Return dict equivalent of yaml in file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.utils.gen.read_multi_yaml">
+<span class="sig-name descname"><span class="pre">read_multi_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/almirah/utils/gen.html#read_multi_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.utils.gen.read_multi_yaml" title="Link to this definition">¶</a></dt>
+<dd><p>Return list of dict equivalents of yamls in file.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -469,17 +485,18 @@ is ‘datetime’.</p></li>
             <ul>
 <li><a class="reference internal" href="#">Utilities</a><ul>
 <li><a class="reference internal" href="#library-specific">Library-specific</a><ul>
-<li><a class="reference internal" href="#almirah.utils.lib.get_tutorial_dataset"><code class="docutils literal notranslate"><span class="pre">get_tutorial_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.lib.create_tutorial_dataset"><code class="docutils literal notranslate"><span class="pre">create_tutorial_dataset()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-almirah.utils.df">Dataframe Manipulation</a><ul>
 <li><a class="reference internal" href="#almirah.utils.df.common_rows"><code class="docutils literal notranslate"><span class="pre">common_rows()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.utils.df.convert_column_type"><code class="docutils literal notranslate"><span class="pre">convert_column_type()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.df.python_to_pandas_type"><code class="docutils literal notranslate"><span class="pre">python_to_pandas_type()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-almirah.utils.logging">Logging</a><ul>
-<li><a class="reference internal" href="#almirah.utils.logging.log_col"><code class="docutils literal notranslate"><span class="pre">log_col()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.utils.logging.log_df"><code class="docutils literal notranslate"><span class="pre">log_df()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.logging.log_col"><code class="docutils literal notranslate"><span class="pre">log_col()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-almirah.utils.gen">General-purpose</a><ul>
@@ -492,8 +509,8 @@ is ‘datetime’.</p></li>
 <li><a class="reference internal" href="#almirah.utils.gen.get_incomplete_keys"><code class="docutils literal notranslate"><span class="pre">get_incomplete_keys()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.utils.gen.get_metadata"><code class="docutils literal notranslate"><span class="pre">get_metadata()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.utils.gen.listify"><code class="docutils literal notranslate"><span class="pre">listify()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.utils.gen.read_multi_yaml"><code class="docutils literal notranslate"><span class="pre">read_multi_yaml()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.utils.gen.read_yaml"><code class="docutils literal notranslate"><span class="pre">read_yaml()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.utils.gen.read_multi_yaml"><code class="docutils literal notranslate"><span class="pre">read_multi_yaml()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.utils.gen.run_shell"><code class="docutils literal notranslate"><span class="pre">run_shell()</span></code></a></li>
 </ul>
 </li>
@@ -508,7 +525,7 @@ is ‘datetime’.</p></li>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <link rel="shortcut icon" href="../../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>almirah.indexer - almirah 0.3.0 documentation</title>
+        <title>almirah.indexer - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -172,7 +172,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../reference/layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/utils.html">Utilities</a></li>
@@ -239,6 +238,8 @@
     <span class="n">path</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_session</span> <span class="o">=</span> <span class="kc">None</span>
 
+<div class="viewcode-block" id="Indexer.__init__">
+<a class="viewcode-back" href="../../reference/indexer.html#almirah.indexer.Indexer.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Indexer</span><span class="o">.</span><span class="n">db</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Index database not set&quot;</span><span class="p">)</span>
@@ -246,7 +247,8 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Indexer</span><span class="o">.</span><span class="n">db</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">Indexer</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
             <span class="n">Indexer</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
             <span class="n">Indexer</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">DBManager</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sqlite:///</span><span class="si">{</span><span class="n">Indexer</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">Indexer</span><span class="o">.</span><span class="n">read_only</span> <span class="o">=</span> <span class="n">read_only</span>
+            <span class="n">Indexer</span><span class="o">.</span><span class="n">read_only</span> <span class="o">=</span> <span class="n">read_only</span></div>
+
 
     <span class="k">def</span> <span class="nf">_build_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds a SQL query for the given class and filters.&quot;&quot;&quot;</span>
@@ -361,7 +363,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>

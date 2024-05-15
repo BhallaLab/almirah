@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <link rel="shortcut icon" href="../../../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>almirah.utils.df - almirah 0.3.0 documentation</title>
+        <title>almirah.utils.df - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -172,7 +172,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/utils.html">Utilities</a></li>
@@ -221,56 +220,10 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
 <span class="kn">from</span> <span class="nn">.lib</span> <span class="kn">import</span> <span class="n">extract_dtype_from_db_type_string</span>
-
-
-<div class="viewcode-block" id="convert_column_type">
-<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.df.convert_column_type">[docs]</a>
-<span class="k">def</span> <span class="nf">convert_column_type</span><span class="p">(</span>
-    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
-    <span class="n">type_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert series to pandas dtype specified in type string representation.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    series: pd.Series</span>
-<span class="sd">        Series for which the dtype has to set.</span>
-<span class="sd">    type_string: str</span>
-<span class="sd">        Supported dtype to which the series will be converted.</span>
-<span class="sd">    kwargs: key, value mappings</span>
-<span class="sd">        Other keyword arguments are passed down to</span>
-<span class="sd">        :doc:`pandas:reference/api/pandas.to_datetime` if the dtype</span>
-<span class="sd">        is &#39;datetime&#39;.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    pd.Series</span>
-<span class="sd">        The converted series with the appropriate dtype.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">dtype</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_dtype_from_db_type_string</span><span class="p">(</span><span class="n">type_string</span><span class="p">)</span>
-
-    <span class="n">dtype_conversion_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nb">str</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span>
-        <span class="s2">&quot;datetime&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
-        <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;integer&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s2">&quot;integer&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;boolean&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-            <span class="p">{</span>
-                <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;0&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;True&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;False&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;Yes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;No&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="p">}</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">dtype_conversion_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)(</span><span class="n">series</span><span class="p">)</span><span class="o">.</span><span class="n">convert_dtypes</span><span class="p">()</span></div>
-
 
 
 <div class="viewcode-block" id="common_rows">
@@ -308,8 +261,84 @@
         <span class="n">left_on</span><span class="o">=</span><span class="n">child_on</span><span class="p">,</span>
         <span class="n">right_on</span><span class="o">=</span><span class="n">parent_on</span><span class="p">,</span>
         <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;_merge&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">&quot;both&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
+    <span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;_merge&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">&quot;both&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="convert_column_type">
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.df.convert_column_type">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_column_type</span><span class="p">(</span>
+    <span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">type_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert series to pandas dtype specified in type string representation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    series: pd.Series</span>
+<span class="sd">        Series for which the dtype has to set.</span>
+<span class="sd">    type_string: str</span>
+<span class="sd">        Supported dtype to which the series will be converted.</span>
+<span class="sd">    kwargs: key, value mappings</span>
+<span class="sd">        Other keyword arguments are passed down to</span>
+<span class="sd">        :doc:`pandas:reference/api/pandas.to_datetime` if the dtype</span>
+<span class="sd">        is &#39;datetime&#39;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.Series</span>
+<span class="sd">        The converted series with the appropriate dtype.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dtype</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_dtype_from_db_type_string</span><span class="p">(</span><span class="n">type_string</span><span class="p">)</span>
+
+    <span class="n">dtype_conversion_map</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;str&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span>
+        <span class="s2">&quot;datetime&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+        <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;integer&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s2">&quot;integer&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;boolean&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;0&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;True&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;False&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;Yes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;No&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">dtype_conversion_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)(</span><span class="n">series</span><span class="p">)</span><span class="o">.</span><span class="n">convert_dtypes</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="python_to_pandas_type">
+<a class="viewcode-back" href="../../../reference/utils.html#almirah.utils.df.python_to_pandas_type">[docs]</a>
+<span class="k">def</span> <span class="nf">python_to_pandas_type</span><span class="p">(</span><span class="n">python_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return pandas type equivalent of python type.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    python_type: Any</span>
+<span class="sd">        Python type for which pandas equivalent is required.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        String representation of a pandas dtype.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">PANDAS_TYPE_EQUIVALENT</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nb">int</span><span class="p">:</span> <span class="s2">&quot;Int64&quot;</span><span class="p">,</span>
+        <span class="nb">str</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+        <span class="nb">bool</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span><span class="p">,</span>
+        <span class="nb">float</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
+        <span class="n">date</span><span class="p">:</span> <span class="s2">&quot;datetime64[ns]&quot;</span><span class="p">,</span>
+        <span class="n">datetime</span><span class="p">:</span> <span class="s2">&quot;datetime64[ns]&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">PANDAS_TYPE_EQUIVALENT</span><span class="p">[</span><span class="n">python_type</span><span class="p">]</span></div>
 
 </pre></div>
         </article>
@@ -350,7 +379,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../../../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

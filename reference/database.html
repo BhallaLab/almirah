@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Layout, File, and Tag" href="layout.html" /><link rel="prev" title="Dataset and its Components" href="dataset.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Database and DBManager - almirah 0.3.0 documentation</title>
+        <title>Database and DBManager - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -173,7 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
@@ -227,10 +226,75 @@
           <section id="database-and-dbmanager">
 <h1>Database and DBManager<a class="headerlink" href="#database-and-dbmanager" title="Link to this heading">¶</a></h1>
 <dl class="py class">
+<dt class="sig sig-object py" id="almirah.core.db.DBManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DBManager</span></span><a class="reference internal" href="../_modules/almirah/core/db.html#DBManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.core.db.DBManager" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages database connections and sessions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.core.db.DBManager.Session">
+<span class="sig-name descname"><span class="pre">Session</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#almirah.core.db.DBManager.Session" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.core.db.DBManager.connection">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connection</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Connection</span></em><a class="headerlink" href="#almirah.core.db.DBManager.connection" title="Link to this definition">¶</a></dt>
+<dd><p>Provides a context-managed connection to the database.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.core.db.DBManager.session">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">session</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#almirah.core.db.DBManager.session" title="Link to this definition">¶</a></dt>
+<dd><p>Provides a context-managed session for performing database operations.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-almirah.database">Database functionality for data write and access.</p>
+<dl class="py class">
 <dt class="sig sig-object py" id="almirah.database.Database">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Database</span></span><a class="reference internal" href="../_modules/almirah/database.html#Database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="dataset.html#almirah.dataset.Component" title="almirah.dataset.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></a></p>
 <p>Generic database representation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.database.Database.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.database.Database.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.database.Database.host">
+<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.host" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.database.Database.backend">
+<span class="sig-name descname"><span class="pre">backend</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.backend" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.database.Database.connection">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connection</span></span><a class="headerlink" href="#almirah.database.Database.connection" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.database.Database.worksheet">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">worksheet</span></span><a class="headerlink" href="#almirah.database.Database.worksheet" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.database.Database.meta">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meta</span></span><a class="headerlink" href="#almirah.database.Database.meta" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.database.Database.token">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">token</span></span><a class="headerlink" href="#almirah.database.Database.token" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="almirah.database.Database.build_column">
 <span class="sig-name descname"><span class="pre">build_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.build_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.build_column" title="Link to this definition">¶</a></dt>
@@ -241,23 +305,6 @@
 <dt class="sig sig-object py" id="almirah.database.Database.build_constraint">
 <span class="sig-name descname"><span class="pre">build_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.build_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.build_constraint" title="Link to this definition">¶</a></dt>
 <dd><p>Build SQLalchmy constraint objects given links.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.database.Database.connect">
-<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.connect" title="Link to this definition">¶</a></dt>
-<dd><p>Establish a connection to the database.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>username</strong> (<em>str</em>) – The database username.</p></li>
-<li><p><strong>password</strong> (<em>str</em>) – The database password.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>SQLAlchemyError</strong> – If the connection cannot be established.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -276,29 +323,22 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.database.Database.get">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.database.Database.get" title="Link to this definition">¶</a></dt>
-<dd><p>Return an instance from index if found, else None.</p>
+<dt class="sig sig-object py" id="almirah.database.Database.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Establish a connection to the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – The database username.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The database password.</p></li>
+<li><p><strong>keyfile</strong> (<em>str</em>) – Path to the service account keyfile. Required if backend is gsheet.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of cls or None if not found.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.database.Database.get_identifiers">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.database.Database.get_identifiers" title="Link to this definition">¶</a></dt>
-<dd><p>Return dictionary of class identifier attributes and their values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>SQLAlchemyError</strong> – If the connection cannot be established at database.</p></li>
+<li><p><strong>ValueError</strong> – If the connection cannot be established at URL endpoint.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -324,29 +364,60 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.database.Database.options">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.database.Database.options" title="Link to this definition">¶</a></dt>
-<dd><p>Return all existing instances from index.</p>
+<dt class="sig sig-object py" id="almirah.database.Database.to_table">
+<span class="sig-name descname"><span class="pre">to_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_dups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_dups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_fks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_fks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">if_exists</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'append'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.to_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.to_table" title="Link to this definition">¶</a></dt>
+<dd><p>Write records in DataFrame to a table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing records.</p></li>
+<li><p><strong>table</strong> (<em>str</em>) – Table in database into which the records will be inserted.</p></li>
+<li><p><strong>check_dups</strong> (<em>bool</em><em>, </em><em>default True</em>) – Check for duplicates in records.</p></li>
+<li><p><strong>resolve_dups</strong> (<em>[</em><em>False</em><em>, </em><em>'first'</em><em>, </em><em>'last'</em><em>]</em><em>, </em><em>default False</em>) – Resolution method for duplicates if found.</p></li>
+<li><p><strong>check_fks</strong> (<em>bool</em><em>, </em><em>default False</em>) – Check if foreign keys present in parent.</p></li>
+<li><p><strong>resolve_fks</strong> (<em>bool</em><em>, </em><em>default False</em>) – Attempt to resolve missing foreign keys by inserting to parent.</p></li>
+<li><p><strong>insert_ignore</strong> (<em>bool</em><em>, </em><em>default Flase</em>) – Ignore insertion of records already present in table.</p></li>
+<li><p><strong>drop_na</strong> (<em>list</em><em> of </em><em>df column names</em><em>, </em><em>default None</em>) – If provided, records with na in all given columns are dropped.</p></li>
+<li><p><strong>threshold</strong> (<em>int</em><em>, </em><em>None</em>) – If non-NA values &lt; threshold, then record dropped.</p></li>
+<li><p><strong>if_exists</strong> (<em>[</em><em>'append'</em><em>, </em><em>'replace'</em><em>, </em><em>'fail'</em><em>]</em><em>, </em><em>default 'append'</em>) – Insert behavior in case table exists.
+- ‘append’ : Insert new values to the existing table.
+- ‘replace’ : Drop the table before inserting new values.
+- ‘fail’ : Raise a ValueError if table exists.</p></li>
+<li><p><strong>index</strong> (<em>bool</em><em>, </em><em>default False</em>) – Write DataFrame index as a column. Uses index_label as the
+column name in the table.</p></li>
+<li><p><strong>insert_method</strong> (<em>{None</em><em>, </em><em>'multi'</em><em>, </em><em>callable}</em><em>, </em><em>optional</em>) – Controls the SQL insertion clause used.
+- None : Uses standard SQL INSERT clause (one per row).
+- ‘multi’: Pass multiple values in a single INSERT clause.
+- callable with signature <code class="docutils literal notranslate"><span class="pre">(pd_table,</span> <span class="pre">conn,</span> <span class="pre">keys,</span> <span class="pre">data_iter)</span></code>.
+Details and a sample callable implementation can be found
+on Insertion method section of <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/io.html#io-sql-method" title="(in pandas v2.2.2)"><span>Insertion method</span></a>.</p></li>
+<li><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value mappings Other keyword arguments are</em>) – passed down to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html" title="(in pandas v2.2.2)"><span>pandas.DataFrame.to_sql</span></a>.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rows</strong> – Number of rows affected by to_sql. None is returned if the
+callable passed into <cite>insert_method</cite> does not return an
+integer number of rows.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None or int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – <ul>
+<li><p>When values provided are not sufficient for insert operation.
+    - When the table already exists and <cite>if_exists</cite> is ‘fail’.</p></li>
+</ul>
+</p></li>
+<li><p><strong>OperationalError</strong> – <ul>
+<li><p>Most likely there are duplicates records in the
+      DataFrame. Other reasons are related to the database
+      operation and are detailed on <a class="reference external" href="https://docs.sqlalchemy.org/en/20/errors.html#error-e3q8" title="(in SQLAlchemy v2.0)"><span>OperationalError</span></a>.</p></li>
+</ul>
+</p></li>
+</ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.database.Database.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.query" title="Link to this definition">¶</a></dt>
-<dd><p>Return table records that fit filter criteria.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.database.Database.report">
-<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.report" title="Link to this definition">¶</a></dt>
-<dd><p>Generate report for database.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -407,97 +478,57 @@ table.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.database.Database.to_table">
-<span class="sig-name descname"><span class="pre">to_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_dups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_dups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_fks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_fks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">if_exists</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'append'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.to_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.to_table" title="Link to this definition">¶</a></dt>
-<dd><p>Write records in DataFrame to a table.</p>
+<dt class="sig sig-object py" id="almirah.database.Database.report">
+<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.report" title="Link to this definition">¶</a></dt>
+<dd><p>Generate report for database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.database.Database.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#Database.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.Database.query" title="Link to this definition">¶</a></dt>
+<dd><p>Return table records that fit filter criteria.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.database.Database.get">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.database.Database.get" title="Link to this definition">¶</a></dt>
+<dd><p>Return an instance from index if found, else None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing records.</p></li>
-<li><p><strong>table</strong> (<em>str</em>) – Table in database into which the records will be inserted.</p></li>
-<li><p><strong>check_dups</strong> (<em>bool</em><em>, </em><em>default True</em>) – Check for duplicates in records.</p></li>
-<li><p><strong>resolve_dups</strong> (<em>[</em><em>False</em><em>, </em><em>'first'</em><em>, </em><em>'last'</em><em>]</em><em>, </em><em>default False</em>) – Resolution method for duplicates if found.</p></li>
-<li><p><strong>check_fks</strong> (<em>bool</em><em>, </em><em>default False</em>) – Check if foreign keys present in parent.</p></li>
-<li><p><strong>resolve_fks</strong> (<em>bool</em><em>, </em><em>default False</em>) – Attempt to resolve missing foreign keys by inserting to parent.</p></li>
-<li><p><strong>insert_ignore</strong> (<em>bool</em><em>, </em><em>default Flase</em>) – Ignore insertion of records already present in table.</p></li>
-<li><p><strong>drop_na</strong> (<em>list</em><em> of </em><em>df column names</em><em>, </em><em>default None</em>) – If provided, records with na in all given columns are dropped.</p></li>
-<li><p><strong>threshold</strong> (<em>int</em><em>, </em><em>None</em>) – If non-NA values &lt; threshold, then record dropped.</p></li>
-<li><p><strong>if_exists</strong> (<em>[</em><em>'append'</em><em>, </em><em>'replace'</em><em>, </em><em>'fail'</em><em>]</em><em>, </em><em>default 'append'</em>) – Insert behavior in case table exists.
-- ‘append’ : Insert new values to the existing table.
-- ‘replace’ : Drop the table before inserting new values.
-- ‘fail’ : Raise a ValueError if table exists.</p></li>
-<li><p><strong>index</strong> (<em>bool</em><em>, </em><em>default False</em>) – Write DataFrame index as a column. Uses index_label as the
-column name in the table.</p></li>
-<li><p><strong>insert_method</strong> (<em>{None</em><em>, </em><em>'multi'</em><em>, </em><em>callable}</em><em>, </em><em>optional</em>) – Controls the SQL insertion clause used.
-- None : Uses standard SQL INSERT clause (one per row).
-- ‘multi’: Pass multiple values in a single INSERT clause.
-- callable with signature <code class="docutils literal notranslate"><span class="pre">(pd_table,</span> <span class="pre">conn,</span> <span class="pre">keys,</span> <span class="pre">data_iter)</span></code>.
-Details and a sample callable implementation can be found
-on Insertion method section of <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/io.html#io-sql-method" title="(in pandas v2.2.2)"><span>Insertion method</span></a>.</p></li>
-<li><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value mappings Other keyword arguments are</em>) – passed down to <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html" title="(in pandas v2.2.2)"><span>pandas.DataFrame.to_sql</span></a>.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>rows</strong> – Number of rows affected by to_sql. None is returned if the
-callable passed into <cite>insert_method</cite> does not return an
-integer number of rows.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None or int</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ValueError</strong> – <ul>
-<li><p>When values provided are not sufficient for insert operation.
-    - When the table already exists and <cite>if_exists</cite> is ‘fail’.</p></li>
-</ul>
-</p></li>
-<li><p><strong>OperationalError</strong> – <ul>
-<li><p>Most likely there are duplicates records in the
-      DataFrame. Other reasons are related to the database
-      operation and are detailed on <a class="reference external" href="https://docs.sqlalchemy.org/en/20/errors.html#error-e3q8" title="(in SQLAlchemy v2.0)"><span>OperationalError</span></a>.</p></li>
-</ul>
-</p></li>
-</ul>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of cls or None if not found.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.database.Database.backend">
-<span class="sig-name descname"><span class="pre">backend</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.backend" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.database.Database.get_identifiers">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.database.Database.get_identifiers" title="Link to this definition">¶</a></dt>
+<dd><p>Return dictionary of class identifier attributes and their values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="almirah.database.Database.connection">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connection</span></span><a class="headerlink" href="#almirah.database.Database.connection" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.database.Database.host">
-<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.host" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.database.Database.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="almirah.database.Database.meta">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meta</span></span><a class="headerlink" href="#almirah.database.Database.meta" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.database.Database.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.database.Database.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.database.Database.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.database.Database.registry" title="Link to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.database.Database.options">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.database.Database.options" title="Link to this definition">¶</a></dt>
+<dd><p>Return all existing instances from index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -507,34 +538,79 @@ integer number of rows.</p>
 
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="almirah.core.db.DBManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DBManager</span></span><a class="reference internal" href="../_modules/almirah/core/db.html#DBManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.core.db.DBManager" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Manages database connections and sessions.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.core.db.DBManager.reflect">
-<span class="sig-name descname"><span class="pre">reflect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/almirah/core/db.html#DBManager.reflect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.core.db.DBManager.reflect" title="Link to this definition">¶</a></dt>
-<dd><p>Reflects the database schema into metadata.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.check_for_key">
+<span class="sig-name descname"><span class="pre">check_for_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#check_for_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.check_for_key" title="Link to this definition">¶</a></dt>
+<dd><p>Return columns in table mapping which contain the key provided.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.core.db.DBManager.Session">
-<span class="sig-name descname"><span class="pre">Session</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#almirah.core.db.DBManager.Session" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="almirah.core.db.DBManager.connection">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connection</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Connection</span></em><a class="headerlink" href="#almirah.core.db.DBManager.connection" title="Link to this definition">¶</a></dt>
-<dd><p>Provides a context-managed connection to the database.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.migrate">
+<span class="sig-name descname"><span class="pre">migrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_vals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#migrate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.migrate" title="Link to this definition">¶</a></dt>
+<dd><p>Transform and migrate records from one database to another.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> (<em>str</em>) – Connection established source Database instance from which data is to
+be transferred.</p></li>
+<li><p><strong>dst</strong> (<em>str</em>) – Connection established destination Database instance to which data is
+to be transferred.</p></li>
+<li><p><strong>mapping</strong> (<em>dict</em>) – Dictionary providing information on column mappings, type,
+transformations, and validation checks.</p></li>
+<li><p><strong>dry_run</strong> (<em>bool</em>) – If dry run, no records are inserted into target and tables are
+not created, but errors and invalid records are logged.</p></li>
+<li><p><strong>na_vals</strong> (<em>list</em><em>, </em><em>optional</em>) – List of values to be considered as record not available. By
+default, the values ‘’, ‘None’, ‘NONE’, ‘NA’, and ‘Not Applicable’
+are considered.</p></li>
+<li><p><strong>dtype_kws</strong> (<em>dict</em><em>, </em><em>optional</em>) – Key, value pairs that will be passed to
+<a class="reference internal" href="utils.html#almirah.utils.df.convert_column_type" title="almirah.utils.df.convert_column_type"><code class="xref py py-func docutils literal notranslate"><span class="pre">almirah.utils.df.convert_column_type()</span></code></a> kwargs.</p></li>
+<li><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value mappings</em>) – Other keyword arguments are passed down to
+<cite>almirah.Database.to_table</cite>.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="almirah.core.db.DBManager.session">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">session</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#almirah.core.db.DBManager.session" title="Link to this definition">¶</a></dt>
-<dd><p>Provides a context-managed session for performing database operations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.reshape">
+<span class="sig-name descname"><span class="pre">reshape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#reshape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.reshape" title="Link to this definition">¶</a></dt>
+<dd><p>Reshape records into appropriate shape.</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.replace_value">
+<span class="sig-name descname"><span class="pre">replace_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#replace_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.replace_value" title="Link to this definition">¶</a></dt>
+<dd><p>Return unique replacement for given value based on mapping in file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.replace_column">
+<span class="sig-name descname"><span class="pre">replace_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#replace_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.replace_column" title="Link to this definition">¶</a></dt>
+<dd><p>Replace values in series based on mapping in file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype_kws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.transform" title="Link to this definition">¶</a></dt>
+<dd><p>Transform table into appropriate format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.transform_column">
+<span class="sig-name descname"><span class="pre">transform_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype_kws</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#transform_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.transform_column" title="Link to this definition">¶</a></dt>
+<dd><p>Transform column to appropriate datatype.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validate table and return mask where True means valid.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="almirah.database.validate_column">
+<span class="sig-name descname"><span class="pre">validate_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/database.html#validate_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.database.validate_column" title="Link to this definition">¶</a></dt>
+<dd><p>Validate column and return mask where True means valid.</p>
 </dd></dl>
 
 </section>
@@ -602,38 +678,47 @@ integer number of rows.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Database and DBManager</a><ul>
-<li><a class="reference internal" href="#almirah.database.Database"><code class="docutils literal notranslate"><span class="pre">Database</span></code></a><ul>
-<li><a class="reference internal" href="#almirah.database.Database.build_column"><code class="docutils literal notranslate"><span class="pre">Database.build_column()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.build_constraint"><code class="docutils literal notranslate"><span class="pre">Database.build_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.connect"><code class="docutils literal notranslate"><span class="pre">Database.connect()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.create_table"><code class="docutils literal notranslate"><span class="pre">Database.create_table()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.get"><code class="docutils literal notranslate"><span class="pre">Database.get()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Database.get_identifiers()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.get_primary"><code class="docutils literal notranslate"><span class="pre">Database.get_primary()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.get_records"><code class="docutils literal notranslate"><span class="pre">Database.get_records()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.options"><code class="docutils literal notranslate"><span class="pre">Database.options()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.query"><code class="docutils literal notranslate"><span class="pre">Database.query()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.report"><code class="docutils literal notranslate"><span class="pre">Database.report()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.resolve_dups"><code class="docutils literal notranslate"><span class="pre">Database.resolve_dups()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.resolve_fks"><code class="docutils literal notranslate"><span class="pre">Database.resolve_fks()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.to_table"><code class="docutils literal notranslate"><span class="pre">Database.to_table()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.backend"><code class="docutils literal notranslate"><span class="pre">Database.backend</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.connection"><code class="docutils literal notranslate"><span class="pre">Database.connection</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.host"><code class="docutils literal notranslate"><span class="pre">Database.host</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.id"><code class="docutils literal notranslate"><span class="pre">Database.id</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.meta"><code class="docutils literal notranslate"><span class="pre">Database.meta</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.name"><code class="docutils literal notranslate"><span class="pre">Database.name</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.registry"><code class="docutils literal notranslate"><span class="pre">Database.registry</span></code></a></li>
-<li><a class="reference internal" href="#almirah.database.Database.type"><code class="docutils literal notranslate"><span class="pre">Database.type</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#almirah.core.db.DBManager"><code class="docutils literal notranslate"><span class="pre">DBManager</span></code></a><ul>
-<li><a class="reference internal" href="#almirah.core.db.DBManager.reflect"><code class="docutils literal notranslate"><span class="pre">DBManager.reflect()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.core.db.DBManager.Session"><code class="docutils literal notranslate"><span class="pre">DBManager.Session</span></code></a></li>
 <li><a class="reference internal" href="#almirah.core.db.DBManager.connection"><code class="docutils literal notranslate"><span class="pre">DBManager.connection</span></code></a></li>
 <li><a class="reference internal" href="#almirah.core.db.DBManager.session"><code class="docutils literal notranslate"><span class="pre">DBManager.session</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#almirah.database.Database"><code class="docutils literal notranslate"><span class="pre">Database</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.database.Database.id"><code class="docutils literal notranslate"><span class="pre">Database.id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.name"><code class="docutils literal notranslate"><span class="pre">Database.name</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.host"><code class="docutils literal notranslate"><span class="pre">Database.host</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.backend"><code class="docutils literal notranslate"><span class="pre">Database.backend</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.connection"><code class="docutils literal notranslate"><span class="pre">Database.connection</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.worksheet"><code class="docutils literal notranslate"><span class="pre">Database.worksheet</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.meta"><code class="docutils literal notranslate"><span class="pre">Database.meta</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.token"><code class="docutils literal notranslate"><span class="pre">Database.token</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.build_column"><code class="docutils literal notranslate"><span class="pre">Database.build_column()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.build_constraint"><code class="docutils literal notranslate"><span class="pre">Database.build_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.create_table"><code class="docutils literal notranslate"><span class="pre">Database.create_table()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.connect"><code class="docutils literal notranslate"><span class="pre">Database.connect()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.get_primary"><code class="docutils literal notranslate"><span class="pre">Database.get_primary()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.get_records"><code class="docutils literal notranslate"><span class="pre">Database.get_records()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.to_table"><code class="docutils literal notranslate"><span class="pre">Database.to_table()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.resolve_dups"><code class="docutils literal notranslate"><span class="pre">Database.resolve_dups()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.resolve_fks"><code class="docutils literal notranslate"><span class="pre">Database.resolve_fks()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.report"><code class="docutils literal notranslate"><span class="pre">Database.report()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.query"><code class="docutils literal notranslate"><span class="pre">Database.query()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.get"><code class="docutils literal notranslate"><span class="pre">Database.get()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Database.get_identifiers()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.options"><code class="docutils literal notranslate"><span class="pre">Database.options()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.Database.type"><code class="docutils literal notranslate"><span class="pre">Database.type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#almirah.database.check_for_key"><code class="docutils literal notranslate"><span class="pre">check_for_key()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.migrate"><code class="docutils literal notranslate"><span class="pre">migrate()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.reshape"><code class="docutils literal notranslate"><span class="pre">reshape()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.replace_value"><code class="docutils literal notranslate"><span class="pre">replace_value()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.replace_column"><code class="docutils literal notranslate"><span class="pre">replace_column()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.transform"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.transform_column"><code class="docutils literal notranslate"><span class="pre">transform_column()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.database.validate_column"><code class="docutils literal notranslate"><span class="pre">validate_column()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -645,7 +730,7 @@ integer number of rows.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

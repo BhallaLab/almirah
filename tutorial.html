@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Writing configs" href="writing-configs/index.html" /><link rel="prev" title="User Guide" href="user-guide.html" />
 
     <link rel="shortcut icon" href="_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Tutorial - almirah 0.3.0 documentation</title>
+        <title>Tutorial - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -173,7 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="reference/layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/utils.html">Utilities</a></li>
@@ -231,12 +230,12 @@ tutorial we will use <code class="docutils literal notranslate"><span class="pre
 represents imaging data obtained from mice to illustrate some of its
 usecases. In case you have not installed <code class="docutils literal notranslate"><span class="pre">almirah</span></code> yet, please go to
 the <a class="reference internal" href="index.html#installing"><span class="std std-ref">Installing</span></a> section and follow the instructions.</p>
-<p>First, let us obtain the dataset to work on for the tutorial. It comes
-along with <code class="docutils literal notranslate"><span class="pre">almirah</span></code> and can be copied to a convenient location using
-the <a class="reference internal" href="reference/utils.html#almirah.utils.lib.get_tutorial_dataset" title="almirah.utils.lib.get_tutorial_dataset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_tutorial_dataset()</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah.utils</span> <span class="kn">import</span> <span class="n">get_tutorial_dataset</span>
+<p>The dummy dataset that we will be using comes along with <code class="docutils literal notranslate"><span class="pre">almirah</span></code>
+and can be created at a convenient location using
+<a class="reference internal" href="reference/utils.html#almirah.utils.lib.create_tutorial_dataset" title="almirah.utils.lib.create_tutorial_dataset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_tutorial_dataset()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah.utils</span> <span class="kn">import</span> <span class="n">create_tutorial_dataset</span>
 
-<span class="n">get_tutorial_dataset</span><span class="p">(</span><span class="s2">&quot;path/to/store&quot;</span><span class="p">)</span>
+<span class="n">create_tutorial_dataset</span><span class="p">(</span><span class="s2">&quot;path/to/store&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The dataset contents can be listed using the <code class="docutils literal notranslate"><span class="pre">tree</span></code> command.</p>
@@ -510,25 +509,16 @@ tags for each file. For this, it has to be indexed.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Before <a class="reference internal" href="reference/layout.html#almirah.layout.Layout" title="almirah.layout.Layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layout</span></code></a> creation, it is required that a
-<a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> be created and added to the
-index. The <code class="docutils literal notranslate"><span class="pre">specification_name</span></code> argument checks for the index to
-retrieve the <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>. This can be
-achieve like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">index</span>
-
-<span class="c1"># Add Specification to index</span>
-<span class="n">index</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
-
-<span class="c1"># Without commiting, no writing is done to the index</span>
-<span class="n">index</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-</pre></div>
-</div>
+<a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> be created. The
+<code class="docutils literal notranslate"><span class="pre">specification_name</span></code> argument checks for the index to retrieve
+the <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>. This can be achieve like
+so:</p>
 </div>
 <p>With this, we can start querying in multiple ways.</p>
 </section>
 <section id="filtering-with-tags">
 <h3>Filtering with tags<a class="headerlink" href="#filtering-with-tags" title="Link to this heading">¶</a></h3>
-<p>Once indexer, the instance can be queried with
+<p>Once indexed, the instance can be queried with
 <a class="reference internal" href="reference/layout.html#almirah.layout.Layout.query" title="almirah.layout.Layout.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> using tag values. For example, retrieve
 all files of mice <em>G171</em> where recording was done on day <em>02</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layout</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">mice</span><span class="o">=</span><span class="s1">&#39;G171&#39;</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="s1">&#39;02&#39;</span><span class="p">)</span>
@@ -586,7 +576,10 @@ miss out on these, the dataset is not complete. Worry not, a
 queried to retrieve records using <a class="reference internal" href="reference/database.html#almirah.database.Database.query" title="almirah.database.Database.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a>
 too. Queries with the parameter <code class="docutils literal notranslate"><span class="pre">table</span></code> to a
 <a class="reference internal" href="reference/dataset.html#almirah.dataset.Dataset" title="almirah.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> are directed to its component databases
-only.</p>
+only. Connection to the <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> has to be
+established using <a class="reference internal" href="reference/database.html#almirah.database.Database.connect" title="almirah.database.Database.connect"><code class="xref py py-meth docutils literal notranslate"><span class="pre">connect()</span></code></a> during each
+Python session. This is because, the <code class="docutils literal notranslate"><span class="pre">index</span></code> does not store
+usernames and passwords for security reasons.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">Database</span>
 
 <span class="c1"># Create a Database instance for a mysql db &#39;tutorial&#39; running locally</span>
@@ -597,30 +590,49 @@ only.</p>
 <span class="n">dataset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> by default is in <em>connection mode</em>. This
-means, connection to the <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> has to be
-established using <a class="reference internal" href="reference/database.html#almirah.database.Database.connect" title="almirah.database.Database.connect"><code class="xref py py-meth docutils literal notranslate"><span class="pre">connect()</span></code></a> during each
-Python session. This is because, the <code class="docutils literal notranslate"><span class="pre">index</span></code> does not store
-usernames and passwords for security reasons. An alternative to this,
-is the <em>request mode</em>. This is only applicable for retrieving records
-and not other operations. To set this mode on object creation, provide
-the parameter <code class="docutils literal notranslate"><span class="pre">backend=&quot;request&quot;</span></code>:</p>
+<p>A <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> by SQLAlchemy is in <em>connection
+mode</em>. An alternative to this, is the <em>request mode</em>. This is only
+applicable for retrieving records and not other operations. To set
+this mode on object creation, provide the parameter
+<code class="docutils literal notranslate"><span class="pre">backend=&quot;request&quot;</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Database in &#39;request&#39; mode</span>
 <span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;tutorial&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;request&quot;</span><span class="p">)</span>
+
+<span class="c1"># Connect to end point</span>
+<span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In this mode, queries are sent as <em>POST</em> requests to the url endpoint
-and the response is chosen as the result. For this to work, you should
-have setup a url endpoint on the server that the
-<a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> instance is running on. This url endpoint
-processes the request appropriately, and returns the records as a
-response in <em>JSON</em>. One way this can be achieved is by extracting
-<em>POST</em> request keys and passing them as arguments to
-<a class="reference internal" href="reference/database.html#almirah.database.Database.query" title="almirah.database.Database.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> in the view that handles requests to
-the url endpoint.</p>
+<p>In this mode, queries are sent as <em>POST</em> requests with appropriate
+authentication header to the url endpoint and the response is chosen
+as the result. For this to work, you should have setup a url endpoint
+on the server that the <a class="reference internal" href="reference/database.html#almirah.database.Database" title="almirah.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> instance is running
+on and setup appropriate authentication on <em>host/authenticate</em> to
+return a token. This url endpoint processes the request appropriately,
+and returns the records as a response in <em>JSON</em>. One way this can be
+achieved is by extracting <em>POST</em> request keys and passing them as
+arguments to <a class="reference internal" href="reference/database.html#almirah.database.Database.query" title="almirah.database.Database.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> in the view that handles
+requests to the url endpoint.</p>
+<p>Another mode of operation, deals with data in Google sheets. Here,
+each spreadsheet is treated as the Database and each worksheet in the
+spreatsheet is analogous to a table. To read data from sheets, set
+<code class="docutils literal notranslate"><span class="pre">backend=&quot;gsheet&quot;</span></code> and to connect provide the keyfile.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only databases supported by SQLAlchemy are functional via <code class="docutils literal notranslate"><span class="pre">almirah</span></code>.</p>
+<p>Please have a look at the <a class="reference internal" href="#create-service-account-keys">Create service account keys</a> section of
+Google worspace docs to create a keyfile.</p>
+<p><span class="target" id="create-service-account-keys">Create service account keys</span>:<a class="reference external" href="https://cloud.google.com/iam/docs/keys-create-delete">https://cloud.google.com/iam/docs/keys-create-delete</a></p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Database in &#39;gsheet&#39; mode</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;any name&#39;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;gsheet url&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;gsheet&#39;</span><span class="p">)</span>
+
+<span class="c1"># Connect to gsheet via Google API</span>
+<span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">keyfile</span><span class="o">=</span><span class="s1">&#39;/path to keyfile&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Only databases supported by SQLAlchemy are functional via
+<code class="docutils literal notranslate"><span class="pre">almirah</span></code> for operations other than reading.</p>
 </div>
 </section>
 <section id="other-capabilities">
@@ -631,7 +643,9 @@ can help with. There are other things it can do:</p>
 <li><p>Migrate database records from one schema to another</p></li>
 <li><p>Interface with DataLad compatible datasets</p></li>
 </ul>
-<p>Please look up <a class="reference internal" href="reference/index.html"><span class="doc">API Reference</span></a> if you need these.</p>
+<p>Please look up <a class="reference internal" href="reference/index.html"><span class="doc">API Reference</span></a> if you need these. If there is a
+feature you would like, but <code class="docutils literal notranslate"><span class="pre">almirah</span></code> does not support it yet,
+please do consider raising a request or <a class="reference internal" href="contributing.html"><span class="doc">Contributing</span></a>.</p>
 </section>
 </section>
 
@@ -728,7 +742,7 @@ can help with. There are other things it can do:</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="_static/documentation_options.js?v=1437fa6d"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

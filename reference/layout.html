@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Specification" href="specification.html" /><link rel="prev" title="Database and DBManager" href="database.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Layout, File, and Tag - almirah 0.3.0 documentation</title>
+        <title>Layout, File, and Tag - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -173,7 +173,6 @@
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
@@ -228,119 +227,40 @@
 <span id="layout-file-and-tag"></span><h1>Layout, File, and Tag<a class="headerlink" href="#module-almirah.layout" title="Link to this heading">¶</a></h1>
 <p>Model classes to represent layouts, files, and tags.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="almirah.layout.File">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">File</span></span><a class="reference internal" href="../_modules/almirah/layout.html#File"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
-<p>Generic file representation.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.File.download">
-<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#File.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File.download" title="Link to this definition">¶</a></dt>
-<dd><p>Download file from remote dataset.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.File.get">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.layout.File.get" title="Link to this definition">¶</a></dt>
-<dd><p>Return an instance from index if found, else None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of cls or None if not found.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.File.get_identifiers">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.File.get_identifiers" title="Link to this definition">¶</a></dt>
-<dd><p>Return dictionary of class identifier attributes and their values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.File.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">funcs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#File.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File.index" title="Link to this definition">¶</a></dt>
-<dd><p>Perform indexing to add tags marking the file to index.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.File.options">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.File.options" title="Link to this definition">¶</a></dt>
-<dd><p>Return all existing instances from index.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.File.report">
-<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#File.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File.report" title="Link to this definition">¶</a></dt>
-<dd><p>Generate report for the File.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="almirah.layout.File.attached">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attached</span></span><a class="headerlink" href="#almirah.layout.File.attached" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.File.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.File.layout">
-<span class="sig-name descname"><span class="pre">layout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.layout.Layout" title="almirah.layout.Layout"><span class="pre">Layout</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.layout" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.File.path">
-<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.File.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.layout.File.registry" title="Link to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="almirah.layout.File.rel_path">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rel_path</span></span><a class="headerlink" href="#almirah.layout.File.rel_path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.File.root">
-<span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.root" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.File.tags">
-<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AssociationProxy</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ColumnAssociationProxyInstance(AssociationProxy('_tags',</span> <span class="pre">'value'))</span></em><a class="headerlink" href="#almirah.layout.File.tags" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="almirah.layout.Layout">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Layout</span></span><a class="reference internal" href="../_modules/almirah/layout.html#Layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="dataset.html#almirah.dataset.Component" title="almirah.dataset.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></a></p>
 <p>Represents a structured layout of files in a directory.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Layout.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Layout.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Layout.specification">
+<span class="sig-name descname"><span class="pre">specification</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><span class="pre">Specification</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.specification" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Layout.files">
+<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.layout.File" title="almirah.layout.File"><span class="pre">File</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.files" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Layout.root">
+<span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.root" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Layout.specification_name">
+<span class="sig-name descname"><span class="pre">specification_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.specification_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="almirah.layout.Layout.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.layout.File" title="almirah.layout.File"><span class="pre">File</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.add" title="Link to this definition">¶</a></dt>
@@ -359,6 +279,30 @@
 <dt class="sig sig-object py" id="almirah.layout.Layout.clone">
 <span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.clone" title="Link to this definition">¶</a></dt>
 <dd><p>Clone Layout from datalad url.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.Layout.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">funcs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.index" title="Link to this definition">¶</a></dt>
+<dd><p>Perform indexing to add files in root to index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.Layout.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.query" title="Link to this definition">¶</a></dt>
+<dd><p>Return File instances that fit filter criteria.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.Layout.move_root">
+<span class="sig-name descname"><span class="pre">move_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.move_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.move_root" title="Link to this definition">¶</a></dt>
+<dd><p>Abstractly move Layout and its entries to path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.Layout.report">
+<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.report" title="Link to this definition">¶</a></dt>
+<dd><p>Generate report for the Layout.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -390,18 +334,6 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.Layout.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">funcs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.index" title="Link to this definition">¶</a></dt>
-<dd><p>Perform indexing to add files in root to index.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.Layout.move_root">
-<span class="sig-name descname"><span class="pre">move_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.move_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.move_root" title="Link to this definition">¶</a></dt>
-<dd><p>Abstractly move Layout and its entries to path.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="almirah.layout.Layout.options">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.Layout.options" title="Link to this definition">¶</a></dt>
 <dd><p>Return all existing instances from index.</p>
@@ -415,59 +347,181 @@
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.Layout.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.query" title="Link to this definition">¶</a></dt>
-<dd><p>Return File instances that fit filter criteria.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.Layout.report">
-<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#Layout.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Layout.report" title="Link to this definition">¶</a></dt>
-<dd><p>Generate report for the Layout.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Layout.files">
-<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.layout.File" title="almirah.layout.File"><span class="pre">File</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.files" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Layout.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Layout.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.layout.Layout.registry" title="Link to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Layout.root">
-<span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.root" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Layout.specification">
-<span class="sig-name descname"><span class="pre">specification</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><span class="pre">Specification</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.specification" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Layout.specification_name">
-<span class="sig-name descname"><span class="pre">specification_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.specification_name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="almirah.layout.Layout.type">
 <span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.type" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="almirah.layout.File">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">File</span></span><a class="reference internal" href="../_modules/almirah/layout.html#File"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>Generic file representation.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Layout.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Layout.url" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="almirah.layout.File.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.id" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.File.root">
+<span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.root" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.File.layout">
+<span class="sig-name descname"><span class="pre">layout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.layout.Layout" title="almirah.layout.Layout"><span class="pre">Layout</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.layout" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.File.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AssociationProxy</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ColumnAssociationProxyInstance(AssociationProxy('_tags',</span> <span class="pre">'value'))</span></em><a class="headerlink" href="#almirah.layout.File.tags" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.File.path">
+<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.File.path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.layout.File.attached">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attached</span></span><a class="headerlink" href="#almirah.layout.File.attached" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="almirah.layout.File.rel_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rel_path</span></span><a class="headerlink" href="#almirah.layout.File.rel_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.File.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#File.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File.download" title="Link to this definition">¶</a></dt>
+<dd><p>Download file from remote dataset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.File.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">funcs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#File.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File.index" title="Link to this definition">¶</a></dt>
+<dd><p>Perform indexing to add tags marking the file to index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.File.report">
+<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/almirah/layout.html#File.report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.File.report" title="Link to this definition">¶</a></dt>
+<dd><p>Generate report for the File.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.File.get">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.layout.File.get" title="Link to this definition">¶</a></dt>
+<dd><p>Return an instance from index if found, else None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of cls or None if not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.File.get_identifiers">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.File.get_identifiers" title="Link to this definition">¶</a></dt>
+<dd><p>Return dictionary of class identifier attributes and their values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.File.options">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.File.options" title="Link to this definition">¶</a></dt>
+<dd><p>Return all existing instances from index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="almirah.layout.Tag">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Tag</span></span><a class="reference internal" href="../_modules/almirah/layout.html#Tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Tag" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>Generic tag representation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Tag.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Tag.files">
+<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.layout.File" title="almirah.layout.File"><span class="pre">File</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.files" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Tag.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Tag.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.Tag.get">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.layout.Tag.get" title="Link to this definition">¶</a></dt>
+<dd><p>Return an instance from index if found, else None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of cls or None if not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.Tag.get_identifiers">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.Tag.get_identifiers" title="Link to this definition">¶</a></dt>
+<dd><p>Return dictionary of class identifier attributes and their values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="almirah.layout.Tag.options">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.Tag.options" title="Link to this definition">¶</a></dt>
+<dd><p>Return all existing instances from index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -476,6 +530,11 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Marking</span></span><a class="reference internal" href="../_modules/almirah/layout.html#Marking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Marking" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
 <p>Representation of an association between a file and a tag.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="almirah.layout.Marking.file_id">
+<span class="sig-name descname"><span class="pre">file_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Marking.file_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="almirah.layout.Marking.get">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.layout.Marking.get" title="Link to this definition">¶</a></dt>
@@ -519,101 +578,13 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Marking.file_id">
-<span class="sig-name descname"><span class="pre">file_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Marking.file_id" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="almirah.layout.Marking.tag_id">
+<span class="sig-name descname"><span class="pre">tag_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Marking.tag_id" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="almirah.layout.Marking.name">
 <span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Marking.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Marking.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.layout.Marking.registry" title="Link to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Marking.tag_id">
-<span class="sig-name descname"><span class="pre">tag_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Marking.tag_id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="almirah.layout.Tag">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Tag</span></span><a class="reference internal" href="../_modules/almirah/layout.html#Tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#almirah.layout.Tag" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
-<p>Generic tag representation.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.Tag.get">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Base</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#almirah.layout.Tag.get" title="Link to this definition">¶</a></dt>
-<dd><p>Return an instance from index if found, else None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of cls or None if not found.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.Tag.get_identifiers">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.Tag.get_identifiers" title="Link to this definition">¶</a></dt>
-<dd><p>Return dictionary of class identifier attributes and their values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<em>key</em><em>, </em><em>value pairs</em>) – Key-value pairs of identifier attributes and their values.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary of the identifiers with their respective values.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="almirah.layout.Tag.options">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Base</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#almirah.layout.Tag.options" title="Link to this definition">¶</a></dt>
-<dd><p>Return all existing instances from index.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filters</strong> (<em>dict</em>) – Dictionary of filter conditions used for querying.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of instances of cls that match the filters.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Tag.files">
-<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#almirah.layout.File" title="almirah.layout.File"><span class="pre">File</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.files" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Tag.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Tag.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Tag.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#almirah.layout.Tag.registry" title="Link to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="almirah.layout.Tag.value">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapped</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#almirah.layout.Tag.value" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -683,62 +654,58 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Layout, File, and Tag</a><ul>
-<li><a class="reference internal" href="#almirah.layout.File"><code class="docutils literal notranslate"><span class="pre">File</span></code></a><ul>
-<li><a class="reference internal" href="#almirah.layout.File.download"><code class="docutils literal notranslate"><span class="pre">File.download()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.get"><code class="docutils literal notranslate"><span class="pre">File.get()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.get_identifiers"><code class="docutils literal notranslate"><span class="pre">File.get_identifiers()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.index"><code class="docutils literal notranslate"><span class="pre">File.index()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.options"><code class="docutils literal notranslate"><span class="pre">File.options()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.report"><code class="docutils literal notranslate"><span class="pre">File.report()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.attached"><code class="docutils literal notranslate"><span class="pre">File.attached</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.id"><code class="docutils literal notranslate"><span class="pre">File.id</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.layout"><code class="docutils literal notranslate"><span class="pre">File.layout</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.path"><code class="docutils literal notranslate"><span class="pre">File.path</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.registry"><code class="docutils literal notranslate"><span class="pre">File.registry</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.rel_path"><code class="docutils literal notranslate"><span class="pre">File.rel_path</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.root"><code class="docutils literal notranslate"><span class="pre">File.root</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.File.tags"><code class="docutils literal notranslate"><span class="pre">File.tags</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#almirah.layout.Layout"><code class="docutils literal notranslate"><span class="pre">Layout</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.layout.Layout.id"><code class="docutils literal notranslate"><span class="pre">Layout.id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.url"><code class="docutils literal notranslate"><span class="pre">Layout.url</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.specification"><code class="docutils literal notranslate"><span class="pre">Layout.specification</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.files"><code class="docutils literal notranslate"><span class="pre">Layout.files</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.root"><code class="docutils literal notranslate"><span class="pre">Layout.root</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.specification_name"><code class="docutils literal notranslate"><span class="pre">Layout.specification_name</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Layout.add"><code class="docutils literal notranslate"><span class="pre">Layout.add()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Layout.clone"><code class="docutils literal notranslate"><span class="pre">Layout.clone()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.index"><code class="docutils literal notranslate"><span class="pre">Layout.index()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.query"><code class="docutils literal notranslate"><span class="pre">Layout.query()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.move_root"><code class="docutils literal notranslate"><span class="pre">Layout.move_root()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Layout.report"><code class="docutils literal notranslate"><span class="pre">Layout.report()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Layout.get"><code class="docutils literal notranslate"><span class="pre">Layout.get()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Layout.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Layout.get_identifiers()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.index"><code class="docutils literal notranslate"><span class="pre">Layout.index()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.move_root"><code class="docutils literal notranslate"><span class="pre">Layout.move_root()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Layout.options"><code class="docutils literal notranslate"><span class="pre">Layout.options()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.query"><code class="docutils literal notranslate"><span class="pre">Layout.query()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.report"><code class="docutils literal notranslate"><span class="pre">Layout.report()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.files"><code class="docutils literal notranslate"><span class="pre">Layout.files</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.id"><code class="docutils literal notranslate"><span class="pre">Layout.id</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.registry"><code class="docutils literal notranslate"><span class="pre">Layout.registry</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.root"><code class="docutils literal notranslate"><span class="pre">Layout.root</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.specification"><code class="docutils literal notranslate"><span class="pre">Layout.specification</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.specification_name"><code class="docutils literal notranslate"><span class="pre">Layout.specification_name</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Layout.type"><code class="docutils literal notranslate"><span class="pre">Layout.type</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Layout.url"><code class="docutils literal notranslate"><span class="pre">Layout.url</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#almirah.layout.Marking"><code class="docutils literal notranslate"><span class="pre">Marking</span></code></a><ul>
-<li><a class="reference internal" href="#almirah.layout.Marking.get"><code class="docutils literal notranslate"><span class="pre">Marking.get()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Marking.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Marking.get_identifiers()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Marking.options"><code class="docutils literal notranslate"><span class="pre">Marking.options()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Marking.file_id"><code class="docutils literal notranslate"><span class="pre">Marking.file_id</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Marking.name"><code class="docutils literal notranslate"><span class="pre">Marking.name</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Marking.registry"><code class="docutils literal notranslate"><span class="pre">Marking.registry</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Marking.tag_id"><code class="docutils literal notranslate"><span class="pre">Marking.tag_id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File"><code class="docutils literal notranslate"><span class="pre">File</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.layout.File.id"><code class="docutils literal notranslate"><span class="pre">File.id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.root"><code class="docutils literal notranslate"><span class="pre">File.root</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.layout"><code class="docutils literal notranslate"><span class="pre">File.layout</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.tags"><code class="docutils literal notranslate"><span class="pre">File.tags</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.path"><code class="docutils literal notranslate"><span class="pre">File.path</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.attached"><code class="docutils literal notranslate"><span class="pre">File.attached</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.rel_path"><code class="docutils literal notranslate"><span class="pre">File.rel_path</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.download"><code class="docutils literal notranslate"><span class="pre">File.download()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.index"><code class="docutils literal notranslate"><span class="pre">File.index()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.report"><code class="docutils literal notranslate"><span class="pre">File.report()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.get"><code class="docutils literal notranslate"><span class="pre">File.get()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.get_identifiers"><code class="docutils literal notranslate"><span class="pre">File.get_identifiers()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.File.options"><code class="docutils literal notranslate"><span class="pre">File.options()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#almirah.layout.Tag"><code class="docutils literal notranslate"><span class="pre">Tag</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.layout.Tag.id"><code class="docutils literal notranslate"><span class="pre">Tag.id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Tag.files"><code class="docutils literal notranslate"><span class="pre">Tag.files</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Tag.name"><code class="docutils literal notranslate"><span class="pre">Tag.name</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Tag.value"><code class="docutils literal notranslate"><span class="pre">Tag.value</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Tag.get"><code class="docutils literal notranslate"><span class="pre">Tag.get()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Tag.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Tag.get_identifiers()</span></code></a></li>
 <li><a class="reference internal" href="#almirah.layout.Tag.options"><code class="docutils literal notranslate"><span class="pre">Tag.options()</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Tag.files"><code class="docutils literal notranslate"><span class="pre">Tag.files</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Tag.id"><code class="docutils literal notranslate"><span class="pre">Tag.id</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Tag.name"><code class="docutils literal notranslate"><span class="pre">Tag.name</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Tag.registry"><code class="docutils literal notranslate"><span class="pre">Tag.registry</span></code></a></li>
-<li><a class="reference internal" href="#almirah.layout.Tag.value"><code class="docutils literal notranslate"><span class="pre">Tag.value</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#almirah.layout.Marking"><code class="docutils literal notranslate"><span class="pre">Marking</span></code></a><ul>
+<li><a class="reference internal" href="#almirah.layout.Marking.file_id"><code class="docutils literal notranslate"><span class="pre">Marking.file_id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Marking.get"><code class="docutils literal notranslate"><span class="pre">Marking.get()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Marking.get_identifiers"><code class="docutils literal notranslate"><span class="pre">Marking.get_identifiers()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Marking.options"><code class="docutils literal notranslate"><span class="pre">Marking.options()</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Marking.tag_id"><code class="docutils literal notranslate"><span class="pre">Marking.tag_id</span></code></a></li>
+<li><a class="reference internal" href="#almirah.layout.Marking.name"><code class="docutils literal notranslate"><span class="pre">Marking.name</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -752,7 +719,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

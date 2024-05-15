@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="API Reference" href="../reference/index.html" /><link rel="prev" title="Organization rules" href="rules.html" />
 
     <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Database mapping - almirah 0.3.0 documentation</title>
+        <title>Database mapping - almirah 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">almirah 0.3.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -173,7 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../reference/layout.html">Layout, File, and Tag</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/specification.html">Specification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/indexer.html">Indexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/reporting.html">Reporting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/convert.html">File format conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/unique.html">Unique Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/utils.html">Utilities</a></li>
@@ -277,8 +276,8 @@ any.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>The column in target table that corresponds to the source column.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">dtype</span></code></dt><dd><p>The datatype of the column values.</p>
-<p>Can be <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">datetime</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">integer</span></code>, or
-<code class="docutils literal notranslate"><span class="pre">str</span></code>. Optionally <code class="docutils literal notranslate"><span class="pre">str</span></code> accepts a length parameter as
+<p>Can be <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">integer</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">datetime</span></code>. Optionally <code class="docutils literal notranslate"><span class="pre">str</span></code> accepts a length parameter as
 <code class="docutils literal notranslate"><span class="pre">str(length)</span></code> that defines the maximum number of characters
 allowed.</p>
 <p>If the values received from source column is of a different type,
@@ -320,13 +319,14 @@ lowercase and uppercase respectively.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">replace</span></code></dt><dd><p>Replace one value with another either based on a mapping.</p>
 <p>If the mapping is present in an external file, it can be provided
-as collection of mappings with <code class="docutils literal notranslate"><span class="pre">field</span></code>, <code class="docutils literal notranslate"><span class="pre">using</span></code>, and <code class="docutils literal notranslate"><span class="pre">file</span></code>
-keys. The <code class="docutils literal notranslate"><span class="pre">field</span></code> and <code class="docutils literal notranslate"><span class="pre">using</span></code> keys indicate the column which
+as collection of mappings with <code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">to</span></code>, and <code class="docutils literal notranslate"><span class="pre">file</span></code>
+keys. The <code class="docutils literal notranslate"><span class="pre">value</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code> keys indicate the column which
 might contain the value to be replaced and the column which will
 contain the value that will replace respectively. The path to the
-external file is provided by``file``.</p>
+external file is provided by <code class="docutils literal notranslate"><span class="pre">file</span></code>. <code class="docutils literal notranslate"><span class="pre">strict</span></code> can set to
+<code class="docutils literal notranslate"><span class="pre">False</span></code> to retain previous values if mapping is not found.</p>
 <p>The mapping can also be provided directly as a sequence of
-<code class="docutils literal notranslate"><span class="pre">value</span></code>:<code class="docutils literal notranslate"><span class="pre">with</span></code> key pairs where <code class="docutils literal notranslate"><span class="pre">with</span></code> replaces <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">value</span></code>:<code class="docutils literal notranslate"><span class="pre">to</span></code> key pairs where <code class="docutils literal notranslate"><span class="pre">to</span></code> replaces <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
 </dd>
 </dl>
 <p>Validation and transformation generates log messages in which column
@@ -475,7 +475,7 @@ thus use the same argument names as the specific pandas method.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f129cdf0"></script>
+</div><script src="../_static/documentation_options.js?v=1437fa6d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

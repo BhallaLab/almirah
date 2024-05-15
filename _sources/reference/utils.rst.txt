@@ -4,7 +4,7 @@ Utilities
 Library-specific
 ----------------
 
-.. autofunction:: almirah.utils.lib.get_tutorial_dataset
+.. autofunction:: almirah.utils.lib.create_tutorial_dataset
 
 Dataframe Manipulation
 ----------------------

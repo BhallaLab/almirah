@@ -68,8 +68,8 @@ The column mapping is defined using:
 ``dtype``
     The datatype of the column values.
 
-    Can be ``bool``, ``datetime``, ``float``, ``integer``, or
-    ``str``. Optionally ``str`` accepts a length parameter as
+    Can be ``str``, ``bool``, ``date``, ``float``, ``integer``, or
+    ``datetime``. Optionally ``str`` accepts a length parameter as
     ``str(length)`` that defines the maximum number of characters
     allowed.
 
@@ -125,14 +125,15 @@ Values can be transformed and massaged to a different format using:
     Replace one value with another either based on a mapping.
 
     If the mapping is present in an external file, it can be provided
-    as collection of mappings with ``field``, ``using``, and ``file``
-    keys. The ``field`` and ``using`` keys indicate the column which
+    as collection of mappings with ``value``, ``to``, and ``file``
+    keys. The ``value`` and ``to`` keys indicate the column which
     might contain the value to be replaced and the column which will
     contain the value that will replace respectively. The path to the
-    external file is provided by``file``.
+    external file is provided by ``file``. ``strict`` can set to
+    ``False`` to retain previous values if mapping is not found.
 
     The mapping can also be provided directly as a sequence of
-    ``value``:``with`` key pairs where ``with`` replaces ``value``.
+    ``value``:``to`` key pairs where ``to`` replaces ``value``.
 
 Validation and transformation generates log messages in which column
 values may show up in case of errors. To stop these values from

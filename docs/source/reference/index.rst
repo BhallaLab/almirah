@@ -10,7 +10,6 @@ API Reference
    layout   
    specification
    indexer
-   reporting
    convert
    unique
    utils

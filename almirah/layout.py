@@ -1,6 +1,7 @@
 """Model classes to represent layouts, files, and tags."""
 
 import os
+import re
 
 from typing import List
 from typing import Dict
@@ -102,12 +103,24 @@ class Layout(Component):
 
         clone(source=self.url, path=self.root)
 
-    def index(self, root=None, metadata=False, valid_only=True, reset=False, **funcs):
+    def index(
+        self,
+        root=None,
+        metadata=False,
+        valid_only=True,
+        skip=None,
+        reset=False,
+        **funcs,
+    ):
         """Perform indexing to add files in root to index."""
 
         # Start from scratch if reset set
         if reset:
             self.files = []
+
+        # If skip provided, construct regex string
+        if skip:
+            skip_regex = "(" + ")|(".join(skip) + ")"
 
         # If path not provided, index layout root
         if not root:
@@ -118,6 +131,9 @@ class Layout(Component):
             raise ValueError(f"{root} does not belong to {self}")
 
         for entry in os.scandir(root):
+            if skip and re.match(skip_regex, str(entry)):
+                continue
+
             path = os.path.join(root, entry)
             rel_path = os.path.relpath(path, self.root)
             path_valid = True
@@ -126,7 +142,7 @@ class Layout(Component):
                 path_valid = False
 
             if not path_valid and entry.is_dir():
-                self.index(path, metadata, valid_only, reset, **funcs)
+                self.index(path, metadata, valid_only, skip, reset, **funcs)
 
             if path_valid:
                 file = File(path=path)

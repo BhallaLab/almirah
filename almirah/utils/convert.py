@@ -17,8 +17,8 @@ def dcm2nii(files, out, dst, **kwargs):
         List of File objects that represent the files to be converted.
     out : str
         Output format desired.
-    dst: str
-        Destination directory where converted files will be stored.
+    dst: Layout
+        Destination layout where converted files will be stored.
     config: str
         Path to config file. Should be compatible with dcm2bids
         version installed.
@@ -78,9 +78,9 @@ def dcm2nii(files, out, dst, **kwargs):
             if tag:
                 args[param] = tag.value
         args["path"] = file.path
-        cmd = tmp.format(**args, dst=dst, verbose=verbose, config=config)
+        cmd = tmp.format(**args, dst=dst.root, verbose=verbose, config=config)
         run_shell(cmd)
-        logging.info(f"Converted {file.path} and stored to {dst}")
+        logging.info(f"Converted {file.path} and stored to {dst.root}")
     logging.info("Conversion to nii complete")
 
 
@@ -104,14 +104,17 @@ def edf2asc(files, out, dst, **kwargs):
     for file in files:
         # Fill command with arguments
         args = {}
-        new_path = os.path.join(
-            dst, file.build_modified_path(extension="asc", sourcetype=None)
-        )
+        new_tags = {k: v for k, v in file.tags.items()}
+        new_tags.update({"extension": "asc", "sourcetype": "None"})
+        new_path = os.path.join(dst.root, dst.specification.build_path(new_tags, False))
+
         args["path"] = file.path
         args["new_path"] = new_path
         os.makedirs(os.path.dirname(new_path), exist_ok=True)
+
         cmd = tmp.format(**args)
         run_shell(cmd)
+
         logging.info(f"Converted {file.path} and stored to {new_path}")
     logging.info("Conversion to asc complete")
 
@@ -125,13 +128,11 @@ def nirx2snirf(files, out, dst, **kwargs):
     for file in files:
         raw = mne.io.read_raw_nirx(file.path)
         raw.anonymize(**kwargs.get("anonymize", {}))
-        new_path = os.path.join(
-            dst,
-            file.build_modified_path(
-                extension="snirf",
-                sourcetype=None,
-            ),
-        )
+
+        new_tags = {k: v for k, v in file.tags.items()}
+        new_tags.update({"extension": "snirf", "sourcetype": "None"})
+        new_path = os.path.join(dst.root, dst.specification.build_path(new_tags, False))
+
         os.makedirs(os.path.dirname(new_path), exist_ok=True)
         mne_nirs.io.write_raw_snirf(raw, new_path)
         logging.info(f"Converted {file.path} and stored to {new_path}")
@@ -192,9 +193,9 @@ def eeg_converter(files, out, dst, **kwargs):
         path_params = {}
         for param, tag in tag_map.items():
             tag = file.tags.get(tag, None)
-            path_params[param] = tag.value if tag else None
+            path_params[param] = tag if tag else None
 
-        path = mne_bids.BIDSPath(root=dst, **path_params)
+        path = mne_bids.BIDSPath(root=dst.root, **path_params)
 
         mne_bids.write_raw_bids(
             raw,
@@ -216,7 +217,7 @@ def convert(files, out, dst, **kwargs):
     # Proceed only if all files have the same extension
     extension = set()
     for file in files:
-        extension.add(file.tags.get("extension").value)
+        extension.add(file.tags.get("extension"))
     if len(extension) > 1:
         raise TypeError(
             "Expected all files of same extension, but received different \n"

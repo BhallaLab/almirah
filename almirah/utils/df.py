@@ -73,12 +73,20 @@ def convert_column_type(
     """
     dtype, _ = extract_dtype_from_db_type_string(type_string)
 
-    dtype_conversion_map = {
-        "str": lambda x: x.astype(dtype),
-        "datetime": lambda x: pd.to_datetime(x, errors="coerce", **kwargs),
-        "float": lambda x: pd.to_numeric(x, errors="coerce", downcast="float"),
-        "integer": lambda x: pd.to_numeric(x, errors="coerce", downcast="integer"),
-        "boolean": lambda x: x.replace(
+    if dtype == str:
+        series = series.astype(dtype)
+
+    elif dtype == "datetime":
+        series = pd.to_datetime(series, errors="coerce", **kwargs)
+
+    elif dtype == "date":
+        series = pd.to_datetime(series, errors="coerce", **kwargs).dt.date
+
+    elif dtype in {"float", "integer"}:
+        series = pd.to_numeric(series, errors="coerce", downcast=dtype)
+
+    elif dtype == "boolean":
+        series = series.map(
             {
                 "1": True,
                 "0": False,
@@ -87,10 +95,10 @@ def convert_column_type(
                 "Yes": True,
                 "No": False,
             }
-        ).astype(dtype),
-    }
+        )
+        series = series.astype(dtype)
 
-    return dtype_conversion_map.get(dtype, lambda x: x)(series).convert_dtypes()
+    return series.convert_dtypes()
 
 
 def python_to_pandas_type(python_type: Any) -> str:

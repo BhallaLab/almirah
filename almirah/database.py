@@ -193,8 +193,12 @@ class Database(Component):
         else:
             dtype = {}
             for column in self.meta.tables[table].columns:
+                if cols and column not in cols:
+                    continue
+
                 generic_type = column.type.as_generic()
                 dtype[column.name] = python_to_pandas_type(generic_type.python_type)
+
             records = pd.read_sql_table(table, self.connection, columns=cols)
             records = records.astype(dtype)
 

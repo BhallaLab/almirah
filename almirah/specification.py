@@ -222,6 +222,10 @@ class Specification(Base):
                             logging.debug("Tag value of insufficient length")
                             val = None
 
+                    if "pad" in rule and val:
+                        pad_args = rule["pad"]
+                        val = val.rjust(pad_args["length"], str(pad_args["character"]))
+
                     if c := rule.get("case") in ["lower", "upper"] and val:
                         val = val.lower() if c == "lower" else val.upper()
 

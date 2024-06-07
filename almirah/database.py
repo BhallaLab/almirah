@@ -81,8 +81,10 @@ class Database(Component):
         if self.backend != "request":
             raise TypeError("Token only permissible in request mode")
 
-        if not getattr(self, "_token"):
+        if not getattr(self, "_token", None):
             raise TypeError(f"Connection to {self} not established")
+
+        return self._token
 
     def build_column(self, name, dtype, **kwargs):
         """Build SQLalchemy Column object given column description."""

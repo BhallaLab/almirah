@@ -1,4 +1,22 @@
-0.4.1 (2024-05-16)
+0.5.0 (2024-06-12)
+==================
+
+Features
+--------
+
+- Ability to skip entries while indexing a Layout
+- Added new organization rule: pad
+- Added reflection of views to Database
+
+
+Bugfixes
+--------
+
+- Fixed file convertion routines broken in release 0.3.0
+- Multiple bug fixes in Database: Column types conversion, token retrieval in *request* mode, column querying
+
+
+0.4.0 (2024-05-16)
 ==================
 
 Features

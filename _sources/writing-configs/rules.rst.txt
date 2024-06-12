@@ -122,6 +122,13 @@ The valid rules that can be used are:
     rule, then the ``iffy_prepend`` value is added as a prefix to the
     captured value.
 
+``pad``
+    Left pad the captured string using ``character`` till it is of
+    ``length``.
+
+    Takes a mapping of scalars to scalars with ``character`` and
+    ``length`` as keys.
+
 ``value``
     **The** value to use for the tag. Overrides captured values if
     necessary.

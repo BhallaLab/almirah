@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <link rel="shortcut icon" href="../../../_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>almirah.utils.convert - almirah 0.4.0 documentation</title>
+        <title>almirah.utils.convert - almirah 0.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">almirah 0.5.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -235,8 +235,8 @@
 <span class="sd">        List of File objects that represent the files to be converted.</span>
 <span class="sd">    out : str</span>
 <span class="sd">        Output format desired.</span>
-<span class="sd">    dst: str</span>
-<span class="sd">        Destination directory where converted files will be stored.</span>
+<span class="sd">    dst: Layout</span>
+<span class="sd">        Destination layout where converted files will be stored.</span>
 <span class="sd">    config: str</span>
 <span class="sd">        Path to config file. Should be compatible with dcm2bids</span>
 <span class="sd">        version installed.</span>
@@ -296,9 +296,9 @@
             <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
                 <span class="n">args</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">value</span>
         <span class="n">args</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">dst</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">dst</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
         <span class="n">run_shell</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">dst</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">dst</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to nii complete&quot;</span><span class="p">)</span></div>
 
 
@@ -325,14 +325,17 @@
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
         <span class="c1"># Fill command with arguments</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">dst</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">build_modified_path</span><span class="p">(</span><span class="n">extension</span><span class="o">=</span><span class="s2">&quot;asc&quot;</span><span class="p">,</span> <span class="n">sourcetype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">new_tags</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;extension&quot;</span><span class="p">:</span> <span class="s2">&quot;asc&quot;</span><span class="p">,</span> <span class="s2">&quot;sourcetype&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">})</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">dst</span><span class="o">.</span><span class="n">specification</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">new_tags</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+
         <span class="n">args</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span>
         <span class="n">args</span><span class="p">[</span><span class="s2">&quot;new_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_path</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">new_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
         <span class="n">run_shell</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">new_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion to asc complete&quot;</span><span class="p">)</span></div>
 
@@ -349,13 +352,11 @@
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
         <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_nirx</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="n">raw</span><span class="o">.</span><span class="n">anonymize</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;anonymize&quot;</span><span class="p">,</span> <span class="p">{}))</span>
-        <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">dst</span><span class="p">,</span>
-            <span class="n">file</span><span class="o">.</span><span class="n">build_modified_path</span><span class="p">(</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;snirf&quot;</span><span class="p">,</span>
-                <span class="n">sourcetype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
+
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">new_tags</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;extension&quot;</span><span class="p">:</span> <span class="s2">&quot;snirf&quot;</span><span class="p">,</span> <span class="s2">&quot;sourcetype&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">})</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">dst</span><span class="o">.</span><span class="n">specification</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">new_tags</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">new_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">mne_nirs</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_raw_snirf</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">new_path</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and stored to </span><span class="si">{</span><span class="n">new_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -419,9 +420,9 @@
         <span class="n">path_params</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tag_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">tag</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">path_params</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">tag</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">path_params</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span> <span class="k">if</span> <span class="n">tag</span> <span class="k">else</span> <span class="kc">None</span>
 
-        <span class="n">path</span> <span class="o">=</span> <span class="n">mne_bids</span><span class="o">.</span><span class="n">BIDSPath</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">path_params</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">mne_bids</span><span class="o">.</span><span class="n">BIDSPath</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">dst</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="o">**</span><span class="n">path_params</span><span class="p">)</span>
 
         <span class="n">mne_bids</span><span class="o">.</span><span class="n">write_raw_bids</span><span class="p">(</span>
             <span class="n">raw</span><span class="p">,</span>
@@ -446,7 +447,7 @@
     <span class="c1"># Proceed only if all files have the same extension</span>
     <span class="n">extension</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-        <span class="n">extension</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extension&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">extension</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extension&quot;</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
             <span class="s2">&quot;Expected all files of same extension, but received different </span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -573,7 +574,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=1437fa6d"></script>
+</div><script src="../../../_static/documentation_options.js?v=70f82a29"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

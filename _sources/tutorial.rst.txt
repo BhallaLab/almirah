@@ -80,8 +80,15 @@ Building paths
 ~~~~~~~~~~~~~~
 
 Now that we have the basic :doc:`writing-configs/specification`, we
-can build valid paths by providing the required tags. Tags are
-*key*:*value* pairs that convey an information regarding the file. For
+can build valid paths by providing the required tags. The
+:doc:`writing-configs/specification` can either be stored as a `YAML
+<https://yaml.org/spec/1.2.2/>`_ file and the
+:class:`~specification.Specification` created using
+:method:`~specification.Specification.create_from_file`, or the
+contents can be passed directly as a dictionary via the details
+argument of :class:`~specification.Specification`.
+
+Tags are *key*:*value* pairs that convey an information regarding the file. For
 our decided path, the tags we require for path building are ``mice``,
 ``day``, ``imaging``, and ``extension``.
 
@@ -455,9 +462,9 @@ spreatsheet is analogous to a table. To read data from sheets, set
 .. note::
 
    Please have a look at the `Create service account keys`_ section of
-   Google worspace docs to create a keyfile.
+   Google workspace docs to create a keyfile.
 
-   _`Create service account keys`:https://cloud.google.com/iam/docs/keys-create-delete
+.. _Create service account keys: https://cloud.google.com/iam/docs/keys-create-delete
 
 .. code-block:: python
 

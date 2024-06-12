@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Writing configs" href="writing-configs/index.html" /><link rel="prev" title="User Guide" href="user-guide.html" />
 
     <link rel="shortcut icon" href="_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>Tutorial - almirah 0.4.0 documentation</title>
+        <title>Tutorial - almirah 0.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">almirah 0.4.0 documentation</div></a>
+      <a href="index.html"><div class="brand">almirah 0.5.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -288,8 +288,13 @@ regarding valid values, the default value, and if the
 <section id="building-paths">
 <h3>Building paths<a class="headerlink" href="#building-paths" title="Link to this heading">¶</a></h3>
 <p>Now that we have the basic <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a>, we
-can build valid paths by providing the required tags. Tags are
-<em>key</em>:<em>value</em> pairs that convey an information regarding the file. For
+can build valid paths by providing the required tags. The
+<a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a> can either be stored as a <a class="reference external" href="https://yaml.org/spec/1.2.2/">YAML</a> file and the
+<a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> created using
+<a href="#id1"><span class="problematic" id="id2">:method:`~specification.Specification.create_from_file`</span></a>, or the
+contents can be passed directly as a dictionary via the details
+argument of <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>.</p>
+<p>Tags are <em>key</em>:<em>value</em> pairs that convey an information regarding the file. For
 our decided path, the tags we require for path building are <code class="docutils literal notranslate"><span class="pre">mice</span></code>,
 <code class="docutils literal notranslate"><span class="pre">day</span></code>, <code class="docutils literal notranslate"><span class="pre">imaging</span></code>, and <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah</span> <span class="kn">import</span> <span class="n">Specification</span>
@@ -618,9 +623,8 @@ spreatsheet is analogous to a table. To read data from sheets, set
 <code class="docutils literal notranslate"><span class="pre">backend=&quot;gsheet&quot;</span></code> and to connect provide the keyfile.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Please have a look at the <a class="reference internal" href="#create-service-account-keys">Create service account keys</a> section of
-Google worspace docs to create a keyfile.</p>
-<p><span class="target" id="create-service-account-keys">Create service account keys</span>:<a class="reference external" href="https://cloud.google.com/iam/docs/keys-create-delete">https://cloud.google.com/iam/docs/keys-create-delete</a></p>
+<p>Please have a look at the <a class="reference external" href="https://cloud.google.com/iam/docs/keys-create-delete">Create service account keys</a> section of
+Google workspace docs to create a keyfile.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Database in &#39;gsheet&#39; mode</span>
 <span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;any name&#39;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;gsheet url&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;gsheet&#39;</span><span class="p">)</span>
@@ -742,7 +746,7 @@ please do consider raising a request or <a class="reference internal" href="cont
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=1437fa6d"></script>
+</div><script src="_static/documentation_options.js?v=70f82a29"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

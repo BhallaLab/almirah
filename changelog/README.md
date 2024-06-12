@@ -14,10 +14,10 @@ Make sure to use phrases the are self-sufficient and use punctuation:
     
     Fixed bug that lead to reindexing of Layout.
 
-Each file should be named like ``<ISSUE>.<TYPE>.rst``, where
-``<ISSUE>`` is an issue number, and ``<TYPE>`` is one of the *five
-towncrier default types*. The default types available and example
-demonstrations can be found in [Creating news fragements][1].
+Each file should be named like ``<ISSUE>.<TYPE>``, where ``<ISSUE>``
+is an issue number, and ``<TYPE>`` is one of the *five towncrier
+default types*. The default types available and example demonstrations
+can be found in [Creating news fragements][1].
 
 If your pull request fixes an issue, use that number here. If there is
 no issue, then use the pull request number after submitting one.

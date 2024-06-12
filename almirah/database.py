@@ -220,8 +220,7 @@ class Database(Component):
         insert_method=None,
         **kwargs,
     ):
-        """
-        Write records in DataFrame to a table.
+        """Write records in DataFrame to a table.
 
         Parameters
         ----------
@@ -258,8 +257,9 @@ class Database(Component):
             - callable with signature ``(pd_table, conn, keys, data_iter)``.
             Details and a sample callable implementation can be found
             on Insertion method section of :ref:`pandas:io.sql.method`.
-        kwargs : key, value mappings Other keyword arguments are
-            passed down to :doc:`pandas:reference/api/pandas.DataFrame.to_sql`.
+        kwargs : key, value mappings
+            Other keyword arguments are passed down to
+            :doc:`pandas:reference/api/pandas.DataFrame.to_sql`.
 
         Returns
         -------
@@ -277,6 +277,7 @@ class Database(Component):
             - Most likely there are duplicates records in the
               DataFrame. Other reasons are related to the database
               operation and are detailed on :ref:`sqlalchemy:error_e3q8`.
+
         """
 
         if drop_na or threshold:

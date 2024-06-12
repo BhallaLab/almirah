@@ -58,8 +58,8 @@ Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior
 may be reported by contacting Upi Bhalla at bhalla@ncbs.res.in. This
-includes non-disclosure of security risks or leaks in the ADBS dataset
-and disrespect of data privacy.
+includes disclosure of security risks or leaks in datasets and
+disrespect of data privacy.
 
 Confidentiality will be respected in reporting.
 
@@ -71,7 +71,7 @@ safety of the community, including but not limited to:
 - requesting a contributor apologize for their behavior.
 - asking a contributor or multiple contributors to enter a cooling off
   period that puts a time-limited pause on a particular discussion
-  topic or access to the ADBS dataset.
+  topic or access to a dataset.
 - asking a contributor to no longer participate in the development or
   usage of *almirah*.
 

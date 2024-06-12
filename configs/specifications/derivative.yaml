@@ -1,0 +1,21 @@
+---
+tags:
+  - name: pipeline
+    pattern: "derivatives/([a-zA-Z0-9]+)"  
+  - name: subject
+    pattern: "[/\\\\]+sub-([a-zA-Z0-9]+)"
+  - name: session
+    pattern: "[_/\\\\]+ses-([a-zA-Z0-9]+)"
+  - name: filename
+    pattern: "[_/\\\\]+([a-zA-Z0-9_]+)[\\.]"    
+  - name: acquisition
+    pattern: "[_/\\\\]+acq-([a-zA-Z0-9]+)"
+  - name: run
+    pattern: "[_/\\\\]+run-([0-9]+)"
+  - name: suffix
+    pattern: "(?:^|[_/\\\\])([a-zA-Z0-9]+)\\.[^/\\\\]+$"
+  - name: extension
+    pattern: "[^./\\\\](\\.[^/\\\\]+)$"
+path_patterns:
+  - "derivatives/{pipeline}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}][_acq-{acquisition}][_run-{run}_{suffix}{extension}]"
+  - "derivatives/{pipeline}/sub-{subject}[/ses-{session}]/sub-{subject}[_ses-{session}]_{filename}{extension}"

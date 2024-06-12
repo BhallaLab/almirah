@@ -1,0 +1,19 @@
+---
+tags:
+  - name: subject
+    pattern: "[/\\\\]+sub-([a-zA-Z0-9]+)"
+  - name: session
+    pattern: "[_/\\\\]+ses-([a-zA-Z0-9]+)"
+  - name: datatype
+    pattern: "(?:(?<!sourcedata))[/\\\\]+(genome)[/\\\\]+"
+  - name: sample
+    pattern: "[_/\\\\]+sample-([a-zA-Z0-9]+)"
+  - name: acquisition
+    pattern: "[_/\\\\]+acq-([a-zA-Z0-9]+)"       
+  - name: suffix
+    pattern: "(?:^|[_/\\\\])([a-zA-Z0-9]+)\\.[^/\\\\]+$"
+  - name: extension
+    pattern: "[^./\\\\](\\.[^/\\\\]+)$"
+path_patterns:
+  - "sub-{subject}[/ses-{session}]/{datatype<genome>|genome}/sub-{subject}[_ses-{session}]_sample-{sample}[_acq-{acquisition}]_{suffix<exome>|exome}{extension<.bam>}"
+  - "sub-{subject}[/ses-{session}]/{datatype<genome>|genome}/sub-{subject}[_ses-{session}]_sample-{sample}[_acq-{acquisition}]_{suffix<annotated>|annotated}{extension<.vcf|.txt>}"

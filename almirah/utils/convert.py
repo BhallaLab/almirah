@@ -106,7 +106,9 @@ def edf2asc(files, out, dst, **kwargs):
         args = {}
         new_tags = {k: v for k, v in file.tags.items()}
         new_tags.update({"extension": "asc", "sourcetype": "None"})
-        new_path = os.path.join(dst.root, dst.specification.build_path(new_tags, False))
+        new_path = os.path.join(
+            dst.root, dst.specification.build_path(False, **new_tags)
+        )
 
         args["path"] = file.path
         args["new_path"] = new_path
@@ -131,7 +133,9 @@ def nirx2snirf(files, out, dst, **kwargs):
 
         new_tags = {k: v for k, v in file.tags.items()}
         new_tags.update({"extension": "snirf", "sourcetype": "None"})
-        new_path = os.path.join(dst.root, dst.specification.build_path(new_tags, False))
+        new_path = os.path.join(
+            dst.root, dst.specification.build_path(False, **new_tags)
+        )
 
         os.makedirs(os.path.dirname(new_path), exist_ok=True)
         mne_nirs.io.write_raw_snirf(raw, new_path)

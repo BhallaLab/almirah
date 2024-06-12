@@ -41,19 +41,19 @@ class Specification(Base):
         self.name = name
         self.details = details
 
-    def build_path(self, tags, strict=True):
+    def build_path(self, strict=True, **tags):
         """
         Construct path given a set of tags.
 
         Parameters
         ----------
-        tags : dict
-            Dictionary of name:value tag pairs.
-
         strict : bool
             If True, the tags provided should exactly match the
             requirements. If False, extra tags are ignored and the
             first matching path is built.
+
+        tags : key, value mappings
+            name:value tag pairs used for path building.
 
         Returns
         -------
@@ -273,7 +273,7 @@ class Specification(Base):
                 tags.update({tag_name: val})
 
             # Warning, clunky code ahead. To be made better
-            rel_path = self.build_path(tags)
+            rel_path = self.build_path(**tags)
             if not rel_path:
                 logging.error("Unable to build destination path for file")
                 continue
@@ -324,7 +324,7 @@ class Specification(Base):
                         logging.info(f"File marked with suffix:{tag_val} tag")
 
                 # Copy fellow files
-                rel_path = self.build_path(tags_copy)
+                rel_path = self.build_path(**tags_copy)
                 if not rel_path:
                     logging.error(f"Unable to build destination path for file {file}")
                     continue
@@ -340,7 +340,7 @@ class Specification(Base):
     def validate_path(self, path):
         """Return True if path is valid according to specification."""
         tags = self.extract_tags(path)
-        if self.build_path(tags) == path:
+        if self.build_path(**tags) == path:
             return True
         return False
 

@@ -261,19 +261,19 @@
 
 <div class="viewcode-block" id="Specification.build_path">
 <a class="viewcode-back" href="../../reference/specification.html#almirah.specification.Specification.build_path">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">tags</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct path given a set of tags.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        tags : dict</span>
-<span class="sd">            Dictionary of name:value tag pairs.</span>
-
 <span class="sd">        strict : bool</span>
 <span class="sd">            If True, the tags provided should exactly match the</span>
 <span class="sd">            requirements. If False, extra tags are ignored and the</span>
 <span class="sd">            first matching path is built.</span>
+
+<span class="sd">        tags : key, value mappings</span>
+<span class="sd">            name:value tag pairs used for path building.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -505,7 +505,7 @@
                 <span class="n">tags</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">tag_name</span><span class="p">:</span> <span class="n">val</span><span class="p">})</span>
 
             <span class="c1"># Warning, clunky code ahead. To be made better</span>
-            <span class="n">rel_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+            <span class="n">rel_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="o">**</span><span class="n">tags</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">rel_path</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to build destination path for file&quot;</span><span class="p">)</span>
                 <span class="k">continue</span>
@@ -556,7 +556,7 @@
                         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File marked with suffix:</span><span class="si">{</span><span class="n">tag_val</span><span class="si">}</span><span class="s2"> tag&quot;</span><span class="p">)</span>
 
                 <span class="c1"># Copy fellow files</span>
-                <span class="n">rel_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">tags_copy</span><span class="p">)</span>
+                <span class="n">rel_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="o">**</span><span class="n">tags_copy</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">rel_path</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to build destination path for file </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="k">continue</span>
@@ -575,7 +575,7 @@
     <span class="k">def</span> <span class="nf">validate_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if path is valid according to specification.&quot;&quot;&quot;</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_tags</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span> <span class="o">==</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="o">**</span><span class="n">tags</span><span class="p">)</span> <span class="o">==</span> <span class="n">path</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 

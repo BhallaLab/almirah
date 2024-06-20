@@ -84,9 +84,9 @@ can build valid paths by providing the required tags. The
 :doc:`writing-configs/specification` can either be stored as a `YAML
 <https://yaml.org/spec/1.2.2/>`_ file and the
 :class:`~specification.Specification` created using
-:method:`~specification.Specification.create_from_file`, or the
-contents can be passed directly as a dictionary via the details
-argument of :class:`~specification.Specification`.
+:meth:`~specification.Specification.create_from_file`, or the contents
+can be passed directly as a dictionary via the details argument of
+:class:`~specification.Specification`.
 
 Tags are *key*:*value* pairs that convey an information regarding the file. For
 our decided path, the tags we require for path building are ``mice``,
@@ -248,11 +248,11 @@ Executing the rules
 ~~~~~~~~~~~~~~~~~~~
 
 To run this set of rules and obtain the organized dataset, we can use
-:meth:`~Specification.organize`.
+:meth:`~specification.Specification.organize`.
 
 .. code-block:: python
 
-		from utils import read_yaml
+		from almirah.utils import read_yaml
 
 		# Load rules into dictionary
 		rules = read_yaml("/path/to/rules")

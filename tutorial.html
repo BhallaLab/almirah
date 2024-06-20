@@ -291,9 +291,9 @@ regarding valid values, the default value, and if the
 can build valid paths by providing the required tags. The
 <a class="reference internal" href="writing-configs/specification.html"><span class="doc">Specification details</span></a> can either be stored as a <a class="reference external" href="https://yaml.org/spec/1.2.2/">YAML</a> file and the
 <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a> created using
-<a href="#id1"><span class="problematic" id="id2">:method:`~specification.Specification.create_from_file`</span></a>, or the
-contents can be passed directly as a dictionary via the details
-argument of <a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>.</p>
+<a class="reference internal" href="reference/specification.html#almirah.specification.Specification.create_from_file" title="almirah.specification.Specification.create_from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_from_file()</span></code></a>, or the contents
+can be passed directly as a dictionary via the details argument of
+<a class="reference internal" href="reference/specification.html#almirah.specification.Specification" title="almirah.specification.Specification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Specification</span></code></a>.</p>
 <p>Tags are <em>key</em>:<em>value</em> pairs that convey an information regarding the file. For
 our decided path, the tags we require for path building are <code class="docutils literal notranslate"><span class="pre">mice</span></code>,
 <code class="docutils literal notranslate"><span class="pre">day</span></code>, <code class="docutils literal notranslate"><span class="pre">imaging</span></code>, and <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p>
@@ -436,8 +436,8 @@ similarly, let <code class="docutils literal notranslate"><span class="pre">exte
 <section id="executing-the-rules">
 <h3>Executing the rules<a class="headerlink" href="#executing-the-rules" title="Link to this heading">¶</a></h3>
 <p>To run this set of rules and obtain the organized dataset, we can use
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">organize()</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">read_yaml</span>
+<a class="reference internal" href="reference/specification.html#almirah.specification.Specification.organize" title="almirah.specification.Specification.organize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">organize()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah.utils</span> <span class="kn">import</span> <span class="n">read_yaml</span>
 
 <span class="c1"># Load rules into dictionary</span>
 <span class="n">rules</span> <span class="o">=</span> <span class="n">read_yaml</span><span class="p">(</span><span class="s2">&quot;/path/to/rules&quot;</span><span class="p">)</span>

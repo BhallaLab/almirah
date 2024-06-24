@@ -1,3 +1,18 @@
+0.5.1 (2024-06-24)
+==================
+
+Bugfixes
+--------
+
+- Changed specification path building to use kwargs over dict
+
+
+Improved Documentation
+----------------------
+
+- Fixed typos and broken links in docs
+
+
 0.5.0 (2024-06-12)
 ==================
 

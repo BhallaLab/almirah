@@ -125,10 +125,12 @@ desired, and the output directory as arguments to
 
 .. code-block:: python
 
-		files = lay.query(extension = ".dcm")
-		lay.data.convert(files, "NIfTI", "/path to output dir")
+		from almirah.utils.convert import convert
 
-nnCurrently, the following conversions are supported:
+		files = lay.query(extension = ".dcm")
+		convert(files, "NIfTI", <Layout of output dir>)
+
+Currently, the following conversions are supported:
 
 .. list-table::
    :header-rows: 1
@@ -249,5 +251,5 @@ standard logger interface to change the log level for almirah's logger:
 .. rubric:: The CALM-Brain Resource
    
 If you would like to use almirah to access the CALM-Brain resource,
-visit the `CALM-Brain <https://girishmm.github.io/calm-brain/>`_
-documentation.
+visit the `CALM-Brain wiki
+<https://gin.ncbs.res.in/calm-brain/info/wiki/Home#obtaining-a-subset-of-data-files>`_.

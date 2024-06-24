@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorial" href="tutorial.html" /><link rel="prev" title="Almirah" href="index.html" />
 
     <link rel="shortcut icon" href="_static/favicon.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2023.09.10 -->
-        <title>User Guide - almirah 0.5.0 documentation</title>
+        <title>User Guide - almirah 0.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">almirah 0.5.0 documentation</div></a>
+      <a href="index.html"><div class="brand">almirah 0.5.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -328,11 +328,13 @@ from DICOM to NIfTI, or from EDF (Eyelink Data Format) to ASCII. These
 are possible by provided the files to be converted, the output format
 desired, and the output directory as arguments to
 <a class="reference internal" href="reference/convert.html#almirah.utils.convert.convert" title="almirah.utils.convert.convert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code></a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.dcm&quot;</span><span class="p">)</span>
-<span class="n">lay</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s2">&quot;NIfTI&quot;</span><span class="p">,</span> <span class="s2">&quot;/path to output dir&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">almirah.utils.convert</span> <span class="kn">import</span> <span class="n">convert</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.dcm&quot;</span><span class="p">)</span>
+<span class="n">convert</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s2">&quot;NIfTI&quot;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Layout</span> <span class="n">of</span> <span class="n">output</span> <span class="nb">dir</span><span class="o">&gt;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>nnCurrently, the following conversions are supported:</p>
+<p>Currently, the following conversions are supported:</p>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
 <thead>
@@ -439,8 +441,7 @@ standard logger interface to change the log level for almirah’s logger:</p>
 </div>
 <p class="rubric">The CALM-Brain Resource</p>
 <p>If you would like to use almirah to access the CALM-Brain resource,
-visit the <a class="reference external" href="https://girishmm.github.io/calm-brain/">CALM-Brain</a>
-documentation.</p>
+visit the <a class="reference external" href="https://gin.ncbs.res.in/calm-brain/info/wiki/Home#obtaining-a-subset-of-data-files">CALM-Brain wiki</a>.</p>
 </section>
 </section>
 
@@ -527,7 +528,7 @@ documentation.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=70f82a29"></script>
+</div><script src="_static/documentation_options.js?v=d9b85e4f"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

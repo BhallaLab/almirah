@@ -7,25 +7,25 @@
 
   <p align="center">
 	<br />
-	<a href="https://girishmm.github.io/almirah"><strong>Explore the docs »</strong></a>
+	<a href="https://bhallalab.github.io/almirah"><strong>Explore the docs »</strong></a>
 	<br />
 	<br />
-	<a href="https://github.com/girishmm/almirah/issues">Report Bug</a>
+	<a href="https://github.com/bhallalab/almirah/issues">Report Bug</a>
 	·
-	<a href="https://github.com/girishmm/almirah/issues">Request Feature</a>
+	<a href="https://github.com/bhallalab/almirah/issues">Request Feature</a>
   </p>
 </div>
 
 ## About The Project
 
-[almirah](https://github.com/girishmm/almirah) is designed to help
+[almirah](https://github.com/bhallalab/almirah) is designed to help
 organize, maintain, and access datasets efficiently. It provides tools
 for defining how data is stored, tagged, and retrieved, making it
 easier to work with complex data collections.
 
 For more information on how to use
-[almirah](https://github.com/girishmm/almirah) for your data projects,
-please see the [documentation](https://girishmm.github.io/almirah/).
+[almirah](https://github.com/bhallalab/almirah) for your data projects,
+please see the [documentation](https://bhallalab.github.io/almirah/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

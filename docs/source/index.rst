@@ -44,11 +44,11 @@ almirah can be installed with `pip <https://pip.pypa.io>`_:
 		$ python -m pip install almirah
 
 Alternatively, you can grab the latest source code from `Github
-<https://github.com/girishmm/almirah>`_:
+<https://github.com/bhallalab/almirah>`_:
 
 .. code-block:: bash
 
-		$ git clone https://github.com/girishmm/almirah.git
+		$ git clone https://github.com/bhallalab/almirah.git
 		$ cd almirah
 		$ pip install .
 
@@ -72,13 +72,13 @@ at the :ref:`translate_to_another_dataset` section for files to tweak
 to achieve this.
 
 If you want to access the CALM-Brain resource, please head over to the
-`user guide <https://girishmm.github.io/calm-brain/user-guide.html>`_
-for a walk-through. The `reference <https://girishmm.github.io/calm-brain/reference.html>`_
+`user guide <https://gin.ncbs.res.in/calm-brain/info/wiki/Home>`_ for
+a walk-through. The `reference <https://gin.ncbs.res.in/calm-brain/info/wiki/Reference>`_
 documentation provides details on the files and records available in
 the dataset. If you have not heard of the resource, but would like to
 know, please visit the `CALM-Brain`_ online page help acquaint you.
 
-.. _CALM-Brain: https://www.calm-brain.ncbs.res.in/
+.. _CALM-Brain: https://calm-brain.ncbs.res.in/
 
 Who uses almirah?
 -----------------
@@ -151,7 +151,7 @@ License
 -------
 
 almirah is made available under the MIT License. For more details, see
-`LICENSE <https://github.com/girishmm/almirah/blob/dev/LICENSE>`_.
+`LICENSE <https://github.com/bhallalab/almirah/blob/dev/LICENSE>`_.
 
 Contributing
 ------------
@@ -165,8 +165,8 @@ Help and Support
 We try to make almirah robust, but there might be things we missed. If it
 does not meet your use case or you have trouble adapting it to your
 dataset, please `write to us <girishmm@ncbs.res.in>`_ or open an issue
-on the `repository <https://github.com/girishmm/almirah>`_ or drop by
-`Github Discussions <https://github.com/girishmm/almirah/discussions>`_.
+on the `repository <https://github.com/bhallalab/almirah>`_ or drop by
+`Github Discussions <https://github.com/bhallalab/almirah/discussions>`_.
 
 Citing
 ------

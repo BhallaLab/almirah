@@ -46,14 +46,14 @@ Features
 Bugfixes
 --------
 
-- Updated broken tutorial import (`#1 <https://github.com/girishmm/almirah/issues/1>`__)
+- Updated broken tutorial import (`#1 <https://github.com/bhallalab/almirah/issues/1>`__)
 - Multiple bug fixes on Indexing, reading YAMLs, DB reflection, DB record retrieval, Layout cloning, and Layout querying
 
 
 Misc
 ----
 
-- `#2 <https://github.com/girishmm/almirah/issues/2>`__
+- `#2 <https://github.com/bhallalab/almirah/issues/2>`__
 
 
 0.3.0 (2024-04-23)
